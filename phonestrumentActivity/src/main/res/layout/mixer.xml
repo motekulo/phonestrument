@@ -10,7 +10,7 @@
 <!--         android:layout_above="@+id/verticalFader2" -->
 <!--         android:layout_alignParentLeft="true" /> -->
     
-    <net.motekulo.phonstrument.HorizontalFader
+    <net.motekulo.phonestrument.HorizontalFader
         android:id="@+id/horFader1"
         android:layout_width="72dp"
         android:layout_height="24dp"
@@ -21,7 +21,7 @@
 
     
     
-    <net.motekulo.phonstrument.VerticalFader
+    <net.motekulo.phonestrument.VerticalFader
         android:id="@+id/verticalFader1"
         android:layout_width="72dp"
         android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
         android:text="@string/synth1_label"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <net.motekulo.phonstrument.HorizontalFader
+    <net.motekulo.phonestrument.HorizontalFader
         android:id="@+id/horFader2"
         android:layout_width="72dp"
         android:layout_height="24dp"
@@ -47,7 +47,7 @@
         android:layout_marginRight="4dp"
         android:layout_toRightOf="@+id/horFader1" />
 
-    <net.motekulo.phonstrument.VerticalFader
+    <net.motekulo.phonestrument.VerticalFader
         android:id="@+id/verticalFader2"
         android:layout_width="72dp"
         android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
         android:text="@string/synth2_label"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <net.motekulo.phonstrument.HorizontalFader
+    <net.motekulo.phonestrument.HorizontalFader
         android:id="@+id/horFader3"
         android:layout_width="72dp"
         android:layout_height="24dp"
@@ -74,7 +74,7 @@
         android:layout_marginRight="4dp"
         android:layout_toRightOf="@+id/horFader2" />
 
-    <net.motekulo.phonstrument.VerticalFader
+    <net.motekulo.phonestrument.VerticalFader
         android:id="@+id/verticalFader3"
         android:layout_width="72dp"
         android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
         android:layout_marginRight="4dp"
         android:layout_toRightOf="@+id/verticalFader2" />
 
-    <net.motekulo.phonstrument.HorizontalFader
+    <net.motekulo.phonestrument.HorizontalFader
         android:id="@+id/horFader4"
         android:layout_width="72dp"
         android:layout_height="24dp"
@@ -91,7 +91,7 @@
         android:layout_marginRight="4dp"
         android:layout_toRightOf="@+id/horFader3" />
 
-    <net.motekulo.phonstrument.VerticalFader
+    <net.motekulo.phonestrument.VerticalFader
         android:id="@+id/verticalFader4"
         android:layout_width="72dp"
         android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
         android:layout_marginRight="4dp"
         android:layout_toRightOf="@+id/verticalFader3" />
 
-    <net.motekulo.phonstrument.HorizontalFader
+    <net.motekulo.phonestrument.HorizontalFader
         android:id="@+id/horFader5"
         android:layout_width="72dp"
         android:layout_height="24dp"
@@ -108,7 +108,7 @@
         android:layout_marginRight="4dp"
         android:layout_toRightOf="@+id/horFader4" />
 
-    <net.motekulo.phonstrument.VerticalFader
+    <net.motekulo.phonestrument.VerticalFader
         android:id="@+id/verticalFader5"
         android:layout_width="72dp"
         android:layout_height="wrap_content"
@@ -117,7 +117,7 @@
         android:layout_marginRight="4dp"
         android:layout_toRightOf="@+id/verticalFader4" />
 
-    <net.motekulo.phonstrument.HorizontalFader
+    <net.motekulo.phonestrument.HorizontalFader
         android:id="@+id/horFader6"
         android:layout_width="72dp"
         android:layout_height="24dp"
@@ -125,7 +125,7 @@
         android:layout_marginRight="4dp"
         android:layout_toRightOf="@+id/horFader5" />
 
-    <net.motekulo.phonstrument.VerticalFader
+    <net.motekulo.phonestrument.VerticalFader
         android:id="@+id/verticalFader6"
         android:layout_width="72dp"
         android:layout_height="wrap_content"

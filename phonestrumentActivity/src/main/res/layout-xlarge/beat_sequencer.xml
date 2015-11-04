@@ -12,7 +12,7 @@
         android:imeOptions="actionDone"
         android:inputType="numberDecimal" />
 
-    <net.motekulo.phonstrument.XYControllerBeatView
+    <net.motekulo.phonestrument.XYControllerBeatView
         android:id="@+id/beatToggleArrayView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

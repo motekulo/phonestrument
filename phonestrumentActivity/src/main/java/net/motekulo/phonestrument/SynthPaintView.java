@@ -1,4 +1,4 @@
-package net.motekulo.phonstrument;
+package net.motekulo.phonestrument;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -23,7 +23,7 @@ public class SynthPaintView extends View {
 	private Canvas  mCanvas;
 	private Path    mPath;
 	private Paint   mBitmapPaint;
-	private net.motekulo.phonstrument.SynthPaintView.touchListener mTouchListener;
+	private net.motekulo.phonestrument.SynthPaintView.touchListener mTouchListener;
 	float alpha;
 	private float[] lineData; // we use this to map to the wavetable data in the synth
 

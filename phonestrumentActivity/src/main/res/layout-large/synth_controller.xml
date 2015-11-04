@@ -30,7 +30,7 @@
         android:text="@string/filter_attack_label"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <net.motekulo.phonstrument.HorizontalFader
+    <net.motekulo.phonestrument.HorizontalFader
         android:id="@+id/horFader1"
         android:layout_width="160dp"
         android:layout_height="24dp"
@@ -48,7 +48,7 @@
         android:text="@string/filter_decay_label"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <net.motekulo.phonstrument.HorizontalFader
+    <net.motekulo.phonestrument.HorizontalFader
         android:id="@+id/horFader2"
         android:layout_width="160dp"
         android:layout_height="24dp"
@@ -66,7 +66,7 @@
         android:text="@string/filter_range_label"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <net.motekulo.phonstrument.HorizontalFader
+    <net.motekulo.phonestrument.HorizontalFader
         android:id="@+id/horFader3"
         android:layout_width="160dp"
         android:layout_height="24dp"
@@ -84,7 +84,7 @@
         android:text="@string/filter_freq_label"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <net.motekulo.phonstrument.HorizontalFader
+    <net.motekulo.phonestrument.HorizontalFader
         android:id="@+id/horFader4"
         android:layout_width="160dp"
         android:layout_height="24dp"
@@ -110,7 +110,7 @@
         android:text="@string/amp_attack_label"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <net.motekulo.phonstrument.HorizontalFader
+    <net.motekulo.phonestrument.HorizontalFader
         android:id="@+id/horFader5"
         android:layout_width="160dp"
         android:layout_height="24dp"
@@ -128,7 +128,7 @@
         android:text="@string/amp_decay_label"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <net.motekulo.phonstrument.HorizontalFader
+    <net.motekulo.phonestrument.HorizontalFader
         android:id="@+id/horFader6"
         android:layout_width="160dp"
         android:layout_height="24dp"
@@ -153,7 +153,7 @@
         android:text="Wavetable"
         android:textAppearance="?android:attr/textAppearanceMedium" />
     
-    <net.motekulo.phonstrument.SynthPaintView
+    <net.motekulo.phonestrument.SynthPaintView
         android:id="@+id/synthPaintView1"
         android:layout_width="wrap_content"
         android:layout_height="112dp"
@@ -171,7 +171,7 @@
         android:text="Smoothness"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <net.motekulo.phonstrument.HorizontalFader
+    <net.motekulo.phonestrument.HorizontalFader
         android:id="@+id/horFader7"
         android:layout_width="160dp"
         android:layout_height="24dp"
@@ -188,7 +188,7 @@
         android:text="Attack"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <net.motekulo.phonstrument.HorizontalFader
+    <net.motekulo.phonestrument.HorizontalFader
         android:id="@+id/horFader8"
         android:layout_width="160dp"
         android:layout_height="24dp"
@@ -206,7 +206,7 @@
         android:text="Decay"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <net.motekulo.phonstrument.HorizontalFader
+    <net.motekulo.phonestrument.HorizontalFader
         android:id="@+id/horFader9"
         android:layout_width="160dp"
         android:layout_height="24dp"

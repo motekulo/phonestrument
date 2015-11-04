@@ -1,9 +1,9 @@
-package net.motekulo.phonstrument;
+package net.motekulo.phonestrument;
 
 import java.io.File;
 
-import net.motekulo.phonstrument.HorizontalFader.HorizontalFaderPositionListener;
-import net.motekulo.phonstrument.VerticalFader.VerticalFaderPositionListener;
+import net.motekulo.phonestrument.HorizontalFader.HorizontalFaderPositionListener;
+import net.motekulo.phonestrument.VerticalFader.VerticalFaderPositionListener;
 
 import org.puredata.core.PdBase;
 

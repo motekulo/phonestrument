@@ -1,4 +1,4 @@
-package net.motekulo.phonstrument;
+package net.motekulo.phonestrument;
 
 import org.puredata.android.utils.PdUiDispatcher;
 import org.puredata.core.PdBase;

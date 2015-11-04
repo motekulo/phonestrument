@@ -1,4 +1,4 @@
-package net.motekulo.phonstrument;
+package net.motekulo.phonestrument;
 
 //import net.motekulo.phonstrument.VerticalFader.VerticalFaderPositionListener;
 import android.content.Context;

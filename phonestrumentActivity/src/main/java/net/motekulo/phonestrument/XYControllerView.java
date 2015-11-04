@@ -6,7 +6,7 @@
  */
 
 
-package net.motekulo.phonstrument;
+package net.motekulo.phonestrument;
 
 
 import android.content.Context;

@@ -1,4 +1,4 @@
-package net.motekulo.phonstrument;
+package net.motekulo.phonestrument;
 
 import android.content.Context;
 import android.content.res.Resources;

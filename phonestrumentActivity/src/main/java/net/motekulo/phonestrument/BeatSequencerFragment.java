@@ -1,7 +1,7 @@
-package net.motekulo.phonstrument;
+package net.motekulo.phonestrument;
 
 
-import net.motekulo.phonstrument.XYControllerBeatView.touchListener;
+import net.motekulo.phonestrument.XYControllerBeatView.touchListener;
 
 import org.puredata.core.PdBase;
 
