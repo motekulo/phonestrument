@@ -13,7 +13,7 @@
             <option value="$PROJECT_DIR$/libmotekulo" />
             <option value="$PROJECT_DIR$/libphonemusic" />
             <option value="$PROJECT_DIR$/pdCore" />
-            <option value="$PROJECT_DIR$/phonstrumentActivity" />
+            <option value="$PROJECT_DIR$/phonestrumentActivity" />
           </set>
         </option>
       </GradleProjectSettings>
