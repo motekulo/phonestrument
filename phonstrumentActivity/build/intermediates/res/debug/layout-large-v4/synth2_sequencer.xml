@@ -1,0 +1,93 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button1"
+        android:layout_alignBottom="@+id/button1"
+        android:layout_alignParentLeft="true"
+        android:text="@string/key_label"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+     <Spinner
+         android:id="@+id/spinner1"
+         android:layout_width="48dp"
+         android:layout_height="wrap_content"
+         android:layout_above="@+id/xYControllerView1"
+         android:layout_toRightOf="@+id/textView1" />
+    
+     <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button1"
+        android:layout_alignBottom="@+id/button1"
+        android:layout_toLeftOf="@+id/button1"
+        android:text="@string/chord_label"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+     
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       
+        android:layout_toLeftOf="@+id/button2"
+        android:text="@string/chord_I_label" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       android:layout_toLeftOf="@+id/button3"
+        android:text="@string/chord_ii_label" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/button4"
+        android:text="@string/chord_iii_label" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       android:layout_toLeftOf="@+id/button5"
+        android:text="@string/chord_IV_label" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       android:layout_toLeftOf="@+id/button6"
+        android:text="@string/chord_V_label" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/button7"
+        android:text="@string/chord_vi_label" />
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        
+        android:text="@string/chord_vii_label" />
+
+    <net.motekulo.phonstrument.XYControllerView
+        android:id="@+id/xYControllerView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1" />
+
+    
+
+</RelativeLayout>
+<!-- From: file:/home/dcrowdy/src/working/phonstrument/phonstrumentActivity/src/main/res/layout-large/synth2_sequencer.xml -->

@@ -1,0 +1,123 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Manifest Merging:
+-----------------
+Your project uses libraries that provide manifests, and your Eclipse
+project did not explicitly turn on manifest merging. In Android Gradle
+projects, manifests are always merged (meaning that contents from your
+libraries' manifests will be merged into the app manifest. If you had
+manually copied contents from library manifests into your app manifest
+you may need to remove these for the app to build correctly.
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+From AndroidMidi:
+* .gitignore
+* AndroidMidi.iml
+* LICENSE-2.0.txt
+* build.gradle
+* build.xml
+From PdCore:
+* .gitignore
+* LICENSE.txt
+* Makefile
+* PdCore.iml
+* README.txt
+* ant.properties
+* build.gradle
+* build.xml
+* custom_rules.xml
+From PhonstrumentActivity:
+* LICENSE.txt
+* README.md
+* ic_launcher-web.png
+* notes.txt
+* pd/
+* pd/phonstrument.pd
+* pd/phonstrument.zip
+* pd/synth_tute.pd
+* proguard-project.txt
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+In AndroidMidi:
+* AndroidManifest.xml => androidMidi/src/main/AndroidManifest.xml
+* assets/ => androidMidi/src/main/assets/
+* res/ => androidMidi/src/main/res/
+* src/ => androidMidi/src/main/java/
+In PdCore:
+* AndroidManifest.xml => pdCore/src/main/AndroidManifest.xml
+* assets/ => pdCore/src/main/assets/
+* jni/ => pdCore/src/main/jni/
+* jni/libpd/java/ => pdCore/src/main/java/
+* libs/armeabi-v7a/libbonk_tilde.so => pdCore/src/main/jniLibs/armeabi-v7a/libbonk_tilde.so
+* libs/armeabi-v7a/libchoice.so => pdCore/src/main/jniLibs/armeabi-v7a/libchoice.so
+* libs/armeabi-v7a/libexpr.so => pdCore/src/main/jniLibs/armeabi-v7a/libexpr.so
+* libs/armeabi-v7a/libexpr_tilde.so => pdCore/src/main/jniLibs/armeabi-v7a/libexpr_tilde.so
+* libs/armeabi-v7a/libfexpr_tilde.so => pdCore/src/main/jniLibs/armeabi-v7a/libfexpr_tilde.so
+* libs/armeabi-v7a/libfiddle_tilde.so => pdCore/src/main/jniLibs/armeabi-v7a/libfiddle_tilde.so
+* libs/armeabi-v7a/libloop_tilde.so => pdCore/src/main/jniLibs/armeabi-v7a/libloop_tilde.so
+* libs/armeabi-v7a/liblrshift_tilde.so => pdCore/src/main/jniLibs/armeabi-v7a/liblrshift_tilde.so
+* libs/armeabi-v7a/libpd.so => pdCore/src/main/jniLibs/armeabi-v7a/libpd.so
+* libs/armeabi-v7a/libpdnative.so => pdCore/src/main/jniLibs/armeabi-v7a/libpdnative.so
+* libs/armeabi-v7a/libpdnativeopensl.so => pdCore/src/main/jniLibs/armeabi-v7a/libpdnativeopensl.so
+* libs/armeabi-v7a/libpique.so => pdCore/src/main/jniLibs/armeabi-v7a/libpique.so
+* libs/armeabi-v7a/libsigmund_tilde.so => pdCore/src/main/jniLibs/armeabi-v7a/libsigmund_tilde.so
+* libs/armeabi/libbonk_tilde.so => pdCore/src/main/jniLibs/armeabi/libbonk_tilde.so
+* libs/armeabi/libchoice.so => pdCore/src/main/jniLibs/armeabi/libchoice.so
+* libs/armeabi/libexpr.so => pdCore/src/main/jniLibs/armeabi/libexpr.so
+* libs/armeabi/libexpr_tilde.so => pdCore/src/main/jniLibs/armeabi/libexpr_tilde.so
+* libs/armeabi/libfexpr_tilde.so => pdCore/src/main/jniLibs/armeabi/libfexpr_tilde.so
+* libs/armeabi/libfiddle_tilde.so => pdCore/src/main/jniLibs/armeabi/libfiddle_tilde.so
+* libs/armeabi/libloop_tilde.so => pdCore/src/main/jniLibs/armeabi/libloop_tilde.so
+* libs/armeabi/liblrshift_tilde.so => pdCore/src/main/jniLibs/armeabi/liblrshift_tilde.so
+* libs/armeabi/libpd.so => pdCore/src/main/jniLibs/armeabi/libpd.so
+* libs/armeabi/libpdnative.so => pdCore/src/main/jniLibs/armeabi/libpdnative.so
+* libs/armeabi/libpdnativeopensl.so => pdCore/src/main/jniLibs/armeabi/libpdnativeopensl.so
+* libs/armeabi/libpique.so => pdCore/src/main/jniLibs/armeabi/libpique.so
+* libs/armeabi/libsigmund_tilde.so => pdCore/src/main/jniLibs/armeabi/libsigmund_tilde.so
+* libs/x86/libbonk_tilde.so => pdCore/src/main/jniLibs/x86/libbonk_tilde.so
+* libs/x86/libchoice.so => pdCore/src/main/jniLibs/x86/libchoice.so
+* libs/x86/libexpr.so => pdCore/src/main/jniLibs/x86/libexpr.so
+* libs/x86/libexpr_tilde.so => pdCore/src/main/jniLibs/x86/libexpr_tilde.so
+* libs/x86/libfexpr_tilde.so => pdCore/src/main/jniLibs/x86/libfexpr_tilde.so
+* libs/x86/libfiddle_tilde.so => pdCore/src/main/jniLibs/x86/libfiddle_tilde.so
+* libs/x86/libloop_tilde.so => pdCore/src/main/jniLibs/x86/libloop_tilde.so
+* libs/x86/liblrshift_tilde.so => pdCore/src/main/jniLibs/x86/liblrshift_tilde.so
+* libs/x86/libpd.so => pdCore/src/main/jniLibs/x86/libpd.so
+* libs/x86/libpdnative.so => pdCore/src/main/jniLibs/x86/libpdnative.so
+* libs/x86/libpdnativeopensl.so => pdCore/src/main/jniLibs/x86/libpdnativeopensl.so
+* libs/x86/libpique.so => pdCore/src/main/jniLibs/x86/libpique.so
+* libs/x86/libsigmund_tilde.so => pdCore/src/main/jniLibs/x86/libsigmund_tilde.so
+* res/ => pdCore/src/main/res/
+* src/ => pdCore/src/main/java/
+In PhonstrumentActivity:
+* AndroidManifest.xml => phonstrumentActivity/src/main/AndroidManifest.xml
+* assets/ => phonstrumentActivity/src/main/assets/
+* libs/GoogleAdMobAdsSdk-6.4.1.jar => phonstrumentActivity/libs/GoogleAdMobAdsSdk-6.4.1.jar
+* libs/libGoogleAnalyticsServices.jar => phonstrumentActivity/libs/libGoogleAnalyticsServices.jar
+* res/ => phonstrumentActivity/src/main/res/
+* src/ => phonstrumentActivity/src/main/java/
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)

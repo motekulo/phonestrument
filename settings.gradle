@@ -1,0 +1,3 @@
+include ':androidMidi', ':libphonemusic', ':libmotekulo'
+include ':pdCore'
+include ':phonstrumentActivity'
