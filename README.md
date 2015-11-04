@@ -1,4 +1,4 @@
-= phonestrument
+# Phonestrument #
 
 
 Touch based phone instrument for Android
