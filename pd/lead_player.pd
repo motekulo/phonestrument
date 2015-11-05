@@ -1,4 +1,4 @@
-#N canvas 1959 82 1271 898 10;
+#N canvas 1950 97 1271 898 10;
 #X text -19 24 ARGUMENTS FOR NOTES:;
 #X text -19 46 pitch in halftones;
 #X text -19 70 amplitude (dB);
@@ -7,18 +7,42 @@
 #X text -19 143 start location (msec);
 #X text -19 166 rise time (msec);
 #X text -19 190 decay time (msec);
-#N canvas 390 188 993 673 samples 1;
+#N canvas 47 272 1233 733 samples 1;
 #N canvas 0 82 450 300 (subpatch) 0;
 #X array sample1 176403 float 0;
 #X coords 0 1.02 176403 -1.02 200 130 1;
-#X restore 262 41 graph;
-#X text 282 385 ------ 4 seconds ------;
+#X restore 38 32 graph;
+#X text 66 -19 ------ 4 seconds ------;
+#N canvas 0 50 450 300 (subpatch) 0;
+#X array sample3 176403 float 0;
+#X coords 0 1.02 176403 -1.02 200 130 1 0 0;
+#X restore 42 423 graph;
 #N canvas 0 50 450 300 (subpatch) 0;
 #X array sample2 176403 float 0;
 #X coords 0 1.02 176403 -1.02 200 130 1;
-#X restore 262 226 graph;
+#X restore 38 217 graph;
+#N canvas 0 82 450 300 (subpatch) 0;
+#X array sample4 176403 float 0;
+#X coords 0 1.02 176403 -1.02 200 130 1 0 0;
+#X restore 290 22 graph;
+#N canvas 0 50 450 300 (subpatch) 0;
+#X array sample6 176403 float 0;
+#X coords 0 1.02 176403 -1.02 200 130 1 0 0;
+#X restore 294 413 graph;
+#N canvas 0 50 450 300 (subpatch) 0;
+#X array sample5 176403 float 0;
+#X coords 0 1.02 176403 -1.02 200 130 1 0 0;
+#X restore 290 207 graph;
+#N canvas 952 562 450 300 (subpatch) 0;
+#X array sample7 176403 float 0;
+#X coords 0 1.02 176403 -1.02 200 130 1 0 0;
+#X restore 529 23 graph;
+#N canvas 0 50 450 300 (subpatch) 0;
+#X array sample8 176403 float 0;
+#X coords 0 1.02 176403 -1.02 200 130 1 0 0;
+#X restore 529 208 graph;
 #X restore 1054 105 pd samples;
-#N canvas 1475 577 1034 479 recorder 0;
+#N canvas 1492 558 1034 479 recorder 1;
 #X obj 220 21 inlet;
 #X obj 174 174 adc~ 1;
 #X obj 174 202 hip~ 5;
@@ -43,6 +67,11 @@
 #X obj 26 88 makefilename sample%d;
 #X msg 411 237 read sound/bell.aiff sample1 \, read sound/voice2.wav
 sample2;
+#X msg 542 271 read samples/bbassdelay.wav sample1 \, read samples/bpunchbass.wav
+sample2 \, read samples/bebass1.wav sample3 \, read samples/bunibass.wav
+sample4 \, read samples/chbounce.wav sample5 \, read samples/chchic.wav
+sample6 \, read samples/lsynbrass.wav sample7 \, read samples/ltrance.wav
+sample8, f 75;
 #X connect 0 0 12 0;
 #X connect 1 0 2 0;
 #X connect 2 0 4 0;
@@ -67,6 +96,7 @@ sample2;
 #X connect 19 0 20 0;
 #X connect 21 0 9 0;
 #X connect 22 0 18 0;
+#X connect 23 0 18 0;
 #X restore 1054 292 pd recorder;
 #X msg 969 151 record 1;
 #X msg 1036 203 stop;
