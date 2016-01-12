@@ -155,7 +155,7 @@
 #X obj 1041 558 spigot;
 #X obj 1075 531 tgl 15 0 empty arpeggioplayer_on empty 17 7 0 10 -262144
 -1 -1 1 1;
-#N canvas 67 87 865 719 sequence_arrays 1;
+#N canvas 33 82 865 728 sequence_arrays 1;
 #N canvas 2352 122 450 278 (subpatch) 0;
 #X array lead_sequence 16 float 3;
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
@@ -168,7 +168,7 @@
 #X restore 13 204 graph;
 #N canvas 624 148 450 278 (subpatch) 0;
 #X array arpeggio_sequence_1 16 float 3;
-#A 0 1 2 3 4 1 2 3 4 1 2 3 3 4 3 2 1;
+#A 0 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4;
 #X coords 0 0 16 100 200 140 1 0 0;
 #X restore 225 40 graph;
 #N canvas 624 148 450 278 (subpatch) 0;
@@ -188,7 +188,7 @@
 #X restore 229 377 graph;
 #N canvas 624 148 450 278 (subpatch) 0;
 #X array chordroot_sequence 16 float 3;
-#A 0 1 0 0 0 3 0 0 0 5 0 0 0 1 0 0 0;
+#A 0 1 0 0 0 6 0 0 0 2 0 0 0 5 0 0 0;
 #X coords 0 0 16 100 200 140 1 0 0;
 #X restore 649 41 graph;
 #N canvas 1793 230 450 278 (subpatch) 0;
@@ -198,7 +198,7 @@
 #X restore 436 209 graph;
 #N canvas 1793 230 450 278 (subpatch) 0;
 #X array blockchord_8ve_sequence 16 float 3;
-#A 0 3 0 0 0 3 0 0 0 3 0 0 0 3 0 0 0;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
 #X coords 0 0 16 100 200 140 1 0 0;
 #X restore 650 209 graph;
 #N canvas 1793 230 450 278 (subpatch) 0;
@@ -213,7 +213,7 @@
 #X restore 447 549 graph;
 #N canvas 1793 230 450 278 (subpatch) 0;
 #X array arpseq1_8ve_seq 16 float 3;
-#A 0 0 0 0 1 1 1 1 2 2 2 2 3 3 3 3 0;
+#A 0 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2;
 #X coords 0 0 16 100 200 140 1 0 0;
 #X restore 433 41 graph;
 #X restore 79 684 pd sequence_arrays;
@@ -336,19 +336,19 @@
 #X obj 708 162 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
 -1 -1 2;
 #X obj 730 162 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 2;
+-1 -1 3;
 #X obj 756 396 t f b;
 #X obj 774 369 t f b;
 #X obj 785 348 t f b;
 #X obj 801 327 t f b;
 #X obj 761 162 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 3;
+-1 -1 0;
 #X obj 781 161 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 2;
-#X obj 802 161 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
 -1 -1 1;
+#X obj 802 161 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
+-1 -1 2;
 #X obj 872 144 vradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144
--1 -1 3;
+-1 -1 2;
 #X obj 878 400 t f b;
 #X obj 896 373 t f b;
 #X obj 907 352 t f b;
@@ -366,7 +366,7 @@
 #X msg 953 387 14;
 #X msg 958 358 15;
 #X obj 824 161 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 3;
 #X obj 571 525 +;
 #X text 852 129 8ve adjust;
 #X obj 484 654 spigot;
@@ -423,7 +423,7 @@
 #X obj 1019 149 vradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144
 -1 -1 0;
 #X obj 1056 148 vradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144
--1 -1 3;
+-1 -1 6;
 #X obj 1076 149 vradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144
 -1 -1 0;
 #X obj 1097 149 vradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144
@@ -431,7 +431,7 @@
 #X obj 1117 148 vradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144
 -1 -1 0;
 #X obj 1147 149 vradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144
--1 -1 5;
+-1 -1 2;
 #X obj 1167 149 vradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144
 -1 -1 0;
 #X obj 1188 150 vradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144
@@ -439,13 +439,13 @@
 #X obj 1210 150 vradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144
 -1 -1 0;
 #X obj 1241 150 vradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144
--1 -1 1;
+-1 -1 5;
 #X obj 1261 149 vradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144
 -1 -1 0;
 #X obj 1282 149 vradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144
 -1 -1 0;
 #X obj 1349 150 vradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144
--1 -1 3;
+-1 -1 0;
 #X obj 1304 149 vradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144
 -1 -1 0;
 #X text 1329 135 8ve adjust;
@@ -892,7 +892,7 @@ No block chord to be played on that beat. That's actually quite important.
 #X msg -5 -36 \; density 4 \; tempo 112 \; init_samples bang \; metro_on
 1;
 #X text 135 -8 Get it all going!;
-#N canvas 936 87 661 728 scale_chord_arrays 1;
+#N canvas 933 82 661 728 scale_chord_arrays 1;
 #N canvas 0 87 450 300 (subpatch) 0;
 #X array scale 96 float 3;
 #A 0 24 26 28 29 31 33 35 36 38 40 41 43 45 47 48 50 52 53 55 57 59
@@ -945,9 +945,9 @@ No block chord to be played on that beat. That's actually quite important.
 #X restore 192 504 graph;
 #N canvas 0 50 450 278 (subpatch) 0;
 #X array arp1chordtones 48 float 3;
-#A 0 28 31 35 38 41 45 48 52 55 59 62 65 69 72 76 79 83 86 89 93 96
-100 103 107 110 113 117 120 124 127 131 134 137 141 144 148 151 155
-158 161 165 168 172 175 179 182 185 24;
+#A 0 57 60 64 67 71 74 77 81 84 88 91 95 98 101 105 108 112 115 119
+122 125 129 132 136 139 143 146 149 153 156 160 163 167 170 173 177
+180 184 189 189 189 189 189 189 189 189 189 57;
 #X coords 0 0 47 200 200 140 1 0 0;
 #X restore 197 -29 graph;
 #X restore 84 619 pd scale_chord_arrays;
@@ -958,7 +958,7 @@ No block chord to be played on that beat. That's actually quite important.
 #X text 49 355 Semitone intervals of scale;
 #X text 48 432 Which is used to write a scale from a particular tonic:
 ;
-#N canvas 1600 102 1440 818 arpeggioplayer 0;
+#N canvas 1600 54 1440 846 arpeggioplayer 0;
 #X obj 55 8 inlet;
 #X floatatom 55 621 5 0 0 0 - - -, f 5;
 #X obj 56 766 s note 60 90 150 2 0;
@@ -1111,7 +1111,7 @@ to adjust for chordtone rep \, where root is at index 0 \, 3rd at 1
 #X connect 78 1 79 0;
 #X connect 80 0 77 0;
 #X restore 1015 603 pd arpeggioplayer;
-#N canvas 2291 82 960 998 blockchordplayer 0;
+#N canvas 2080 82 960 818 blockchordplayer 0;
 #X obj 92 25 inlet;
 #X floatatom 185 466 5 0 0 0 - - -, f 5;
 #X obj 338 464 moses 0;
@@ -1177,7 +1177,6 @@ to adjust for chordtone rep \, where root is at index 0 \, 3rd at 1
 #X connect 18 0 35 0;
 #X connect 18 0 42 0;
 #X connect 20 0 33 0;
-#X connect 20 1 19 0;
 #X connect 22 0 38 0;
 #X connect 22 0 36 0;
 #X connect 26 0 47 0;
@@ -1187,6 +1186,7 @@ to adjust for chordtone rep \, where root is at index 0 \, 3rd at 1
 #X connect 38 1 37 0;
 #X connect 38 1 45 0;
 #X connect 41 0 50 0;
+#X connect 42 0 19 0;
 #X connect 42 1 20 0;
 #X connect 43 0 46 0;
 #X connect 44 0 22 0;
@@ -1383,7 +1383,7 @@ particular chords in that key:;
 #X connect 3 1 2 0;
 #X connect 6 1 3 0;
 #X restore 1150 604 pd chordprog;
-#N canvas 63 95 1086 805 arpchordtone_calc 1;
+#N canvas 7 128 1086 805 arpchordtone_calc 1;
 #X obj 117 440 int;
 #X obj 177 436 + 2;
 #X floatatom 102 494 5 0 0 0 - - -, f 5;
@@ -1420,7 +1420,6 @@ particular chords in that key:;
 #X obj 503 525 print;
 #X obj 356 122 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X floatatom 45 319 5 0 0 0 - - -, f 5;
 #X obj 297 225 r writearpchordtonearray;
 #X obj 582 234 s writearpchordtonearray;
 #X obj 579 186 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
@@ -1428,8 +1427,12 @@ particular chords in that key:;
 #X floatatom 230 215 5 0 0 0 - - -, f 5;
 #X floatatom 33 246 5 0 0 0 - - -, f 5;
 #X msg 370 464 0;
+#X floatatom 109 357 5 0 0 0 - - -, f 5;
+#X obj 60 477 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
 #X connect 0 0 1 0;
 #X connect 0 0 2 0;
+#X connect 0 0 41 0;
 #X connect 1 0 0 1;
 #X connect 2 0 4 0;
 #X connect 3 0 12 0;
@@ -1451,13 +1454,13 @@ particular chords in that key:;
 #X connect 13 0 33 0;
 #X connect 14 0 16 0;
 #X connect 15 0 16 0;
-#X connect 17 0 38 0;
-#X connect 17 1 21 0;
+#X connect 17 0 37 0;
+#X connect 17 1 21 1;
 #X connect 18 0 16 0;
 #X connect 19 0 17 0;
-#X connect 20 0 21 1;
+#X connect 20 0 21 0;
 #X connect 21 0 31 0;
-#X connect 21 0 39 0;
+#X connect 21 0 38 0;
 #X connect 22 0 20 0;
 #X connect 23 0 20 0;
 #X connect 24 0 20 0;
@@ -1465,10 +1468,9 @@ particular chords in that key:;
 #X connect 28 0 29 0;
 #X connect 29 0 27 0;
 #X connect 30 0 28 0;
-#X connect 31 1 0 1;
-#X connect 31 1 34 0;
-#X connect 35 0 8 0;
-#X connect 37 0 36 0;
+#X connect 31 1 40 0;
+#X connect 34 0 8 0;
+#X connect 36 0 35 0;
 #X connect 40 0 0 1;
 #X restore 468 658 pd arpchordtone_calc;
 #X connect 1 0 32 0;
