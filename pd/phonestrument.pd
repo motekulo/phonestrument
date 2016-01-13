@@ -1,6 +1,6 @@
 #N canvas 1600 54 1440 846 12;
 #X msg 89 385 \; scale_struct 0 2 2 1 2 2 2 1;
-#X floatatom 1010 398 5 0 0 0 - - -, f 5;
+#X floatatom 952 399 5 0 0 0 - - -, f 5;
 #N canvas 172 262 1155 818 chordtone_calc 0;
 #X obj 117 440 int;
 #X obj 177 436 + 2;
@@ -1339,7 +1339,7 @@ particular chords in that key:;
 #X restore 331 2 pd reset_arrays;
 #X obj 334 -28 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 1018 452 t f f f;
+#X obj 1016 471 t f f f;
 #N canvas 167 262 626 818 blockchordtone_calc 0;
 #X obj 119 424 int;
 #X obj 179 420 + 2;
@@ -1578,11 +1578,10 @@ and pulse values \; also changes number of bars;
 #X connect 23 0 7 0;
 #X connect 24 0 25 0;
 #X connect 25 0 27 0;
-#X restore 810 472 pd bars;
+#X restore 968 428 pd bars;
 #X obj 641 397 s num_bars;
 #X msg -5 -36 \; density 4 \; num_bars 4 \; tempo 112 \; init_samples
 bang \; metro_on 1;
-#X connect 1 0 31 0;
 #X connect 1 0 45 0;
 #X connect 5 0 11 0;
 #X connect 6 0 5 1;
@@ -1604,3 +1603,4 @@ bang \; metro_on 1;
 #X connect 38 0 40 0;
 #X connect 39 0 40 0;
 #X connect 43 0 46 0;
+#X connect 45 2 31 0;
