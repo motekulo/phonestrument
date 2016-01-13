@@ -155,66 +155,78 @@
 #X obj 1041 558 spigot;
 #X obj 1075 531 tgl 15 0 empty arpeggioplayer_on empty 17 7 0 10 -262144
 -1 -1 0 1;
-#N canvas 27 92 865 728 sequence_arrays 1;
+#N canvas 800 82 800 818 sequence_arrays 1;
 #N canvas 2352 122 450 278 (subpatch) 0;
-#X array lead_sequence 18 float 3;
-#A 0 39 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 18 47 200 140 1 0 0;
+#X array lead_sequence 64 float 3;
+#A 0 39 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 0 64 47 200 140 1 0 0;
 #X restore 15 35 graph;
 #N canvas 624 148 450 278 (subpatch) 0;
-#X array lead_sequence_2 18 float 3;
-#A 0 36 37 38 39 40 41 40 41 39 38 37 0 38 38 0 0 0 0;
-#X coords 0 0 18 47 200 140 1 0 0;
+#X array lead_sequence_2 64 float 3;
+#A 0 36 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 0 64 47 200 140 1 0 0;
 #X restore 13 204 graph;
 #N canvas 624 148 450 278 (subpatch) 0;
-#X array arpeggio_sequence_1 16 float 3;
-#A 0 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4;
-#X coords 0 0 16 100 200 140 1 0 0;
+#X array arpeggio_sequence_1 64 float 3;
+#A 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 0 64 100 200 140 1 0 0;
 #X restore 225 40 graph;
 #N canvas 624 148 450 278 (subpatch) 0;
-#X array arpeggio_sequence_2 16 float 3;
-#A 0 7 2 5 4 1 5 3 4 1 5 3 4 1 4 3 2;
-#X coords 0 0 16 100 200 140 1 0 0;
+#X array arpeggio_sequence_2 64 float 3;
+#A 0 7 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 0 64 100 200 140 1 0 0;
 #X restore 226 208 graph;
 #N canvas 624 148 450 278 (subpatch) 0;
-#X array arpeggio_sequence_4 16 float 3;
-#A 0 0 6 6 7 0 6 6 6 6 5 3 6 5 0 6 3;
-#X coords 0 0 16 100 200 140 1 0 0;
+#X array arpeggio_sequence_4 64 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 0 64 100 200 140 1 0 0;
 #X restore 233 541 graph;
 #N canvas 624 148 450 278 (subpatch) 0;
-#X array arpeggio_sequence_3 16 float 3;
-#A 0 7 0 5 0 0 5 0 0 0 5 0 0 0 4 0 2;
-#X coords 0 0 16 100 200 140 1 0 0;
+#X array arpeggio_sequence_3 64 float 3;
+#A 0 7 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 0 64 100 200 140 1 0 0;
 #X restore 229 377 graph;
 #N canvas 624 148 450 278 (subpatch) 0;
-#X array chordroot_sequence 16 float 3;
-#A 0 1 0 0 0 1 0 0 0 4 0 0 0 4 0 0 0;
-#X coords 0 0 16 100 200 140 1 0 0;
+#X array chordroot_sequence 64 float 3;
+#A 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 0 64 100 200 140 1 0 0;
 #X restore 649 41 graph;
 #N canvas 1793 230 450 278 (subpatch) 0;
-#X array arpseq2_8ve_seq 16 float 3;
-#A 0 5 3 5 3 3 5 3 3 3 5 3 3 3 5 3 5;
-#X coords 0 0 16 100 200 140 1 0 0;
+#X array arpseq2_8ve_seq 64 float 3;
+#A 0 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 0 64 100 200 140 1 0 0;
 #X restore 436 209 graph;
 #N canvas 1793 230 450 278 (subpatch) 0;
-#X array blockchord_8ve_sequence 16 float 3;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 16 100 200 140 1 0 0;
+#X array blockchord_8ve_sequence 64 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 0 64 100 200 140 1 0 0;
 #X restore 650 209 graph;
 #N canvas 1793 230 450 278 (subpatch) 0;
-#X array arpseq3_8ve_seq 16 float 3;
-#A 0 5 0 5 0 0 5 0 0 0 5 0 0 0 5 0 5;
-#X coords 0 0 16 100 200 140 1 0 0;
+#X array arpseq3_8ve_seq 64 float 3;
+#A 0 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 0 64 100 200 140 1 0 0;
 #X restore 441 383 graph;
 #N canvas 1793 230 450 278 (subpatch) 0;
-#X array arpseq4_8ve_seq 16 float 3;
-#A 0 0 3 3 3 0 3 3 3 3 3 4 3 3 0 3 4;
-#X coords 0 0 16 100 200 140 1 0 0;
+#X array arpseq4_8ve_seq 64 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 0 64 100 200 140 1 0 0;
 #X restore 447 549 graph;
 #N canvas 1793 230 450 278 (subpatch) 0;
-#X array arpseq1_8ve_seq 16 float 3;
-#A 0 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2;
-#X coords 0 0 16 100 200 140 1 0 0;
+#X array arpseq1_8ve_seq 64 float 3;
+#A 0 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 0 64 100 200 140 1 0 0;
 #X restore 433 41 graph;
 #X restore 84 683 pd sequence_arrays;
 #N canvas 1600 82 1440 818 gui 0;
@@ -467,7 +479,7 @@
 -1 -1;
 #X obj 1509 568 +;
 #X floatatom 1567 601 5 0 0 0 - - -, f 5;
-#X obj 9 34 tgl 15 0 metro_on empty empty 17 7 0 10 -262144 -1 -1 1
+#X obj 9 34 tgl 15 0 metro_on empty empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X text 3 19 On/off;
 #X obj 55 45 tgl 15 0 leadplayer_on empty empty 17 7 0 10 -262144 -1
@@ -889,8 +901,6 @@ No block chord to be played on that beat. That's actually quite important.
 #X connect 24 0 16 0;
 #X restore 905 602 pd leadplayer;
 #X obj 1021 642 main_sample_synth;
-#X msg -5 -36 \; density 4 \; tempo 112 \; init_samples bang \; metro_on
-1;
 #X text 135 -8 Get it all going!;
 #N canvas 927 92 661 728 scale_chord_arrays 1;
 #N canvas 0 87 450 300 (subpatch) 0;
@@ -1123,7 +1133,7 @@ to adjust for chordtone rep \, where root is at index 0 \, 3rd at 1
 #X connect 84 0 61 0;
 #X connect 84 1 85 0;
 #X restore 1015 603 pd arpeggioplayer;
-#N canvas 2080 82 960 818 blockchordplayer 0;
+#N canvas 2077 87 960 818 blockchordplayer 0;
 #X obj 92 25 inlet;
 #X floatatom 185 466 5 0 0 0 - - -, f 5;
 #X obj 338 464 moses 0;
@@ -1234,7 +1244,7 @@ particular chords in that key:;
 #X obj 292 263 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X obj 258 203 tgl 15 0 empty metro_on empty 17 7 0 10 -262144 -1 -1
-1 1;
+0 1;
 #X obj 288 148 expr 60000/$f1/$f2;
 #X obj 320 82 int;
 #X floatatom 370 115 5 0 0 0 - - -, f 5;
@@ -1506,56 +1516,91 @@ particular chords in that key:;
 #X floatatom 642 368 5 0 0 0 - - -, f 5;
 #X text 527 366 number of bars;
 #N canvas 0 82 800 818 bars 1;
-#X obj 577 73 r num_bars;
-#X msg 582 247 \; lead_sequence resize \$1 \; lead_sequence_2 resize
+#X obj 487 68 r num_bars;
+#X msg 505 219 \; lead_sequence resize \$1 \; lead_sequence_2 resize
 \$1;
-#X text 19 13 Changes number of bars \, takes as input the main pulse
-and outputs bar number and pulse values;
-#X obj 59 71 inlet;
-#X obj 232 399 outlet;
-#X obj 70 397 outlet;
-#X obj 250 285 + 1;
-#X obj 196 166 moses 1;
-#X floatatom 233 357 5 0 0 0 - - -, f 5;
-#X obj 200 228 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 44 75 inlet;
+#X obj 158 452 outlet;
+#X obj 58 452 outlet;
+#X obj 161 259 + 1;
+#X obj 120 171 moses 1;
+#X floatatom 157 362 5 0 0 0 - - -, f 5;
+#X obj 120 216 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 208 285 int;
-#X obj 203 326 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X floatatom 71 354 5 0 0 0 - - -, f 5;
-#X text 75 376 pulse;
-#X text 239 380 bar number;
-#X connect 3 0 7 0;
-#X connect 3 0 12 0;
-#X connect 6 0 10 1;
-#X connect 7 0 9 0;
-#X connect 8 0 4 0;
-#X connect 9 0 10 0;
-#X connect 10 0 11 0;
-#X connect 10 0 6 0;
-#X connect 10 0 8 0;
-#X connect 12 0 5 0;
+#X obj 119 259 int;
+#X floatatom 57 362 5 0 0 0 - - -, f 5;
+#X text 61 384 pulse;
+#X text 163 385 bar number;
+#X obj 348 67 r pulses_per_bar;
+#X obj 401 154 expr $f1 * $f2;
+#X floatatom 704 214 5 0 0 0 - - -, f 5;
+#X text 553 191 Total number of pulses;
+#X obj 380 99 t b f;
+#X msg 506 370 \; arpseq1_8ve_seq resize \$1 \; arpseq2_8ve_seq resize
+\$1 \; arpseq3_8ve_seq resize \$1 \; arpseq4_8ve_seq resize \$1 \;
+;
+#X msg 505 279 \; arpeggio_sequence_1 resize \$1 \; arpeggio_sequence_2
+resize \$1 \; arpeggio_sequence_3 resize \$1 \; arpeggio_sequence_4
+resize \$1 \;;
+#X msg 505 460 \; chordroot_sequence resize \$1 \; blockchord_8ve_sequence
+resize \$1;
+#X text 20 13 Takes as input the main pulse and outputs bar number
+and pulse values \; also changes number of bars;
+#X obj 312 412 *;
+#X obj 156 323 %;
+#X obj 320 465 +;
+#X floatatom 320 509 5 0 0 0 - - -, f 5;
+#X text 360 509 total pulse;
+#X obj 321 558 outlet;
+#X connect 0 0 14 0;
+#X connect 0 0 23 1;
+#X connect 2 0 6 0;
+#X connect 2 0 10 0;
+#X connect 5 0 9 1;
+#X connect 6 0 8 0;
+#X connect 7 0 3 0;
+#X connect 7 0 22 0;
+#X connect 8 0 9 0;
+#X connect 9 0 5 0;
+#X connect 9 0 23 0;
+#X connect 10 0 4 0;
+#X connect 10 0 24 0;
+#X connect 13 0 17 0;
+#X connect 13 0 22 1;
+#X connect 14 0 1 0;
+#X connect 14 0 15 0;
+#X connect 14 0 19 0;
+#X connect 14 0 18 0;
+#X connect 14 0 20 0;
+#X connect 17 0 14 0;
+#X connect 17 1 14 1;
+#X connect 22 0 24 1;
+#X connect 23 0 7 0;
+#X connect 24 0 25 0;
+#X connect 25 0 27 0;
 #X restore 810 472 pd bars;
 #X obj 641 397 s num_bars;
-#X connect 1 0 32 0;
-#X connect 1 0 46 0;
+#X msg -5 -36 \; density 4 \; num_bars 4 \; tempo 112 \; init_samples
+bang \; metro_on 1;
+#X connect 1 0 31 0;
+#X connect 1 0 45 0;
 #X connect 5 0 11 0;
 #X connect 6 0 5 1;
-#X connect 7 0 22 0;
+#X connect 7 0 21 0;
 #X connect 8 0 7 1;
-#X connect 17 0 19 0;
-#X connect 18 0 19 1;
-#X connect 24 0 23 0;
-#X connect 25 0 24 1;
-#X connect 29 0 1 0;
-#X connect 31 0 30 0;
-#X connect 32 0 5 0;
-#X connect 32 1 7 0;
-#X connect 34 0 41 0;
-#X connect 35 0 41 0;
-#X connect 36 0 41 0;
-#X connect 37 0 41 0;
-#X connect 38 0 41 0;
-#X connect 39 0 41 0;
-#X connect 40 0 41 0;
-#X connect 44 0 47 0;
+#X connect 16 0 18 0;
+#X connect 17 0 18 1;
+#X connect 23 0 22 0;
+#X connect 24 0 23 1;
+#X connect 28 0 1 0;
+#X connect 30 0 29 0;
+#X connect 31 0 5 0;
+#X connect 31 1 7 0;
+#X connect 33 0 40 0;
+#X connect 34 0 40 0;
+#X connect 35 0 40 0;
+#X connect 36 0 40 0;
+#X connect 37 0 40 0;
+#X connect 38 0 40 0;
+#X connect 39 0 40 0;
+#X connect 43 0 46 0;
