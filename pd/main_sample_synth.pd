@@ -1,4 +1,4 @@
-#N canvas 168 95 1271 818 10;
+#N canvas 159 82 1271 818 10;
 #X text -19 24 ARGUMENTS FOR NOTES:;
 #X text -19 46 pitch in halftones;
 #X text -19 70 amplitude (dB);
@@ -7,7 +7,7 @@
 #X text -19 143 start location (msec);
 #X text -19 166 rise time (msec);
 #X text -19 190 decay time (msec);
-#N canvas 573 373 778 733 samples 0;
+#N canvas 1600 54 1440 846 samples 1;
 #N canvas 0 82 450 300 (subpatch) 0;
 #X array sample1 176403 float 0;
 #X coords 0 1.02 176403 -1.02 200 130 1;
@@ -16,33 +16,49 @@
 #N canvas 0 50 450 300 (subpatch) 0;
 #X array sample3 176403 float 0;
 #X coords 0 1.02 176403 -1.02 200 130 1 0 0;
-#X restore 42 423 graph;
+#X restore 517 32 graph;
 #N canvas 0 50 450 300 (subpatch) 0;
 #X array sample2 176403 float 0;
 #X coords 0 1.02 176403 -1.02 200 130 1;
-#X restore 38 217 graph;
+#X restore 275 32 graph;
 #N canvas 0 82 450 300 (subpatch) 0;
 #X array sample4 176403 float 0;
 #X coords 0 1.02 176403 -1.02 200 130 1 0 0;
-#X restore 290 22 graph;
+#X restore 749 32 graph;
 #N canvas 0 50 450 300 (subpatch) 0;
-#X array sample6 176403 float 0;
+#X array sample10 176403 float 0;
 #X coords 0 1.02 176403 -1.02 200 130 1 0 0;
-#X restore 294 413 graph;
+#X restore 271 371 graph;
 #N canvas 0 50 450 300 (subpatch) 0;
 #X array sample5 176403 float 0;
 #X coords 0 1.02 176403 -1.02 200 130 1 0 0;
-#X restore 290 207 graph;
+#X restore 38 194 graph;
 #N canvas 952 562 450 300 (subpatch) 0;
 #X array sample7 176403 float 0;
 #X coords 0 1.02 176403 -1.02 200 130 1 0 0;
-#X restore 529 23 graph;
+#X restore 517 194 graph;
 #N canvas 0 50 450 300 (subpatch) 0;
 #X array sample8 176403 float 0;
 #X coords 0 1.02 176403 -1.02 200 130 1 0 0;
-#X restore 529 208 graph;
+#X restore 749 194 graph;
+#N canvas 0 50 450 300 (subpatch) 0;
+#X array sample6 176403 float 0;
+#X coords 0 1.02 176403 -1.02 200 130 1 0 0;
+#X restore 275 194 graph;
+#N canvas 0 50 450 300 (subpatch) 0;
+#X array sample11 176403 float 0;
+#X coords 0 1.02 176403 -1.02 200 130 1 0 0;
+#X restore 513 371 graph;
+#N canvas 0 50 450 300 (subpatch) 0;
+#X array sample12 176403 float 0;
+#X coords 0 1.02 176403 -1.02 200 130 1 0 0;
+#X restore 753 371 graph;
+#N canvas 0 50 450 300 (subpatch) 0;
+#X array sample9 176403 float 0;
+#X coords 0 1.02 176403 -1.02 200 130 1 0 0;
+#X restore 42 371 graph;
 #X restore 1054 105 pd samples;
-#N canvas 339 363 1034 479 recorder 0;
+#N canvas 1829 138 1034 479 recorder 1;
 #X obj 220 21 inlet;
 #X obj 174 174 adc~ 1;
 #X obj 174 202 hip~ 5;
@@ -61,18 +77,20 @@
 #X msg 514 85 bang;
 #X text 556 84 <-- browse for samples;
 #X text 482 209 v-- re-read original samples;
-#X obj 386 351 soundfiler;
+#X obj 413 434 soundfiler;
 #X msg 514 140 read \$1 sample1;
 #X obj 514 167 soundfiler;
 #X obj 26 88 makefilename sample%d;
 #X msg 411 237 read sound/bell.aiff sample1 \, read sound/voice2.wav
 sample2;
-#X msg 531 292 read samples/bbassdelay.wav sample1 \, read samples/bpunchbass.wav
+#X obj 532 262 r init_samples;
+#X msg 532 294 read samples/bbassdelay.wav sample1 \, read samples/bpunchbass.wav
 sample2 \, read samples/bebass1.wav sample3 \, read samples/bunibass.wav
 sample4 \, read samples/chbounce.wav sample5 \, read samples/chchic.wav
 sample6 \, read samples/lsynbrass.wav sample7 \, read samples/ltrance.wav
-sample8, f 75;
-#X obj 532 262 r init_samples;
+sample8 \, read samples/kick1.wav sample9 \, read samples/snare1.wav
+sample10 \, read samples/ohh.wav sample11 \, read samples/chh.wav sample12
+, f 75;
 #X connect 0 0 12 0;
 #X connect 1 0 2 0;
 #X connect 2 0 4 0;
@@ -97,8 +115,8 @@ sample8, f 75;
 #X connect 19 0 20 0;
 #X connect 21 0 9 0;
 #X connect 22 0 18 0;
-#X connect 23 0 18 0;
-#X connect 24 0 23 0;
+#X connect 23 0 24 0;
+#X connect 24 0 18 0;
 #X restore 1054 292 pd recorder;
 #X msg 969 151 record 1;
 #X msg 1036 203 stop;
