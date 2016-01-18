@@ -1,4 +1,4 @@
-#N canvas 1440 82 1920 840 12;
+#N canvas 637 82 819 818 12;
 #X msg 84 20 \; scale_struct 0 2 2 1 2 2 2 1;
 #X floatatom 983 172 5 0 0 0 - - -, f 5;
 #N canvas 172 262 1155 818 chordtone_calc 0;
@@ -151,20 +151,20 @@
 #X restore 78 344 pd drum_sequences;
 #X obj 967 331 spigot;
 #X obj 1015 308 tgl 15 0 empty leadplayer_on empty 17 7 0 10 -262144
--1 -1 0 1;
+-1 -1 1 1;
 #X obj 1072 331 spigot;
 #X obj 1106 304 tgl 15 0 empty arpeggioplayer_on empty 17 7 0 10 -262144
--1 -1 0 1;
+-1 -1 1 1;
 #N canvas 438 255 980 818 sequence_arrays 0;
 #X restore 79 318 pd sequence_arrays;
-#N canvas 1440 82 1920 840 gui 1;
+#N canvas 0 87 1425 818 gui 1;
 #N canvas 523 262 800 818 lead_gui 0;
 #X obj 29 163 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144 -1
--1 0;
+-1 1;
 #X obj 49 163 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144 -1
--1 0;
+-1 2;
 #X obj 71 164 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144 -1
--1 0;
+-1 3;
 #X obj 94 164 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144 -1
 -1 0;
 #X obj 26 386 t f b;
@@ -176,9 +176,9 @@
 #X msg 88 372 2;
 #X msg 95 344 3;
 #X obj 131 163 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 3;
 #X obj 151 165 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 3;
 #X obj 172 164 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
 -1 -1 0;
 #X obj 191 164 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
@@ -188,7 +188,7 @@
 #X obj 160 339 t f b;
 #X obj 179 313 t f b;
 #X obj 221 165 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 3;
 #X obj 241 165 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
 -1 -1 0;
 #X obj 262 166 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
@@ -200,13 +200,13 @@
 #X obj 282 341 t f b;
 #X obj 298 320 t f b;
 #X obj 313 169 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 3;
 #X obj 333 169 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
 -1 -1 0;
 #X obj 354 170 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 3;
 #X obj 404 156 vradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 3;
 #X obj 364 397 t f b;
 #X obj 384 370 t f b;
 #X obj 405 346 t f b;
@@ -230,7 +230,7 @@
 #X obj 49 736 tabwrite lead_sequence;
 #X obj 50 708 spigot;
 #X obj 83 673 tgl 15 0 empty write_lead1 empty 17 7 0 10 -262144 -1
--1 0 1;
+-1 1 1;
 #X obj 242 572 t f;
 #X obj 228 704 spigot;
 #X obj 261 670 tgl 15 0 empty write_lead2 empty 17 7 0 10 -262144 -1
@@ -239,7 +239,7 @@
 #X obj 34 108 tgl 15 0 write_lead2 empty empty 17 7 0 10 -262144 -1
 -1 0 1;
 #X obj 34 74 tgl 15 0 write_lead1 empty empty 17 7 0 10 -262144 -1
--1 0 1;
+-1 1 1;
 #X text 51 75 write lead seq 1;
 #X text 54 108 write lead seq 2;
 #X msg 365 100 0;
@@ -247,10 +247,10 @@
 -1;
 #X text 375 67 reset;
 #X obj 19 23 tgl 15 0 leadplayer_on empty empty 17 7 0 10 -262144 -1
--1 0 1;
+-1 1 1;
 #X text 37 24 Lead player;
 #X obj 186 26 hradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144 -1
--1 0;
+-1 2;
 #X obj 185 88 s lead_sample_number;
 #X obj 186 55 + 1;
 #X obj 29 143 bng 15 250 50 0 empty empty empty 17 7 0 10 -257985 -1
@@ -364,8 +364,8 @@
 #X connect 75 0 76 0;
 #X connect 77 0 75 1;
 #X coords 0 -1 1 1 450 300 1 0 0;
-#X restore 3 -67 pd lead_gui;
-#N canvas 1936 92 1104 721 main_control_gui 0;
+#X restore 3 -89 pd lead_gui;
+#N canvas 615 97 825 721 main_control_gui 0;
 #X floatatom 559 47 5 0 0 0 - - -, f 5;
 #X obj 670 217 r pulses_per_bar;
 #X floatatom 671 258 5 0 0 0 - - -, f 5;
@@ -374,14 +374,14 @@
 #X floatatom 671 351 5 0 0 0 - - -, f 5;
 #X obj 671 454 s edit_start_pulse;
 #X obj 11 48 tgl 15 0 metro_on empty empty 17 7 0 10 -262144 -1 -1
-0 1;
+1 1;
 #X text 5 33 On/off;
-#X floatatom 84 48 5 0 0 0 - - -, f 5;
-#X obj 84 69 s tempo;
-#X text 76 32 Tempo;
-#X floatatom 156 48 5 0 0 0 - - -, f 5;
-#X obj 157 91 s density;
-#X text 153 30 Density;
+#X floatatom 110 45 5 0 0 0 - - -, f 5;
+#X obj 110 66 s tempo;
+#X text 102 29 Tempo;
+#X floatatom 182 45 5 0 0 0 - - -, f 5;
+#X obj 183 88 s density;
+#X text 179 27 Density;
 #X obj 381 175 mtof, f 5;
 #X obj 271 48 hradio 16 1 0 12 empty empty empty 0 -8 0 10 -262144
 -1 -1 0;
@@ -421,6 +421,11 @@
 #X obj 869 -6 + 1;
 #X text 711 47 Bar:;
 #X text 791 50 Pulse:;
+#X obj 67 51 vsl 15 64 0 100 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 1800 1;
+#X floatatom 136 351 5 0 0 0 - - -, f 5;
+#X obj 204 401 s master_vol;
+#X text 33 77 Vol:;
 #X connect 0 0 4 0;
 #X connect 1 0 2 0;
 #X connect 2 0 3 1;
@@ -441,17 +446,19 @@
 #X connect 48 0 50 0;
 #X connect 49 0 45 0;
 #X connect 50 0 46 0;
+#X connect 53 0 54 0;
+#X connect 53 0 55 0;
 #X coords 0 -1 1 1 920 100 1 0 20;
-#X restore 2 -176 pd main_control_gui;
+#X restore 2 -198 pd main_control_gui;
 #N canvas 2193 82 847 818 arp_gui 0;
 #X obj 653 715 spigot;
 #X obj 658 755 tabwrite arpseq4_8ve_seq;
 #X obj 33 131 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144 -1
--1 0;
+-1 1;
 #X obj 53 131 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144 -1
--1 0;
+-1 2;
 #X obj 75 132 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144 -1
--1 0;
+-1 1;
 #X obj 98 132 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144 -1
 -1 0;
 #X obj 23 357 t f b;
@@ -475,11 +482,11 @@
 #X obj 168 316 t f b;
 #X obj 187 290 t f b;
 #X obj 217 132 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 1;
 #X obj 237 132 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 2;
 #X obj 258 133 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 3;
 #X obj 280 133 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
 -1 -1 0;
 #X obj 258 370 t f b;
@@ -487,13 +494,13 @@
 #X obj 263 314 t f b;
 #X obj 262 286 t f b;
 #X obj 311 133 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 2;
 #X obj 331 132 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 2;
 #X obj 352 132 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 2;
 #X obj 422 115 vradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 4;
 #X obj 373 375 t f b;
 #X obj 377 343 t f b;
 #X obj 389 314 t f b;
@@ -511,12 +518,12 @@
 #X msg 438 331 14;
 #X msg 445 304 15;
 #X obj 374 132 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 3;
 #X obj 65 461 +;
 #X text 402 100 8ve adjust;
 #X obj 70 579 spigot;
 #X obj 107 547 tgl 15 0 empty write_chord1 empty 17 7 0 10 -262144
--1 -1 0 1;
+-1 -1 1 1;
 #X obj 276 488 t f;
 #X obj 448 584 spigot;
 #X obj 530 556 tgl 15 0 empty write_chord2 empty 17 7 0 10 -262144
@@ -524,7 +531,7 @@
 #X obj 28 88 tgl 15 0 write_chord2 empty empty 17 7 0 10 -262144 -1
 -1 0 1;
 #X obj 26 56 tgl 15 0 write_chord1 empty empty 17 7 0 10 -262144 -1
--1 0 1;
+-1 1 1;
 #X text 45 55 write chord seq 1;
 #X text 48 88 write chord seq 2;
 #X obj 36 707 spigot;
@@ -548,11 +555,11 @@
 #X obj 13 751 tabwrite arpeggio_sequence_3;
 #X obj 448 754 tabwrite arpeggio_sequence_4;
 #X obj 25 17 tgl 15 0 arpeggioplayer_on empty empty 17 7 0 10 -262144
--1 -1 0 1;
+-1 -1 1 1;
 #X text 42 16 Arpeggio player;
 #X obj 566 43 + 1;
 #X obj 157 20 hradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144 -1
--1 0;
+-1 2;
 #X obj 565 81 s arpeggio_sample_number;
 #X obj 67 489 + 1;
 #X obj 225 612 tabwrite arpseq1_8ve_seq;
@@ -723,7 +730,7 @@
 #X connect 94 0 90 1;
 #X connect 94 0 1 1;
 #X coords 0 -1 1 1 480 300 1 0 0;
-#X restore 460 -67 pd arp_gui;
+#X restore 460 -89 pd arp_gui;
 #N canvas 1871 84 961 801 chordprog_gui 0;
 #X text 16 159 Chord;
 #X text 31 185 I;
@@ -861,7 +868,7 @@ block chord to be played on that beat. That's actually quite important.
 #X connect 57 0 32 1;
 #X connect 57 0 31 1;
 #X coords 0 -1 1 1 500 200 1 0 120;
-#X restore 950 -65 pd chordprog_gui;
+#X restore 950 -87 pd chordprog_gui;
 #N canvas 1663 82 1007 840 reset_arrays 0;
 #X obj 44 -29 inlet;
 #X msg 52 371 \; blockchord_8ve_sequence 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -906,92 +913,108 @@ block chord to be played on that beat. That's actually quite important.
 #X connect 0 0 14 0;
 #X connect 0 0 15 0;
 #X connect 0 0 16 0;
-#X restore 1248 -138 pd reset_arrays;
-#X obj 1251 -168 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X restore 1248 -160 pd reset_arrays;
+#X obj 1251 -190 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X text 1084 -140 Get it all going!;
-#X msg 945 -182 \; density 4 \; num_beats 4 \; num_bars 4 \; tempo
+#X text 1084 -162 Get it all going!;
+#X msg 945 -204 \; density 4 \; num_beats 4 \; num_bars 4 \; tempo
 112 \; init_samples bang \; metro_on 1;
 #N canvas 2352 122 450 278 (subpatch) 0;
-#X array lead_sequence 16 float 3;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 16 47 200 140 1 0 0;
-#X restore 3 256 graph;
+#X array lead_sequence 32 float 3;
+#A 0 2 24 25 0 25 25 0 0 25 0 0 0 25 0 25 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0;
+#X coords 0 0 32 47 200 140 1 0 0;
+#X restore 3 234 graph;
 #N canvas 624 148 450 278 (subpatch) 0;
-#X array lead_sequence_2 16 float 3;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 16 47 200 140 1 0 0;
-#X restore 1 425 graph;
+#X array lead_sequence_2 32 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0;
+#X coords 0 0 32 47 200 140 1 0 0;
+#X restore 1 403 graph;
 #N canvas 624 148 450 278 (subpatch) 0;
-#X array arpeggio_sequence_1 16 float 3;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 16 100 200 140 1 0 0;
-#X restore 464 256 graph;
+#X array arpeggio_sequence_1 32 float 3;
+#A 0 0 0 2 0 0 0 0 0 2 3 4 0 3 3 3 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0;
+#X coords 0 0 32 100 200 140 1 0 0;
+#X restore 464 234 graph;
 #N canvas 624 148 450 278 (subpatch) 0;
-#X array arpeggio_sequence_2 16 float 3;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 16 100 200 140 1 0 0;
-#X restore 465 424 graph;
+#X array arpeggio_sequence_2 32 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0;
+#X coords 0 0 32 100 200 140 1 0 0;
+#X restore 465 402 graph;
 #N canvas 624 148 450 278 (subpatch) 0;
-#X array arpeggio_sequence_4 16 float 3;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 16 100 200 140 1 0 0;
-#X restore 467 750 graph;
+#X array arpeggio_sequence_4 32 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0;
+#X coords 0 0 32 100 200 140 1 0 0;
+#X restore 467 728 graph;
 #N canvas 624 148 450 278 (subpatch) 0;
-#X array arpeggio_sequence_3 16 float 3;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 16 100 200 140 1 0 0;
-#X restore 468 593 graph;
+#X array arpeggio_sequence_3 32 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0;
+#X coords 0 0 32 100 200 140 1 0 0;
+#X restore 468 571 graph;
 #N canvas 1793 230 450 278 (subpatch) 0;
-#X array arpseq2_8ve_seq 16 float 3;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 16 100 200 140 1 0 0;
-#X restore 675 425 graph;
+#X array arpseq2_8ve_seq 32 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0;
+#X coords 0 0 32 100 200 140 1 0 0;
+#X restore 675 403 graph;
 #N canvas 1793 230 450 278 (subpatch) 0;
-#X array arpseq3_8ve_seq 16 float 3;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 16 100 200 140 1 0 0;
-#X restore 680 599 graph;
+#X array arpseq3_8ve_seq 32 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0;
+#X coords 0 0 32 100 200 140 1 0 0;
+#X restore 680 577 graph;
 #N canvas 1793 230 450 278 (subpatch) 0;
-#X array arpseq4_8ve_seq 16 float 3;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 16 100 200 140 1 0 0;
-#X restore 681 758 graph;
+#X array arpseq4_8ve_seq 32 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0;
+#X coords 0 0 32 100 200 140 1 0 0;
+#X restore 681 736 graph;
 #N canvas 1793 230 450 278 (subpatch) 0;
-#X array arpseq1_8ve_seq 16 float 3;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 16 100 200 140 1 0 0;
-#X restore 672 257 graph;
+#X array arpseq1_8ve_seq 32 float 3;
+#A 0 0 3 4 0 0 0 0 0 4 4 4 0 4 4 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0;
+#X coords 0 0 32 100 200 140 1 0 0;
+#X restore 672 235 graph;
 #N canvas 624 148 450 278 (subpatch) 0;
-#X array chordroot_sequence 16 float 3;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 16 100 200 140 1 0 0;
-#X restore 957 165 graph;
+#X array chordroot_sequence 32 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0;
+#X coords 0 0 32 100 200 140 1 0 0;
+#X restore 957 143 graph;
 #N canvas 1793 230 450 278 (subpatch) 0;
-#X array blockchord_8ve_sequence 16 float 3;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 16 100 200 140 1 0 0;
-#X restore 957 330 graph;
+#X array blockchord_8ve_sequence 32 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0;
+#X coords 0 0 32 100 200 140 1 0 0;
+#X restore 957 308 graph;
 #N canvas 2352 122 450 278 (subpatch) 0;
-#X array dr1_sequence 16 float 3;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 16 47 200 140 1 0 0;
-#X restore 1476 153 graph;
+#X array dr1_sequence 32 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0;
+#X coords 0 0 32 47 200 140 1 0 0;
+#X restore 1476 131 graph;
 #N canvas 624 148 450 278 (subpatch) 0;
-#X array dr2_sequence 16 float 3;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 16 47 200 140 1 0 0;
-#X restore 1474 322 graph;
+#X array dr2_sequence 32 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0;
+#X coords 0 0 32 47 200 140 1 0 0;
+#X restore 1474 300 graph;
 #N canvas 2352 122 450 278 (subpatch) 0;
-#X array dr3_sequence 16 float 3;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 16 47 200 140 1 0 0;
-#X restore 1477 483 graph;
+#X array dr3_sequence 32 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0;
+#X coords 0 0 32 47 200 140 1 0 0;
+#X restore 1477 461 graph;
 #N canvas 624 148 450 278 (subpatch) 0;
-#X array dr4_sequence 16 float 3;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 16 47 200 140 1 0 0;
-#X restore 1480 646 graph;
+#X array dr4_sequence 32 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0;
+#X coords 0 0 32 47 200 140 1 0 0;
+#X restore 1480 624 graph;
 #N canvas 1695 102 1514 840 drum_gui 0;
 #X obj 7 20 tgl 15 0 drumplayer_on empty empty 17 7 0 10 -262144 -1
 -1 0 1;
@@ -1424,9 +1447,9 @@ block chord to be played on that beat. That's actually quite important.
 #X connect 151 0 21 0;
 #X connect 151 1 43 0;
 #X coords 0 -1 1 1 320 200 1 0 0;
-#X restore 1462 -63 pd drum_gui;
+#X restore 1462 -85 pd drum_gui;
 #X connect 5 0 4 0;
-#X coords 0 840 1 839 1400 280 0;
+#X coords 0 818 1 817 1400 280 0;
 #X restore 634 -4 pd gui;
 #N canvas 1600 87 590 818 leadplayer 0;
 #X obj 184 21 inlet;
@@ -1499,9 +1522,9 @@ block chord to be played on that beat. That's actually quite important.
 #X restore 415 -27 graph;
 #N canvas 0 50 450 278 (subpatch) 0;
 #X array arp2chordtones 48 float 3;
-#A 0 28 31 35 38 42 45 49 52 55 59 62 66 69 73 76 79 83 86 90 93 97
-100 103 107 110 114 117 121 124 127 131 134 138 141 145 148 151 155
-158 162 165 169 172 175 179 182 186 28;
+#A 0 26 30 33 37 40 43 47 50 54 57 61 64 67 71 74 78 81 85 88 91 95
+98 102 105 109 112 115 119 122 126 129 133 136 139 143 146 150 153
+157 160 163 167 170 174 177 181 184 26;
 #X coords 0 0 47 200 200 140 1 0 0;
 #X restore 198 143 graph;
 #N canvas 0 50 450 278 (subpatch) 0;
@@ -1513,23 +1536,23 @@ block chord to be played on that beat. That's actually quite important.
 #X restore -20 319 graph;
 #N canvas 0 50 450 278 (subpatch) 0;
 #X array arp3chordtones 48 float 3;
-#A 0 28 31 35 38 42 45 49 52 55 59 62 66 69 73 76 79 83 86 90 93 97
-100 103 107 110 114 117 121 124 127 131 134 138 141 145 148 151 155
-158 162 165 169 172 175 179 182 186 28;
+#A 0 26 30 33 37 40 43 47 50 54 57 61 64 67 71 74 78 81 85 88 91 95
+98 102 105 109 112 115 119 122 126 129 133 136 139 143 146 150 153
+157 160 163 167 170 174 177 181 184 26;
 #X coords 0 0 47 200 200 140 1 0 0;
 #X restore 193 325 graph;
 #N canvas 0 50 450 278 (subpatch) 0;
 #X array arp4chordtones 48 float 3;
-#A 0 28 31 35 38 42 45 49 52 55 59 62 66 69 73 76 79 83 86 90 93 97
-100 103 107 110 114 117 121 124 127 131 134 138 141 145 148 151 155
-158 162 165 169 172 175 179 182 186 28;
+#A 0 26 30 33 37 40 43 47 50 54 57 61 64 67 71 74 78 81 85 88 91 95
+98 102 105 109 112 115 119 122 126 129 133 136 139 143 146 150 153
+157 160 163 167 170 174 177 181 184 26;
 #X coords 0 0 47 200 200 140 1 0 0;
 #X restore 192 504 graph;
 #N canvas 0 50 450 278 (subpatch) 0;
 #X array arp1chordtones 48 float 3;
-#A 0 28 31 35 38 42 45 49 52 55 59 62 66 69 73 76 79 83 86 90 93 97
-100 103 107 110 114 117 121 124 127 131 134 138 141 145 148 151 155
-158 162 165 169 172 175 179 182 186 28;
+#A 0 26 30 33 37 40 43 47 50 54 57 61 64 67 71 74 78 81 85 88 91 95
+98 102 105 109 112 115 119 122 126 129 133 136 139 143 146 150 153
+157 160 163 167 170 174 177 181 184 26;
 #X coords 0 0 47 200 200 140 1 0 0;
 #X restore 197 -29 graph;
 #X restore 79 254 pd scale_chord_arrays;
@@ -1816,7 +1839,7 @@ particular chords in that key:;
 #X obj 292 263 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X obj 258 203 tgl 15 0 empty metro_on empty 17 7 0 10 -262144 -1 -1
-0 1;
+1 1;
 #X obj 288 148 expr 60000/$f1/$f2;
 #X obj 320 82 int;
 #X floatatom 370 115 5 0 0 0 - - -, f 5;
@@ -2174,12 +2197,12 @@ and pulse values \; also changes number of bars;
 #X msg 35 430 \; recordL resize \$1;
 #X msg 176 432 \; recordR resize \$1;
 #N canvas 0 98 450 300 (subpatch) 0;
-#X array recordL 94500 float 2;
-#X coords 0 1 94500 -1 200 140 1 0 0;
+#X array recordL 189000 float 2;
+#X coords 0 1 189000 -1 200 140 1 0 0;
 #X restore 460 565 graph;
 #N canvas 1 90 450 300 (subpatch) 0;
-#X array recordR 94500 float 2;
-#X coords 0 1 94500 -1 200 140 1 0 0;
+#X array recordR 189000 float 2;
+#X coords 0 1 189000 -1 200 140 1 0 0;
 #X restore 683 563 graph;
 #X connect 1 0 0 0;
 #X connect 2 0 3 0;
