@@ -1,6 +1,6 @@
-#N canvas 1742 117 1507 888 12;
+#N canvas 1461 134 1507 888 12;
 #X msg 84 20 \; scale_struct 0 2 2 1 2 2 2 1;
-#X floatatom 983 172 5 0 0 0 - - -, f 5;
+#X floatatom 988 65 5 0 0 0 - - -, f 5;
 #N canvas 172 262 1155 818 chordtone_calc 0;
 #X obj 117 440 int;
 #X obj 177 436 + 2;
@@ -60,13 +60,13 @@
 #X connect 24 0 21 0;
 #X connect 25 0 21 0;
 #X connect 25 0 27 0;
-#X restore 257 175 pd chordtone_calc;
-#N canvas 473 217 611 683 scalewriter 0;
+#X restore 441 176 pd chordtone_calc;
+#N canvas 1444 293 633 735 scalewriter 1;
 #X floatatom 241 102 5 0 0 0 - - -, f 5;
 #X text 277 101 MIDI note of key root;
 #X msg 295 32 24;
 #X text 331 32 C;
-#X msg 388 141 0;
+#X msg 429 141 0;
 #X msg 233 38 50;
 #X obj 293 326 + 1;
 #X obj 191 222 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
@@ -90,7 +90,7 @@
 #X obj 290 263 until;
 #X obj 343 262 select 96;
 #X obj 174 63 r key;
-#X obj 418 106 loadbang;
+#X obj 456 108 loadbang;
 #X obj 219 381 t float float;
 #X msg 294 63 28;
 #X text 329 64 E;
@@ -127,134 +127,115 @@
 #X connect 28 1 14 0;
 #X connect 29 0 0 0;
 #X restore 82 94 pd scalewriter;
-#X obj 967 331 spigot;
-#X obj 1015 308 tgl 15 0 empty leadplayer_on empty 17 7 0 10 -262144
+#X obj 892 225 spigot;
+#X obj 943 202 tgl 15 0 empty leadplayer_on empty 17 7 0 10 -262144
+-1 -1 1 1;
+#X obj 1021 223 spigot;
+#X obj 1076 195 tgl 15 0 empty arpeggioplayer_on empty 17 7 0 10 -262144
 -1 -1 0 1;
-#X obj 1072 331 spigot;
-#X obj 1106 304 tgl 15 0 empty arpeggioplayer_on empty 17 7 0 10 -262144
--1 -1 0 1;
-#N canvas 275 282 1352 818 sequence_arrays 0;
+#N canvas 88 287 1352 818 sequence_arrays 1;
 #N canvas 2352 122 450 278 (subpatch) 0;
-#X array lead_sequence 64 float 3;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 64 47 200 140 1 0 0;
+#X array lead_sequence 16 float 3;
+#A 0 22 23 24 23 26 23 23 22 24 26 26 27 25 25 23 23;
+#X coords 0 0 16 47 200 140 1 0 0;
 #X restore 16 33 graph;
 #N canvas 624 148 450 278 (subpatch) 0;
-#X array lead_sequence_2 64 float 3;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 64 47 200 140 1 0 0;
+#X array lead_sequence_2 16 float 3;
+#A 0 15 16 17 19 15 16 17 19 21 17 17 19 21 20 18 19;
+#X coords 0 0 16 47 200 140 1 0 0;
 #X restore 14 202 graph;
 #N canvas 624 148 450 278 (subpatch) 0;
-#X array arpeggio_sequence_1 64 float 3;
-#A 0 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 64 100 200 140 1 0 0;
+#X array arpeggio_sequence_1 16 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 0 16 100 200 140 1 0 0;
 #X restore 220 35 graph;
 #N canvas 624 148 450 278 (subpatch) 0;
-#X array arpeggio_sequence_2 64 float 3;
-#A 0 2 2 2 4 2 2 2 4 1 2 3 4 1 2 3 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 64 100 200 140 1 0 0;
+#X array arpeggio_sequence_2 16 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 0 16 100 200 140 1 0 0;
 #X restore 221 202 graph;
 #N canvas 624 148 450 278 (subpatch) 0;
-#X array arpeggio_sequence_4 64 float 3;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 64 100 200 140 1 0 0;
+#X array arpeggio_sequence_4 16 float 3;
+#A 0 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4;
+#X coords 0 0 16 100 200 140 1 0 0;
 #X restore 223 529 graph;
 #N canvas 624 148 450 278 (subpatch) 0;
-#X array arpeggio_sequence_3 64 float 3;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 64 100 200 140 1 0 0;
+#X array arpeggio_sequence_3 16 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 0 16 100 200 140 1 0 0;
 #X restore 224 372 graph;
 #N canvas 1793 230 450 278 (subpatch) 0;
-#X array arpseq2_8ve_seq 64 float 3;
-#A 0 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 64 100 200 140 1 0 0;
+#X array arpseq2_8ve_seq 16 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 0 16 100 200 140 1 0 0;
 #X restore 431 202 graph;
 #N canvas 1793 230 450 278 (subpatch) 0;
-#X array arpseq3_8ve_seq 64 float 3;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 64 100 200 140 1 0 0;
+#X array arpseq3_8ve_seq 16 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 0 16 100 200 140 1 0 0;
 #X restore 433 372 graph;
 #N canvas 1793 230 450 278 (subpatch) 0;
-#X array arpseq4_8ve_seq 64 float 3;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 64 100 200 140 1 0 0;
+#X array arpseq4_8ve_seq 16 float 3;
+#A 0 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3;
+#X coords 0 0 16 100 200 140 1 0 0;
 #X restore 434 531 graph;
 #N canvas 1793 230 450 278 (subpatch) 0;
-#X array arpseq1_8ve_seq 64 float 3;
-#A 0 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 64 100 200 140 1 0 0;
+#X array arpseq1_8ve_seq 16 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 0 16 100 200 140 1 0 0;
 #X restore 428 36 graph;
 #N canvas 624 148 450 278 (subpatch) 0;
-#X array chord7thmodified_sequence 64 float 3;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 0 -1 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-;
-#X coords 0 -3 64 3 200 140 1 0 0;
+#X array chord7thmodified_sequence 16 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 -3 16 3 200 140 1 0 0;
 #X restore 645 372 graph;
 #N canvas 1793 230 450 278 (subpatch) 0;
-#X array blockchord_8ve_sequence 64 float 3;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 64 100 200 140 1 0 0;
+#X array blockchord_8ve_sequence 16 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 0 16 100 200 140 1 0 0;
 #X restore 656 573 graph;
 #N canvas 2352 122 450 278 (subpatch) 0;
-#X array dr1_sequence 64 float 3;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 64 47 200 140 1 0 0;
+#X array dr1_sequence 16 float 3;
+#A 0 1 0 0 0 1 0 0 0 1 0 0 0 1 0 0 0;
+#X coords 0 0 16 47 200 140 1 0 0;
 #X restore 1062 41 graph;
 #N canvas 624 148 450 278 (subpatch) 0;
-#X array dr2_sequence 64 float 3;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 64 47 200 140 1 0 0;
+#X array dr2_sequence 16 float 3;
+#A 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 1;
+#X coords 0 0 16 47 200 140 1 0 0;
 #X restore 1062 202 graph;
 #N canvas 2352 122 450 278 (subpatch) 0;
-#X array dr3_sequence 64 float 3;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 64 47 200 140 1 0 0;
+#X array dr3_sequence 16 float 3;
+#A 0 0 1 0 1 0 1 0 0 0 0 1 1 0 0 1 0;
+#X coords 0 0 16 47 200 140 1 0 0;
 #X restore 1062 363 graph;
 #N canvas 624 148 450 278 (subpatch) 0;
-#X array dr4_sequence 64 float 3;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 64 47 200 140 1 0 0;
+#X array dr4_sequence 16 float 3;
+#A 0 0 0 1 0 0 0 1 0 0 0 0 0 0 0 1 0;
+#X coords 0 0 16 47 200 140 1 0 0;
 #X restore 1062 524 graph;
 #X text 727 539 Unused...;
 #N canvas 624 148 450 278 (subpatch) 0;
-#X array chord3rdmodified_sequence 64 float 3;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 -3 64 3 200 140 1 0 0;
+#X array chord3rdmodified_sequence 16 float 3;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 -3 16 3 200 140 1 0 0;
 #X restore 643 202 graph;
 #N canvas 624 148 450 278 (subpatch) 0;
-#X array chordroot_sequence 64 float 3;
-#A 0 1 0 0 0 4 0 0 0 5 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 0 64 100 200 140 1 0 0;
+#X array chordroot_sequence 16 float 3;
+#A 0 1 0 0 0 2 0 0 0 3 0 0 0 4 0 0 0;
+#X coords 0 0 16 100 200 140 1 0 0;
 #X restore 639 39 graph;
-#X restore 79 318 pd sequence_arrays;
-#N canvas 1451 115 1028 818 gui 1;
-#N canvas 523 262 800 818 lead_gui 0;
+#X restore 67 315 pd sequence_arrays;
+#N canvas 1489 88 1422 818 gui 1;
+#N canvas 2310 109 800 840 lead_gui 0;
 #X obj 29 163 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144 -1
 -1 0;
 #X obj 49 163 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144 -1
--1 0;
+-1 1;
 #X obj 71 164 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144 -1
--1 0;
+-1 2;
 #X obj 94 164 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144 -1
--1 0;
+-1 1;
 #X obj 26 386 t f b;
 #X obj 39 357 t f b;
 #X msg 73 501 0;
@@ -264,11 +245,11 @@
 #X msg 88 372 2;
 #X msg 95 344 3;
 #X obj 131 163 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 4;
 #X obj 151 165 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 1;
 #X obj 172 164 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 1;
 #X obj 191 164 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
 -1 -1 0;
 #X obj 131 387 t f b;
@@ -276,25 +257,25 @@
 #X obj 160 339 t f b;
 #X obj 179 313 t f b;
 #X obj 221 165 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 2;
 #X obj 241 165 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 4;
 #X obj 262 166 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 4;
 #X obj 284 167 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 5;
 #X obj 253 389 t f b;
 #X obj 271 362 t f b;
 #X obj 282 341 t f b;
 #X obj 298 320 t f b;
 #X obj 313 169 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 3;
 #X obj 333 169 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 3;
 #X obj 354 170 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 1;
 #X obj 404 156 vradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 3;
 #X obj 364 397 t f b;
 #X obj 384 370 t f b;
 #X obj 405 346 t f b;
@@ -312,44 +293,31 @@
 #X msg 437 371 14;
 #X msg 458 344 15;
 #X obj 376 171 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 1;
 #X obj 150 570 +;
 #X text 361 131 8ve adjust;
 #X obj 49 736 tabwrite lead_sequence;
-#X obj 50 708 spigot;
-#X obj 83 673 tgl 15 0 empty write_lead1 empty 17 7 0 10 -262144 -1
--1 0 1;
-#X obj 242 572 t f;
-#X obj 228 704 spigot;
-#X obj 261 670 tgl 15 0 empty write_lead2 empty 17 7 0 10 -262144 -1
--1 0 1;
-#X obj 228 736 tabwrite lead_sequence_2;
-#X obj 34 108 tgl 15 0 write_lead2 empty empty 17 7 0 10 -262144 -1
--1 0 1;
-#X obj 34 74 tgl 15 0 write_lead1 empty empty 17 7 0 10 -262144 -1
--1 0 1;
-#X text 51 75 write lead seq 1;
-#X text 54 108 write lead seq 2;
+#X obj 249 549 t f;
 #X msg 365 100 0;
 #X obj 359 68 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X text 375 67 reset;
 #X obj 19 23 tgl 15 0 leadplayer_on empty empty 17 7 0 10 -262144 -1
--1 0 1;
+-1 1 1;
 #X text 37 24 Lead player;
 #X obj 186 26 hradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144 -1
--1 0;
+-1 4;
 #X obj 185 88 s lead_sample_number;
 #X obj 186 55 + 1;
 #X obj 29 143 bng 15 250 50 0 empty empty empty 17 7 0 10 -257985 -1
 -1;
-#X obj 23 480 t f b;
+#X obj 14 479 t f b;
 #X msg 15 453 0;
 #X obj 132 666 + 1;
 #X obj 412 288 * 7, f 4;
-#X obj 309 617 +;
-#X floatatom 366 659 5 0 0 0 - - -, f 5;
-#X obj 422 569 r edit_start_pulse;
+#X obj 230 633 +;
+#X floatatom 287 675 5 0 0 0 - - -, f 5;
+#X obj 343 585 r edit_start_pulse;
 #X connect 0 0 4 0;
 #X connect 1 0 5 0;
 #X connect 2 0 8 0;
@@ -358,14 +326,14 @@
 #X connect 4 1 6 0;
 #X connect 5 0 49 0;
 #X connect 5 1 7 0;
-#X connect 6 0 54 0;
-#X connect 7 0 54 0;
+#X connect 6 0 52 0;
+#X connect 7 0 52 0;
 #X connect 8 0 49 0;
 #X connect 8 1 10 0;
 #X connect 9 0 49 0;
 #X connect 9 1 11 0;
-#X connect 10 0 54 0;
-#X connect 11 0 54 0;
+#X connect 10 0 52 0;
+#X connect 11 0 52 0;
 #X connect 12 0 16 0;
 #X connect 13 0 17 0;
 #X connect 14 0 18 0;
@@ -393,7 +361,7 @@
 #X connect 28 0 32 0;
 #X connect 29 0 33 0;
 #X connect 30 0 34 0;
-#X connect 31 0 74 0;
+#X connect 31 0 65 0;
 #X connect 32 0 49 0;
 #X connect 32 1 44 0;
 #X connect 33 0 49 0;
@@ -402,58 +370,52 @@
 #X connect 34 1 46 0;
 #X connect 35 0 49 0;
 #X connect 35 1 47 0;
-#X connect 36 0 54 0;
-#X connect 37 0 54 0;
-#X connect 38 0 54 0;
-#X connect 39 0 54 0;
-#X connect 40 0 54 0;
-#X connect 41 0 54 0;
-#X connect 42 0 54 0;
-#X connect 43 0 54 0;
-#X connect 44 0 54 0;
-#X connect 45 0 54 0;
-#X connect 46 0 54 0;
-#X connect 47 0 54 0;
+#X connect 36 0 52 0;
+#X connect 37 0 52 0;
+#X connect 38 0 52 0;
+#X connect 39 0 52 0;
+#X connect 40 0 52 0;
+#X connect 41 0 52 0;
+#X connect 42 0 52 0;
+#X connect 43 0 52 0;
+#X connect 44 0 52 0;
+#X connect 45 0 52 0;
+#X connect 46 0 52 0;
+#X connect 47 0 52 0;
 #X connect 48 0 35 0;
-#X connect 49 0 73 0;
-#X connect 52 0 51 0;
-#X connect 53 0 52 1;
-#X connect 54 0 75 0;
-#X connect 55 0 57 0;
-#X connect 56 0 55 1;
-#X connect 62 0 48 0;
-#X connect 62 0 30 0;
-#X connect 62 0 29 0;
-#X connect 62 0 28 0;
-#X connect 62 0 23 0;
-#X connect 62 0 22 0;
-#X connect 62 0 21 0;
-#X connect 62 0 20 0;
-#X connect 62 0 15 0;
-#X connect 62 0 14 0;
-#X connect 62 0 13 0;
-#X connect 62 0 12 0;
-#X connect 62 0 3 0;
-#X connect 62 0 2 0;
-#X connect 62 0 1 0;
-#X connect 62 0 0 0;
+#X connect 49 0 64 0;
+#X connect 52 0 66 0;
+#X connect 53 0 48 0;
+#X connect 53 0 30 0;
+#X connect 53 0 29 0;
+#X connect 53 0 28 0;
+#X connect 53 0 23 0;
+#X connect 53 0 22 0;
+#X connect 53 0 21 0;
+#X connect 53 0 20 0;
+#X connect 53 0 15 0;
+#X connect 53 0 14 0;
+#X connect 53 0 13 0;
+#X connect 53 0 12 0;
+#X connect 53 0 3 0;
+#X connect 53 0 2 0;
+#X connect 53 0 1 0;
+#X connect 53 0 0 0;
+#X connect 54 0 53 0;
+#X connect 58 0 60 0;
+#X connect 60 0 59 0;
+#X connect 61 0 63 0;
+#X connect 62 0 51 0;
+#X connect 62 1 6 0;
 #X connect 63 0 62 0;
-#X connect 67 0 69 0;
-#X connect 69 0 68 0;
-#X connect 70 0 72 0;
-#X connect 71 0 52 0;
-#X connect 71 1 6 0;
-#X connect 72 0 71 0;
-#X connect 73 0 52 0;
-#X connect 73 0 55 0;
-#X connect 74 0 49 1;
-#X connect 75 0 51 1;
-#X connect 75 0 57 1;
-#X connect 75 0 76 0;
-#X connect 77 0 75 1;
+#X connect 64 0 51 0;
+#X connect 65 0 49 1;
+#X connect 66 0 51 1;
+#X connect 66 0 67 0;
+#X connect 68 0 66 1;
 #X coords 0 -1 1 1 450 300 1 0 0;
-#X restore 3 -89 pd lead_gui;
-#N canvas 0 92 1425 818 main_control_gui 0;
+#X restore 22 -290 pd lead_gui;
+#N canvas 1768 123 1425 818 main_control_gui 0;
 #X floatatom 403 51 5 0 0 0 - - -, f 5;
 #X obj 587 290 r pulses_per_bar;
 #X floatatom 588 331 5 0 0 0 - - -, f 5;
@@ -510,23 +472,27 @@
 #X text 555 51 Bar:;
 #X text 546 76 Pulse:;
 #X obj 67 51 vsl 15 64 0 100 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 0 1;
+-1 -1 5200 1;
 #X floatatom 136 351 5 0 0 0 - - -, f 5;
 #X obj 204 401 s master_vol;
 #X text 33 77 Vol:;
 #X obj 768 47 vsl 15 64 0 120 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 0 1;
+-1 -1 5000 1;
 #X obj 770 141 s lead_vol;
-#X obj 823 45 vsl 15 64 0 120 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 0 1;
+#X obj 804 45 vsl 15 64 0 120 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 5300 1;
 #X obj 878 46 vsl 15 64 0 120 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 0 1;
-#X obj 826 179 s arp_vol;
-#X obj 880 217 s drum_vol;
+-1 -1 5700 1;
+#X obj 810 170 s arp_vol;
+#X obj 888 231 s drum_vol;
 #X text 696 22 Mixer:;
 #X text 764 24 Ld;
-#X text 816 25 Arp;
+#X text 797 25 Arp;
 #X text 873 24 Dr;
+#X obj 840 47 vsl 15 64 0 120 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 5000 1;
+#X text 835 25 Bass;
+#X obj 847 202 s bass_vol;
 #X connect 0 0 4 0;
 #X connect 1 0 2 0;
 #X connect 2 0 3 1;
@@ -552,19 +518,20 @@
 #X connect 57 0 58 0;
 #X connect 59 0 61 0;
 #X connect 60 0 62 0;
+#X connect 67 0 69 0;
 #X coords 0 -1 1 1 920 100 1 0 20;
-#X restore 2 -198 pd main_control_gui;
+#X restore 21 -399 pd main_control_gui;
 #N canvas 2193 82 847 818 arp_gui 0;
 #X obj 653 715 spigot;
 #X obj 658 755 tabwrite arpseq4_8ve_seq;
 #X obj 33 131 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144 -1
 -1 0;
 #X obj 53 131 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144 -1
--1 0;
+-1 1;
 #X obj 75 132 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144 -1
--1 0;
+-1 2;
 #X obj 98 132 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144 -1
--1 0;
+-1 3;
 #X obj 23 357 t f b;
 #X obj 41 330 t f b;
 #X msg 74 396 0;
@@ -576,11 +543,11 @@
 #X obj 126 131 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
 -1 -1 0;
 #X obj 146 132 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 1;
 #X obj 167 132 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 2;
 #X obj 187 131 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 3;
 #X obj 139 364 t f b;
 #X obj 157 337 t f b;
 #X obj 168 316 t f b;
@@ -588,11 +555,11 @@
 #X obj 217 132 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
 -1 -1 0;
 #X obj 237 132 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 1;
 #X obj 258 133 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 2;
 #X obj 280 133 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 3;
 #X obj 258 370 t f b;
 #X obj 264 341 t f b;
 #X obj 263 314 t f b;
@@ -600,11 +567,11 @@
 #X obj 311 133 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
 -1 -1 0;
 #X obj 331 132 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 1;
 #X obj 352 132 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 2;
 #X obj 422 115 vradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 3;
 #X obj 373 375 t f b;
 #X obj 377 343 t f b;
 #X obj 389 314 t f b;
@@ -622,7 +589,7 @@
 #X msg 438 331 14;
 #X msg 445 304 15;
 #X obj 374 132 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 3;
 #X obj 65 461 +;
 #X text 402 100 8ve adjust;
 #X obj 70 579 spigot;
@@ -663,7 +630,7 @@
 #X text 42 16 Arpeggio player;
 #X obj 566 43 + 1;
 #X obj 157 20 hradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144 -1
--1 0;
+-1 4;
 #X obj 565 81 s arpeggio_sample_number;
 #X obj 67 489 + 1;
 #X obj 225 612 tabwrite arpseq1_8ve_seq;
@@ -834,7 +801,7 @@
 #X connect 94 0 90 1;
 #X connect 94 0 1 1;
 #X coords 0 -1 1 1 480 300 1 0 0;
-#X restore 460 -89 pd arp_gui;
+#X restore 932 -289 pd arp_gui;
 #N canvas 1856 109 961 801 chordprog_gui 0;
 #X text 2 191 Chord;
 #X text 16 207 I;
@@ -845,13 +812,13 @@
 #X text 13 282 vi;
 #X text 13 299 vii;
 #X obj 74 195 vradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144 -1
--1 0;
+-1 1;
 #X obj 180 195 vradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 2;
 #X obj 271 196 vradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 3;
 #X obj 365 197 vradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144
--1 -1 0;
+-1 -1 4;
 #X msg 604 10 0;
 #X obj 474 151 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
@@ -981,7 +948,7 @@ block chord to be played on that beat. That's actually quite important.
 #X connect 61 1 23 0;
 #X connect 62 0 48 0;
 #X coords 0 -1 1 1 500 200 1 0 120;
-#X restore 4 219 pd chordprog_gui;
+#X restore 216 15 pd chordprog_gui;
 #N canvas 1663 82 1007 840 reset_arrays 0;
 #X obj 44 -29 inlet;
 #X msg 52 371 \; blockchord_8ve_sequence 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -1026,18 +993,18 @@ block chord to be played on that beat. That's actually quite important.
 #X connect 0 0 14 0;
 #X connect 0 0 15 0;
 #X connect 0 0 16 0;
-#X restore 1248 -160 pd reset_arrays;
-#X obj 1251 -190 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X restore 1267 -361 pd reset_arrays;
+#X obj 1270 -391 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X text 1084 -162 Get it all going!;
-#X msg 945 -204 \; density 4 \; num_beats 4 \; num_bars 4 \; tempo
+#X text 1103 -363 Get it all going!;
+#X msg 964 -405 \; density 4 \; num_beats 4 \; num_bars 4 \; tempo
 112 \; init_samples bang \; metro_on 1;
 #N canvas 0 93 1425 818 drum_gui 0;
 #X obj 7 20 tgl 15 0 drumplayer_on empty empty 17 7 0 10 -262144 -1
--1 0 1;
+-1 1 1;
 #X obj 25 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
 ;
-#X obj 6 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
+#X obj 6 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
 ;
 #X obj 44 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
 ;
@@ -1045,7 +1012,7 @@ block chord to be played on that beat. That's actually quite important.
 ;
 #X obj 100 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 81 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
+#X obj 81 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
 ;
 #X obj 120 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
@@ -1053,7 +1020,7 @@ block chord to be played on that beat. That's actually quite important.
 1;
 #X obj 176 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 157 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 157 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 195 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
@@ -1061,7 +1028,7 @@ block chord to be played on that beat. That's actually quite important.
 1;
 #X obj 251 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 232 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 232 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 270 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
@@ -1116,7 +1083,7 @@ block chord to be played on that beat. That's actually quite important.
 ;
 #X obj 100 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 81 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
+#X obj 81 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
 ;
 #X obj 118 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
@@ -1130,13 +1097,13 @@ block chord to be played on that beat. That's actually quite important.
 1;
 #X obj 211 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 251 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 251 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 232 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X obj 270 80 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 288 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 288 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 626 -607 t f f;
 #X obj 627 -581 t f f;
@@ -1154,35 +1121,35 @@ block chord to be played on that beat. That's actually quite important.
 #X obj 474 -586 t f f;
 #X obj 472 -560 t f f;
 #X obj 471 -534 t f f;
-#X obj 25 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 25 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 6 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
 ;
 #X obj 43 101 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 62 101 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 62 101 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
-#X obj 100 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 100 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 81 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X obj 138 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 119 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 119 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 176 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X obj 157 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 193 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 193 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
-#X obj 211 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 211 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 251 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X obj 232 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 288 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 288 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 268 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
@@ -1206,7 +1173,7 @@ block chord to be played on that beat. That's actually quite important.
 1;
 #X obj 6 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
 ;
-#X obj 44 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 44 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 63 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
@@ -1214,9 +1181,9 @@ block chord to be played on that beat. That's actually quite important.
 1;
 #X obj 81 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 119 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 119 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
-#X obj 137 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 137 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 176 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
@@ -1226,11 +1193,11 @@ block chord to be played on that beat. That's actually quite important.
 1;
 #X obj 213 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 251 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 251 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 232 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 268 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 268 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 288 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
@@ -1464,11 +1431,199 @@ block chord to be played on that beat. That's actually quite important.
 #X connect 151 0 21 0;
 #X connect 151 1 43 0;
 #X coords 0 -1 1 1 320 200 1 0 0;
-#X restore 510 220 pd drum_gui;
+#X restore 721 15 pd drum_gui;
+#N canvas 1494 120 809 837 bass_gui 0;
+#X obj 29 163 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144 -1
+-1 0;
+#X obj 49 163 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144 -1
+-1 1;
+#X obj 71 164 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144 -1
+-1 2;
+#X obj 94 164 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144 -1
+-1 4;
+#X obj 26 386 t f b;
+#X obj 39 357 t f b;
+#X msg 73 501 0;
+#X msg 75 398 1;
+#X obj 50 336 t f b;
+#X obj 66 315 t f b;
+#X msg 88 372 2;
+#X msg 95 344 3;
+#X obj 131 163 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
+-1 -1 0;
+#X obj 151 165 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
+-1 -1 1;
+#X obj 172 164 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
+-1 -1 2;
+#X obj 191 164 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
+-1 -1 4;
+#X obj 131 387 t f b;
+#X obj 149 360 t f b;
+#X obj 160 339 t f b;
+#X obj 179 313 t f b;
+#X obj 221 165 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
+-1 -1 6;
+#X obj 241 165 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
+-1 -1 2;
+#X obj 262 166 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
+-1 -1 2;
+#X obj 284 167 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
+-1 -1 4;
+#X obj 253 389 t f b;
+#X obj 271 362 t f b;
+#X obj 282 341 t f b;
+#X obj 298 320 t f b;
+#X obj 313 169 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
+-1 -1 6;
+#X obj 333 169 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
+-1 -1 5;
+#X obj 354 170 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
+-1 -1 3;
+#X obj 404 156 vradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144
+-1 -1 2;
+#X obj 364 397 t f b;
+#X obj 384 370 t f b;
+#X obj 405 346 t f b;
+#X obj 424 321 t f b;
+#X msg 172 427 4;
+#X msg 187 403 5;
+#X msg 198 376 6;
+#X msg 209 346 7;
+#X msg 296 430 8;
+#X msg 307 403 9;
+#X msg 320 377 10;
+#X msg 329 349 11;
+#X msg 400 423 12;
+#X msg 419 397 13;
+#X msg 437 371 14;
+#X msg 458 344 15;
+#X obj 376 171 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144
+-1 -1 4;
+#X obj 150 570 +;
+#X text 361 131 8ve adjust;
+#X obj 242 572 t f;
+#X obj 132 746 tabwrite lead_sequence_2;
+#X msg 365 100 0;
+#X obj 359 68 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X text 375 67 reset;
+#X obj 19 23 tgl 15 0 bassplayer_on empty empty 17 7 0 10 -262144 -1
+-1 1 1;
+#X obj 186 26 hradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144 -1
+-1 3;
+#X obj 185 88 s lead_sample_number;
+#X obj 186 55 + 1;
+#X obj 29 143 bng 15 250 50 0 empty empty empty 17 7 0 10 -257985 -1
+-1;
+#X obj 23 480 t f b;
+#X msg 15 453 0;
+#X obj 215 653 + 1;
+#X obj 412 288 * 7, f 4;
+#X obj 309 617 +;
+#X floatatom 366 659 5 0 0 0 - - -, f 5;
+#X obj 422 569 r edit_start_pulse;
+#X text 37 24 Bass player;
+#X connect 0 0 4 0;
+#X connect 1 0 5 0;
+#X connect 2 0 8 0;
+#X connect 3 0 9 0;
+#X connect 4 0 49 0;
+#X connect 4 1 6 0;
+#X connect 5 0 49 0;
+#X connect 5 1 7 0;
+#X connect 6 0 51 0;
+#X connect 7 0 51 0;
+#X connect 8 0 49 0;
+#X connect 8 1 10 0;
+#X connect 9 0 49 0;
+#X connect 9 1 11 0;
+#X connect 10 0 51 0;
+#X connect 11 0 51 0;
+#X connect 12 0 16 0;
+#X connect 13 0 17 0;
+#X connect 14 0 18 0;
+#X connect 15 0 19 0;
+#X connect 16 0 49 0;
+#X connect 16 1 36 0;
+#X connect 17 0 49 0;
+#X connect 17 1 37 0;
+#X connect 18 0 49 0;
+#X connect 18 1 38 0;
+#X connect 19 0 49 0;
+#X connect 19 1 39 0;
+#X connect 20 0 24 0;
+#X connect 21 0 25 0;
+#X connect 22 0 26 0;
+#X connect 23 0 27 0;
+#X connect 24 0 49 0;
+#X connect 24 1 40 0;
+#X connect 25 0 49 0;
+#X connect 25 1 41 0;
+#X connect 26 0 49 0;
+#X connect 26 1 42 0;
+#X connect 27 0 49 0;
+#X connect 27 1 43 0;
+#X connect 28 0 32 0;
+#X connect 29 0 33 0;
+#X connect 30 0 34 0;
+#X connect 31 0 64 0;
+#X connect 32 0 49 0;
+#X connect 32 1 44 0;
+#X connect 33 0 49 0;
+#X connect 33 1 45 0;
+#X connect 34 0 49 0;
+#X connect 34 1 46 0;
+#X connect 35 0 49 0;
+#X connect 35 1 47 0;
+#X connect 36 0 51 0;
+#X connect 37 0 51 0;
+#X connect 38 0 51 0;
+#X connect 39 0 51 0;
+#X connect 40 0 51 0;
+#X connect 41 0 51 0;
+#X connect 42 0 51 0;
+#X connect 43 0 51 0;
+#X connect 44 0 51 0;
+#X connect 45 0 51 0;
+#X connect 46 0 51 0;
+#X connect 47 0 51 0;
+#X connect 48 0 35 0;
+#X connect 49 0 63 0;
+#X connect 51 0 65 0;
+#X connect 53 0 48 0;
+#X connect 53 0 30 0;
+#X connect 53 0 29 0;
+#X connect 53 0 28 0;
+#X connect 53 0 23 0;
+#X connect 53 0 22 0;
+#X connect 53 0 21 0;
+#X connect 53 0 20 0;
+#X connect 53 0 15 0;
+#X connect 53 0 14 0;
+#X connect 53 0 13 0;
+#X connect 53 0 12 0;
+#X connect 53 0 3 0;
+#X connect 53 0 2 0;
+#X connect 53 0 1 0;
+#X connect 53 0 0 0;
+#X connect 54 0 53 0;
+#X connect 57 0 59 0;
+#X connect 59 0 58 0;
+#X connect 60 0 62 0;
+#X connect 61 0 52 0;
+#X connect 61 1 6 0;
+#X connect 62 0 61 0;
+#X connect 63 0 52 0;
+#X connect 64 0 49 1;
+#X connect 65 0 52 1;
+#X connect 65 0 66 0;
+#X connect 67 0 65 1;
+#X coords 0 -1 1 1 450 300 1 0 0;
+#X restore 477 -290 pd bass_gui;
 #X connect 5 0 4 0;
 #X coords 0 818 1 817 1400 280 0;
 #X restore 634 -4 pd gui;
-#N canvas 71 102 1242 798 leadplayer 0;
+#N canvas 2397 87 960 998 leadplayer 1;
 #X obj 184 21 inlet;
 #X obj 34 101 tabread lead_sequence;
 #X floatatom 86 536 5 0 0 0 - - -, f 5;
@@ -1499,21 +1654,24 @@ block chord to be played on that beat. That's actually quite important.
 #X floatatom 451 86 5 0 0 0 - - -, f 5;
 #X obj 89 147 t f b;
 #X obj 123 189 f 60;
-#X obj 425 222 spigot;
-#X obj 472 182 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 569 224 spigot;
+#X obj 629 181 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 426 268 tabread chordroot_sequence;
-#X obj 377 361 - 1;
+#X obj 583 267 tabread chordroot_sequence;
+#X obj 534 360 - 1;
 #X obj 91 458 +;
-#X floatatom 384 418 5 0 0 0 - - -, f 5;
-#X obj 394 311 moses 1;
+#X floatatom 541 417 5 0 0 0 - - -, f 5;
+#X obj 551 310 moses 1;
 #X obj 119 55 t f f;
 #X obj 300 50 t f f;
-#X obj 512 225 spigot;
-#X obj 559 185 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 669 224 spigot;
+#X obj 716 184 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
+#X text 527 133 Check these to get the lines to follow chord changes
+\, so that if the array has scale tones 1 \, 2 \, 3 \; then against
+chord transpose those to 2 \, 3 \, 4;
+#X text 560 102 Lead follows chord changes:;
 #X connect 0 0 37 0;
-#X connect 0 0 38 0;
 #X connect 1 0 28 0;
 #X connect 2 0 21 0;
 #X connect 3 0 6 0;
@@ -1530,9 +1688,7 @@ block chord to be played on that beat. That's actually quite important.
 #X connect 21 0 3 0;
 #X connect 22 0 24 0;
 #X connect 23 0 16 0;
-#X connect 24 0 4 0;
 #X connect 24 1 25 0;
-#X connect 25 0 15 0;
 #X connect 26 0 27 0;
 #X connect 27 0 25 1;
 #X connect 27 0 29 1;
@@ -1547,13 +1703,11 @@ block chord to be played on that beat. That's actually quite important.
 #X connect 34 0 5 0;
 #X connect 36 1 33 0;
 #X connect 37 0 1 0;
-#X connect 37 1 30 0;
 #X connect 38 0 22 0;
-#X connect 38 1 39 0;
 #X connect 39 0 32 0;
 #X connect 40 0 39 1;
-#X restore 936 375 pd leadplayer;
-#X obj 1052 415 main_sample_synth;
+#X restore 853 264 pd leadplayer;
+#X obj 1013 323 main_sample_synth;
 #N canvas 640 262 800 818 scale_chord_arrays 1;
 #N canvas 65 402 450 300 (subpatch) 0;
 #X array scale 96 float 3;
@@ -1579,9 +1733,9 @@ block chord to be played on that beat. That's actually quite important.
 #X restore 415 -27 graph;
 #N canvas 0 50 450 278 (subpatch) 0;
 #X array arp2chordtones 48 float 3;
-#A 0 72 76 79 83 86 89 93 96 100 103 107 110 113 117 120 124 127 131
-134 137 141 144 148 151 155 158 161 165 168 172 175 179 182 185 189
-189 189 189 189 189 189 189 189 189 189 189 189 72;
+#A 0 33 36 40 43 47 50 53 57 60 64 67 71 74 77 81 84 88 91 95 98 101
+105 108 112 115 119 122 125 129 132 136 139 143 146 149 153 156 160
+163 167 170 173 177 180 184 189 189 33;
 #X coords 0 0 47 200 200 140 1 0 0;
 #X restore 198 143 graph;
 #N canvas 0 50 450 278 (subpatch) 0;
@@ -1593,34 +1747,33 @@ block chord to be played on that beat. That's actually quite important.
 #X restore -20 319 graph;
 #N canvas 0 50 450 278 (subpatch) 0;
 #X array arp3chordtones 48 float 3;
-#A 0 29 33 36 40 43 47 50 53 57 60 64 67 71 74 77 81 84 88 91 95 98
-101 105 108 112 115 119 122 125 129 132 136 139 143 146 149 153 156
-160 163 167 170 173 177 180 184 189 29;
+#A 0 33 36 40 43 47 50 53 57 60 64 67 71 74 77 81 84 88 91 95 98 101
+105 108 112 115 119 122 125 129 132 136 139 143 146 149 153 156 160
+163 167 170 173 177 180 184 189 189 33;
 #X coords 0 0 47 200 200 140 1 0 0;
 #X restore 193 325 graph;
 #N canvas 0 50 450 278 (subpatch) 0;
 #X array arp4chordtones 48 float 3;
-#A 0 29 33 36 40 43 47 50 53 57 60 64 67 71 74 77 81 84 88 91 95 98
-101 105 108 112 115 119 122 125 129 132 136 139 143 146 149 153 156
-160 163 167 170 173 177 180 184 189 29;
+#A 0 69 72 76 79 83 86 89 93 96 100 103 107 110 113 117 120 124 127
+131 134 137 141 144 148 151 155 158 161 165 168 172 175 179 182 185
+189 189 189 189 189 189 189 189 189 189 189 189 69;
 #X coords 0 0 47 200 200 140 1 0 0;
 #X restore 192 504 graph;
 #N canvas 0 50 450 278 (subpatch) 0;
 #X array arp1chordtones 48 float 3;
-#A 0 60 64 67 71 74 77 81 84 88 91 95 98 101 105 108 112 115 119 122
-125 129 132 136 139 143 146 149 153 156 160 163 167 170 173 177 180
-184 189 189 189 189 189 189 189 189 189 189 60;
+#A 0 33 36 40 43 47 50 53 57 60 64 67 71 74 77 81 84 88 91 95 98 101
+105 108 112 115 119 122 125 129 132 136 139 143 146 149 153 156 160
+163 167 170 173 177 180 184 189 189 33;
 #X coords 0 0 47 200 200 140 1 0 0;
 #X restore 197 -29 graph;
-#X restore 79 254 pd scale_chord_arrays;
-#X obj 1057 516 dac~;
-#X obj 1031 455 catch~ sigL;
-#X obj 1155 456 catch~ sigR;
-#X obj 1097 517 output~;
+#X restore 69 258 pd scale_chord_arrays;
+#X obj 1050 400 catch~ sigL;
+#X obj 1174 401 catch~ sigR;
+#X obj 1105 487 output~;
 #X text 44 -10 Semitone intervals of scale;
 #X text 43 67 Which is used to write a scale from a particular tonic:
 ;
-#N canvas 1597 82 1712 960 arpeggioplayer 0;
+#N canvas 1594 87 1712 960 arpeggioplayer 1;
 #X obj 55 8 inlet;
 #X obj 56 766 s note 60 90 150 2 0;
 #X floatatom 226 603 5 0 0 0 - - -, f 5;
@@ -1743,6 +1896,8 @@ to adjust for chordtone rep \, where root is at index 0 \, 3rd at 1
 #X connect 28 1 26 0;
 #X connect 33 0 34 0;
 #X connect 34 0 32 0;
+#X connect 35 0 67 0;
+#X connect 35 1 55 0;
 #X connect 35 2 73 0;
 #X connect 35 3 72 0;
 #X connect 35 4 24 0;
@@ -1804,8 +1959,8 @@ to adjust for chordtone rep \, where root is at index 0 \, 3rd at 1
 #X connect 88 0 92 0;
 #X connect 90 0 88 0;
 #X connect 93 0 90 0;
-#X restore 1046 376 pd arpeggioplayer;
-#N canvas 2077 87 960 818 blockchordplayer 0;
+#X restore 964 264 pd arpeggioplayer;
+#N canvas 2074 92 1220 902 blockchordplayer 0;
 #X obj 92 25 inlet;
 #X floatatom 185 466 5 0 0 0 - - -, f 5;
 #X obj 338 464 moses 0;
@@ -1899,10 +2054,10 @@ to adjust for chordtone rep \, where root is at index 0 \, 3rd at 1
 #X connect 49 0 1 0;
 #X connect 50 0 39 0;
 #X connect 50 0 1 0;
-#X restore 1277 252 pd blockchordplayer;
-#X obj 1278 212 spigot;
-#X obj 1314 183 tgl 15 0 empty blockchordplayer_on empty 17 7 0 10
--262144 -1 -1 0 1;
+#X restore 236 761 pd blockchordplayer;
+#X obj 237 721 spigot;
+#X obj 273 692 tgl 15 0 empty blockchordplayer_on empty 17 7 0 10 -262144
+-1 -1 0 1;
 #X text 52 132 Which results in the appropriate arrays being written
 for scales and chord tones;
 #X text 41 210 And that is used to fill an array with chord tones for
@@ -1971,8 +2126,7 @@ particular chords in that key:;
 #X connect 25 1 23 1;
 #X connect 26 0 12 1;
 #X connect 26 0 28 0;
-#X restore 969 139 pd main_pulse;
-#X obj 1047 244 t f f f;
+#X restore 974 32 pd main_pulse;
 #N canvas 167 262 626 818 blockchordtone_calc 0;
 #X obj 119 424 int;
 #X obj 179 420 + 2;
@@ -2031,8 +2185,8 @@ particular chords in that key:;
 #X connect 22 0 20 0;
 #X connect 23 0 20 0;
 #X connect 24 0 20 0;
-#X restore 82 175 pd blockchordtone_calc;
-#N canvas 340 299 567 533 chordprog 0;
+#X restore 266 176 pd blockchordtone_calc;
+#N canvas 337 304 567 533 chordprog 0;
 #X obj 92 25 inlet;
 #X obj 92 77 tabread chordroot_sequence;
 #X obj 127 217 s chord;
@@ -2047,8 +2201,8 @@ particular chords in that key:;
 #X connect 3 0 4 0;
 #X connect 3 1 2 0;
 #X connect 6 1 3 0;
-#X restore 1142 274 pd chordprog;
-#N canvas 1597 82 1440 846 arpchordtone_calc 0;
+#X restore 127 721 pd chordprog;
+#N canvas 0 234 1440 846 arpchordtone_calc 1;
 #X obj 118 452 int;
 #X obj 178 452 + 2;
 #X floatatom 96 498 5 0 0 0 - - -, f 5;
@@ -2117,44 +2271,36 @@ particular chords in that key:;
 #X text 954 162 Chord modifier;
 #X text 1172 547 chordtone to modify;
 #X text 1140 612 amount to modify by;
-#X obj 674 600 spigot;
-#X obj 712 575 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
-1;
 #X obj 679 512 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X obj 592 515 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X text 647 600 b7;
-#X obj 689 654 s chordtone_to_modify;
-#X obj 669 713 s modify_chordtone_by;
-#X msg 689 628 3;
-#X msg 669 687 -1;
+#X obj 716 815 s chordtone_to_modify;
+#X obj 696 874 s modify_chordtone_by;
+#X msg 716 789 3;
+#X msg 696 848 -1;
 #X obj 1171 465 r chordtone_to_modify;
 #X obj 1168 589 r modify_chordtone_by;
-#X obj 440 587 spigot;
-#X obj 478 562 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
-1;
-#X obj 348 771 s chordtone_to_modify;
-#X obj 514 776 s modify_chordtone_by;
-#X text 443 560 #3;
-#X msg 348 745 1;
+#X obj 368 903 s chordtone_to_modify;
+#X obj 538 905 s modify_chordtone_by;
+#X msg 371 845 1;
 #X obj 617 477 t b b b;
-#X obj 498 688 r modify3rd;
-#X obj 519 742 f;
-#X floatatom 556 726 5 0 0 0 - - -, f 5;
+#X obj 522 817 r modify3rd;
+#X obj 543 871 f;
+#X floatatom 580 855 5 0 0 0 - - -, f 5;
 #X floatatom 1153 639 5 0 0 0 - - -, f 5;
 #X obj 1061 259 select 48;
 #X obj 610 425 select 48;
 #X obj 927 242 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X floatatom 1244 523 5 0 0 0 - - -, f 5;
-#X msg 413 675 0;
+#X msg 437 804 0;
 #X floatatom 1102 403 5 0 0 0 - - -, f 5;
 #X floatatom 1112 499 5 0 0 0 - - -, f 5;
 #X floatatom 1182 764 5 0 0 0 - - -, f 5;
 #X floatatom 1176 570 5 0 0 0 - - -, f 5;
 #X obj 1100 533 select 1;
-#X msg 450 642 1;
+#X msg 474 771 1;
 #X obj 1120 566 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X msg 1026 685 0;
@@ -2174,7 +2320,7 @@ particular chords in that key:;
 #X connect 6 0 10 0;
 #X connect 6 0 26 1;
 #X connect 7 0 6 1;
-#X connect 7 0 84 0;
+#X connect 7 0 78 0;
 #X connect 8 0 6 1;
 #X connect 8 0 3 0;
 #X connect 9 0 0 0;
@@ -2209,57 +2355,53 @@ particular chords in that key:;
 #X connect 43 0 46 0;
 #X connect 43 0 47 0;
 #X connect 43 0 44 0;
-#X connect 43 0 95 0;
+#X connect 43 0 89 0;
 #X connect 48 0 49 0;
 #X connect 49 0 42 0;
 #X connect 49 1 44 1;
 #X connect 49 1 50 0;
-#X connect 49 1 88 0;
-#X connect 50 0 89 0;
-#X connect 50 0 92 0;
+#X connect 49 1 82 0;
+#X connect 50 0 83 0;
+#X connect 50 0 86 0;
 #X connect 51 0 52 0;
 #X connect 52 0 53 0;
 #X connect 52 0 54 0;
 #X connect 53 0 52 1;
-#X connect 53 0 83 0;
+#X connect 53 0 77 0;
 #X connect 54 0 49 0;
 #X connect 55 0 52 1;
 #X connect 56 0 51 0;
 #X connect 57 0 43 1;
-#X connect 57 0 82 0;
-#X connect 61 0 68 0;
-#X connect 61 0 69 0;
-#X connect 62 0 61 1;
-#X connect 68 0 66 0;
-#X connect 69 0 67 0;
-#X connect 70 0 86 0;
-#X connect 70 0 92 1;
-#X connect 71 0 57 1;
-#X connect 73 0 72 1;
-#X connect 77 0 74 0;
-#X connect 78 1 64 0;
-#X connect 78 2 63 0;
-#X connect 78 2 56 0;
-#X connect 79 0 80 0;
-#X connect 79 0 77 0;
-#X connect 79 0 81 0;
-#X connect 80 0 75 0;
-#X connect 83 0 51 1;
-#X connect 83 0 55 0;
-#X connect 84 0 11 1;
-#X connect 84 0 37 0;
-#X connect 84 0 78 0;
-#X connect 85 0 52 0;
-#X connect 87 0 75 0;
-#X connect 92 0 94 0;
-#X connect 92 0 57 0;
-#X connect 92 1 91 0;
-#X connect 93 0 75 0;
-#X connect 95 0 43 1;
-#X connect 96 0 97 0;
-#X connect 97 0 42 0;
-#X connect 98 0 96 0;
-#X restore 396 175 pd arpchordtone_calc;
+#X connect 57 0 76 0;
+#X connect 65 0 63 0;
+#X connect 66 0 64 0;
+#X connect 67 0 80 0;
+#X connect 67 0 86 1;
+#X connect 68 0 57 1;
+#X connect 71 0 69 0;
+#X connect 72 1 62 0;
+#X connect 72 2 61 0;
+#X connect 72 2 56 0;
+#X connect 73 0 74 0;
+#X connect 73 0 71 0;
+#X connect 73 0 75 0;
+#X connect 74 0 70 0;
+#X connect 77 0 51 1;
+#X connect 77 0 55 0;
+#X connect 78 0 11 1;
+#X connect 78 0 37 0;
+#X connect 78 0 72 0;
+#X connect 79 0 52 0;
+#X connect 81 0 70 0;
+#X connect 86 0 88 0;
+#X connect 86 0 57 0;
+#X connect 86 1 85 0;
+#X connect 87 0 70 0;
+#X connect 89 0 43 1;
+#X connect 90 0 91 0;
+#X connect 91 0 42 0;
+#X connect 92 0 90 0;
+#X restore 69 176 pd arpchordtone_calc;
 #N canvas 1600 87 1038 818 bars 0;
 #X obj 532 65 r num_bars;
 #X msg 550 216 \; lead_sequence resize \$1 \; lead_sequence_2 resize
@@ -2364,7 +2506,7 @@ resize \$1 \;;
 #X connect 39 0 29 0;
 #X connect 42 0 43 0;
 #X connect 42 0 44 0;
-#X restore 999 201 pd bars;
+#X restore 1004 94 pd bars;
 #N canvas 384 262 986 754 record_it 1;
 #X floatatom 754 324 5 0 0 0 - - -, f 5;
 #X obj 754 293 soundfiler;
@@ -2397,12 +2539,12 @@ resize \$1 \;;
 #X msg 35 430 \; recordL resize \$1;
 #X msg 176 432 \; recordR resize \$1;
 #N canvas 0 98 450 300 (subpatch) 0;
-#X array recordL 1.764e+06 float 2;
-#X coords 0 1 1.764e+06 -1 200 140 1 0 0;
+#X array recordL 110250 float 2;
+#X coords 0 1 110250 -1 200 140 1 0 0;
 #X restore 460 565 graph;
 #N canvas 1 90 450 300 (subpatch) 0;
-#X array recordR 1.764e+06 float 2;
-#X coords 0 1 1.764e+06 -1 200 140 1 0 0;
+#X array recordR 110250 float 2;
+#X coords 0 1 110250 -1 200 140 1 0 0;
 #X restore 683 563 graph;
 #X connect 1 0 0 0;
 #X connect 2 0 3 0;
@@ -2426,18 +2568,18 @@ resize \$1 \;;
 #X connect 22 0 24 0;
 #X connect 24 0 25 0;
 #X connect 24 0 26 0;
-#X restore 634 50 pd record_it;
-#X obj 792 454 r pulse_zero_bang;
-#X obj 798 549 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X restore 636 45 pd record_it;
+#X obj 811 399 r pulse_zero_bang;
+#X obj 817 494 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 792 511 spigot;
-#X obj 837 484 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 811 456 spigot;
+#X obj 856 429 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 720 650 tabwrite~ recordL;
-#X obj 859 650 tabwrite~ recordR;
-#X text 854 483 check to record;
-#X text 572 651 Arrays for recording;
-#N canvas 649 178 788 654 drumplayer 0;
+#X obj 739 595 tabwrite~ recordL;
+#X obj 878 595 tabwrite~ recordR;
+#X text 873 428 check to record;
+#X text 591 596 Arrays for recording;
+#N canvas 646 262 788 654 drumplayer 0;
 #X obj 184 21 inlet;
 #X floatatom 52 383 5 0 0 0 - - -, f 5;
 #X floatatom 47 463 5 0 0 0 - - -, f 5;
@@ -2528,29 +2670,110 @@ resize \$1 \;;
 #X connect 39 0 34 0;
 #X connect 40 0 41 1;
 #X connect 41 0 14 0;
-#X restore 1181 375 pd drumplayer;
-#X obj 1172 326 spigot;
-#X obj 1220 303 tgl 15 0 empty drumplayer_on empty 17 7 0 10 -262144
--1 -1 0 1;
+#X restore 1208 266 pd drumplayer;
+#X obj 1225 224 spigot;
+#X obj 1268 301 tgl 15 0 empty drumplayer_on empty 17 7 0 10 -262144
+-1 -1 1 1;
 #X text 38 289 These is the array that hold sequence information:;
-#X connect 1 0 30 0;
+#N canvas 1588 108 778 938 bassplayer 1;
+#X obj 359 307 tabread chordroot_sequence;
+#X obj 357 378 - 1;
+#X floatatom 356 421 5 0 0 0 - - -, f 5;
+#X obj 359 342 moses 1;
+#X text 355 255 Check these to get the lines to follow chord changes
+\, so that if the array has scale tones 1 \, 2 \, 3 \; then against
+chord transpose those to 2 \, 3 \, 4;
+#X text 388 224 Lead follows chord changes:;
+#X obj 73 102 tabread lead_sequence_2;
+#X obj 112 146 t f b;
+#X obj 169 198 f 60;
+#X floatatom 260 102 5 0 0 0 - - -, f 5;
+#X obj 142 50 t f f;
+#X obj 260 43 r bass_vol;
+#X floatatom 84 546 5 0 0 0 - - -, f 5;
+#X floatatom 84 619 5 0 0 0 - - -, f 5;
+#X obj 89 513 moses 0;
+#X obj 84 651 + 12;
+#X obj 88 761 s note 60 90 150 2 0;
+#X floatatom 284 557 5 0 0 0 - - -, f 5;
+#X text 321 537 amplitude;
+#X text 323 580 sample number;
+#X text 323 557 duration (msec);
+#X text 324 603 start location (msec);
+#X text 323 624 rise time (msec);
+#X text 325 644 decay time (msec);
+#X floatatom 284 536 5 0 0 0 - - -, f 5;
+#X floatatom 286 579 5 0 0 0 - - -, f 5;
+#X floatatom 287 602 5 0 0 0 - - -, f 5;
+#X floatatom 288 623 5 0 0 0 - - -, f 5;
+#X floatatom 288 645 5 0 0 0 - - -, f 5;
+#X obj 87 725 pack 60 90 150 1 0 10 10;
+#X obj 117 578 tabread scale;
+#X obj 89 468 +;
+#X obj 451 565 r bass_sample_number;
+#X obj 94 309 - 1;
+#X text 305 95 So while I'm calling this a bass player \, it could
+be a different kind of lead (it is really!) \, so it uses the array
+lead_sequence_2 for legacy reasons more than anything.;
+#X obj 198 15 inlet;
+#X connect 0 0 3 0;
+#X connect 1 0 2 0;
+#X connect 1 0 31 1;
+#X connect 3 1 1 0;
+#X connect 6 0 7 0;
+#X connect 7 0 33 0;
+#X connect 7 1 8 0;
+#X connect 8 0 24 0;
+#X connect 9 0 8 1;
+#X connect 10 0 6 0;
+#X connect 10 1 0 0;
+#X connect 11 0 9 0;
+#X connect 12 0 30 0;
+#X connect 13 0 15 0;
+#X connect 14 1 12 0;
+#X connect 15 0 29 0;
+#X connect 17 0 29 2;
+#X connect 24 0 29 1;
+#X connect 25 0 29 3;
+#X connect 26 0 29 4;
+#X connect 27 0 29 5;
+#X connect 28 0 29 6;
+#X connect 29 0 16 0;
+#X connect 30 0 13 0;
+#X connect 31 0 14 0;
+#X connect 32 0 25 0;
+#X connect 33 0 31 0;
+#X connect 35 0 10 0;
+#X restore 1097 266 pd bassplayer;
+#X obj 1135 224 spigot;
+#X obj 1179 194 tgl 15 0 empty bassplayer_on empty 17 7 0 10 -262144
+-1 -1 1 1;
+#X obj 1052 137 t f f f f;
+#X text 83 661 Unused \, but potentially useful one day:;
+#X text 666 325 All of the players send notes to the main synth:;
+#X connect 1 0 28 0;
+#X connect 4 0 10 0;
 #X connect 5 0 4 1;
-#X connect 6 0 19 0;
+#X connect 6 0 18 0;
 #X connect 7 0 6 1;
-#X connect 14 0 16 0;
-#X connect 14 0 36 0;
-#X connect 15 0 16 1;
-#X connect 15 0 37 0;
-#X connect 21 0 20 0;
-#X connect 22 0 21 1;
-#X connect 25 0 1 0;
-#X connect 26 0 4 0;
-#X connect 26 1 6 0;
-#X connect 26 2 41 0;
-#X connect 30 2 26 0;
-#X connect 32 0 34 0;
-#X connect 33 0 36 0;
-#X connect 33 0 37 0;
-#X connect 34 0 33 0;
-#X connect 35 0 34 1;
-#X connect 42 0 41 1;
+#X connect 13 0 15 0;
+#X connect 13 0 34 0;
+#X connect 14 0 15 1;
+#X connect 14 0 35 0;
+#X connect 20 0 19 0;
+#X connect 21 0 20 1;
+#X connect 24 0 1 0;
+#X connect 28 2 45 0;
+#X connect 30 0 32 0;
+#X connect 31 0 34 0;
+#X connect 31 0 35 0;
+#X connect 32 0 31 0;
+#X connect 33 0 32 1;
+#X connect 39 0 38 0;
+#X connect 40 0 39 1;
+#X connect 43 0 42 0;
+#X connect 44 0 43 1;
+#X connect 45 0 4 0;
+#X connect 45 1 6 0;
+#X connect 45 2 43 0;
+#X connect 45 3 39 0;
