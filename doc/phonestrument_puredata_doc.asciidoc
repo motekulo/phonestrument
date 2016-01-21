@@ -43,6 +43,10 @@ Currenty unused.
 
 Currenty unused.
 
+== General
+
+The arpeggio player needs to be triggered before the bass palyer as it sends
+out modified 3rd info that the bass player uses.
 
 
 //image:images/initial_idea.png[Initial idea]
