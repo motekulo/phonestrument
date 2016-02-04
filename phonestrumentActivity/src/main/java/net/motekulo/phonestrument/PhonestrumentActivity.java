@@ -64,9 +64,9 @@ public class PhonestrumentActivity extends Activity {
 	//FragmentTabHost mTabHost;
 	//ViewPager  mViewPager;
 	public static final String ADMOB_MEDIATION_ID =  "";
-	private static final String APP_NAME = "Phonstrument";
+	private static final String APP_NAME = "Phonestrument";
 
-	public static final String APP_DATA_DIR_NAME = "Phonstrument";
+	public static final String APP_DATA_DIR_NAME = "Phonestrument";
 	private static final String SAMPLE_DIR_NAME = "samples";
 	private PdUiDispatcher dispatcher;
 	boolean pdServiceConnection = false;
@@ -249,24 +249,34 @@ public class PhonestrumentActivity extends Activity {
 
 	private void initPatch() {
 
-		PdBase.sendFloat("key", 36);  // C at a reasonable 8ve
-		PdBase.sendFloat("chord", 0);
-		PdBase.sendFloat("metro_on", 1);
+//		PdBase.sendFloat("key", 36);  // C at a reasonable 8ve
+//		PdBase.sendFloat("chord", 0);
+//		PdBase.sendFloat("metro_on", 1);
+//		PdBase.sendFloat("density", 4);
+//		PdBase.sendFloat("tempo", 116);
+
 		PdBase.sendFloat("density", 4);
-		PdBase.sendFloat("tempo", 116);
+		PdBase.sendFloat("num_beats", 4);
+		PdBase.sendFloat("num_bars", 1);
+		PdBase.sendFloat("tempo", 112);
+		//PdBase.sendFloat("init_samples" bang);
+		PdBase.sendFloat("master_vol", 82);
+		PdBase.sendFloat("drum_vol", 100);
+		PdBase.sendFloat("drumplayer_on", 1);
+		PdBase.sendFloat("metro_on", 1);
 
 		PdBase.sendMessage("sample_to_play", sampleForPlayer1, 0);
 		PdBase.sendMessage("sample2_to_play", sampleForPlayer2, 0);
 		PdBase.sendMessage("sample3_to_play", sampleForPlayer3, 0);
 		PdBase.sendMessage("sample4_to_play", sampleForPlayer4, 0);
 
-		PdBase.sendFloat("synth_1_vol", (float) 0.5);
-		PdBase.sendFloat("synth_2_vol", (float) 0.5);
-
-		PdBase.sendFloat("player_1_vol", (float) 0.75);	
-		PdBase.sendFloat("player_2_vol", (float) 0.75);	
-		PdBase.sendFloat("player_3_vol", (float) 0.75);	
-		PdBase.sendFloat("player_4_vol", (float) 0.75);	
+//		PdBase.sendFloat("synth_1_vol", (float) 0.5);
+//		PdBase.sendFloat("synth_2_vol", (float) 0.5);
+//
+//		PdBase.sendFloat("player_1_vol", (float) 0.75);
+//		PdBase.sendFloat("player_2_vol", (float) 0.75);
+//		PdBase.sendFloat("player_3_vol", (float) 0.75);
+//		PdBase.sendFloat("player_4_vol", (float) 0.75);
 
 	}
 

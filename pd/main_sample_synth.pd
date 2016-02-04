@@ -1,4 +1,4 @@
-#N canvas 159 82 1271 818 10;
+#N canvas 159 92 1271 818 10;
 #X text -19 24 ARGUMENTS FOR NOTES:;
 #X text -19 46 pitch in halftones;
 #X text -19 70 amplitude (dB);
@@ -7,7 +7,7 @@
 #X text -19 143 start location (msec);
 #X text -19 166 rise time (msec);
 #X text -19 190 decay time (msec);
-#N canvas 1600 54 1440 846 samples 1;
+#N canvas 1046 83 1425 818 samples 0;
 #N canvas 0 82 450 300 (subpatch) 0;
 #X array sample1 176403 float 0;
 #X coords 0 1.02 176403 -1.02 200 130 1;
@@ -58,7 +58,7 @@
 #X coords 0 1.02 176403 -1.02 200 130 1 0 0;
 #X restore 42 371 graph;
 #X restore 1054 105 pd samples;
-#N canvas 1829 138 1034 479 recorder 1;
+#N canvas 0 112 1070 738 recorder 1;
 #X obj 220 21 inlet;
 #X obj 174 174 adc~ 1;
 #X obj 174 202 hip~ 5;
@@ -77,13 +77,13 @@
 #X msg 514 85 bang;
 #X text 556 84 <-- browse for samples;
 #X text 482 209 v-- re-read original samples;
-#X obj 413 434 soundfiler;
+#X obj 690 676 soundfiler;
 #X msg 514 140 read \$1 sample1;
 #X obj 514 167 soundfiler;
 #X obj 26 88 makefilename sample%d;
-#X msg 411 237 read sound/bell.aiff sample1 \, read sound/voice2.wav
+#X msg 413 245 read sound/bell.aiff sample1 \, read sound/voice2.wav
 sample2;
-#X obj 532 262 r init_samples;
+#X obj 551 263 r init_samples;
 #X msg 532 294 read samples/bbassdelay.wav sample1 \, read samples/bpunchbass.wav
 sample2 \, read samples/bebass1.wav sample3 \, read samples/bunibass.wav
 sample4 \, read samples/chbounce.wav sample5 \, read samples/chchic.wav
@@ -91,6 +91,21 @@ sample6 \, read samples/lsynbrass.wav sample7 \, read samples/ltrance.wav
 sample8 \, read samples/kick1.wav sample9 \, read samples/snare1.wav
 sample10 \, read samples/ohh.wav sample11 \, read samples/chh.wav sample12
 , f 75;
+#X obj 105 391 r sample_to_play;
+#X obj 106 479 r sample2_to_play;
+#X obj 332 388 r sample3_to_play;
+#X obj 333 480 r sample4_to_play;
+#X obj 114 416 pack s;
+#X obj 117 506 pack s;
+#X obj 346 419 pack s;
+#X obj 342 508 pack s;
+#X msg 131 535 read -resize \$1 sample10;
+#X msg 360 450 read -resize \$1 sample11;
+#X msg 346 539 read -resize \$1 sample12;
+#X obj 783 508 s sample_to_play;
+#X msg 129 442 read \$1 sample9;
+#X obj 68 452 print;
+#X msg 793 440 symbol samples/kick1.wav;
 #X connect 0 0 12 0;
 #X connect 1 0 2 0;
 #X connect 2 0 4 0;
@@ -109,14 +124,26 @@ sample10 \, read samples/ohh.wav sample11 \, read samples/chh.wav sample12
 #X connect 12 1 10 0;
 #X connect 12 2 22 0;
 #X connect 12 3 15 0;
-#X connect 13 0 22 0;
 #X connect 14 0 19 0;
 #X connect 15 0 14 0;
 #X connect 19 0 20 0;
 #X connect 21 0 9 0;
 #X connect 22 0 18 0;
-#X connect 23 0 24 0;
 #X connect 24 0 18 0;
+#X connect 25 0 29 0;
+#X connect 26 0 30 0;
+#X connect 27 0 31 0;
+#X connect 28 0 32 0;
+#X connect 29 0 37 0;
+#X connect 29 0 38 0;
+#X connect 30 0 33 0;
+#X connect 31 0 34 0;
+#X connect 32 0 35 0;
+#X connect 33 0 18 0;
+#X connect 34 0 18 0;
+#X connect 35 0 18 0;
+#X connect 37 0 18 0;
+#X connect 39 0 36 0;
 #X restore 1054 292 pd recorder;
 #X msg 969 151 record 1;
 #X msg 1036 203 stop;
