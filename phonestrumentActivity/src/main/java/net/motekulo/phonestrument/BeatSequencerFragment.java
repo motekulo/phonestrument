@@ -1,18 +1,9 @@
 package net.motekulo.phonestrument;
 
 
-import net.motekulo.phonestrument.XYControllerBeatView.touchListener;
-
-import org.puredata.core.PdBase;
-
-import com.google.ads.AdRequest;
-import com.google.ads.AdSize;
-import com.google.ads.AdView;
-
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-//import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -24,6 +15,16 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+
+import com.google.ads.AdRequest;
+import com.google.ads.AdSize;
+import com.google.ads.AdView;
+
+import net.motekulo.phonestrument.XYControllerBeatView.touchListener;
+
+import org.puredata.core.PdBase;
+
+//import android.support.v4.app.Fragment;
 //import android.app.Fragment;
 
 public class BeatSequencerFragment extends Fragment {
@@ -54,7 +55,7 @@ public class BeatSequencerFragment extends Fragment {
 		sequence = new float[4][16];
 
 		updateBeatArrayView();
-		initAds(view);
+		//initAds(view);
 		return view;
 	}
 

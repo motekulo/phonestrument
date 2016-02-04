@@ -92,9 +92,7 @@ public class PhonestrumentActivity extends Activity {
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		setTitle("Phonstrument");
-
-
+		setTitle("Phonestrument");
 
 		Tab tab = actionBar.newTab()
 				.setText("Seq 1")
@@ -125,8 +123,6 @@ public class PhonestrumentActivity extends Activity {
 				.setTabListener(new TabListener<SynthControllerFragment>(
 						this, "synth", SynthControllerFragment.class));
 		actionBar.addTab(tab);
-
-
 
 		String filepath = Environment.getExternalStorageDirectory().getPath();
 		File appdir = new File(filepath, APP_DATA_DIR_NAME);
