@@ -305,15 +305,15 @@ public class PhonestrumentActivity extends Activity {
 		if (!pdService.isRunning()) {
 			Intent intent = new Intent(PhonestrumentActivity.this, PhonestrumentActivity.class);
 			pdService.startAudio(intent, R.drawable.icon,
-					"Phonstrument", "Return to Phonstrument");
+					"Phonestrument", "Return to Phonestrument");
 		}
 	}
 
 	private void loadPatch() throws IOException {
 		File dir = getFilesDir();
-		IoUtils.extractZipResource(getResources().openRawResource(R.raw.phonstrument), dir, true);
+		IoUtils.extractZipResource(getResources().openRawResource(R.raw.phonestrument), dir, true);
 
-		File patchFile = new File(dir, "phonstrument.pd");
+		File patchFile = new File(dir, "phonestrument.pd");
 		PdBase.openPatch(patchFile.getAbsolutePath());
 		initPatch();
 	}
@@ -339,10 +339,10 @@ public class PhonestrumentActivity extends Activity {
 		int [] sample_ids = new int[4];
 		String outputName = "";
 		File outputFile;
-		sample_ids[0] = getResources().getIdentifier("kick1", "raw", "net.motekulo.phonstrument");	
-		sample_ids[1] = getResources().getIdentifier("snare1", "raw", "net.motekulo.phonstrument");
-		sample_ids[2] = getResources().getIdentifier("ohh", "raw", "net.motekulo.phonstrument");	
-		sample_ids[3] = getResources().getIdentifier("chh", "raw", "net.motekulo.phonstrument");	
+		sample_ids[0] = getResources().getIdentifier("kick1", "raw", "net.motekulo.phonestrument");
+		sample_ids[1] = getResources().getIdentifier("snare1", "raw", "net.motekulo.phonestrument");
+		sample_ids[2] = getResources().getIdentifier("ohh", "raw", "net.motekulo.phonestrument");
+		sample_ids[3] = getResources().getIdentifier("chh", "raw", "net.motekulo.phonestrument");
 
 		for (int i = 0; i < sample_ids.length; i ++) {
 
@@ -416,22 +416,22 @@ public class PhonestrumentActivity extends Activity {
 		//		}
 
 		case R.id.menu_rate_app: {
-			Intent rateIntent = new Intent(Intent.ACTION_VIEW);
-			rateIntent.setData(Uri.parse("market://details?id=net.motekulo.phonstrument"));
-			if (mStartActivity(rateIntent) == false) {
-				// Try a browser
-				rateIntent.setData(Uri.parse("https://play.google.com/store/apps/details?id=net.motekulo.phonstrument"));
-				mStartActivity(rateIntent);
-			}
+//			Intent rateIntent = new Intent(Intent.ACTION_VIEW);
+//			rateIntent.setData(Uri.parse("market://details?id=net.motekulo.phonstrument"));
+//			if (mStartActivity(rateIntent) == false) {
+//				// Try a browser
+//				rateIntent.setData(Uri.parse("https://play.google.com/store/apps/details?id=net.motekulo.phonstrument"));
+//				mStartActivity(rateIntent);
+//			}
 			break;
 		}
 
 		case R.id.menu_tell_friend: {
-			Intent tellIntent = new Intent(Intent.ACTION_SEND);
-			tellIntent.putExtra(Intent.EXTRA_SUBJECT, "Phonstrument - a great phone app for live sequencing");
-			tellIntent.putExtra(Intent.EXTRA_TEXT, "Check this out - https://play.google.com/store/apps/details?id=net.motekulo.phonstrument");
-			tellIntent.setType("plain/text");
-			startActivity(Intent.createChooser(tellIntent, "Tell a friend..."));
+//			Intent tellIntent = new Intent(Intent.ACTION_SEND);
+//			tellIntent.putExtra(Intent.EXTRA_SUBJECT, "Phonstrument - a great phone app for live sequencing");
+//			tellIntent.putExtra(Intent.EXTRA_TEXT, "Check this out - https://play.google.com/store/apps/details?id=net.motekulo.phonstrument");
+//			tellIntent.setType("plain/text");
+//			startActivity(Intent.createChooser(tellIntent, "Tell a friend..."));
 			break;
 		}
 
@@ -454,7 +454,7 @@ public class PhonestrumentActivity extends Activity {
 	}
 
 	private void readPreferences() {
-		SharedPreferences preferences = getSharedPreferences("Phonstrument", Context.MODE_PRIVATE);
+		SharedPreferences preferences = getSharedPreferences("Phonestrument", Context.MODE_PRIVATE);
 		sampleForPlayer1 = preferences.getString("sample_player_1_filename", "");
 		sampleForPlayer2 = preferences.getString("sample_player_2_filename", "");
 		sampleForPlayer3 = preferences.getString("sample_player_3_filename", "");
@@ -464,7 +464,7 @@ public class PhonestrumentActivity extends Activity {
 	}
 
 	private void setPreferences() {
-		SharedPreferences preferences = getSharedPreferences("Phonstrument",
+		SharedPreferences preferences = getSharedPreferences("Phonestrument",
 				MODE_PRIVATE);
 		SharedPreferences.Editor editor = preferences.edit();
 
