@@ -93,19 +93,19 @@ public class PhonestrumentActivity extends Activity {
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		setTitle("Phonestrument");
 
+		//Tab tab = actionBar.newTab()
+//				.setText("Seq 1")
+//				.setTabListener(new TabListener<SynthSequencerFragment>(
+//						this, "synthseq", SynthSequencerFragment.class));
+//		actionBar.addTab(tab);
+
+//		tab = actionBar.newTab()
+//				.setText("Seq 2")
+//				.setTabListener(new TabListener<Synth2SequencerFragment>(
+//						this, "synth2seq", Synth2SequencerFragment.class));
+//		actionBar.addTab(tab);
+
 		Tab tab = actionBar.newTab()
-				.setText("Seq 1")
-				.setTabListener(new TabListener<SynthSequencerFragment>(
-						this, "synthseq", SynthSequencerFragment.class));
-		actionBar.addTab(tab);
-
-		tab = actionBar.newTab()
-				.setText("Seq 2")
-				.setTabListener(new TabListener<Synth2SequencerFragment>(
-						this, "synth2seq", Synth2SequencerFragment.class));
-		actionBar.addTab(tab);
-
-		tab = actionBar.newTab()
 				.setText("Drums")
 				.setTabListener(new TabListener<BeatSequencerFragment>(
 						this, "drums", BeatSequencerFragment.class));
@@ -117,11 +117,11 @@ public class PhonestrumentActivity extends Activity {
 						this, "mixer", MixerFragment.class));
 		actionBar.addTab(tab);
 
-		tab = actionBar.newTab()
-				.setText("Synths")
-				.setTabListener(new TabListener<SynthControllerFragment>(
-						this, "synth", SynthControllerFragment.class));
-		actionBar.addTab(tab);
+//		tab = actionBar.newTab()
+//				.setText("Synths")
+//				.setTabListener(new TabListener<SynthControllerFragment>(
+//						this, "synth", SynthControllerFragment.class));
+//		actionBar.addTab(tab);
 
 		String filepath = Environment.getExternalStorageDirectory().getPath();
 		File appdir = new File(filepath, APP_DATA_DIR_NAME);
@@ -257,7 +257,7 @@ public class PhonestrumentActivity extends Activity {
 
 		PdBase.sendFloat("density", 4);
 		PdBase.sendFloat("num_beats", 4);
-		PdBase.sendFloat("num_bars", 1);
+		PdBase.sendFloat("num_bars", 4);
 		PdBase.sendFloat("tempo", 112);
 		//PdBase.sendFloat("init_samples" bang);
 		PdBase.sendFloat("master_vol", 82);

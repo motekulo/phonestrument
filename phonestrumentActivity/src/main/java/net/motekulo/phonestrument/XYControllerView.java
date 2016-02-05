@@ -78,8 +78,6 @@ public class XYControllerView extends View {
 		float[] outerRadii = new float[] {outerRadius, outerRadius, outerRadius, outerRadius, outerRadius, outerRadius, 
 				outerRadius, outerRadius};
 
-		//RectF inset = new RectF(2, 2, 2, 2);
-
 		float[] innerRadii = new float[] {outerRadius, outerRadius, outerRadius, outerRadius, outerRadius, outerRadius, 
 				outerRadius, outerRadius};
 

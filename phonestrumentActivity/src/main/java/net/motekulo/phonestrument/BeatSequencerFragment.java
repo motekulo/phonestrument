@@ -12,32 +12,29 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-import com.google.ads.AdRequest;
-import com.google.ads.AdSize;
-import com.google.ads.AdView;
-
 import net.motekulo.phonestrument.XYControllerBeatView.touchListener;
 
+import org.puredata.android.utils.PdUiDispatcher;
 import org.puredata.core.PdBase;
+import org.puredata.core.PdListener;
 
 //import android.support.v4.app.Fragment;
 //import android.app.Fragment;
 
 public class BeatSequencerFragment extends Fragment {
-	protected static final String APP_NAME = "Phonstrument";
+	protected static final String APP_NAME = "Phonestrument";
 	//private boolean pdServiceConnection = false;
 	//private PdService pdService = null;
-
+	private PdUiDispatcher dispatcher;
 	private XYControllerBeatView beatView1;
 	private EditText tempoBox;
 	
 	float[][] sequence;
 
-	private AdView adView;
+	//private AdView adView;
 	
 
 	@Override
@@ -56,24 +53,59 @@ public class BeatSequencerFragment extends Fragment {
 
 		updateBeatArrayView();
 		//initAds(view);
+
+		dispatcher = new PdUiDispatcher();
+		PdBase.setReceiver(dispatcher);
+
+		dispatcher.addListener("beatnum", new PdListener.Adapter() {
+			@Override
+			public void receiveFloat(String source, float x) {
+
+
+//				if (playState == false) {
+//					Log.i(APP_NAME, "Dispatcher and playstate false ");
+//					PdBase.sendFloat("metro_on", 0);
+//				}
+
+//				beatView1.setCurrentBeat((int) x);
+//
+//				if (x == 0) {
+//					updateBeatArrayView(0);
+//				}
+
+			}
+		});
+
+		dispatcher.addListener("current_bar_num", new PdListener.Adapter() {
+			private int currentBar;
+
+			@Override
+			public void receiveFloat(String source, float x) {
+				//Log.i(APP_NAME, "Getting bar number " + x);
+				currentBar = (int) x;
+                Log.i(APP_NAME, "Bar " + x);
+//				updateBeatArrayView(currentBar);
+			}
+		});
+
 		return view;
 	}
 
 	private void initAds(View view){
 
-		adView = new AdView(getActivity(), AdSize.BANNER, PhonestrumentActivity.ADMOB_MEDIATION_ID);
-		LinearLayout layout = (LinearLayout)view.findViewById(R.id.linearLayoutAds);
-		layout.addView(adView);
-
-		AdRequest adRequest = new AdRequest();
-		adRequest.addKeyword("music");
-		adRequest.addTestDevice(AdRequest.TEST_EMULATOR);
-
-		adRequest.addTestDevice("12381B9A705131137970D2814E8CC388");  // Dc's One X
-		//adRequest.addTestDevice("56E337CEE1A1F13B4D5893C791141867");  // Dc's tablet
-		//adRequest.addTestDevice("AE349F5766106ACA46B96E2922980361");  // Gima's phone
-
-		adView.loadAd(adRequest);
+//		adView = new AdView(getActivity(), AdSize.BANNER, PhonestrumentActivity.ADMOB_MEDIATION_ID);
+//		LinearLayout layout = (LinearLayout)view.findViewById(R.id.linearLayoutAds);
+//		layout.addView(adView);
+//
+//		AdRequest adRequest = new AdRequest();
+//		adRequest.addKeyword("music");
+//		adRequest.addTestDevice(AdRequest.TEST_EMULATOR);
+//
+//		adRequest.addTestDevice("12381B9A705131137970D2814E8CC388");  // Dc's One X
+//		//adRequest.addTestDevice("56E337CEE1A1F13B4D5893C791141867");  // Dc's tablet
+//		//adRequest.addTestDevice("AE349F5766106ACA46B96E2922980361");  // Gima's phone
+//
+//		adView.loadAd(adRequest);
 	}
 	
 	@Override
