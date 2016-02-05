@@ -31,7 +31,9 @@ public class BeatSequencerFragment extends Fragment {
 	private PdUiDispatcher dispatcher;
 	private XYControllerBeatView beatView1;
 	private EditText tempoBox;
-	
+	private int pulsesPerBeat;
+    private int numBeats;
+    private int currentBar;
 	float[][] sequence;
 
 	//private AdView adView;
@@ -51,15 +53,37 @@ public class BeatSequencerFragment extends Fragment {
 
 		sequence = new float[4][16];
 
+		PdBase.sendBang("ping_patch_for_info");
+
 		updateBeatArrayView();
 		//initAds(view);
 
-		dispatcher = new PdUiDispatcher();
-		PdBase.setReceiver(dispatcher);
+        dispatcher = new PdUiDispatcher();
+        PdBase.setReceiver(dispatcher);
 
-		dispatcher.addListener("beatnum", new PdListener.Adapter() {
-			@Override
-			public void receiveFloat(String source, float x) {
+        dispatcher.addListener("num_beats_info", new PdListener.Adapter() {
+
+            @Override
+            public void receiveFloat(String source, float x) {
+                Log.i(APP_NAME, "num_beats_info: " + x);
+                numBeats = (int) x;
+            }
+
+        });
+
+        dispatcher.addListener("density_info", new PdListener.Adapter() {
+
+            @Override
+            public void receiveFloat(String source, float x) {
+                Log.i(APP_NAME, "density_info: " + x);
+                pulsesPerBeat = (int) x;
+            }
+
+        });
+
+        dispatcher.addListener("beatnum", new PdListener.Adapter() {
+            @Override
+            public void receiveFloat(String source, float x) {
 
 
 //				if (playState == false) {
@@ -73,18 +97,20 @@ public class BeatSequencerFragment extends Fragment {
 //					updateBeatArrayView(0);
 //				}
 
-			}
-		});
+            }
+        });
 
 		dispatcher.addListener("current_bar_num", new PdListener.Adapter() {
-			private int currentBar;
+
 
 			@Override
 			public void receiveFloat(String source, float x) {
 				//Log.i(APP_NAME, "Getting bar number " + x);
 				currentBar = (int) x;
                 Log.i(APP_NAME, "Bar " + x);
-//				updateBeatArrayView(currentBar);
+                // Scroll to correct bar (well, display it)
+
+				updateBeatArrayView(currentBar);
 			}
 		});
 
@@ -124,23 +150,23 @@ public class BeatSequencerFragment extends Fragment {
 
 			switch (col){
 			case 0:				
-				drSequenceToWrite = "dr_sequence_1";
+				drSequenceToWrite = "dr1_sequence";
 				break;
 			case 1:
-				drSequenceToWrite = "dr_sequence_2";
+				drSequenceToWrite = "dr2_sequence";
 				break;
 			case 2:
-				drSequenceToWrite = "dr_sequence_3";
+				drSequenceToWrite = "dr3_sequence";
 				break;
 			case 3:
-				drSequenceToWrite = "dr_sequence_4";
+				drSequenceToWrite = "dr4_sequence";
 				break;
 				
 			}
-			
-			PdBase.writeArray(drSequenceToWrite, 0, sequence[col], 0, 16);
+            int startOfBarInPulses = pulsesPerBeat * numBeats * currentBar;
+			PdBase.writeArray(drSequenceToWrite, startOfBarInPulses, sequence[col], 0, pulsesPerBeat * numBeats);
 
-			updateBeatArrayView();
+			updateBeatArrayView(currentBar);
 		}
 	};
 
@@ -166,10 +192,10 @@ public class BeatSequencerFragment extends Fragment {
 		
 		int[][] beatArray = new int[4][16];
 		
-		PdBase.readArray(sequence[0], 0, "dr_sequence_1", 0, 16);
-		PdBase.readArray(sequence[1], 0, "dr_sequence_2", 0, 16);
-		PdBase.readArray(sequence[2], 0, "dr_sequence_3", 0, 16);
-		PdBase.readArray(sequence[3], 0, "dr_sequence_4", 0, 16);
+		PdBase.readArray(sequence[0], 0, "dr1_sequence", 0, 16);
+		PdBase.readArray(sequence[1], 0, "dr2_sequence", 0, 16);
+		PdBase.readArray(sequence[2], 0, "dr3_sequence", 0, 16);
+		PdBase.readArray(sequence[3], 0, "dr4_sequence", 0, 16);
 		
 		for (int i=0; i < 4; i++) {
 			for (int j=0; j< 16; j++) {
@@ -178,7 +204,24 @@ public class BeatSequencerFragment extends Fragment {
 		}
 		beatView1.setToggleState(beatArray);
 	}
+    private void updateBeatArrayView(int barnum){
 
+        int barSize = pulsesPerBeat * numBeats;
+        int startOfBarInPulses = barSize * barnum;
+        int[][] beatArray = new int[4][barSize];
+
+        PdBase.readArray(sequence[0], 0, "dr1_sequence", startOfBarInPulses, barSize);
+        PdBase.readArray(sequence[1], 0, "dr2_sequence", startOfBarInPulses, barSize);
+        PdBase.readArray(sequence[2], 0, "dr3_sequence", startOfBarInPulses, barSize);
+        PdBase.readArray(sequence[3], 0, "dr4_sequence", startOfBarInPulses, barSize);
+
+        for (int i=0; i < 4; i++) {
+            for (int j=0; j< 16; j++) {
+                beatArray[i][j] = (int) sequence[i][j];
+            }
+        }
+        beatView1.setToggleState(beatArray);
+    }
 
 //	private final ServiceConnection pdConnection = new ServiceConnection() { 
 //
