@@ -34,6 +34,7 @@ public class BeatSequencerFragment extends Fragment {
 	private EditText tempoBox;
 	private int pulsesPerBeat;
     private int numBeats;
+    private int beatNum; //current beat
     private int currentBar;
 	float[][] sequence;
 
@@ -55,7 +56,7 @@ public class BeatSequencerFragment extends Fragment {
 		beatView1.setXmax(16);
 
         beatView2 = (XYControllerBeatView) view.findViewById(R.id.beatToggleArrayView2);
-       // beatView1.setTouchListener(beatArray1Touched);
+        beatView2.setTouchListener(beatArray2Touched);
 
         beatView2.setXmax(1);
 
@@ -73,7 +74,7 @@ public class BeatSequencerFragment extends Fragment {
 
             @Override
             public void receiveFloat(String source, float x) {
-                Log.i(APP_NAME, "num_beats_info: " + x);
+                //Log.i(APP_NAME, "num_beats_info: " + x);
                 numBeats = (int) x;
             }
 
@@ -83,17 +84,17 @@ public class BeatSequencerFragment extends Fragment {
 
             @Override
             public void receiveFloat(String source, float x) {
-                Log.i(APP_NAME, "density_info: " + x);
+                //Log.i(APP_NAME, "density_info: " + x);
                 pulsesPerBeat = (int) x;
             }
 
         });
 
-        dispatcher.addListener("beatnum", new PdListener.Adapter() {
+        dispatcher.addListener("current_pulse_num", new PdListener.Adapter() {
             @Override
             public void receiveFloat(String source, float x) {
-
-
+                Log.i(APP_NAME, "pulse: " + x);
+                beatNum = (int) x;
 //				if (playState == false) {
 //					Log.i(APP_NAME, "Dispatcher and playstate false ");
 //					PdBase.sendFloat("metro_on", 0);
@@ -151,12 +152,12 @@ public class BeatSequencerFragment extends Fragment {
 	private touchListener beatArray1Touched = new XYControllerBeatView.touchListener() {
 
 		@Override
-		public void onPositionChange(View view, int col, int row, int value) {
+		public void onPositionChange(View view, int row, int col, int value) {
 			
 			String drSequenceToWrite = null;
-			sequence[col][row] = value;
+			sequence[row][col] = value;
 
-			switch (col){
+			switch (row){
 			case 0:				
 				drSequenceToWrite = "dr1_sequence";
 				break;
@@ -172,7 +173,40 @@ public class BeatSequencerFragment extends Fragment {
 				
 			}
             int startOfBarInPulses = pulsesPerBeat * numBeats * currentBar;
-			PdBase.writeArray(drSequenceToWrite, startOfBarInPulses, sequence[col], 0, pulsesPerBeat * numBeats);
+			PdBase.writeArray(drSequenceToWrite, startOfBarInPulses, sequence[row], 0, pulsesPerBeat * numBeats);
+
+			updateBeatArrayView(currentBar);
+		}
+	};
+
+	private touchListener beatArray2Touched = new XYControllerBeatView.touchListener() {
+
+		@Override
+		public void onPositionChange(View view, int row, int col, int value) {
+
+			// There's only one row, so we're getting instrument info
+			// Need to look to the patch and current beat to set column
+
+			String drSequenceToWrite = null;
+			sequence[row][beatNum] = value;
+
+			switch (row){
+				case 0:
+					drSequenceToWrite = "dr1_sequence";
+					break;
+				case 1:
+					drSequenceToWrite = "dr2_sequence";
+					break;
+				case 2:
+					drSequenceToWrite = "dr3_sequence";
+					break;
+				case 3:
+					drSequenceToWrite = "dr4_sequence";
+					break;
+
+			}
+			int startOfBarInPulses = pulsesPerBeat * numBeats * currentBar;
+			PdBase.writeArray(drSequenceToWrite, startOfBarInPulses + beatNum, sequence[row], beatNum, 1);
 
 			updateBeatArrayView(currentBar);
 		}
