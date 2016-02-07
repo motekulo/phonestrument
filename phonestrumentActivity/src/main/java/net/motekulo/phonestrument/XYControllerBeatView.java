@@ -15,29 +15,31 @@ public class XYControllerBeatView extends View {
 		void onPositionChange(View view, int mouseX, int mouseY, int value);
 	}
 
-	private static final String APP_NAME = "Phonstrument";
+	private static final String APP_NAME = "Phonestrument";
 	// Motekulo swatch colours:
 	private static final int MGREY = 0xff4c494f;
-	private static final int MOFFWHITE = 0xffd7d7db;
+	//private static final int MOFFWHITE = 0xffd7d7db;
 	private static final int MLIGHTBLUE = 0xff00d4d9;
-	private static final int MTURQ = 0xff039599;
+	//private static final int MTURQ = 0xff039599;
 	private static final int MBLUE = 0xff003d4e;
-	private static final int MRED = 0xffc8001a;
+	//private static final int MRED = 0xffc8001a;
 	
 	private static final int PADDING = 8;
 
 	private XYControllerBeatView.touchListener mTouchListener;
 	private int height;
 	private int width;
-	private int mcolor = Color.BLACK;
+	//private int mcolor = Color.BLACK;
 	private ShapeDrawable gridBoundary;
 	private ShapeDrawable YDivLine;
 	private ShapeDrawable XDivLine;
 	private ShapeDrawable beatIndicator;
 
-	private int Xmin;
+
+
+	//private int Xmin;
 	private int Xmax;
-	private int Ymin;
+	//private int Ymin;
 	private int Ymax;
 
 	private int[][] toggleState;
@@ -46,6 +48,7 @@ public class XYControllerBeatView extends View {
 
 	public XYControllerBeatView(Context context) {
 		super(context);
+
 		initView();
 	}
 
@@ -56,6 +59,7 @@ public class XYControllerBeatView extends View {
 
 	public XYControllerBeatView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
+
 		initView();
 	}
 
@@ -83,9 +87,9 @@ public class XYControllerBeatView extends View {
 		beatIndicator = new ShapeDrawable((new RoundRectShape(beatOuterRadii, null, null)));
 		beatIndicator.getPaint().setColor(MLIGHTBLUE);
 
-		Xmin = 0;
+		//Xmin = 0;
 		Xmax = 16;
-		Ymin = 0;
+		//Ymin = 0;
 		Ymax = 4;
 
 		toggleState = new int[Ymax][Xmax]; // rows and columns
@@ -106,6 +110,14 @@ public class XYControllerBeatView extends View {
 			}
 
 		});	
+	}
+
+	public void setXmax(int xmax) {
+		Xmax = xmax;
+	}
+
+	public void setYmax(int ymax) {
+		Ymax = ymax;
 	}
 
 	public void setCurrentBeat(int beat) {
@@ -169,7 +181,8 @@ public class XYControllerBeatView extends View {
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		
 		width = View.MeasureSpec.getSize(widthMeasureSpec);
-		height = (width/Xmax) * Ymax + 16;
+        height = View.MeasureSpec.getSize(heightMeasureSpec);
+		//height = (width/Xmax) * Ymax + 16;
 		this.setMeasuredDimension(width, height);
 
 	}
@@ -192,7 +205,8 @@ public class XYControllerBeatView extends View {
 
 		//pixelsPerYDiv = height/Ymax;
 		pixelsPerXDiv = (width - PADDING)/Xmax;
-		pixelsPerYDiv = pixelsPerXDiv;
+//		pixelsPerYDiv = pixelsPerXDiv;
+        pixelsPerYDiv = height/Ymax;
 
 		for (int i = 0; i < Ymax; i++) {
 			for (int j = 0; j < Xmax; j++) {

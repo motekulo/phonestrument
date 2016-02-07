@@ -30,6 +30,7 @@ public class BeatSequencerFragment extends Fragment {
 	//private PdService pdService = null;
 	private PdUiDispatcher dispatcher;
 	private XYControllerBeatView beatView1;
+    private XYControllerBeatView beatView2;
 	private EditText tempoBox;
 	private int pulsesPerBeat;
     private int numBeats;
@@ -50,6 +51,13 @@ public class BeatSequencerFragment extends Fragment {
 		
 		beatView1 = (XYControllerBeatView) view.findViewById(R.id.beatToggleArrayView1);
 		beatView1.setTouchListener(beatArray1Touched);
+
+		beatView1.setXmax(16);
+
+        beatView2 = (XYControllerBeatView) view.findViewById(R.id.beatToggleArrayView2);
+       // beatView1.setTouchListener(beatArray1Touched);
+
+        beatView2.setXmax(1);
 
 		sequence = new float[4][16];
 

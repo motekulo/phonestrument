@@ -15,9 +15,21 @@
     <net.motekulo.phonestrument.XYControllerBeatView
         android:id="@+id/beatToggleArrayView1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_below="@+id/editText1"
-        android:paddingLeft="8dp" />
+        android:paddingLeft="8dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <net.motekulo.phonestrument.XYControllerBeatView
+        android:id="@+id/beatToggleArrayView2"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:paddingLeft="8dp"
+        android:layout_below="@+id/beatToggleArrayView1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="29dp" />
 
     <TextView
         android:id="@+id/textView1"
@@ -28,12 +40,5 @@
         android:text="@string/tempo_label"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <LinearLayout
-        android:id="@+id/linearLayoutAds"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical" >
-    </LinearLayout>
 
 </RelativeLayout>
