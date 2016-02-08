@@ -59,7 +59,7 @@ public class BeatSequencerFragment extends Fragment {
         beatView2.setTouchListener(beatArray2Touched);
 
         beatView2.setXmax(1);
-
+        beatView2.setIsRealtimePlayer(true);
 		sequence = new float[4][16];
 
 		PdBase.sendBang("ping_patch_for_info");
@@ -93,7 +93,7 @@ public class BeatSequencerFragment extends Fragment {
         dispatcher.addListener("current_pulse_num", new PdListener.Adapter() {
             @Override
             public void receiveFloat(String source, float x) {
-                Log.i(APP_NAME, "pulse: " + x);
+               // Log.i(APP_NAME, "pulse: " + x);
                 beatNum = (int) x;
 //				if (playState == false) {
 //					Log.i(APP_NAME, "Dispatcher and playstate false ");
@@ -116,7 +116,7 @@ public class BeatSequencerFragment extends Fragment {
 			public void receiveFloat(String source, float x) {
 				//Log.i(APP_NAME, "Getting bar number " + x);
 				currentBar = (int) x;
-                Log.i(APP_NAME, "Bar " + x);
+               // Log.i(APP_NAME, "Bar " + x);
                 // Scroll to correct bar (well, display it)
 
 				updateBeatArrayView(currentBar);
@@ -192,9 +192,11 @@ public class BeatSequencerFragment extends Fragment {
 
 			switch (row){
 				case 0:
+                    PdBase.sendBang("dr1_oneshot");
 					drSequenceToWrite = "dr1_sequence";
 					break;
 				case 1:
+                    PdBase.sendBang("dr2_oneshot");
 					drSequenceToWrite = "dr2_sequence";
 					break;
 				case 2:
@@ -209,6 +211,9 @@ public class BeatSequencerFragment extends Fragment {
 			PdBase.writeArray(drSequenceToWrite, startOfBarInPulses + beatNum, sequence[row], beatNum, 1);
 
 			updateBeatArrayView(currentBar);
+
+
+
 		}
 	};
 

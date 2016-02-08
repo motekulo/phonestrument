@@ -75,10 +75,12 @@ public class PhonestrumentActivity extends Activity {
 	private String sampleForPlayer2;
 	private String sampleForPlayer3;
 	private String sampleForPlayer4;
+    private String sampleForPlayer5;
 	private File player1Sample;
 	private File player2Sample;
 	private File player3Sample;
 	private File player4Sample;
+    private File player5Sample;
 	private File samplesDir;
 
 
@@ -167,6 +169,14 @@ public class PhonestrumentActivity extends Activity {
 		} else {
 			player4Sample = new File(sampleForPlayer4);
 		}
+
+        if (sampleForPlayer5 == "") {
+            player5Sample = new File(samplesDir, "cowbellsmallclosed.wav");
+            sampleForPlayer5 = player5Sample.getAbsolutePath();
+
+        } else {
+            player5Sample = new File(sampleForPlayer5);
+        }
 
 		setPreferences();
 		readPreferences();
@@ -263,12 +273,15 @@ public class PhonestrumentActivity extends Activity {
 		PdBase.sendFloat("master_vol", 82);
 		PdBase.sendFloat("drum_vol", 100);
 		PdBase.sendFloat("drumplayer_on", 1);
+        PdBase.sendFloat("metronome_sample_number", 8);
+        PdBase.sendFloat("metronome_on", 1);
 		PdBase.sendFloat("metro_on", 1);
 
 		PdBase.sendMessage("sample_to_play", sampleForPlayer1, 0);
 		PdBase.sendMessage("sample2_to_play", sampleForPlayer2, 0);
 		PdBase.sendMessage("sample3_to_play", sampleForPlayer3, 0);
 		PdBase.sendMessage("sample4_to_play", sampleForPlayer4, 0);
+        PdBase.sendMessage("sample5_to_play", sampleForPlayer5, 0);
 
 //		PdBase.sendFloat("synth_1_vol", (float) 0.5);
 //		PdBase.sendFloat("synth_2_vol", (float) 0.5);
@@ -345,13 +358,14 @@ public class PhonestrumentActivity extends Activity {
 
 	private void loadSamples(File sampleDir) {
 		// Really need to check whether these files exist first before writing them anyway...
-		int [] sample_ids = new int[4];
+		int [] sample_ids = new int[5];
 		String outputName = "";
 		File outputFile;
 		sample_ids[0] = getResources().getIdentifier("kick1", "raw", "net.motekulo.phonestrument");
 		sample_ids[1] = getResources().getIdentifier("snare1", "raw", "net.motekulo.phonestrument");
 		sample_ids[2] = getResources().getIdentifier("ohh", "raw", "net.motekulo.phonestrument");
 		sample_ids[3] = getResources().getIdentifier("chh", "raw", "net.motekulo.phonestrument");
+		sample_ids[4] = getResources().getIdentifier("cowbellsmallclosed", "raw", "net.motekulo.phonestrument");
 
 		for (int i = 0; i < sample_ids.length; i ++) {
 
@@ -468,6 +482,7 @@ public class PhonestrumentActivity extends Activity {
 		sampleForPlayer2 = preferences.getString("sample_player_2_filename", "");
 		sampleForPlayer3 = preferences.getString("sample_player_3_filename", "");
 		sampleForPlayer4 = preferences.getString("sample_player_4_filename", "");
+        sampleForPlayer5 = preferences.getString("sample_player_5_filename", "");
 		//numberOfBeats = preferences.getInt("number_of_beats", 4);
 
 	}
@@ -481,6 +496,7 @@ public class PhonestrumentActivity extends Activity {
 		editor.putString("sample_player_2_filename", sampleForPlayer2);
 		editor.putString("sample_player_3_filename", sampleForPlayer3);
 		editor.putString("sample_player_4_filename", sampleForPlayer4);
+		editor.putString("sample_player_5_filename", sampleForPlayer5);
 
 		editor.commit();
 	}
