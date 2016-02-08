@@ -55,11 +55,6 @@ public class BeatSequencerFragment extends Fragment {
 
 		beatView1.setXmax(16);
 
-        beatView2 = (XYControllerBeatView) view.findViewById(R.id.beatToggleArrayView2);
-        beatView2.setTouchListener(beatArray2Touched);
-
-        beatView2.setXmax(1);
-        beatView2.setIsRealtimePlayer(true);
 		sequence = new float[4][16];
 
 		PdBase.sendBang("ping_patch_for_info");
@@ -179,43 +174,6 @@ public class BeatSequencerFragment extends Fragment {
 		}
 	};
 
-	private touchListener beatArray2Touched = new XYControllerBeatView.touchListener() {
-
-		@Override
-		public void onPositionChange(View view, int row, int col, int value) {
-
-			// There's only one row, so we're getting instrument info
-			// Need to look to the patch and current beat to set column
-
-			String drSequenceToWrite = null;
-			sequence[row][beatNum] = value;
-
-			switch (row){
-				case 0:
-                    PdBase.sendBang("dr1_oneshot");
-					drSequenceToWrite = "dr1_sequence";
-					break;
-				case 1:
-                    PdBase.sendBang("dr2_oneshot");
-					drSequenceToWrite = "dr2_sequence";
-					break;
-				case 2:
-					drSequenceToWrite = "dr3_sequence";
-					break;
-				case 3:
-					drSequenceToWrite = "dr4_sequence";
-					break;
-
-			}
-			int startOfBarInPulses = pulsesPerBeat * numBeats * currentBar;
-			PdBase.writeArray(drSequenceToWrite, startOfBarInPulses + beatNum, sequence[row], beatNum, 1);
-
-			updateBeatArrayView(currentBar);
-
-
-
-		}
-	};
 
 	private TextView.OnEditorActionListener tempoEditorChanged =  new OnEditorActionListener() {
 		@Override

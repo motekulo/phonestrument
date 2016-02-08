@@ -1,4 +1,4 @@
-#N canvas 147 82 1271 818 10;
+#N canvas 144 87 1271 818 10;
 #X text -19 24 ARGUMENTS FOR NOTES:;
 #X text -19 46 pitch in halftones;
 #X text -19 70 amplitude (dB);
@@ -7,7 +7,7 @@
 #X text -19 143 start location (msec);
 #X text -19 166 rise time (msec);
 #X text -19 190 decay time (msec);
-#N canvas 1600 93 1425 818 samples 1;
+#N canvas 1600 93 1425 818 samples 0;
 #N canvas 0 82 450 300 (subpatch) 0;
 #X array sample1 176403 float 0;
 #X coords 0 1.02 176403 -1.02 200 130 1;
@@ -58,7 +58,7 @@
 #X coords 0 1.02 176403 -1.02 200 130 1 0 0;
 #X restore 42 371 graph;
 #X restore 1054 105 pd samples;
-#N canvas 220 88 1070 738 recorder 0;
+#N canvas 217 93 1070 738 recorder 1;
 #X obj 220 21 inlet;
 #X obj 174 174 adc~ 1;
 #X obj 174 202 hip~ 5;
@@ -131,7 +131,6 @@ sample10 \, read samples/ohh.wav sample11 \, read samples/chh.wav sample12
 #X connect 19 0 20 0;
 #X connect 21 0 9 0;
 #X connect 22 0 18 0;
-#X connect 23 0 38 0;
 #X connect 24 0 28 0;
 #X connect 25 0 29 0;
 #X connect 26 0 30 0;

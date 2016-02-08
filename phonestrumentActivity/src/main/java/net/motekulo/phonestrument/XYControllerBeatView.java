@@ -161,14 +161,13 @@ public class XYControllerBeatView extends View {
         if (Yval < 0) Yval = 0;
         if (Yval >= Ymax) Yval = Ymax - 1; // index to be sent
 
-        if (isRealtimePlayer == false) {
 
-            if (toggleState[Yval][Xval] == 0) {
-                toggleState[Yval][Xval] = 1;
-            } else {
-                toggleState[Yval][Xval] = 0;
-            }
+        if (toggleState[Yval][Xval] == 0) {
+            toggleState[Yval][Xval] = 1;
+        } else {
+            toggleState[Yval][Xval] = 0;
         }
+
         if (mTouchListener != null) {
             mTouchListener.onPositionChange(this, Yval, Xval, toggleState[Yval][Xval]);
         }
