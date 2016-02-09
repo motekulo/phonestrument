@@ -1,3 +1,20 @@
+/*
+ * Copyright (C) 2016 Denis Crowdy
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
 package net.motekulo.phonestrument;
 
 
@@ -37,8 +54,6 @@ public class BeatSequencerFragment extends Fragment {
     private int beatNum; //current beat
     private int currentBar;
 	float[][] sequence;
-
-	//private AdView adView;
 	
 
 	@Override
@@ -60,7 +75,7 @@ public class BeatSequencerFragment extends Fragment {
 		PdBase.sendBang("ping_patch_for_info");
 
 		updateBeatArrayView();
-		//initAds(view);
+
 
         dispatcher = new PdUiDispatcher();
         PdBase.setReceiver(dispatcher);
@@ -121,22 +136,6 @@ public class BeatSequencerFragment extends Fragment {
 		return view;
 	}
 
-	private void initAds(View view){
-
-//		adView = new AdView(getActivity(), AdSize.BANNER, PhonestrumentActivity.ADMOB_MEDIATION_ID);
-//		LinearLayout layout = (LinearLayout)view.findViewById(R.id.linearLayoutAds);
-//		layout.addView(adView);
-//
-//		AdRequest adRequest = new AdRequest();
-//		adRequest.addKeyword("music");
-//		adRequest.addTestDevice(AdRequest.TEST_EMULATOR);
-//
-//		adRequest.addTestDevice("12381B9A705131137970D2814E8CC388");  // Dc's One X
-//		//adRequest.addTestDevice("56E337CEE1A1F13B4D5893C791141867");  // Dc's tablet
-//		//adRequest.addTestDevice("AE349F5766106ACA46B96E2922980361");  // Gima's phone
-//
-//		adView.loadAd(adRequest);
-	}
 	
 	@Override
 	public void onResume() {
