@@ -1,0 +1,76 @@
+= Notes for Phonestrument site
+
+Open source music production app for the Android OS
+
+Digital music production for all 
+
+== Why?
+
+There are lots of music apps, but very few of them are open source. In an
+increasingly dominant/widespread OS, having open source apps offers long
+lasting accessible opportunities to make music production more widely available
+to more people.
+
+As an ethnomusicologist [definition here] I am interested [we?] in the impact
+technology is having world wide. My own particular interest has been focused on
+popular music production in Melanesia, mainly Papua New Guinea. Mobile phones
+have transformed communication in this region since about 2007. As smartphones
+become more widespread (and Android phones in particular due to their lower
+price that iPhones) we can expect apps to have a bigger influence in a number
+of areas, music being one of them.
+
+== Aims
+
+=== Stage 1
+
+Create an app that allows people to compose/write simple songs and pieces
+involving drums, chord/arpeggio instruments, bass, and lead/melody.
+
+The insipiration for this stems from various songs composed by Melanesian
+artists with themes supporting West Papuan Independence.
+
+==== Stage 2
+
+Connect instances of the app over networks, to allow shared performance and
+creation of music. OSC is the most likely protocol to be used for this at the
+moment.
+
+== Design principles
+
+http://www.musictechifesto.org
+
+
+
+== Project status
+
+Phonestrument currently has a simple four voice drum machine in place with a
+simple mixer. 
+
+== Roadmap
+
+The first milestone is an app with a lead player, bass player,
+arpeggio player and mixer as well.
+
+== Contribute
+
+The project is hosted by Github, so clone the repository and get coding, or if
+you would like to contribute in other ways (documentation, for example) contact
+Denis Crowdy.
+
+== FAQ
+
+Android has awful audio latency - why even bother?
+
+Why open source?
+
+Hasn't this been done before?
+
+
+== About
+
+Denis Crowdy, dcrowdy@gmail.com
+
+Supported by Australian Research Council Linkage Grant, LP150100973
+
+
+
