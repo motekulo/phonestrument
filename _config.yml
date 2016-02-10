@@ -11,7 +11,7 @@ email: motekulo@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
         Simple open source music production for Android
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://motekulo.github.io/phonestrument" # the base hostname & protocol for your site
+url: "" # the base hostname & protocol for your site
 twitter_username: deniscrowdy
 github_username:  motekulo
 
