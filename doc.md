@@ -1,0 +1,57 @@
+---
+layout: page
+title: Documentation
+permalink: /doc/
+---
+
+# Phonestrument Backend Puredata patch
+
+The main base patch is phonestrument.pd
+
+scale_struct is an array that contains the semitone sequence information for
+the base scale (so 2212221 for major). This array is contained in the subpatch
+"pd scale_chord_arrays" Along with arrays derived from it - so the scale
+calculated in midinotes (array scale) and the array holding chordtones
+(chordtones).
+
+"arp1chordttones", "arp2chordttones", "arp3chordttones", "arp4chordttones" hold
+the changing chord tone information for the four layers of the arpeggio player.
+
+The array "chordtones" is currently unused.
+
+The array "blockchordtones" is currently unused.
+
+## pd scalewriter
+
+This subpatch receives the message "key", which is a midinote representing the
+root of the scale (so 24 for C), then generates midinotes in an ascending scale
+in that key into the array "scale".
+
+## pd arpchordtone_calc
+
+Calculates midinotes for particular chords and any modifications to them
+(raising the third, flattening the 7th, for example). This is called by the
+arpeggioplayer.
+
+The subpatch has two main sections - the main block on the left that generates
+standard diatonic chordtones, and the block on the right that then modifies the
+generated chordtones with any accidentals (so raised third for secondary
+dominants, for example).
+
+![arpeggio chordtone creator](../assets/arpchordtone_calc.png)
+
+## pd blockchordtone_calc
+
+Currenty unused.
+
+## pd chordtone_calc
+
+Currenty unused.
+
+## General
+
+The arpeggio player needs to be triggered before the bass palyer as it sends
+out modified 3rd info that the bass player uses.
+
+
+
