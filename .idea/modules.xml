@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/androidMidi/androidMidi.iml" filepath="$PROJECT_DIR$/androidMidi/androidMidi.iml" />
       <module fileurl="file://$PROJECT_DIR$/libmotekulo/libmotekulo.iml" filepath="$PROJECT_DIR$/libmotekulo/libmotekulo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libmotekulo/libmotekulo.iml" filepath="$PROJECT_DIR$/libmotekulo/libmotekulo.iml" />
       <module fileurl="file://$PROJECT_DIR$/libphonemusic/libphonemusic.iml" filepath="$PROJECT_DIR$/libphonemusic/libphonemusic.iml" />
       <module fileurl="file://$PROJECT_DIR$/pdCore/pdCore.iml" filepath="$PROJECT_DIR$/pdCore/pdCore.iml" />
       <module fileurl="file://$PROJECT_DIR$/phonestrument.iml" filepath="$PROJECT_DIR$/phonestrument.iml" />

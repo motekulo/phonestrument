@@ -47,16 +47,18 @@ public class BeatSequencerFragment extends Fragment {
 	//private PdService pdService = null;
 	private PdUiDispatcher dispatcher;
 	private XYControllerBeatView beatView1;
-    private XYControllerBeatView beatView2;
+    private XYControllerBeatView barView;
 	private EditText tempoBox;
 	private int pulsesPerBeat;
     private int numBeats;
+    private int numBars;
     private int beatNum; //current beat
     private int currentBar;
 	float[][] sequence;
-	
 
-	@Override
+
+
+    @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
@@ -68,17 +70,38 @@ public class BeatSequencerFragment extends Fragment {
 		beatView1 = (XYControllerBeatView) view.findViewById(R.id.beatToggleArrayView1);
 		beatView1.setTouchListener(beatArray1Touched);
 
-		beatView1.setXmax(16);
+		//beatView1.setYmax(1);
+
+        barView = (XYControllerBeatView) view.findViewById(R.id.barView);
+       // barView.setTouchListener(beatArray1Touched);
+
+        barView.setXmax(4);
+        barView.setYmax(1);
 
 		sequence = new float[4][16];
 
-		PdBase.sendBang("ping_patch_for_info");
+        /* Keep as much state in the backend as possible and use that as the ultimate source rather
+         than duplicating data. Here we have a message that bangs a number of float boxes in the pd
+         patch that then sends their values to which the listeners listen.
+         */
+        PdBase.sendBang("ping_patch_for_info");
 
 		updateBeatArrayView();
 
 
         dispatcher = new PdUiDispatcher();
         PdBase.setReceiver(dispatcher);
+
+        dispatcher.addListener("num_bars_info", new PdListener.Adapter() {
+
+            @Override
+            public void receiveFloat(String source, float x) {
+                //Log.i(APP_NAME, "num_beats_info: " + x);
+                numBars = (int) x;
+                barView.setXmax(numBars);
+            }
+
+        });
 
         dispatcher.addListener("num_beats_info", new PdListener.Adapter() {
 
@@ -213,6 +236,7 @@ public class BeatSequencerFragment extends Fragment {
         int barSize = pulsesPerBeat * numBeats;
         int startOfBarInPulses = barSize * barnum;
         int[][] beatArray = new int[4][barSize];
+        int[][] barArray = new int[1][numBars];
 
         PdBase.readArray(sequence[0], 0, "dr1_sequence", startOfBarInPulses, barSize);
         PdBase.readArray(sequence[1], 0, "dr2_sequence", startOfBarInPulses, barSize);
@@ -225,6 +249,18 @@ public class BeatSequencerFragment extends Fragment {
             }
         }
         beatView1.setToggleState(beatArray);
+
+        for (int i=0; i < 1; i++) {
+            for (int j=0; j< numBars; j++) {
+                if (currentBar == j) {
+                    barArray[i][j] = 1;
+                } else {
+                    barArray[i][j] = 0;
+                }
+            }
+        }
+        barView.setToggleState(barArray);
+
     }
 
 //	private final ServiceConnection pdConnection = new ServiceConnection() { 
