@@ -69,8 +69,9 @@ public class BeatSequencerFragment extends Fragment {
 		
 		beatView1 = (XYControllerBeatView) view.findViewById(R.id.beatToggleArrayView1);
 		beatView1.setTouchListener(beatArray1Touched);
-
-		//beatView1.setYmax(1);
+        // set some defaults
+        beatView1.setXmax(16);
+		beatView1.setYmax(4);
 
         barView = (XYControllerBeatView) view.findViewById(R.id.barView);
        // barView.setTouchListener(beatArray1Touched);
@@ -216,35 +217,43 @@ public class BeatSequencerFragment extends Fragment {
 	};
 
 	private void updateBeatArrayView(){
-		
-		int[][] beatArray = new int[4][16];
-		
-		PdBase.readArray(sequence[0], 0, "dr1_sequence", 0, 16);
+// pinged info might not have returned from backend so set some defaults in case
+        if (numBeats == 0) numBeats = 4;
+        if (pulsesPerBeat == 0) pulsesPerBeat = 4;
+        ;
+
+        int pulsesPerBar = numBeats * pulsesPerBeat;
+//		int[][] beatArray = new int[4][16];
+        int[][] beatArray = new int[4][pulsesPerBar];
+
+
+        PdBase.readArray(sequence[0], 0, "dr1_sequence", 0, 16);
 		PdBase.readArray(sequence[1], 0, "dr2_sequence", 0, 16);
 		PdBase.readArray(sequence[2], 0, "dr3_sequence", 0, 16);
 		PdBase.readArray(sequence[3], 0, "dr4_sequence", 0, 16);
 		
 		for (int i=0; i < 4; i++) {
-			for (int j=0; j< 16; j++) {
+			for (int j=0; j< pulsesPerBar; j++) {
 				beatArray[i][j] = (int) sequence[i][j];
 			}
 		}
 		beatView1.setToggleState(beatArray);
 	}
     private void updateBeatArrayView(int barnum){
-
-        int barSize = pulsesPerBeat * numBeats;
-        int startOfBarInPulses = barSize * barnum;
-        int[][] beatArray = new int[4][barSize];
+        if (numBeats == 0) {numBeats = 4;}
+        if (pulsesPerBeat == 0) {pulsesPerBeat = 4;};
+        int pulsesPerBar = pulsesPerBeat * numBeats;
+        int startOfBarInPulses = pulsesPerBar * barnum;
+        int[][] beatArray = new int[4][pulsesPerBar];
         int[][] barArray = new int[1][numBars];
 
-        PdBase.readArray(sequence[0], 0, "dr1_sequence", startOfBarInPulses, barSize);
-        PdBase.readArray(sequence[1], 0, "dr2_sequence", startOfBarInPulses, barSize);
-        PdBase.readArray(sequence[2], 0, "dr3_sequence", startOfBarInPulses, barSize);
-        PdBase.readArray(sequence[3], 0, "dr4_sequence", startOfBarInPulses, barSize);
+        PdBase.readArray(sequence[0], 0, "dr1_sequence", startOfBarInPulses, pulsesPerBar);
+        PdBase.readArray(sequence[1], 0, "dr2_sequence", startOfBarInPulses, pulsesPerBar);
+        PdBase.readArray(sequence[2], 0, "dr3_sequence", startOfBarInPulses, pulsesPerBar);
+        PdBase.readArray(sequence[3], 0, "dr4_sequence", startOfBarInPulses, pulsesPerBar);
 
         for (int i=0; i < 4; i++) {
-            for (int j=0; j< 16; j++) {
+            for (int j=0; j< pulsesPerBar; j++) {
                 beatArray[i][j] = (int) sequence[i][j];
             }
         }
