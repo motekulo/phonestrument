@@ -267,7 +267,7 @@ public class PhonestrumentActivity extends Activity {
 
 		PdBase.sendFloat("density", 4);
 		PdBase.sendFloat("num_beats", 4);
-		PdBase.sendFloat("num_bars", 4);
+		PdBase.sendFloat("num_bars", 17);
 		PdBase.sendFloat("tempo", 112);
 		//PdBase.sendFloat("init_samples" bang);
 		PdBase.sendFloat("master_vol", 82);

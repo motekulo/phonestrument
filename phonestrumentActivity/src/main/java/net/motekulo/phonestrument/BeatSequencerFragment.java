@@ -21,7 +21,6 @@ package net.motekulo.phonestrument;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,7 +54,9 @@ public class BeatSequencerFragment extends Fragment {
     private int beatNum; //current beat
     private int currentBar;
 	float[][] sequence;
-
+    private EditText numbarsBox;
+    private EditText numbeatsBox;
+    private EditText numpulsesBox;
 
 
     @Override
@@ -66,6 +67,15 @@ public class BeatSequencerFragment extends Fragment {
 
 		tempoBox = (EditText) view.findViewById(R.id.editText1);
 		tempoBox.setOnEditorActionListener(tempoEditorChanged);
+
+        numbarsBox = (EditText) view.findViewById(R.id.editText2);
+        numbarsBox.setOnEditorActionListener(numbarsEditorChanged);
+
+        numbeatsBox = (EditText) view.findViewById(R.id.editText1);
+//        numbeatsBox.setOnEditorActionListener(tempoEditorChanged);
+
+        numpulsesBox = (EditText) view.findViewById(R.id.editText1);
+        //      numpulsesBox.setOnEditorActionListener(tempoEditorChanged);
 		
 		beatView1 = (XYControllerBeatView) view.findViewById(R.id.beatToggleArrayView1);
 		beatView1.setTouchListener(beatArray1Touched);
@@ -207,7 +217,7 @@ public class BeatSequencerFragment extends Fragment {
 				InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(
 						Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(tempoBox.getWindowToken(), 0);
-				Log.i(APP_NAME, "Tempo is " + v.getText());
+				//Log.i(APP_NAME, "Tempo is " + v.getText());
 				Float tempo = Float.valueOf(v.getText().toString());
 				PdBase.sendFloat("tempo", tempo);
 				handled = true;
@@ -215,6 +225,60 @@ public class BeatSequencerFragment extends Fragment {
 			return handled;
 		}
 	};
+
+    private TextView.OnEditorActionListener numbarsEditorChanged =  new OnEditorActionListener() {
+        @Override
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+
+            boolean handled = false;
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(
+                        Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(tempoBox.getWindowToken(), 0);
+                //Log.i(APP_NAME, "Tempo is " + v.getText());
+                Float bars = Float.valueOf(v.getText().toString());
+                PdBase.sendFloat("num_bars", bars);
+                handled = true;
+            }
+            return handled;
+        }
+    };
+
+    private TextView.OnEditorActionListener numbeatsEditorChanged =  new OnEditorActionListener() {
+        @Override
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+
+            boolean handled = false;
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(
+                        Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(tempoBox.getWindowToken(), 0);
+                //Log.i(APP_NAME, "Tempo is " + v.getText());
+                Float beats = Float.valueOf(v.getText().toString());
+                PdBase.sendFloat("num_beats", beats);
+                handled = true;
+            }
+            return handled;
+        }
+    };
+
+    private TextView.OnEditorActionListener numpulsesEditorChanged =  new OnEditorActionListener() {
+        @Override
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+
+            boolean handled = false;
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(
+                        Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(tempoBox.getWindowToken(), 0);
+                //Log.i(APP_NAME, "Tempo is " + v.getText());
+                Float pulsesperbeat = Float.valueOf(v.getText().toString());
+                PdBase.sendFloat("density", pulsesperbeat);
+                handled = true;
+            }
+            return handled;
+        }
+    };
 
 	private void updateBeatArrayView(){
 // pinged info might not have returned from backend so set some defaults in case

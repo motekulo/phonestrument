@@ -104,11 +104,11 @@ public class XYControllerBeatView extends View {
         beatIndicator.getPaint().setColor(MLIGHTBLUE);
 
         //Xmin = 0;
-        Xmax = 16;
+        Xmax = 1000; // so this will set the desnity and also the max number of bars FIXME
         //Ymin = 0;
         Ymax = 4;
         isRealtimePlayer = false;
-        toggleState = new int[Ymax][Xmax]; // rows and columns
+        toggleState = new int[Ymax][Xmax]; // might need an arrayList here?n(see above FIXME)
 
         setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(final View v, final MotionEvent event) {
@@ -130,6 +130,7 @@ public class XYControllerBeatView extends View {
 
     public void setXmax(int xmax) {
         Xmax = xmax;
+
     }
 
     public void setYmax(int ymax) {
