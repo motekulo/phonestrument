@@ -71,11 +71,11 @@ public class BeatSequencerFragment extends Fragment {
         numbarsBox = (EditText) view.findViewById(R.id.editText2);
         numbarsBox.setOnEditorActionListener(numbarsEditorChanged);
 
-        numbeatsBox = (EditText) view.findViewById(R.id.editText1);
-//        numbeatsBox.setOnEditorActionListener(tempoEditorChanged);
+        numbeatsBox = (EditText) view.findViewById(R.id.editText3);
+        numbeatsBox.setOnEditorActionListener(numbeatsEditorChanged);
 
-        numpulsesBox = (EditText) view.findViewById(R.id.editText1);
-        //      numpulsesBox.setOnEditorActionListener(tempoEditorChanged);
+        numpulsesBox = (EditText) view.findViewById(R.id.editText4);
+        numpulsesBox.setOnEditorActionListener(numpulsesEditorChanged);
 		
 		beatView1 = (XYControllerBeatView) view.findViewById(R.id.beatToggleArrayView1);
 		beatView1.setTouchListener(beatArray1Touched);
@@ -120,6 +120,7 @@ public class BeatSequencerFragment extends Fragment {
             public void receiveFloat(String source, float x) {
                 //Log.i(APP_NAME, "num_beats_info: " + x);
                 numBeats = (int) x;
+                beatView1.setXmax(numBeats * pulsesPerBeat);
             }
 
         });
@@ -130,6 +131,7 @@ public class BeatSequencerFragment extends Fragment {
             public void receiveFloat(String source, float x) {
                 //Log.i(APP_NAME, "density_info: " + x);
                 pulsesPerBeat = (int) x;
+                beatView1.setXmax(numBeats * pulsesPerBeat);
             }
 
         });
@@ -256,6 +258,7 @@ public class BeatSequencerFragment extends Fragment {
                 //Log.i(APP_NAME, "Tempo is " + v.getText());
                 Float beats = Float.valueOf(v.getText().toString());
                 PdBase.sendFloat("num_beats", beats);
+                PdBase.sendBang("ping_patch_for_info");  // the actual view changes will be made in the dispatcher listener
                 handled = true;
             }
             return handled;
@@ -274,6 +277,7 @@ public class BeatSequencerFragment extends Fragment {
                 //Log.i(APP_NAME, "Tempo is " + v.getText());
                 Float pulsesperbeat = Float.valueOf(v.getText().toString());
                 PdBase.sendFloat("density", pulsesperbeat);
+                PdBase.sendBang("ping_patch_for_info");  // the actual view changes will be made in the dispatcher listener
                 handled = true;
             }
             return handled;
