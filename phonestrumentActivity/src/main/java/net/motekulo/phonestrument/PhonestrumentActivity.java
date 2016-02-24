@@ -16,7 +16,6 @@
 package net.motekulo.phonestrument;
 
 
-
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
@@ -28,6 +27,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
@@ -51,6 +53,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 //import android.support.v4.app.FragmentActivity;
 //import android.support.v4.app.FragmentTabHost;
 //import android.support.v4.view.ViewPager;
@@ -344,16 +347,16 @@ public class PhonestrumentActivity extends Activity {
 		TelephonyManager telephonyManager =
 				(TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 		telephonyManager.listen(new PhoneStateListener() {
-			@Override
-			public void onCallStateChanged(int state, String incomingNumber) {
-				if (pdService == null) return;
-				if (state == TelephonyManager.CALL_STATE_IDLE) {
-					start(); 
-				} else {
-					pdService.stopAudio(); 
-				}
-			}
-		}, PhoneStateListener.LISTEN_CALL_STATE);
+            @Override
+            public void onCallStateChanged(int state, String incomingNumber) {
+                if (pdService == null) return;
+                if (state == TelephonyManager.CALL_STATE_IDLE) {
+                    start();
+                } else {
+                    pdService.stopAudio();
+                }
+            }
+        }, PhoneStateListener.LISTEN_CALL_STATE);
 	}
 
 	private void loadSamples(File sampleDir) {
@@ -414,6 +417,24 @@ public class PhonestrumentActivity extends Activity {
 		readPreferences();
 	}
 
+    private void saveLoop() {
+        //Log.i(APP_NAME, "Save test");
+        readPreferences();
+        String projectFileName = "testexport.wav";
+        File fileToShare = new File(samplesDir, projectFileName);
+        PdBase.sendMessage("keepit", fileToShare.getAbsolutePath(), 0);
+
+        Intent myIntent = new Intent(Intent.ACTION_SEND).setType("audio/*");
+        myIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(fileToShare));
+
+        PackageManager packageManager = getPackageManager();
+        List<ResolveInfo> activities = packageManager.queryIntentActivities(myIntent, 0);
+        boolean isIntentSafe = activities.size() > 0;
+        //Log.i(APP_NAME, "Number of activities to handle this type is " + activities.size());
+        if (isIntentSafe) {
+            startActivity(myIntent);
+        }
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -423,22 +444,22 @@ public class PhonestrumentActivity extends Activity {
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
 
-		//		case R.id.menu_settings: {
-		//			Intent i = new Intent(this, Settings.class);
-		//			startActivityForResult(i, SETTINGS_ID);
-		//			break;
-		//		}
-		//
-		//		case R.id.menu_help: {
-		//			Intent i = new Intent(this, BeatsAndLoopsHelp.class);
-		//			startActivityForResult(i, HELP_ID);			
-		//			break;
-		//		}
+            //		case R.id.menu_settings: {
+            //			Intent i = new Intent(this, Settings.class);
+            //			startActivityForResult(i, SETTINGS_ID);
+            //			break;
+            //		}
+            //
+            //		case R.id.menu_help: {
+            //			Intent i = new Intent(this, BeatsAndLoopsHelp.class);
+            //			startActivityForResult(i, HELP_ID);
+            //			break;
+            //		}
 
-		case R.id.menu_rate_app: {
+            case R.id.menu_rate_app: {
 //			Intent rateIntent = new Intent(Intent.ACTION_VIEW);
 //			rateIntent.setData(Uri.parse("market://details?id=net.motekulo.phonstrument"));
 //			if (mStartActivity(rateIntent) == false) {
@@ -446,25 +467,31 @@ public class PhonestrumentActivity extends Activity {
 //				rateIntent.setData(Uri.parse("https://play.google.com/store/apps/details?id=net.motekulo.phonstrument"));
 //				mStartActivity(rateIntent);
 //			}
-			break;
-		}
+                break;
+            }
 
-		case R.id.menu_tell_friend: {
+            case R.id.menu_tell_friend: {
 //			Intent tellIntent = new Intent(Intent.ACTION_SEND);
 //			tellIntent.putExtra(Intent.EXTRA_SUBJECT, "Phonstrument - a great phone app for live sequencing");
 //			tellIntent.putExtra(Intent.EXTRA_TEXT, "Check this out - https://play.google.com/store/apps/details?id=net.motekulo.phonstrument");
 //			tellIntent.setType("plain/text");
 //			startActivity(Intent.createChooser(tellIntent, "Tell a friend..."));
-			break;
-		}
+                break;
+            }
 
-		case R.id.toggle_on_off: {
-			PdBase.sendBang("metro_on");
-		}
+            case R.id.toggle_on_off: {
+                PdBase.sendBang("metro_on");
+                break;
+            }
 
-		}
-		return true;
-	}
+            case R.id.share_loop: {
+                saveLoop();
+                break;
+            }
+
+        }
+        return true;
+    }
 
 
 	private boolean mStartActivity(Intent intent) {

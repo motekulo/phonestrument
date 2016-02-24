@@ -1,4 +1,4 @@
-#N canvas 1600 82 1440 818 12;
+#N canvas 1600 54 1440 846 12;
 #X msg 84 20 \; scale_struct 0 2 2 1 2 2 2 1;
 #X floatatom 988 65 5 0 0 0 - - -, f 5;
 #N canvas 172 262 1155 818 chordtone_calc 0;
@@ -127,7 +127,7 @@
 #X connect 28 1 14 0;
 #X connect 29 0 0 0;
 #X restore 82 94 pd scalewriter;
-#N canvas 0 97 1425 818 sequence_arrays 0;
+#N canvas 1603 103 1425 818 sequence_arrays 0;
 #N canvas 2352 122 450 278 (subpatch) 0;
 #X array lead_accidentals_sequence 16 float 3;
 #A 0 0 0 -1 0 0 -1 0 0 0 0 0 0 0 0 0 0;
@@ -190,7 +190,7 @@
 #X restore 863 570 graph;
 #N canvas 2352 122 450 278 (subpatch) 0;
 #X array dr1_sequence 16 float 3;
-#A 0 0 0 0 0 1 0 0 0 1 0 0 0 1 0 0 0;
+#A 0 1 0 0 0 1 0 0 0 1 0 0 0 1 0 0 0;
 #X coords 0 0 16 47 200 140 1 0 0;
 #X restore 1066 36 graph;
 #N canvas 624 148 450 278 (subpatch) 0;
@@ -1937,7 +1937,7 @@ dr2_sequence 0 0 0 0 1 0 0 0 0 0 1 0 1 0 0 0 \; dr3_sequence 0 0 1
 #X text 44 -10 Semitone intervals of scale;
 #X text 43 67 Which is used to write a scale from a particular tonic:
 ;
-#N canvas 1582 107 1712 960 arpeggioplayer 0;
+#N canvas 1600 82 1440 818 arpeggioplayer 0;
 #X obj 55 8 inlet;
 #X obj 66 835 s note 60 90 150 2 0;
 #X floatatom 226 603 5 0 0 0 - - -, f 5;
@@ -2698,7 +2698,7 @@ resize \$1 \;;
 #X connect 48 0 50 0;
 #X connect 50 0 47 0;
 #X restore 1004 94 pd bars;
-#N canvas 293 114 986 754 record_it 0;
+#N canvas 1600 92 1440 818 record_it 0;
 #X floatatom 754 324 5 0 0 0 - - -, f 5;
 #X obj 754 293 soundfiler;
 #X obj 754 161 r keepit;
@@ -2764,13 +2764,13 @@ resize \$1 \;;
 #X obj 817 494 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X obj 811 456 spigot;
-#X obj 856 429 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
-1;
+#X obj 856 429 tgl 15 1 empty record_sequence empty 17 7 0 10 -262144
+-1 -1 1 1;
 #X obj 739 595 tabwrite~ recordL;
 #X obj 878 595 tabwrite~ recordR;
-#X text 873 428 check to record;
+#X text 880 428 check to record;
 #X text 591 596 Arrays for recording;
-#N canvas 1647 82 1320 818 drumplayer 1;
+#N canvas 1638 97 1320 818 drumplayer 0;
 #X obj 384 38 inlet;
 #X floatatom 252 400 5 0 0 0 - - -, f 5;
 #X floatatom 247 480 5 0 0 0 - - -, f 5;
@@ -3109,7 +3109,7 @@ degree (so scale degree 2 if chord 2:;
 #X restore 244 104 pd bass_scalewriter;
 #X obj 1101 517 output;
 #X obj 1052 137 t f f f f f;
-#N canvas 1829 87 995 818 metronome 0;
+#N canvas 1826 92 995 818 metronome 0;
 #X obj 184 21 inlet;
 #X floatatom 52 383 5 0 0 0 - - -, f 5;
 #X floatatom 47 463 5 0 0 0 - - -, f 5;

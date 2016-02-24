@@ -34,6 +34,7 @@
     <string name="numbars_label">Bars</string>
     <string name="numbeats_label">Beats</string>
     <string name="numpulses_label">Pulses</string>
+    <string name="share_loop">Export</string>
 
 
     <string-array name="key_list">

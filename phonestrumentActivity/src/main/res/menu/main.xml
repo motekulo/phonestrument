@@ -17,4 +17,10 @@
         android:showAsAction="ifRoom"
         android:title="@string/menu_tell_friend"/>
 
+    <item
+        android:id="@+id/share_loop"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="@string/share_loop"/>
+
 </menu>
