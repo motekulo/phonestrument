@@ -20,6 +20,7 @@ package net.motekulo.phonestrument;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -36,6 +37,8 @@ import net.motekulo.phonestrument.XYControllerBeatView.touchListener;
 import org.puredata.android.utils.PdUiDispatcher;
 import org.puredata.core.PdBase;
 import org.puredata.core.PdListener;
+
+import java.io.File;
 
 //import android.support.v4.app.Fragment;
 //import android.app.Fragment;
@@ -57,6 +60,8 @@ public class BeatSequencerFragment extends Fragment {
     private EditText numbarsBox;
     private EditText numbeatsBox;
     private EditText numpulsesBox;
+    private String currentProjectName;
+    private File projectDir;
 
 
     @Override
@@ -98,7 +103,13 @@ public class BeatSequencerFragment extends Fragment {
         PdBase.sendBang("ping_patch_for_info");
 
 		updateBeatArrayView();
+        readPreferences();
+        // Get the base directory for saving patch arrays
+        String dataPath = getActivity().getExternalFilesDir(null).getPath();
 
+        File appDir = new File(dataPath, net.motekulo.phonestrument.PhonestrumentActivity.APP_DATA_DIR_NAME);
+
+        projectDir = new File(appDir, currentProjectName);
 
         dispatcher = new PdUiDispatcher();
         PdBase.setReceiver(dispatcher);
@@ -177,6 +188,7 @@ public class BeatSequencerFragment extends Fragment {
 	public void onResume() {
 		super.onResume();
 		updateBeatArrayView();
+        readPreferences();
 	}
 
 	private touchListener beatArray1Touched = new XYControllerBeatView.touchListener() {
@@ -337,6 +349,14 @@ public class BeatSequencerFragment extends Fragment {
             }
         }
         barView.setToggleState(barArray);
+
+    }
+
+    private void readPreferences() {
+        SharedPreferences preferences = getActivity().getSharedPreferences("Phonestrument", Context.MODE_PRIVATE);
+
+        currentProjectName = preferences.getString("CurrentProjectName", "untitled");
+
 
     }
 

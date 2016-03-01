@@ -182,7 +182,7 @@ public class PhonestrumentActivity extends Activity {
             player5Sample = new File(sampleForPlayer5);
         }
 
-		setPreferences();
+
 		readPreferences();
 
         if (currentProjectName.equals("untitled")) {
@@ -190,7 +190,6 @@ public class PhonestrumentActivity extends Activity {
         }
 
         String dataPath = getExternalFilesDir(null).getPath();
-        String dataPath2 = Environment.getDataDirectory().getAbsolutePath();
 
         File appDir = new File(dataPath, APP_DATA_DIR_NAME);
 
@@ -202,7 +201,7 @@ public class PhonestrumentActivity extends Activity {
         if (!projectDir.exists()) {
             projectDir.mkdirs();
         }
-
+        setPreferences();
 		initSystemServices();
 		bindService(new Intent(this, PdService.class), pdConnection, BIND_AUTO_CREATE);	
 
@@ -540,6 +539,7 @@ public class PhonestrumentActivity extends Activity {
         PdBase.sendMessage("test_read_array", fileToTest.getAbsolutePath(), 0);
 
     }
+
 
 
     private boolean mStartActivity(Intent intent) {
