@@ -489,12 +489,26 @@ public class PhonestrumentActivity extends Activity {
                 break;
             }
 
+            case R.id.test_write_array: {
+                testWriteArray();
+                break;
+            }
+
         }
         return true;
     }
 
+    private void testWriteArray() {
 
-	private boolean mStartActivity(Intent intent) {
+        readPreferences();
+        String testFileName = "testarray.txt";
+        File fileToTest = new File(samplesDir, testFileName);
+        PdBase.sendMessage("test_write_array", fileToTest.getAbsolutePath(), 0);
+
+    }
+
+
+    private boolean mStartActivity(Intent intent) {
 		try {
 			startActivity(intent);
 			return true;
