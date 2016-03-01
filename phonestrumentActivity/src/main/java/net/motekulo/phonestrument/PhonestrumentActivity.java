@@ -85,9 +85,10 @@ public class PhonestrumentActivity extends Activity {
 	private File player4Sample;
     private File player5Sample;
 	private File samplesDir;
+    private String currentProjectName;
 
 
-	@Override
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
@@ -183,6 +184,24 @@ public class PhonestrumentActivity extends Activity {
 
 		setPreferences();
 		readPreferences();
+
+        if (currentProjectName.equals("untitled")) {
+            checkAndCreateUniqueProjectName();
+        }
+
+        String dataPath = getExternalFilesDir(null).getPath();
+        String dataPath2 = Environment.getDataDirectory().getAbsolutePath();
+
+        File appDir = new File(dataPath, APP_DATA_DIR_NAME);
+
+        if (!appDir.exists()) {
+            appDir.mkdirs();
+        }
+
+        File projectDir = new File(appDir, currentProjectName);
+        if (!projectDir.exists()) {
+            projectDir.mkdirs();
+        }
 
 		initSystemServices();
 		bindService(new Intent(this, PdService.class), pdConnection, BIND_AUTO_CREATE);	
@@ -325,6 +344,21 @@ public class PhonestrumentActivity extends Activity {
 		start();
 
 	}
+
+    private void checkAndCreateUniqueProjectName() {
+        int i = 1;
+        String filepath = Environment.getDataDirectory().getPath();
+        File appDir = new File(filepath, APP_DATA_DIR_NAME);
+        String potentialProjectName = "Project " + Integer.toString(i);
+        File potentialProjectFileDir = new File(appDir, potentialProjectName);
+
+        while (potentialProjectFileDir.isDirectory() == true) {
+            i++;
+            potentialProjectName = "Project " + Integer.toString(i);
+            potentialProjectFileDir = new File(appDir, potentialProjectName);
+        }
+        currentProjectName = potentialProjectName;
+    }
 
 	private void start() {
 		if (!pdService.isRunning()) {
@@ -489,7 +523,7 @@ public class PhonestrumentActivity extends Activity {
                 break;
             }
 
-            case R.id.test_write_array: {
+            case R.id.test_array: {
                 testWriteArray();
                 break;
             }
@@ -519,6 +553,7 @@ public class PhonestrumentActivity extends Activity {
 
 	private void readPreferences() {
 		SharedPreferences preferences = getSharedPreferences("Phonestrument", Context.MODE_PRIVATE);
+        currentProjectName = preferences.getString("CurrentProjectName", "untitled");
 		sampleForPlayer1 = preferences.getString("sample_player_1_filename", "");
 		sampleForPlayer2 = preferences.getString("sample_player_2_filename", "");
 		sampleForPlayer3 = preferences.getString("sample_player_3_filename", "");
@@ -532,7 +567,7 @@ public class PhonestrumentActivity extends Activity {
 		SharedPreferences preferences = getSharedPreferences("Phonestrument",
 				MODE_PRIVATE);
 		SharedPreferences.Editor editor = preferences.edit();
-
+        editor.putString("CurrentProjectName", currentProjectName);
 		editor.putString("sample_player_1_filename", sampleForPlayer1);
 		editor.putString("sample_player_2_filename", sampleForPlayer2);
 		editor.putString("sample_player_3_filename", sampleForPlayer3);
