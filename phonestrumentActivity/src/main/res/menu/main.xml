@@ -24,9 +24,9 @@
         android:title="@string/share_loop"/>
 
     <item
-        android:id="@+id/test_write_array"
+        android:id="@+id/test_array"
         android:orderInCategory="100"
         android:showAsAction="always"
-        android:title="@string/write_array"/>
+        android:title="@string/read_array"/>
 
 </menu>

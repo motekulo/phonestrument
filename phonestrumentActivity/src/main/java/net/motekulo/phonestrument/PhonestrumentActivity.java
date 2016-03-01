@@ -501,9 +501,9 @@ public class PhonestrumentActivity extends Activity {
     private void testWriteArray() {
 
         readPreferences();
-        String testFileName = "testarray.txt";
+        String testFileName = "testreadarray.txt";
         File fileToTest = new File(samplesDir, testFileName);
-        PdBase.sendMessage("test_write_array", fileToTest.getAbsolutePath(), 0);
+        PdBase.sendMessage("test_read_array", fileToTest.getAbsolutePath(), 0);
 
     }
 
