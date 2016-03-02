@@ -32,14 +32,17 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import net.motekulo.phonestrument.HorizontalFader.HorizontalFaderPositionListener;
 import net.motekulo.phonestrument.VerticalFader.VerticalFaderPositionListener;
 
+import org.apache.commons.io.FileUtils;
 import org.puredata.core.PdBase;
 
 import java.io.File;
+import java.io.IOException;
 
 //import android.support.v4.app.Fragment;
 
@@ -144,10 +147,36 @@ public class MixerFragment extends Fragment implements OnClickListener{
 				imm.hideSoftInputFromWindow(exportNameTextView.getWindowToken(), 0);
 				//Log.i(APP_NAME, "changed name to " + v.getText());
 
-				String newExportName = v.getText().toString().trim();
+				String renamedProjectName = v.getText().toString().trim();
+                String dataPath = getActivity().getExternalFilesDir(null).getPath();
+                File appDir = new File(dataPath, net.motekulo.phonestrument.PhonestrumentActivity.APP_DATA_DIR_NAME);
 
-				currentProjectName = newExportName;
-				SharedPreferences preferences = getActivity().getSharedPreferences("Phonstrument", 0);
+                File oldProjectDir = new File(appDir, currentProjectName);
+                File newProjectDir = new File(appDir, renamedProjectName);
+
+                if (newProjectDir.isDirectory() == true) {
+                    // project exists already so abandon ship
+                    Context context = getActivity().getApplicationContext();
+                    CharSequence text = "That project exists already - please try another name";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+
+                } else {
+
+                    try {
+                        FileUtils.moveDirectory(oldProjectDir, newProjectDir);
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+
+
+
+				currentProjectName = renamedProjectName;
+				SharedPreferences preferences = getActivity().getSharedPreferences("Phonestrument", 0);
 
 				SharedPreferences.Editor editor = preferences.edit();
 
@@ -233,7 +262,7 @@ public class MixerFragment extends Fragment implements OnClickListener{
 	};
 
 	private void readPreferences() {
-		SharedPreferences preferences = getActivity().getSharedPreferences("Phonstrument", Context.MODE_PRIVATE);
+		SharedPreferences preferences = getActivity().getSharedPreferences("Phonestrument", Context.MODE_PRIVATE);
 		currentProjectName = preferences.getString("CurrentProjectName", "untitled");
 
 	}

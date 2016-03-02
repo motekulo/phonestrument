@@ -22,4 +22,5 @@ dependencies {
     compile project(':pdCore')
     compile files('libs/GoogleAdMobAdsSdk-6.4.1.jar')
     compile files('libs/libGoogleAnalyticsServices.jar')
+    compile files('libs/commons-io-2.4.jar')
 }
