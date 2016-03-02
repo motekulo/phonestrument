@@ -36,7 +36,7 @@
     <string name="numpulses_label">Pulses</string>
     <string name="share_loop">Export</string>
     <string name="read_array">Test read</string>
-
+    <string name="new_project">New</string>
 
     <string-array name="key_list">
         <item>C</item>

@@ -189,18 +189,7 @@ public class PhonestrumentActivity extends Activity {
         checkAndCreateUniqueProjectName();
        // }
 
-        String dataPath = getExternalFilesDir(null).getPath();
-
-        File appDir = new File(dataPath, APP_DATA_DIR_NAME);
-
-        if (!appDir.exists()) {
-            appDir.mkdirs();
-        }
-
-        File projectDir = new File(appDir, currentProjectName);
-        if (!projectDir.exists()) {
-            projectDir.mkdirs();
-        }
+        createProjectDir();
         setPreferences();
 		initSystemServices();
 		bindService(new Intent(this, PdService.class), pdConnection, BIND_AUTO_CREATE);	
@@ -277,6 +266,20 @@ public class PhonestrumentActivity extends Activity {
 		unbindService(pdConnection);
 	}
 
+    private void createProjectDir(){
+        String dataPath = getExternalFilesDir(null).getPath();
+
+        File appDir = new File(dataPath, APP_DATA_DIR_NAME);
+
+        if (!appDir.exists()) {
+            appDir.mkdirs();
+        }
+
+        File projectDir = new File(appDir, currentProjectName);
+        if (!projectDir.exists()) {
+            projectDir.mkdirs();
+        }
+    }
 
 	private void initPatch() {
 
@@ -346,7 +349,8 @@ public class PhonestrumentActivity extends Activity {
 
     private void checkAndCreateUniqueProjectName() {
         int i = 1;
-        String filepath = Environment.getDataDirectory().getPath();
+        String filepath = getExternalFilesDir(null).getPath();
+       // String filepath = Environment.getDataDirectory().getPath();
         File appDir = new File(filepath, APP_DATA_DIR_NAME);
         String potentialProjectName = "Project_" + Integer.toString(i);
         File potentialProjectFileDir = new File(appDir, potentialProjectName);
@@ -517,6 +521,11 @@ public class PhonestrumentActivity extends Activity {
                 break;
             }
 
+            case R.id.new_project: {
+                showNewProject();
+                break;
+            }
+
             case R.id.share_loop: {
                 saveLoop();
                 break;
@@ -540,7 +549,20 @@ public class PhonestrumentActivity extends Activity {
 
     }
 
+    private void showNewProject() {
 
+        checkAndCreateUniqueProjectName();
+        SharedPreferences preferences = getSharedPreferences("Phonestrument",
+                MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putString("CurrentProjectName", currentProjectName);
+        editor.commit();
+        readPreferences();
+        createProjectDir();
+
+
+    }
 
     private boolean mStartActivity(Intent intent) {
 		try {
