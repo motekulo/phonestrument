@@ -216,6 +216,10 @@ public class BeatSequencerFragment extends Fragment {
 			}
             int startOfBarInPulses = pulsesPerBeat * numBeats * currentBar;
 			PdBase.writeArray(drSequenceToWrite, startOfBarInPulses, sequence[row], 0, pulsesPerBeat * numBeats);
+            String arrayFilename = projectDir + "/" + drSequenceToWrite + ".txt";
+           // Log.i(APP_NAME, "Log test: " + arrayFilename);
+            PdBase.sendMessage("array_to_write", "symbol", arrayFilename);
+            PdBase.sendMessage("write_array", "symbol", drSequenceToWrite);
 
 			updateBeatArrayView(currentBar);
 		}

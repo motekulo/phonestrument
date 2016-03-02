@@ -185,9 +185,9 @@ public class PhonestrumentActivity extends Activity {
 
 		readPreferences();
 
-        if (currentProjectName.equals("untitled")) {
-            checkAndCreateUniqueProjectName();
-        }
+       // if (currentProjectName.equals("untitled")) {
+        checkAndCreateUniqueProjectName();
+       // }
 
         String dataPath = getExternalFilesDir(null).getPath();
 
@@ -348,12 +348,12 @@ public class PhonestrumentActivity extends Activity {
         int i = 1;
         String filepath = Environment.getDataDirectory().getPath();
         File appDir = new File(filepath, APP_DATA_DIR_NAME);
-        String potentialProjectName = "Project " + Integer.toString(i);
+        String potentialProjectName = "Project_" + Integer.toString(i);
         File potentialProjectFileDir = new File(appDir, potentialProjectName);
 
         while (potentialProjectFileDir.isDirectory() == true) {
             i++;
-            potentialProjectName = "Project " + Integer.toString(i);
+            potentialProjectName = "Project_" + Integer.toString(i);
             potentialProjectFileDir = new File(appDir, potentialProjectName);
         }
         currentProjectName = potentialProjectName;
