@@ -11,6 +11,12 @@
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
         android:title="@string/new_project"/>
+
+    <item
+        android:id="@+id/open_project"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="@string/open_project"/>
     
     <item
         android:id="@+id/menu_rate_app"

@@ -64,42 +64,48 @@ import java.util.List;
 //import com.google.analytics.tracking.android.EasyTracker;
 
 public class PhonestrumentActivity extends Activity {
-	//FragmentTabHost mTabHost;
-	//ViewPager  mViewPager;
-	public static final String ADMOB_MEDIATION_ID =  "";
-	private static final String APP_NAME = "Phonestrument";
+    //FragmentTabHost mTabHost;
+    //ViewPager  mViewPager;
+    public static final String ADMOB_MEDIATION_ID = "";
+    private static final String APP_NAME = "Phonestrument";
 
-	public static final String APP_DATA_DIR_NAME = "Phonestrument";
-	private static final String SAMPLE_DIR_NAME = "samples";
-	private PdUiDispatcher dispatcher;
-	boolean pdServiceConnection = false;
-	private PdService pdService = null;
-	private String sampleForPlayer1;
-	private String sampleForPlayer2;
-	private String sampleForPlayer3;
-	private String sampleForPlayer4;
+    public static final String APP_DATA_DIR_NAME = "Phonestrument";
+    private static final String SAMPLE_DIR_NAME = "samples";
+    private static final int OPENPROJECT_ID = 1;
+    private PdUiDispatcher dispatcher;
+    boolean pdServiceConnection = false;
+    private PdService pdService = null;
+    private String sampleForPlayer1;
+    private String sampleForPlayer2;
+    private String sampleForPlayer3;
+    private String sampleForPlayer4;
     private String sampleForPlayer5;
-	private File player1Sample;
-	private File player2Sample;
-	private File player3Sample;
-	private File player4Sample;
+    private File player1Sample;
+    private File player2Sample;
+    private File player3Sample;
+    private File player4Sample;
     private File player5Sample;
-	private File samplesDir;
+    private File samplesDir;
     private String currentProjectName;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+
 
 
     @Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.fragment_tabs_pager);
+        setContentView(R.layout.fragment_tabs_pager);
 
-		ActionBar actionBar = getActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		setTitle("Phonestrument");
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        setTitle("Phonestrument");
 
-		//Tab tab = actionBar.newTab()
+        //Tab tab = actionBar.newTab()
 //				.setText("Seq 1")
 //				.setTabListener(new TabListener<SynthSequencerFragment>(
 //						this, "synthseq", SynthSequencerFragment.class));
@@ -111,68 +117,73 @@ public class PhonestrumentActivity extends Activity {
 //						this, "synth2seq", Synth2SequencerFragment.class));
 //		actionBar.addTab(tab);
 
-		Tab tab = actionBar.newTab()
-				.setText("Drums")
-				.setTabListener(new TabListener<BeatSequencerFragment>(
-						this, "drums", BeatSequencerFragment.class));
-		actionBar.addTab(tab);
+        Tab tab = actionBar.newTab()
+                .setText("Drums")
+                .setTabListener(new TabListener<BeatSequencerFragment>(
+                        this, "drums", BeatSequencerFragment.class));
+        actionBar.addTab(tab);
 
-		tab = actionBar.newTab()
-				.setText("Mixer")
-				.setTabListener(new TabListener<MixerFragment>(
-						this, "mixer", MixerFragment.class));
-		actionBar.addTab(tab);
+        tab = actionBar.newTab()
+                .setText("Mixer")
+                .setTabListener(new TabListener<MixerFragment>(
+                        this, "mixer", MixerFragment.class));
+        actionBar.addTab(tab);
 
+        tab = actionBar.newTab()
+                .setText("Open")
+                .setTabListener(new TabListener<OpenProject>(
+                        this, "Open", OpenProject.class));
+        actionBar.addTab(tab);
 //		tab = actionBar.newTab()
 //				.setText("Synths")
 //				.setTabListener(new TabListener<SynthControllerFragment>(
 //						this, "synth", SynthControllerFragment.class));
 //		actionBar.addTab(tab);
 
-		String filepath = Environment.getExternalStorageDirectory().getPath();
-		File appdir = new File(filepath, APP_DATA_DIR_NAME);
+        String filepath = Environment.getExternalStorageDirectory().getPath();
+        File appdir = new File(filepath, APP_DATA_DIR_NAME);
 
-		if (!appdir.exists()) {
-			appdir.mkdirs();
-		}
+        if (!appdir.exists()) {
+            appdir.mkdirs();
+        }
 
-		samplesDir = new File(appdir, SAMPLE_DIR_NAME);
-		if (!samplesDir.exists()) {
-			samplesDir.mkdirs();
-		}
+        samplesDir = new File(appdir, SAMPLE_DIR_NAME);
+        if (!samplesDir.exists()) {
+            samplesDir.mkdirs();
+        }
 
-		loadSamples(samplesDir);
+        loadSamples(samplesDir);
 
-		if (sampleForPlayer1 == "") {
-			player1Sample = new File(samplesDir, "kick1.wav");
-			sampleForPlayer1 = player1Sample.getAbsolutePath();
+        if (sampleForPlayer1 == "") {
+            player1Sample = new File(samplesDir, "kick1.wav");
+            sampleForPlayer1 = player1Sample.getAbsolutePath();
 
-		} else {
-			player1Sample = new File(sampleForPlayer1);
-		}
+        } else {
+            player1Sample = new File(sampleForPlayer1);
+        }
 
-		if (sampleForPlayer2 == "") {
-			player2Sample = new File(samplesDir, "snare1.wav");
-			sampleForPlayer2 = player2Sample.getAbsolutePath();
+        if (sampleForPlayer2 == "") {
+            player2Sample = new File(samplesDir, "snare1.wav");
+            sampleForPlayer2 = player2Sample.getAbsolutePath();
 
-		} else {
-			player2Sample = new File(sampleForPlayer2);
-		}
-		if (sampleForPlayer3 == "") {
-			player3Sample = new File(samplesDir, "chh.wav");
-			sampleForPlayer3 = player3Sample.getAbsolutePath();
+        } else {
+            player2Sample = new File(sampleForPlayer2);
+        }
+        if (sampleForPlayer3 == "") {
+            player3Sample = new File(samplesDir, "chh.wav");
+            sampleForPlayer3 = player3Sample.getAbsolutePath();
 
-		} else {
-			player3Sample = new File(sampleForPlayer3);
-		}
+        } else {
+            player3Sample = new File(sampleForPlayer3);
+        }
 
-		if (sampleForPlayer4 == "") {
-			player4Sample = new File(samplesDir, "ohh.wav");
-			sampleForPlayer4 = player4Sample.getAbsolutePath();
+        if (sampleForPlayer4 == "") {
+            player4Sample = new File(samplesDir, "ohh.wav");
+            sampleForPlayer4 = player4Sample.getAbsolutePath();
 
-		} else {
-			player4Sample = new File(sampleForPlayer4);
-		}
+        } else {
+            player4Sample = new File(sampleForPlayer4);
+        }
 
         if (sampleForPlayer5 == "") {
             player5Sample = new File(samplesDir, "cowbellsmallclosed.wav");
@@ -183,90 +194,107 @@ public class PhonestrumentActivity extends Activity {
         }
 
 
-		readPreferences();
+        readPreferences();
 
-       // if (currentProjectName.equals("untitled")) {
+        // if (currentProjectName.equals("untitled")) {
         checkAndCreateUniqueProjectName();
-       // }
+        // }
 
         createProjectDir();
         setPreferences();
-		initSystemServices();
-		bindService(new Intent(this, PdService.class), pdConnection, BIND_AUTO_CREATE);	
+        initSystemServices();
+        bindService(new Intent(this, PdService.class), pdConnection, BIND_AUTO_CREATE);
 
 
-	}
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
 
-	public static class TabListener<T extends Fragment> implements ActionBar.TabListener {
-		private Fragment mFragment;
-		private final Activity mActivity;
-		private final String mTag;
-		private final Class<T> mClass;
+    }
 
-		/** Constructor used each time a new tab is created.
-		 * @param activity  The host Activity, used to instantiate the fragment
-		 * @param tag  The identifier tag for the fragment
-		 * @param clz  The fragment's Class, used to instantiate the fragment
-		 */
-		public TabListener(Activity activity, String tag, Class<T> clz) {
-			mActivity = activity;
-			mTag = tag;
-			mClass = clz;
-		}
+    public static class TabListener<T extends Fragment> implements ActionBar.TabListener {
+        private Fragment mFragment;
+        private final Activity mActivity;
+        private final String mTag;
+        private final Class<T> mClass;
+
+        /**
+         * Constructor used each time a new tab is created.
+         *
+         * @param activity The host Activity, used to instantiate the fragment
+         * @param tag      The identifier tag for the fragment
+         * @param clz      The fragment's Class, used to instantiate the fragment
+         */
+        public TabListener(Activity activity, String tag, Class<T> clz) {
+            mActivity = activity;
+            mTag = tag;
+            mClass = clz;
+        }
 
 		/* The following are each of the ActionBar.TabListener callbacks */
 
-		public void onTabSelected(Tab tab, FragmentTransaction ft) {
-			// Check if the fragment is already initialized
-			if (mFragment == null) {
-				// If not, instantiate and add it to the activity
-				mFragment = Fragment.instantiate(mActivity, mClass.getName());
-				ft.add(android.R.id.content, mFragment, mTag);
-			} else {
-				// If it exists, simply attach it in order to show it
-				ft.attach(mFragment);
-			}
-		}
+        public void onTabSelected(Tab tab, FragmentTransaction ft) {
+            // Check if the fragment is already initialized
+            if (mFragment == null) {
+                // If not, instantiate and add it to the activity
+                mFragment = Fragment.instantiate(mActivity, mClass.getName());
+                ft.add(android.R.id.content, mFragment, mTag);
+            } else {
+                // If it exists, simply attach it in order to show it
+                ft.attach(mFragment);
+            }
+        }
 
-		public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-			if (mFragment != null) {
-				// Detach the fragment, because another one is being attached
-				ft.detach(mFragment);
-			}
-		}
+        public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+            if (mFragment != null) {
+                // Detach the fragment, because another one is being attached
+                ft.detach(mFragment);
+            }
+        }
 
-		public void onTabReselected(Tab tab, FragmentTransaction ft) {
-			// User selected the already selected tab. Usually do nothing.
-		}
-	}
+        public void onTabReselected(Tab tab, FragmentTransaction ft) {
+            // User selected the already selected tab. Usually do nothing.
+        }
+    }
 
-	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		//outState.putString("tab", mTabHost.getCurrentTabTag());
-	}
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //outState.putString("tab", mTabHost.getCurrentTabTag());
+    }
 
-	@Override
-	public void onStart() {
-		super.onStart();
+    @Override
+    public void onStart() {
+        super.onStart();
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
 
-		EasyTracker.getInstance(this).activityStart(this);  // Add this method.
-	}
 
-	@Override
-	public void onStop() {
-		super.onStop();
+        EasyTracker.getInstance(this).activityStart(this);  // Add this method.
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
 
-		EasyTracker.getInstance(this).activityStop(this);  // Add this method.
-	}
+    }
 
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		unbindService(pdConnection);
-	}
+    @Override
+    public void onStop() {
+        super.onStop();
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
 
-    private void createProjectDir(){
+
+        EasyTracker.getInstance(this).activityStop(this);  // Add this method.
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unbindService(pdConnection);
+    }
+
+    private void createProjectDir() {
         String dataPath = getExternalFilesDir(null).getPath();
 
         File appDir = new File(dataPath, APP_DATA_DIR_NAME);
@@ -281,7 +309,7 @@ public class PhonestrumentActivity extends Activity {
         }
     }
 
-	private void initPatch() {
+    private void initPatch() {
 
 //		PdBase.sendFloat("key", 36);  // C at a reasonable 8ve
 //		PdBase.sendFloat("chord", 0);
@@ -289,22 +317,22 @@ public class PhonestrumentActivity extends Activity {
 //		PdBase.sendFloat("density", 4);
 //		PdBase.sendFloat("tempo", 116);
 
-		PdBase.sendFloat("density", 4);
-		PdBase.sendFloat("num_beats", 4);
-		PdBase.sendFloat("num_bars", 17);
-		PdBase.sendFloat("tempo", 112);
-		//PdBase.sendFloat("init_samples" bang);
-		PdBase.sendFloat("master_vol", 82);
-		PdBase.sendFloat("drum_vol", 100);
-		PdBase.sendFloat("drumplayer_on", 1);
+        PdBase.sendFloat("density", 4);
+        PdBase.sendFloat("num_beats", 4);
+        PdBase.sendFloat("num_bars", 17);
+        PdBase.sendFloat("tempo", 112);
+        //PdBase.sendFloat("init_samples" bang);
+        PdBase.sendFloat("master_vol", 82);
+        PdBase.sendFloat("drum_vol", 100);
+        PdBase.sendFloat("drumplayer_on", 1);
         PdBase.sendFloat("metronome_sample_number", 8);
         PdBase.sendFloat("metronome_on", 1);
-		PdBase.sendFloat("metro_on", 1);
+        PdBase.sendFloat("metro_on", 1);
 
-		PdBase.sendMessage("sample_to_play", sampleForPlayer1, 0);
-		PdBase.sendMessage("sample2_to_play", sampleForPlayer2, 0);
-		PdBase.sendMessage("sample3_to_play", sampleForPlayer3, 0);
-		PdBase.sendMessage("sample4_to_play", sampleForPlayer4, 0);
+        PdBase.sendMessage("sample_to_play", sampleForPlayer1, 0);
+        PdBase.sendMessage("sample2_to_play", sampleForPlayer2, 0);
+        PdBase.sendMessage("sample3_to_play", sampleForPlayer3, 0);
+        PdBase.sendMessage("sample4_to_play", sampleForPlayer4, 0);
         PdBase.sendMessage("sample5_to_play", sampleForPlayer5, 0);
 
 //		PdBase.sendFloat("synth_1_vol", (float) 0.5);
@@ -315,42 +343,42 @@ public class PhonestrumentActivity extends Activity {
 //		PdBase.sendFloat("player_3_vol", (float) 0.75);
 //		PdBase.sendFloat("player_4_vol", (float) 0.75);
 
-	}
+    }
 
-	private final ServiceConnection pdConnection = new ServiceConnection() { 
-		@Override
-		public void onServiceConnected(ComponentName name, IBinder service) { 
-			pdService = ((PdService.PdBinder)service).getService();
-			try {
-				initPd();
-				loadPatch();
-			} catch (IOException e) {
-				Log.e(APP_NAME, e.toString());
-				finish(); 
-			}
-			pdServiceConnection = true;
-		}
+    private final ServiceConnection pdConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            pdService = ((PdService.PdBinder) service).getService();
+            try {
+                initPd();
+                loadPatch();
+            } catch (IOException e) {
+                Log.e(APP_NAME, e.toString());
+                finish();
+            }
+            pdServiceConnection = true;
+        }
 
-		@Override
-		public void onServiceDisconnected(ComponentName name) {
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
 
-			pdServiceConnection = false;
-		}
-	};
+            pdServiceConnection = false;
+        }
+    };
 
-	private void initPd() throws IOException {
+    private void initPd() throws IOException {
 
-		int sampleRate = AudioParameters.suggestSampleRate();
-		pdService.initAudio(sampleRate, 0, 2, 10.0f);
-		pdService.startAudio();
-		start();
+        int sampleRate = AudioParameters.suggestSampleRate();
+        pdService.initAudio(sampleRate, 0, 2, 10.0f);
+        pdService.startAudio();
+        start();
 
-	}
+    }
 
     private void checkAndCreateUniqueProjectName() {
         int i = 1;
         String filepath = getExternalFilesDir(null).getPath();
-       // String filepath = Environment.getDataDirectory().getPath();
+        // String filepath = Environment.getDataDirectory().getPath();
         File appDir = new File(filepath, APP_DATA_DIR_NAME);
         String potentialProjectName = "Project_" + Integer.toString(i);
         File potentialProjectFileDir = new File(appDir, potentialProjectName);
@@ -363,27 +391,27 @@ public class PhonestrumentActivity extends Activity {
         currentProjectName = potentialProjectName;
     }
 
-	private void start() {
-		if (!pdService.isRunning()) {
-			Intent intent = new Intent(PhonestrumentActivity.this, PhonestrumentActivity.class);
-			pdService.startAudio(intent, R.drawable.icon,
-					"Phonestrument", "Return to Phonestrument");
-		}
-	}
+    private void start() {
+        if (!pdService.isRunning()) {
+            Intent intent = new Intent(PhonestrumentActivity.this, PhonestrumentActivity.class);
+            pdService.startAudio(intent, R.drawable.icon,
+                    "Phonestrument", "Return to Phonestrument");
+        }
+    }
 
-	private void loadPatch() throws IOException {
-		File dir = getFilesDir();
-		IoUtils.extractZipResource(getResources().openRawResource(R.raw.phonestrument), dir, true);
+    private void loadPatch() throws IOException {
+        File dir = getFilesDir();
+        IoUtils.extractZipResource(getResources().openRawResource(R.raw.phonestrument), dir, true);
 
-		File patchFile = new File(dir, "phonestrument.pd");
-		PdBase.openPatch(patchFile.getAbsolutePath());
-		initPatch();
-	}
+        File patchFile = new File(dir, "phonestrument.pd");
+        PdBase.openPatch(patchFile.getAbsolutePath());
+        initPatch();
+    }
 
-	private void initSystemServices() { 
-		TelephonyManager telephonyManager =
-				(TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-		telephonyManager.listen(new PhoneStateListener() {
+    private void initSystemServices() {
+        TelephonyManager telephonyManager =
+                (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        telephonyManager.listen(new PhoneStateListener() {
             @Override
             public void onCallStateChanged(int state, String incomingNumber) {
                 if (pdService == null) return;
@@ -394,65 +422,64 @@ public class PhonestrumentActivity extends Activity {
                 }
             }
         }, PhoneStateListener.LISTEN_CALL_STATE);
-	}
+    }
 
-	private void loadSamples(File sampleDir) {
-		// Really need to check whether these files exist first before writing them anyway...
-		int [] sample_ids = new int[5];
-		String outputName = "";
-		File outputFile;
-		sample_ids[0] = getResources().getIdentifier("kick1", "raw", "net.motekulo.phonestrument");
-		sample_ids[1] = getResources().getIdentifier("snare1", "raw", "net.motekulo.phonestrument");
-		sample_ids[2] = getResources().getIdentifier("ohh", "raw", "net.motekulo.phonestrument");
-		sample_ids[3] = getResources().getIdentifier("chh", "raw", "net.motekulo.phonestrument");
-		sample_ids[4] = getResources().getIdentifier("cowbellsmallclosed", "raw", "net.motekulo.phonestrument");
+    private void loadSamples(File sampleDir) {
+        // Really need to check whether these files exist first before writing them anyway...
+        int[] sample_ids = new int[5];
+        String outputName = "";
+        File outputFile;
+        sample_ids[0] = getResources().getIdentifier("kick1", "raw", "net.motekulo.phonestrument");
+        sample_ids[1] = getResources().getIdentifier("snare1", "raw", "net.motekulo.phonestrument");
+        sample_ids[2] = getResources().getIdentifier("ohh", "raw", "net.motekulo.phonestrument");
+        sample_ids[3] = getResources().getIdentifier("chh", "raw", "net.motekulo.phonestrument");
+        sample_ids[4] = getResources().getIdentifier("cowbellsmallclosed", "raw", "net.motekulo.phonestrument");
 
-		for (int i = 0; i < sample_ids.length; i ++) {
+        for (int i = 0; i < sample_ids.length; i++) {
 
-			InputStream ins = getResources().openRawResource(sample_ids[i]);
-			String sampleName = getResources().getResourceEntryName(sample_ids[i]);
+            InputStream ins = getResources().openRawResource(sample_ids[i]);
+            String sampleName = getResources().getResourceEntryName(sample_ids[i]);
 
-			outputName = sampleDir.getAbsolutePath() + "/" + sampleName + ".wav";
-			outputFile = new File(outputName);
-			if (!outputFile.exists()) {
-				Log.i(APP_NAME, "File doesn't exist so creating");
+            outputName = sampleDir.getAbsolutePath() + "/" + sampleName + ".wav";
+            outputFile = new File(outputName);
+            if (!outputFile.exists()) {
+                Log.i(APP_NAME, "File doesn't exist so creating");
 
-				ByteArrayOutputStream outputStream=new ByteArrayOutputStream();
-				int size = 0;
-				// Read the entire resource into a local byte buffer.
-				byte[] buffer = new byte[1024];
-				try {
-					while((size=ins.read(buffer,0,1024))>=0){
-						outputStream.write(buffer,0,size);
-					}
-					ins.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                int size = 0;
+                // Read the entire resource into a local byte buffer.
+                byte[] buffer = new byte[1024];
+                try {
+                    while ((size = ins.read(buffer, 0, 1024)) >= 0) {
+                        outputStream.write(buffer, 0, size);
+                    }
+                    ins.close();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
 
-				buffer=outputStream.toByteArray();
+                buffer = outputStream.toByteArray();
 
-				FileOutputStream fos;
-				try {
-					//	outputName = sampleDir.getAbsolutePath() + "/" + sampleName + ".wav";
-					fos = new FileOutputStream(outputName);
+                FileOutputStream fos;
+                try {
+                    //	outputName = sampleDir.getAbsolutePath() + "/" + sampleName + ".wav";
+                    fos = new FileOutputStream(outputName);
 
-					fos.write(buffer);
-					fos.close();
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				}
-				catch (IOException e) {
-					e.printStackTrace();
-				}
-			} else {
-				Log.i(APP_NAME, "File exists so skipping");
-			}
-		}
+                    fos.write(buffer);
+                    fos.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Log.i(APP_NAME, "File exists so skipping");
+            }
+        }
 
-		readPreferences();
-	}
+        readPreferences();
+    }
 
     private void saveLoop() {
         //Log.i(APP_NAME, "Save test");
@@ -473,14 +500,14 @@ public class PhonestrumentActivity extends Activity {
         }
     }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
 
-	}
+    }
 
-	@Override
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
 
@@ -526,6 +553,21 @@ public class PhonestrumentActivity extends Activity {
                 break;
             }
 
+            case R.id.open_project: {
+
+               // Intent i1 = new Intent(this, OpenProject.class);
+                // i1.putExtra("sample_player", arrayNumber);
+               // startActivityForResult(i1, OPENPROJECT_ID);
+
+//                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//                Fragment openProjectFragment = new OpenProject();
+//                transaction.replace(R.id.fragment_placeholder, openProjectFragment);
+//                transaction.addToBackStack(null);
+//                transaction.commit();
+
+                break;
+            }
+
             case R.id.share_loop: {
                 saveLoop();
                 break;
@@ -540,7 +582,27 @@ public class PhonestrumentActivity extends Activity {
         return true;
     }
 
-    private void testWriteArray() {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        // See which child activity is calling us back.
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case OPENPROJECT_ID:
+                if (resultCode == RESULT_CANCELED) {
+                    break;
+
+                } else {
+                    Log.i(APP_NAME, "Opening a project ");
+                    // Read sample info from shared preferences
+                    readPreferences();
+
+
+                }
+                break;
+        }
+    }
+
+
+        private void testWriteArray() {
 
         readPreferences();
         String testFileName = "testreadarray.txt";
@@ -564,38 +626,40 @@ public class PhonestrumentActivity extends Activity {
 
     }
 
+
+
     private boolean mStartActivity(Intent intent) {
-		try {
-			startActivity(intent);
-			return true;
-		} catch (ActivityNotFoundException e) {
-			return false;
-		}
-	}
+        try {
+            startActivity(intent);
+            return true;
+        } catch (ActivityNotFoundException e) {
+            return false;
+        }
+    }
 
-	private void readPreferences() {
-		SharedPreferences preferences = getSharedPreferences("Phonestrument", Context.MODE_PRIVATE);
+    private void readPreferences() {
+        SharedPreferences preferences = getSharedPreferences("Phonestrument", Context.MODE_PRIVATE);
         currentProjectName = preferences.getString("CurrentProjectName", "untitled");
-		sampleForPlayer1 = preferences.getString("sample_player_1_filename", "");
-		sampleForPlayer2 = preferences.getString("sample_player_2_filename", "");
-		sampleForPlayer3 = preferences.getString("sample_player_3_filename", "");
-		sampleForPlayer4 = preferences.getString("sample_player_4_filename", "");
+        sampleForPlayer1 = preferences.getString("sample_player_1_filename", "");
+        sampleForPlayer2 = preferences.getString("sample_player_2_filename", "");
+        sampleForPlayer3 = preferences.getString("sample_player_3_filename", "");
+        sampleForPlayer4 = preferences.getString("sample_player_4_filename", "");
         sampleForPlayer5 = preferences.getString("sample_player_5_filename", "");
-		//numberOfBeats = preferences.getInt("number_of_beats", 4);
+        //numberOfBeats = preferences.getInt("number_of_beats", 4);
 
-	}
+    }
 
-	private void setPreferences() {
-		SharedPreferences preferences = getSharedPreferences("Phonestrument",
-				MODE_PRIVATE);
-		SharedPreferences.Editor editor = preferences.edit();
+    private void setPreferences() {
+        SharedPreferences preferences = getSharedPreferences("Phonestrument",
+                MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
         editor.putString("CurrentProjectName", currentProjectName);
-		editor.putString("sample_player_1_filename", sampleForPlayer1);
-		editor.putString("sample_player_2_filename", sampleForPlayer2);
-		editor.putString("sample_player_3_filename", sampleForPlayer3);
-		editor.putString("sample_player_4_filename", sampleForPlayer4);
-		editor.putString("sample_player_5_filename", sampleForPlayer5);
+        editor.putString("sample_player_1_filename", sampleForPlayer1);
+        editor.putString("sample_player_2_filename", sampleForPlayer2);
+        editor.putString("sample_player_3_filename", sampleForPlayer3);
+        editor.putString("sample_player_4_filename", sampleForPlayer4);
+        editor.putString("sample_player_5_filename", sampleForPlayer5);
 
-		editor.commit();
-	}
+        editor.commit();
+    }
 }
