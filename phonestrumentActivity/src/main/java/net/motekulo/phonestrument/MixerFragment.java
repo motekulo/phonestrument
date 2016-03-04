@@ -135,6 +135,13 @@ public class MixerFragment extends Fragment implements OnClickListener{
 
 	}
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        readPreferences();
+        exportNameTextView.setText(currentProjectName);
+    }
+
 	private TextView.OnEditorActionListener projectNameEditorChanged =  new OnEditorActionListener() {
 		@Override
 		public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {

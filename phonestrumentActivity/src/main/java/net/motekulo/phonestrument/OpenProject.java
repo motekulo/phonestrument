@@ -17,6 +17,7 @@
 package net.motekulo.phonestrument;
 
 
+import android.app.ActionBar;
 import android.app.ListFragment;
 import android.content.Context;
 import android.content.Intent;
@@ -137,6 +138,10 @@ public class OpenProject extends ListFragment {
                    // setResult(RESULT_OK);
                     //finish();
                 }
+
+                ActionBar actionBar = (ActionBar) getActivity().getActionBar();
+                actionBar.setSelectedNavigationItem(0);
+
             }
         };
     }
@@ -152,7 +157,6 @@ public class OpenProject extends ListFragment {
                 fileList.add(file.getName());
             }
         }
-
 
     }
 
