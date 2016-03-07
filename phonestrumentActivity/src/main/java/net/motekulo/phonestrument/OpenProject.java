@@ -23,6 +23,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,6 +32,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import org.apache.commons.io.FilenameUtils;
+import org.puredata.core.PdBase;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -135,8 +139,23 @@ public class OpenProject extends ListFragment {
                 } else {
                     currentProjectName = listText.toString();
                     setPreferences();
-                   // setResult(RESULT_OK);
-                    //finish();
+
+                    // cycle through text files in project directory and update arrays in Pd patch
+                    String filepath = getActivity().getExternalFilesDir(null).getPath();
+                    File appDir = new File(filepath, net.motekulo.phonestrument.PhonestrumentActivity.APP_DATA_DIR_NAME);
+                    File projectDir = new File(appDir,currentProjectName);
+
+                    File[] files = projectDir.listFiles();
+                    if (files != null) {
+                        for (File file : files) {
+                            String baseName = FilenameUtils.getBaseName(file.getPath());
+                            Log.i(APP_NAME, "File: " + baseName);
+                            PdBase.sendMessage("array_to_read", "symbol", file.getPath()); // baseName is the same as the Pd array name
+                            PdBase.sendMessage("read_array", "symbol", baseName);
+
+                            //PdBase.sendMessage()
+                        }
+                    }
                 }
 
                 ActionBar actionBar = (ActionBar) getActivity().getActionBar();
