@@ -11,14 +11,8 @@
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
         android:title="@string/new_project"/>
-
-    <item
-        android:id="@+id/open_project"
-        android:orderInCategory="100"
-        android:showAsAction="ifRoom"
-        android:title="@string/open_project"/>
     
-    <item
+  <!--  <item
         android:id="@+id/menu_rate_app"
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
@@ -27,7 +21,7 @@
         android:id="@+id/menu_tell_friend"
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
-        android:title="@string/menu_tell_friend"/>
+        android:title="@string/menu_tell_friend"/>-->
 
     <item
         android:id="@+id/share_loop"
@@ -35,10 +29,6 @@
         android:showAsAction="always"
         android:title="@string/share_loop"/>
 
-    <item
-        android:id="@+id/test_array"
-        android:orderInCategory="100"
-        android:showAsAction="always"
-        android:title="@string/read_array"/>
+
 
 </menu>

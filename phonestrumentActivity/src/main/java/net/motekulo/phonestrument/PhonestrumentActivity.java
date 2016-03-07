@@ -523,7 +523,7 @@ public class PhonestrumentActivity extends Activity {
             //			break;
             //		}
 
-            case R.id.menu_rate_app: {
+          /*  case R.id.menu_rate_app: {
 //			Intent rateIntent = new Intent(Intent.ACTION_VIEW);
 //			rateIntent.setData(Uri.parse("market://details?id=net.motekulo.phonstrument"));
 //			if (mStartActivity(rateIntent) == false) {
@@ -541,7 +541,7 @@ public class PhonestrumentActivity extends Activity {
 //			tellIntent.setType("plain/text");
 //			startActivity(Intent.createChooser(tellIntent, "Tell a friend..."));
                 break;
-            }
+            }*/
 
             case R.id.toggle_on_off: {
                 PdBase.sendBang("metro_on");
@@ -553,30 +553,14 @@ public class PhonestrumentActivity extends Activity {
                 break;
             }
 
-            case R.id.open_project: {
 
-               // Intent i1 = new Intent(this, OpenProject.class);
-                // i1.putExtra("sample_player", arrayNumber);
-               // startActivityForResult(i1, OPENPROJECT_ID);
-
-//                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//                Fragment openProjectFragment = new OpenProject();
-//                transaction.replace(R.id.fragment_placeholder, openProjectFragment);
-//                transaction.addToBackStack(null);
-//                transaction.commit();
-
-                break;
-            }
 
             case R.id.share_loop: {
                 saveLoop();
                 break;
             }
 
-            case R.id.test_array: {
-                testWriteArray();
-                break;
-            }
+           
 
         }
         return true;
