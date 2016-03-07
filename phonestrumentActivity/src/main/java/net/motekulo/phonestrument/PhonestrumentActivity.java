@@ -311,12 +311,6 @@ public class PhonestrumentActivity extends Activity {
 
     private void initPatch() {
 
-//		PdBase.sendFloat("key", 36);  // C at a reasonable 8ve
-//		PdBase.sendFloat("chord", 0);
-//		PdBase.sendFloat("metro_on", 1);
-//		PdBase.sendFloat("density", 4);
-//		PdBase.sendFloat("tempo", 116);
-
         PdBase.sendFloat("density", 4);
         PdBase.sendFloat("num_beats", 4);
         PdBase.sendFloat("num_bars", 17);
@@ -335,13 +329,8 @@ public class PhonestrumentActivity extends Activity {
         PdBase.sendMessage("sample4_to_play", sampleForPlayer4, 0);
         PdBase.sendMessage("sample5_to_play", sampleForPlayer5, 0);
 
-//		PdBase.sendFloat("synth_1_vol", (float) 0.5);
-//		PdBase.sendFloat("synth_2_vol", (float) 0.5);
-//
-//		PdBase.sendFloat("player_1_vol", (float) 0.75);
-//		PdBase.sendFloat("player_2_vol", (float) 0.75);
-//		PdBase.sendFloat("player_3_vol", (float) 0.75);
-//		PdBase.sendFloat("player_4_vol", (float) 0.75);
+        //PdBase.sendFloat("player_1_vol", (float) 0.75);
+
 
     }
 
@@ -560,7 +549,7 @@ public class PhonestrumentActivity extends Activity {
                 break;
             }
 
-           
+
 
         }
         return true;

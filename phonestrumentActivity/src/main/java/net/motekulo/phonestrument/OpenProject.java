@@ -23,7 +23,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -149,7 +148,7 @@ public class OpenProject extends ListFragment {
                     if (files != null) {
                         for (File file : files) {
                             String baseName = FilenameUtils.getBaseName(file.getPath());
-                            Log.i(APP_NAME, "File: " + baseName);
+                            // Log.i(APP_NAME, "File: " + baseName);
                             PdBase.sendMessage("array_to_read", "symbol", file.getPath()); // baseName is the same as the Pd array name
                             PdBase.sendMessage("read_array", "symbol", baseName);
 
