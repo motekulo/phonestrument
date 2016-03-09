@@ -256,6 +256,15 @@ public class BeatSequencerFragment extends Fragment {
                 //Log.i(APP_NAME, "Tempo is " + v.getText());
                 Float bars = Float.valueOf(v.getText().toString());
                 PdBase.sendFloat("num_bars", bars);
+                float[] prefsArray;
+                prefsArray = new float[8];
+
+                prefsArray[1] = bars;
+                PdBase.writeArray("project_preferences", 1, prefsArray, 1, 1); // just changing single pref value
+                // write prefs to array on device
+                String arrayFilename = projectDir + "/" + "project_preferences.txt";
+                PdBase.sendMessage("array_to_write", "symbol", arrayFilename);
+                PdBase.sendMessage("write_array", "symbol", "project_preferences");
                 handled = true;
             }
             return handled;

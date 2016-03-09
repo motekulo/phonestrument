@@ -145,7 +145,19 @@ public class OpenProject extends ListFragment {
                     File projectDir = new File(appDir,currentProjectName);
 
                     File[] files = projectDir.listFiles();
+
+
                     if (files != null) {
+                        for (File file : files) {
+                            // find prefs and set accordingly (gets internal pd array lengths sorted
+                            String baseName = FilenameUtils.getBaseName(file.getPath());
+                            if (baseName == "project_preferences") {
+                                PdBase.sendMessage("array_to_read", "symbol", file.getPath()); // baseName is the same as the Pd array name
+                                PdBase.sendMessage("read_array", "symbol", baseName);
+                                PdBase.sendBang  ("set_numbars_from_prefs");
+                            }
+                        }
+
                         for (File file : files) {
                             String baseName = FilenameUtils.getBaseName(file.getPath());
                             // Log.i(APP_NAME, "File: " + baseName);
