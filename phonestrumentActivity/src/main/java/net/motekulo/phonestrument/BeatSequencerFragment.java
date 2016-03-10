@@ -121,6 +121,8 @@ public class BeatSequencerFragment extends Fragment {
                 //Log.i(APP_NAME, "num_beats_info: " + x);
                 numBars = (int) x;
                 barView.setXmax(numBars);
+              //  numbarsBox.setText(numBars);
+
             }
 
         });
@@ -189,6 +191,8 @@ public class BeatSequencerFragment extends Fragment {
 		super.onResume();
 		updateBeatArrayView();
         readPreferences();
+        numbarsBox.setText("");
+
 	}
 
 	private touchListener beatArray1Touched = new XYControllerBeatView.touchListener() {
@@ -238,6 +242,11 @@ public class BeatSequencerFragment extends Fragment {
 				//Log.i(APP_NAME, "Tempo is " + v.getText());
 				Float tempo = Float.valueOf(v.getText().toString());
 				PdBase.sendFloat("tempo", tempo);
+
+                String arrayFilename = projectDir + "/" + "project_preferences.txt";
+                PdBase.sendMessage("array_to_write", "symbol", arrayFilename);
+                PdBase.sendMessage("write_array", "symbol", "project_preferences");
+
 				handled = true;
 			}
 			return handled;

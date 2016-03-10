@@ -152,7 +152,8 @@ public class OpenProject extends ListFragment {
                             if (baseName.equals("project_preferences")) {
                                 PdBase.sendMessage("array_to_read", "symbol", file.getPath()); // baseName is the same as the Pd array name
                                 PdBase.sendMessage("read_array", "symbol", baseName);
-                                PdBase.sendBang  ("set_numbars_from_prefs");
+                                PdBase.sendBang("set_numbars_from_prefs");
+                                PdBase.sendBang  ("set_tempo_from_prefs");
                             }
                         }
 
