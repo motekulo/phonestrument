@@ -334,11 +334,11 @@ public class PhonestrumentActivity extends Activity {
 
             // Now get Pd to write us the preference array to the project directory
 
-            
+            PdBase.sendMessage("array_to_write", "symbol", prefFile.getPath());
+            PdBase.sendMessage("write_array", "symbol", "project_preferences");
         }
 
         // General starting defaults for patch
-
         PdBase.sendFloat("master_vol", 82);
         PdBase.sendFloat("drum_vol", 100);
         PdBase.sendFloat("drumplayer_on", 1);
@@ -347,14 +347,11 @@ public class PhonestrumentActivity extends Activity {
         PdBase.sendFloat("metro_on", 1);
 
         // Load up samples (eventually through prefs too?)
-
         PdBase.sendMessage("sample_to_play", sampleForPlayer1, 0);
         PdBase.sendMessage("sample2_to_play", sampleForPlayer2, 0);
         PdBase.sendMessage("sample3_to_play", sampleForPlayer3, 0);
         PdBase.sendMessage("sample4_to_play", sampleForPlayer4, 0);
         PdBase.sendMessage("sample5_to_play", sampleForPlayer5, 0);
-
-        //PdBase.sendFloat("player_1_vol", (float) 0.75);
 
 
     }
