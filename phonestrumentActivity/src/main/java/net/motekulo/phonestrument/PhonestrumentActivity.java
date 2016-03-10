@@ -310,11 +310,7 @@ public class PhonestrumentActivity extends Activity {
 
         // read preference info from project dir and load into patch
 
-        String filepath = getExternalFilesDir(null).getPath();
-        File appDir = new File(filepath, net.motekulo.phonestrument.PhonestrumentActivity.APP_DATA_DIR_NAME);
-        File projectDir = new File(appDir,currentProjectName);
-
-        File prefFile = new File(projectDir, "project_preferences.txt");
+        File prefFile = getPreferenceFile();
         if (prefFile.exists()) {
             // Reading is from Pd Patch perspective ( so loading from Android to Pd)
 
@@ -326,16 +322,8 @@ public class PhonestrumentActivity extends Activity {
         else {
 
             // Create one with some defaults and send to the patch
+            setProjectDefaults(prefFile);
 
-            PdBase.sendFloat("density", 4);
-            PdBase.sendFloat("num_beats", 4);
-            PdBase.sendFloat("num_bars", 4);
-            PdBase.sendFloat("tempo", 112);
-
-            // Now get Pd to write us the preference array to the project directory
-
-            PdBase.sendMessage("array_to_write", "symbol", prefFile.getPath());
-            PdBase.sendMessage("write_array", "symbol", "project_preferences");
         }
 
         // General starting defaults for patch
@@ -433,6 +421,28 @@ public class PhonestrumentActivity extends Activity {
                 }
             }
         }, PhoneStateListener.LISTEN_CALL_STATE);
+    }
+
+    private File getPreferenceFile(){
+
+        String filepath = getExternalFilesDir(null).getPath();
+        File appDir = new File(filepath, net.motekulo.phonestrument.PhonestrumentActivity.APP_DATA_DIR_NAME);
+        File projectDir = new File(appDir,currentProjectName);
+
+        File prefFile = new File(projectDir, "project_preferences.txt");
+        return prefFile;
+    }
+
+    private void setProjectDefaults (File prefFile) {
+        PdBase.sendFloat("density", 4);
+        PdBase.sendFloat("num_beats", 4);
+        PdBase.sendFloat("num_bars", 4);
+        PdBase.sendFloat("tempo", 112);
+
+        // Now get Pd to write us the preference array to the project directory
+
+        PdBase.sendMessage("array_to_write", "symbol", prefFile.getPath());
+        PdBase.sendMessage("write_array", "symbol", "project_preferences");
     }
 
     private void loadSamples(File sampleDir) {
@@ -617,7 +627,9 @@ public class PhonestrumentActivity extends Activity {
         editor.commit();
         readPreferences();
         createProjectDir();
-
+        // We know there is no preference file yet, so just set some defaults and write one
+        File prefFile = getPreferenceFile();
+        setProjectDefaults(prefFile);
 
     }
 
