@@ -49,8 +49,6 @@ public class OpenProject extends ListFragment {
     protected static final String APP_NAME = "OpenProject";
     protected static final String APP_DATA_DIR_NAME = "Phonestrument";
 
-
-
     private final List<String> fileList = new ArrayList<String>();
 
 //    @Override
@@ -151,7 +149,7 @@ public class OpenProject extends ListFragment {
                         for (File file : files) {
                             // find prefs and set accordingly (gets internal pd array lengths sorted
                             String baseName = FilenameUtils.getBaseName(file.getPath());
-                            if (baseName == "project_preferences") {
+                            if (baseName.equals("project_preferences")) {
                                 PdBase.sendMessage("array_to_read", "symbol", file.getPath()); // baseName is the same as the Pd array name
                                 PdBase.sendMessage("read_array", "symbol", baseName);
                                 PdBase.sendBang  ("set_numbars_from_prefs");
