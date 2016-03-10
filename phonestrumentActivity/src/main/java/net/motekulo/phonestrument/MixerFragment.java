@@ -20,7 +20,6 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -277,7 +276,7 @@ public class MixerFragment extends Fragment implements OnClickListener{
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()) {
-		case R.id.button1:
+		/*case R.id.button1:
 			// Start recording
 			String filepath = Environment.getExternalStorageDirectory().getPath();
 			File appdir = new File(filepath, PhonestrumentActivity.APP_DATA_DIR_NAME);
@@ -297,7 +296,7 @@ public class MixerFragment extends Fragment implements OnClickListener{
 			// Stop recording
 			PdBase.sendBang("stop_rec");
 			recButton.setImageResource(R.drawable.record);
-			break;
+			break;*/
 
 
 		case R.id.mainSwitch:

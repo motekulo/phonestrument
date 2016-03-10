@@ -191,7 +191,7 @@ public class BeatSequencerFragment extends Fragment {
 		super.onResume();
 		updateBeatArrayView();
         readPreferences();
-        numbarsBox.setText("");
+     //   numbarsBox.setText("");
 
 	}
 

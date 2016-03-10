@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+<!--     <SeekBar -->
+<!--         android:id="@+id/seekBar1" -->
+<!--         android:layout_width="72dp" -->
+<!--         android:layout_height="wrap_content" -->
+<!--         android:layout_above="@+id/verticalFader2" -->
+<!--         android:layout_alignParentLeft="true" /> -->
+    
+    <net.motekulo.phonestrument.HorizontalFader
+        android:id="@+id/horFader1"
+        android:layout_width="72dp"
+        android:layout_height="24dp"
+        android:layout_above="@+id/verticalFader2"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="4dp"
+        android:layout_alignParentLeft="true" />
+
+    
+    
+    <net.motekulo.phonestrument.VerticalFader
+        android:id="@+id/verticalFader1"
+        android:layout_width="72dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView1"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="52dp" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/editText1"
+        android:layout_alignParentLeft="true"
+        android:text="@string/synth1_label"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <net.motekulo.phonestrument.HorizontalFader
+        android:id="@+id/horFader2"
+        android:layout_width="72dp"
+        android:layout_height="24dp"
+        android:layout_alignTop="@+id/horFader1"
+        android:layout_marginRight="4dp"
+        android:layout_toRightOf="@+id/horFader1" />
+
+    <net.motekulo.phonestrument.VerticalFader
+        android:id="@+id/verticalFader2"
+        android:layout_width="72dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView2"
+        android:layout_alignTop="@+id/verticalFader1"
+        android:layout_marginRight="4dp"
+        android:layout_toRightOf="@+id/verticalFader1" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/editText1"
+        android:layout_alignLeft="@+id/verticalFader2"
+        android:layout_toRightOf="@+id/textView1"
+        android:text="@string/synth2_label"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <net.motekulo.phonestrument.HorizontalFader
+        android:id="@+id/horFader3"
+        android:layout_width="72dp"
+        android:layout_height="24dp"
+        android:layout_alignTop="@+id/horFader2"
+        android:layout_marginRight="4dp"
+        android:layout_toRightOf="@+id/horFader2" />
+
+    <net.motekulo.phonestrument.VerticalFader
+        android:id="@+id/verticalFader3"
+        android:layout_width="72dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView3"
+        android:layout_alignTop="@+id/verticalFader1"
+        android:layout_marginRight="4dp"
+        android:layout_toRightOf="@+id/verticalFader2" />
+
+    <net.motekulo.phonestrument.HorizontalFader
+        android:id="@+id/horFader4"
+        android:layout_width="72dp"
+        android:layout_height="24dp"
+        android:layout_alignTop="@+id/horFader3"
+        android:layout_marginRight="4dp"
+        android:layout_toRightOf="@+id/horFader3" />
+
+    <net.motekulo.phonestrument.VerticalFader
+        android:id="@+id/verticalFader4"
+        android:layout_width="72dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView4"
+        android:layout_alignTop="@+id/verticalFader1"
+        android:layout_marginRight="4dp"
+        android:layout_toRightOf="@+id/verticalFader3" />
+
+    <net.motekulo.phonestrument.HorizontalFader
+        android:id="@+id/horFader5"
+        android:layout_width="72dp"
+        android:layout_height="24dp"
+        android:layout_alignTop="@+id/horFader4"
+        android:layout_marginRight="4dp"
+        android:layout_toRightOf="@+id/horFader4" />
+
+    <net.motekulo.phonestrument.VerticalFader
+        android:id="@+id/verticalFader5"
+        android:layout_width="72dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView5"
+        android:layout_alignTop="@+id/verticalFader1"
+        android:layout_marginRight="4dp"
+        android:layout_toRightOf="@+id/verticalFader4" />
+
+    <net.motekulo.phonestrument.HorizontalFader
+        android:id="@+id/horFader6"
+        android:layout_width="72dp"
+        android:layout_height="24dp"
+        android:layout_alignTop="@+id/horFader5"
+        android:layout_marginRight="4dp"
+        android:layout_toRightOf="@+id/horFader5" />
+
+    <net.motekulo.phonestrument.VerticalFader
+        android:id="@+id/verticalFader6"
+        android:layout_width="72dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView5"
+        android:layout_alignTop="@+id/verticalFader1"
+        android:layout_marginRight="4dp"
+        android:layout_toRightOf="@+id/verticalFader5" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:ems="10"
+        android:imeOptions="actionDone"
+        android:inputType="text" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/verticalFader4"
+        android:layout_below="@+id/verticalFader3"
+        android:layout_marginLeft="16dp"
+        android:text="@string/drum2_label"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/verticalFader3"
+        android:layout_below="@+id/verticalFader2"
+        android:layout_marginLeft="16dp"
+        android:text="@string/drum1_label"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/verticalFader5"
+        android:layout_below="@+id/verticalFader4"
+        android:layout_marginLeft="16dp"
+        android:text="@string/drum3_label"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/verticalFader6"
+        android:layout_below="@+id/verticalFader5"
+        android:layout_marginLeft="16dp"
+        android:text="@string/drum4_label"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+     <ToggleButton
+        android:id="@+id/mainSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:text="ToggleButton" />
+    
+    <!--
+         <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView5"
+        android:layout_alignLeft="@+id/button2"
+        android:text="Rec" />
+    -->
+
+<!--     <ImageButton -->
+<!--         android:id="@+id/button2" -->
+<!--         android:layout_width="wrap_content" -->
+<!--         android:layout_height="wrap_content" -->
+<!--         android:layout_alignBottom="@+id/verticalFader6" -->
+<!--         android:layout_marginBottom="83dp" -->
+<!--         android:layout_toRightOf="@+id/verticalFader6" -->
+<!--         android:contentDescription="stop" -->
+<!--         android:src="@drawable/stop" /> -->
+
+<!--     <ImageButton -->
+<!--         android:id="@+id/button1" -->
+<!--         android:layout_width="wrap_content" -->
+<!--         android:layout_height="wrap_content" -->
+<!--         android:layout_above="@+id/button2" -->
+<!--         android:layout_toRightOf="@+id/verticalFader6" -->
+<!--         android:contentDescription="record" -->
+<!--         android:scaleType="center" -->
+<!--         android:src="@drawable/record" /> -->
+
+</RelativeLayout>
