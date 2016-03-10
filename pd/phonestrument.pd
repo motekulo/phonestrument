@@ -1,4 +1,4 @@
-#N canvas 1748 87 1596 985 12;
+#N canvas 1600 82 1440 818 12;
 #X msg 84 20 \; scale_struct 0 2 2 1 2 2 2 1;
 #X floatatom 988 65 5 0 0 0 - - -, f 5;
 #N canvas 172 262 1155 818 chordtone_calc 0;
@@ -61,7 +61,7 @@
 #X connect 25 0 21 0;
 #X connect 25 0 27 0;
 #X restore 441 176 pd chordtone_calc;
-#N canvas 1462 260 488 794 scalewriter 0;
+#N canvas 447 123 649 794 scalewriter 1;
 #X floatatom 86 134 5 0 0 0 - - -, f 5;
 #X text 122 133 MIDI note of key root;
 #X msg 140 64 24;
@@ -94,9 +94,11 @@
 #X obj 64 413 t float float;
 #X msg 139 95 28;
 #X text 174 96 E;
+#X obj -14 176 s key_info;
 #X connect 0 0 23 0;
 #X connect 0 0 18 0;
 #X connect 0 0 7 0;
+#X connect 0 0 31 0;
 #X connect 2 0 0 0;
 #X connect 4 0 23 1;
 #X connect 5 0 0 0;
@@ -215,7 +217,7 @@
 #X coords 0 0 16 47 200 140 1 0 0;
 #X restore 16 33 graph;
 #X restore 67 315 pd sequence_arrays;
-#N canvas 0 234 1440 846 gui 1;
+#N canvas 0 82 1440 818 gui 1;
 #N canvas 2018 92 1037 998 lead_gui 0;
 #X obj 36 141 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144 -1
 -1 0;
@@ -510,7 +512,7 @@
 #X connect 108 0 76 0;
 #X connect 108 1 47 0;
 #X coords 0 -1 1 1 450 300 1 0 0;
-#X restore 21 -80 pd lead_gui;
+#X restore 21 -108 pd lead_gui;
 #N canvas 2193 82 847 818 arp_gui 0;
 #X obj 653 715 spigot;
 #X obj 658 755 tabwrite arpseq4_8ve_seq;
@@ -791,7 +793,7 @@
 #X connect 94 0 90 1;
 #X connect 94 0 1 1;
 #X coords 0 -1 1 1 480 300 1 0 0;
-#X restore 931 -79 pd arp_gui;
+#X restore 931 -107 pd arp_gui;
 #N canvas 1856 109 961 801 chordprog_gui 0;
 #X text 2 191 Chord;
 #X text 16 207 I;
@@ -938,7 +940,7 @@ block chord to be played on that beat. That's actually quite important.
 #X connect 61 1 23 0;
 #X connect 62 0 48 0;
 #X coords 0 -1 1 1 500 200 1 0 120;
-#X restore 215 225 pd chordprog_gui;
+#X restore 215 197 pd chordprog_gui;
 #N canvas 1663 82 1007 840 reset_arrays 0;
 #X obj 44 -29 inlet;
 #X msg 52 371 \; blockchord_8ve_sequence 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -983,10 +985,10 @@ block chord to be played on that beat. That's actually quite important.
 #X connect 0 0 14 0;
 #X connect 0 0 15 0;
 #X connect 0 0 16 0;
-#X restore 1270 -343 pd reset_arrays;
-#X obj 1270 -369 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X restore 1270 -371 pd reset_arrays;
+#X obj 1270 -397 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X text 1166 -294 Get it all going!;
+#X text 1166 -322 Get it all going!;
 #N canvas 0 93 1425 818 drum_gui 0;
 #X obj 7 20 tgl 15 0 drumplayer_on empty empty 17 7 0 10 -262144 -1
 -1 0 1;
@@ -1419,7 +1421,7 @@ block chord to be played on that beat. That's actually quite important.
 #X connect 151 0 21 0;
 #X connect 151 1 43 0;
 #X coords 0 -1 1 1 320 200 1 0 0;
-#X restore 720 225 pd drum_gui;
+#X restore 720 197 pd drum_gui;
 #N canvas 1494 120 809 837 bass_gui 0;
 #X obj 29 163 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144 -1
 -1 0;
@@ -1607,7 +1609,7 @@ block chord to be played on that beat. That's actually quite important.
 #X connect 65 0 66 0;
 #X connect 67 0 65 1;
 #X coords 0 -1 1 1 450 300 1 0 0;
-#X restore 476 -80 pd bass_gui;
+#X restore 476 -108 pd bass_gui;
 #N canvas 1953 82 949 722 save_and_open 0;
 #X obj 204 120 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
 -1;
@@ -1635,7 +1637,7 @@ block chord to be played on that beat. That's actually quite important.
 #X connect 9 0 6 0;
 #X connect 11 0 13 0;
 #X connect 13 0 12 0;
-#X restore 1061 243 pd save_and_open;
+#X restore 1061 215 pd save_and_open;
 #N canvas 2047 162 689 652 random_filler 0;
 #X obj 140 37 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
@@ -1658,17 +1660,17 @@ block chord to be played on that beat. That's actually quite important.
 #X connect 7 0 6 1;
 #X connect 7 0 8 0;
 #X connect 8 0 5 1;
-#X restore 1072 313 pd random_filler;
-#X obj 953 -374 loadbang;
-#X msg 1027 -374 \; density 4 \; num_beats 4 \; num_bars 1 \; tempo
+#X restore 1072 285 pd random_filler;
+#X obj 953 -402 loadbang;
+#X msg 1027 -402 \; density 4 \; num_beats 4 \; num_bars 1 \; tempo
 112 \; init_samples bang \; master_vol 82 \; drum_vol 100 \; drumplayer_on
 1 \; metro_on 1;
-#X msg 1019 -166 \; dr1_sequence 1 0 0 0 1 0 0 0 1 0 0 0 1 0 0 0 \;
+#X msg 1019 -194 \; dr1_sequence 1 0 0 0 1 0 0 0 1 0 0 0 1 0 0 0 \;
 dr2_sequence 0 0 0 0 1 0 0 0 0 0 1 0 1 0 0 0 \; dr3_sequence 0 0 1
 0 1 0 0 1 1 0 0 1 0 1 0 1 \; dr4_sequence 0 1 0 0 0 1 0 0 0 0 1 0 0
 1 1 0;
-#X obj 974 -265 t b b;
-#X obj 1082 -199 print loadbang;
+#X obj 974 -293 t b b;
+#X obj 1082 -227 print loadbang;
 #N canvas 2283 220 983 841 main_control_gui 0;
 #X floatatom 403 51 5 0 0 0 - - -, f 5;
 #X obj 587 290 r pulses_per_bar;
@@ -1774,13 +1776,13 @@ dr2_sequence 0 0 0 0 1 0 0 0 0 0 1 0 1 0 0 0 \; dr3_sequence 0 0 1
 #X connect 60 0 62 0;
 #X connect 67 0 69 0;
 #X coords 0 -1 1 1 920 100 1 0 20;
-#X restore 21 -371 pd main_control_gui;
+#X restore 21 -399 pd main_control_gui;
 #X connect 4 0 3 0;
 #X connect 10 0 13 0;
 #X connect 11 0 14 0;
 #X connect 13 0 12 0;
 #X connect 13 1 11 0;
-#X coords 0 846 1 845 1400 280 0;
+#X coords 0 818 1 817 1400 280 0;
 #X restore 634 -4 pd gui;
 #N canvas 1742 87 960 818 leadplayer 0;
 #X obj 184 21 inlet;
@@ -1925,17 +1927,12 @@ dr2_sequence 0 0 0 0 1 0 0 0 0 0 1 0 1 0 0 0 \; dr3_sequence 0 0 1
 #X restore 197 -29 graph;
 #N canvas 65 402 450 300 (subpatch) 0;
 #X array scale 96 float 3;
-#A 0 214.278 216.278 218.278 219.278 221.278 223.278 225.278 226.278
-228.278 230.278 231.278 233.278 235.278 237.278 238.278 240.278 242.278
-243.278 245.278 247.278 249.278 250.278 252.278 254.278 255.278 257.278
-259.278 261.278 262.278 264.278 266.278 267.278 269.278 271.278 273.278
-274.278 276.278 278.278 279.278 281.278 283.278 285.278 286.278 288.278
-290.278 291.278 293.278 295.278 297.278 298.278 300.278 302.278 303.278
-305.278 307.278 309.278 310.278 312.278 314.278 315.278 317.278 319.278
-321.278 322.278 324.278 326.278 327.278 329.278 331.278 333.278 334.278
-336.278 338.278 339.278 341.278 343.278 345.278 346.278 348.278 350.278
-351.278 353.278 355.278 357.278 358.278 360.278 362.278 363.278 365.278
-367.278 369.278 370.278 372.278 374.278 375.278 379.278;
+#A 0 24 26 28 29 31 33 35 36 38 40 41 43 45 47 48 50 52 53 55 57 59
+60 62 64 65 67 69 71 72 74 76 77 79 81 83 84 86 88 89 91 93 95 96 98
+100 101 103 105 107 108 110 112 113 115 117 119 120 122 124 125 127
+129 131 132 134 136 137 139 141 143 144 146 148 149 151 153 155 156
+158 160 161 163 165 167 168 170 172 173 175 177 179 180 182 184 185
+189;
 #X coords 0 0 96 200 200 140 1 0 0;
 #X restore -19 141 graph;
 #X restore 69 258 pd scale_chord_arrays;
@@ -2146,14 +2143,14 @@ to adjust for chordtone rep \, where root is at index 0 \, 3rd at 1
 for scales and chord tones;
 #X text 41 210 And that is used to fill an array with chord tones for
 particular chords in that key:;
-#N canvas 1521 267 1125 735 main_pulse 0;
+#N canvas 298 113 1125 735 main_pulse 0;
 #X obj 295 228 metro;
 #X floatatom 261 110 5 0 0 0 - - -, f 5;
 #X floatatom 290 184 5 0 0 0 - - -, f 5;
 #X obj 292 263 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X obj 258 203 tgl 15 0 empty metro_on empty 17 7 0 10 -262144 -1 -1
-1 1;
+0 1;
 #X obj 288 148 expr 60000/$f1/$f2;
 #X obj 320 82 int;
 #X floatatom 370 115 5 0 0 0 - - -, f 5;
@@ -2188,9 +2185,11 @@ particular chords in that key:;
 #X obj 775 189 s num_beats_info;
 #X obj 137 116 s density_info;
 #X text 891 8 Used by app to get info;
+#X obj 179 166 s tempo_info;
 #X connect 0 0 3 0;
 #X connect 0 0 13 0;
 #X connect 1 0 5 0;
+#X connect 1 0 36 0;
 #X connect 2 0 0 1;
 #X connect 2 0 29 0;
 #X connect 4 0 0 0;
@@ -2476,7 +2475,7 @@ particular chords in that key:;
 #X connect 88 0 87 0;
 #X connect 89 0 86 0;
 #X restore 69 176 pd arpchordtone_calc;
-#N canvas 278 267 1038 818 bars 1;
+#N canvas 278 90 1038 818 bars 0;
 #X obj 532 65 r num_bars;
 #X msg 550 216 \; lead_sequence resize \$1 \; lead_sequence_2 resize
 \$1;
@@ -3087,7 +3086,7 @@ degree (so scale degree 2 if chord 2:;
 #X connect 42 0 23 1;
 #X connect 43 0 26 1;
 #X restore 1329 269 pd metronome;
-#N canvas 1453 115 864 946 read_write_arrays 1;
+#N canvas 1600 82 864 818 read_write_arrays 0;
 #X obj 31 592 r test_write_array;
 #X msg 31 650 \; dr1_sequence write \$1;
 #X obj 29 543 s test_write_array;
@@ -3134,45 +3133,112 @@ degree (so scale degree 2 if chord 2:;
 #X connect 24 0 22 0;
 #X connect 25 0 22 1;
 #X restore 636 100 pd read_write_arrays;
+#N canvas 1600 54 1440 846 preferences 1;
 #N canvas 0 262 450 250 (subpatch) 0;
 #X array project_preferences 8 float 2;
 #X coords 0 0 8 1000 200 140 1 0 0;
-#X restore 201 640 graph;
-#X text 31 643 Index \, item;
-#X text 30 662 0 \, number of bars;
-#X text 30 683 1 \, tempo;
-#X text 30 705 2 \, beats per bar;
-#X text 33 615 Preferences:;
-#X text 30 727 3 \, pulses per beat;
-#X text 30 749 4 \, key;
-#X obj 520 822 tabread project_preferences;
-#X floatatom 566 875 5 0 0 0 - - -, f 5;
-#X msg 578 695 1;
-#X obj 578 666 r set_tempo_from_prefs;
-#X obj 769 821 select 0 1 2 3 4;
-#X obj 691 879 f;
-#X obj 586 739 t f f;
-#X msg 517 667 0;
-#X obj 516 636 r set_numbars_from_prefs;
-#X obj 679 929 s tempo;
-#X obj 579 928 s num_bars;
-#X obj 644 880 f;
-#X msg 658 725 2;
-#X msg 740 758 3;
-#X msg 817 789 4;
-#X obj 658 696 r set_beatsperbar_from_prefs;
-#X obj 741 728 r set_pulsesperbeat_from_prefs;
-#X obj 817 760 r set_key_from_prefs;
-#X obj 768 882 f;
-#X obj 855 883 f;
-#X obj 936 880 f;
-#X obj 852 927 s density;
-#X obj 937 926 s key;
-#X obj 762 927 s num_beats;
-#X obj 991 639 r set_all_from_prefs;
-#X msg 991 681 set_numbars_from_prefs bang \; set_tempo_from_prefs
+#X restore 172 162 graph;
+#X text 2 165 Index \, item;
+#X text 1 184 0 \, number of bars;
+#X text 1 205 1 \, tempo;
+#X text 1 227 2 \, beats per bar;
+#X text 4 137 Preferences:;
+#X text 1 249 3 \, pulses per beat;
+#X text 1 271 4 \, key;
+#X obj 491 344 tabread project_preferences;
+#X floatatom 537 397 5 0 0 0 - - -, f 5;
+#X msg 549 217 1;
+#X obj 549 188 r set_tempo_from_prefs;
+#X obj 740 343 select 0 1 2 3 4;
+#X obj 662 401 f;
+#X obj 557 261 t f f;
+#X msg 488 189 0;
+#X obj 487 158 r set_numbars_from_prefs;
+#X obj 650 451 s tempo;
+#X obj 550 450 s num_bars;
+#X obj 615 402 f;
+#X msg 629 247 2;
+#X msg 711 280 3;
+#X msg 788 311 4;
+#X obj 629 218 r set_beatsperbar_from_prefs;
+#X obj 712 250 r set_pulsesperbeat_from_prefs;
+#X obj 788 282 r set_key_from_prefs;
+#X obj 739 404 f;
+#X obj 826 405 f;
+#X obj 907 402 f;
+#X obj 823 449 s density;
+#X obj 908 448 s key;
+#X obj 733 449 s num_beats;
+#X obj 962 161 r set_all_from_prefs;
+#X msg 962 203 set_numbars_from_prefs bang \; set_tempo_from_prefs
 bang \; set_beatsperbar_from_prefs bang \; set_pulsesperbeat_from_prefs
 bang \; set_key_from_prefs bang;
+#X obj 67 355 r num_bars_info;
+#X msg 124 414 0;
+#X obj 422 778 tabwrite project_preferences;
+#X obj 68 391 t f b;
+#X obj 70 475 t f b;
+#X obj 69 439 r tempo_info;
+#X msg 126 498 1;
+#X obj 70 567 t f b;
+#X obj 66 660 t f b;
+#X obj 63 751 t f b;
+#X msg 126 590 2;
+#X msg 122 683 3;
+#X msg 117 791 4;
+#X obj 69 531 r num_beats_info;
+#X obj 65 624 r density_info;
+#X obj 62 715 r key_info;
+#X connect 8 0 9 0;
+#X connect 8 0 13 1;
+#X connect 8 0 19 1;
+#X connect 8 0 26 1;
+#X connect 8 0 27 1;
+#X connect 8 0 28 1;
+#X connect 10 0 14 0;
+#X connect 11 0 10 0;
+#X connect 12 0 19 0;
+#X connect 12 1 13 0;
+#X connect 12 2 26 0;
+#X connect 12 3 27 0;
+#X connect 12 4 28 0;
+#X connect 13 0 17 0;
+#X connect 14 0 12 0;
+#X connect 14 1 8 0;
+#X connect 15 0 14 0;
+#X connect 16 0 15 0;
+#X connect 19 0 18 0;
+#X connect 20 0 14 0;
+#X connect 21 0 14 0;
+#X connect 22 0 14 0;
+#X connect 23 0 20 0;
+#X connect 24 0 21 0;
+#X connect 25 0 22 0;
+#X connect 26 0 31 0;
+#X connect 27 0 29 0;
+#X connect 28 0 30 0;
+#X connect 32 0 33 0;
+#X connect 34 0 37 0;
+#X connect 35 0 36 1;
+#X connect 37 0 36 0;
+#X connect 37 1 35 0;
+#X connect 38 0 36 0;
+#X connect 38 1 40 0;
+#X connect 39 0 38 0;
+#X connect 40 0 36 1;
+#X connect 41 0 36 0;
+#X connect 41 1 44 0;
+#X connect 42 0 36 0;
+#X connect 42 1 45 0;
+#X connect 43 0 36 0;
+#X connect 43 1 46 0;
+#X connect 44 0 36 1;
+#X connect 45 0 36 1;
+#X connect 46 0 36 1;
+#X connect 47 0 41 0;
+#X connect 48 0 42 0;
+#X connect 49 0 43 0;
+#X restore 250 527 pd preferences;
 #X connect 1 0 19 0;
 #X connect 9 0 25 0;
 #X connect 9 0 34 0;
@@ -3190,32 +3256,3 @@ bang \; set_key_from_prefs bang;
 #X connect 35 2 13 0;
 #X connect 35 3 29 0;
 #X connect 35 4 36 0;
-#X connect 46 0 47 0;
-#X connect 46 0 51 1;
-#X connect 46 0 57 1;
-#X connect 46 0 64 1;
-#X connect 46 0 65 1;
-#X connect 46 0 66 1;
-#X connect 48 0 52 0;
-#X connect 49 0 48 0;
-#X connect 50 0 57 0;
-#X connect 50 1 51 0;
-#X connect 50 2 64 0;
-#X connect 50 3 65 0;
-#X connect 50 4 66 0;
-#X connect 51 0 55 0;
-#X connect 52 0 50 0;
-#X connect 52 1 46 0;
-#X connect 53 0 52 0;
-#X connect 54 0 53 0;
-#X connect 57 0 56 0;
-#X connect 58 0 52 0;
-#X connect 59 0 52 0;
-#X connect 60 0 52 0;
-#X connect 61 0 58 0;
-#X connect 62 0 59 0;
-#X connect 63 0 60 0;
-#X connect 64 0 69 0;
-#X connect 65 0 67 0;
-#X connect 66 0 68 0;
-#X connect 70 0 71 0;

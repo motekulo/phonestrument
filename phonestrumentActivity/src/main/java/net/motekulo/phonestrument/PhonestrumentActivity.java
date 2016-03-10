@@ -196,18 +196,15 @@ public class PhonestrumentActivity extends Activity {
 
         readPreferences();
 
-        // if (currentProjectName.equals("untitled")) {
-        checkAndCreateUniqueProjectName();
-        // }
+        if (currentProjectName.equals("untitled")) {
+            checkAndCreateUniqueProjectName();
+        }
 
         createProjectDir();
         setPreferences();
         initSystemServices();
         bindService(new Intent(this, PdService.class), pdConnection, BIND_AUTO_CREATE);
 
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
 
     }
 
@@ -311,17 +308,45 @@ public class PhonestrumentActivity extends Activity {
 
     private void initPatch() {
 
-        PdBase.sendFloat("density", 4);
-        PdBase.sendFloat("num_beats", 4);
-        PdBase.sendFloat("num_bars", 17);
-        PdBase.sendFloat("tempo", 112);
-        //PdBase.sendFloat("init_samples" bang);
+        // read preference info from project dir and load into patch
+
+        String filepath = getExternalFilesDir(null).getPath();
+        File appDir = new File(filepath, net.motekulo.phonestrument.PhonestrumentActivity.APP_DATA_DIR_NAME);
+        File projectDir = new File(appDir,currentProjectName);
+
+        File prefFile = new File(projectDir, "project_preferences.txt");
+        if (prefFile.exists()) {
+            // Reading is from Pd Patch perspective ( so loading from Android to Pd)
+
+            PdBase.sendMessage("array_to_read", "symbol", prefFile.getPath()); // baseName is the same as the Pd array name
+            PdBase.sendMessage("read_array", "symbol", "project_preferences");
+            PdBase.sendBang("set_numbars_from_prefs");
+        }
+        // Some patch defaults, only if info missing from storage
+        else {
+
+            // Create one with some defaults and send to the patch
+
+            PdBase.sendFloat("density", 4);
+            PdBase.sendFloat("num_beats", 4);
+            PdBase.sendFloat("num_bars", 4);
+            PdBase.sendFloat("tempo", 112);
+
+            // Now get Pd to write us the preference array to the project directory
+
+            
+        }
+
+        // General starting defaults for patch
+
         PdBase.sendFloat("master_vol", 82);
         PdBase.sendFloat("drum_vol", 100);
         PdBase.sendFloat("drumplayer_on", 1);
         PdBase.sendFloat("metronome_sample_number", 8);
         PdBase.sendFloat("metronome_on", 1);
         PdBase.sendFloat("metro_on", 1);
+
+        // Load up samples (eventually through prefs too?)
 
         PdBase.sendMessage("sample_to_play", sampleForPlayer1, 0);
         PdBase.sendMessage("sample2_to_play", sampleForPlayer2, 0);

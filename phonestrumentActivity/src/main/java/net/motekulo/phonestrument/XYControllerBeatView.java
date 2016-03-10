@@ -104,7 +104,7 @@ public class XYControllerBeatView extends View {
         beatIndicator.getPaint().setColor(MLIGHTBLUE);
 
         //Xmin = 0;
-        Xmax = 1000; // so this will set the desnity and also the max number of bars FIXME
+        Xmax = 1000; // so this will set the density and also the max number of bars FIXME
         //Ymin = 0;
         Ymax = 4;
         isRealtimePlayer = false;
