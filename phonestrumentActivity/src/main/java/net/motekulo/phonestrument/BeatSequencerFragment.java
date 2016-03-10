@@ -121,7 +121,7 @@ public class BeatSequencerFragment extends Fragment {
                 //Log.i(APP_NAME, "num_beats_info: " + x);
                 numBars = (int) x;
                 barView.setXmax(numBars);
-              //  numbarsBox.setText(numBars);
+                numbarsBox.setText(Integer.toString(numBars));
 
             }
 
@@ -191,7 +191,7 @@ public class BeatSequencerFragment extends Fragment {
 		super.onResume();
 		updateBeatArrayView();
         readPreferences();
-     //   numbarsBox.setText("");
+        PdBase.sendBang("ping_patch_for_info");
 
 	}
 
@@ -242,10 +242,7 @@ public class BeatSequencerFragment extends Fragment {
 				//Log.i(APP_NAME, "Tempo is " + v.getText());
 				Float tempo = Float.valueOf(v.getText().toString());
 				PdBase.sendFloat("tempo", tempo);
-
-                String arrayFilename = projectDir + "/" + "project_preferences.txt";
-                PdBase.sendMessage("array_to_write", "symbol", arrayFilename);
-                PdBase.sendMessage("write_array", "symbol", "project_preferences");
+                writePrefsArraytoPd();
 
 				handled = true;
 			}
@@ -265,15 +262,13 @@ public class BeatSequencerFragment extends Fragment {
                 //Log.i(APP_NAME, "Tempo is " + v.getText());
                 Float bars = Float.valueOf(v.getText().toString());
                 PdBase.sendFloat("num_bars", bars);
-                float[] prefsArray;
-                prefsArray = new float[8];
+               // float[] prefsArray;
+             //   prefsArray = new float[8];
 
-                prefsArray[0] = bars;
-                PdBase.writeArray("project_preferences", 0, prefsArray, 0, 1); // just changing single pref value
+               // prefsArray[0] = bars;
+               // PdBase.writeArray("project_preferences", 0, prefsArray, 0, 1); // just changing single pref value
                 // write prefs to array on device
-                String arrayFilename = projectDir + "/" + "project_preferences.txt";
-                PdBase.sendMessage("array_to_write", "symbol", arrayFilename);
-                PdBase.sendMessage("write_array", "symbol", "project_preferences");
+                writePrefsArraytoPd();
                 handled = true;
             }
             return handled;
@@ -317,6 +312,12 @@ public class BeatSequencerFragment extends Fragment {
             return handled;
         }
     };
+
+    private void writePrefsArraytoPd(){
+        String arrayFilename = projectDir + "/" + "project_preferences.txt";
+        PdBase.sendMessage("array_to_write", "symbol", arrayFilename);
+        PdBase.sendMessage("write_array", "symbol", "project_preferences");
+    }
 
 	private void updateBeatArrayView(){
 // pinged info might not have returned from backend so set some defaults in case

@@ -31,7 +31,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.IBinder;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
@@ -140,7 +139,8 @@ public class PhonestrumentActivity extends Activity {
 //						this, "synth", SynthControllerFragment.class));
 //		actionBar.addTab(tab);
 
-        String filepath = Environment.getExternalStorageDirectory().getPath();
+        //String filepath = Environment.getExternalStorageDirectory().getPath();
+        String filepath = getExternalFilesDir(null).getPath();
         File appdir = new File(filepath, APP_DATA_DIR_NAME);
 
         if (!appdir.exists()) {
@@ -194,7 +194,7 @@ public class PhonestrumentActivity extends Activity {
         }
 
 
-        readPreferences();
+       // readPreferences();
 
         if (currentProjectName.equals("untitled")) {
             checkAndCreateUniqueProjectName();
