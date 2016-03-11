@@ -1,4 +1,4 @@
-#N canvas 1597 87 1440 818 12;
+#N canvas 1591 97 1440 818 12;
 #X msg 84 20 \; scale_struct 0 2 2 1 2 2 2 1;
 #X floatatom 988 65 5 0 0 0 - - -, f 5;
 #N canvas 172 262 1155 818 chordtone_calc 0;
@@ -61,7 +61,7 @@
 #X connect 25 0 21 0;
 #X connect 25 0 27 0;
 #X restore 441 176 pd chordtone_calc;
-#N canvas 444 262 649 794 scalewriter 1;
+#N canvas 438 272 649 794 scalewriter 1;
 #X floatatom 86 134 5 0 0 0 - - -, f 5;
 #X text 122 133 MIDI note of key root;
 #X msg 140 64 24;
@@ -217,7 +217,7 @@
 #X coords 0 0 16 47 200 140 1 0 0;
 #X restore 16 33 graph;
 #X restore 67 315 pd sequence_arrays;
-#N canvas 1466 268 1440 818 gui 1;
+#N canvas 1460 250 1440 818 gui 1;
 #N canvas 2018 92 1037 998 lead_gui 0;
 #X obj 36 141 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144 -1
 -1 0;
@@ -2131,14 +2131,14 @@ to adjust for chordtone rep \, where root is at index 0 \, 3rd at 1
 for scales and chord tones;
 #X text 41 210 And that is used to fill an array with chord tones for
 particular chords in that key:;
-#N canvas 298 113 1125 735 main_pulse 0;
+#N canvas 1505 162 1125 735 main_pulse 0;
 #X obj 295 228 metro;
 #X floatatom 261 110 5 0 0 0 - - -, f 5;
 #X floatatom 290 184 5 0 0 0 - - -, f 5;
 #X obj 292 263 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X obj 258 203 tgl 15 0 empty metro_on empty 17 7 0 10 -262144 -1 -1
-0 1;
+1 1;
 #X obj 288 148 expr 60000/$f1/$f2;
 #X obj 320 82 int;
 #X floatatom 370 115 5 0 0 0 - - -, f 5;
@@ -2167,7 +2167,7 @@ particular chords in that key:;
 #X obj 539 294 s pulses_per_bar;
 #X obj 396 206 s ms_per_pulse;
 #X obj 737 6 r ping_patch_for_info;
-#X obj 732 35 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 738 39 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X floatatom 733 150 5 0 0 0 - - -, f 5;
 #X obj 775 189 s num_beats_info;
@@ -2209,6 +2209,7 @@ particular chords in that key:;
 #X connect 30 0 31 0;
 #X connect 31 0 16 0;
 #X connect 31 0 32 0;
+#X connect 31 0 1 0;
 #X connect 32 0 33 0;
 #X restore 974 32 pd main_pulse;
 #N canvas 167 262 626 818 blockchordtone_calc 0;
@@ -2639,7 +2640,7 @@ resize \$1 \;;
 #X connect 22 0 24 0;
 #X connect 24 0 25 0;
 #X connect 24 0 26 0;
-#X restore 636 45 pd record_it;
+#X restore 634 31 pd record_it;
 #X obj 811 399 r pulse_zero_bang;
 #X obj 817 494 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
@@ -3120,8 +3121,8 @@ degree (so scale degree 2 if chord 2:;
 #X connect 22 0 23 0;
 #X connect 24 0 22 0;
 #X connect 25 0 22 1;
-#X restore 636 100 pd read_write_arrays;
-#N canvas 1597 83 1440 846 preferences 1;
+#X restore 634 66 pd read_write_arrays;
+#N canvas 1974 99 1440 846 preferences 0;
 #N canvas 0 262 450 250 (subpatch) 0;
 #X array project_preferences 8 float 2;
 #X coords 0 0 8 1000 200 140 1 0 0;
@@ -3226,7 +3227,7 @@ bang \; set_key_from_prefs bang;
 #X connect 47 0 41 0;
 #X connect 48 0 42 0;
 #X connect 49 0 43 0;
-#X restore 250 527 pd preferences;
+#X restore 634 101 pd preferences;
 #X connect 1 0 19 0;
 #X connect 9 0 25 0;
 #X connect 9 0 34 0;

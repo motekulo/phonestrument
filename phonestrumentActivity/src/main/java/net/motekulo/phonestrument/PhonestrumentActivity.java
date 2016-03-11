@@ -574,14 +574,10 @@ public class PhonestrumentActivity extends Activity {
                 break;
             }
 
-
-
             case R.id.share_loop: {
                 saveLoop();
                 break;
             }
-
-
 
         }
         return true;

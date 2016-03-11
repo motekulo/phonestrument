@@ -114,6 +114,17 @@ public class BeatSequencerFragment extends Fragment {
         dispatcher = new PdUiDispatcher();
         PdBase.setReceiver(dispatcher);
 
+        dispatcher.addListener("tempo_info", new PdListener.Adapter() {
+
+            @Override
+            public void receiveFloat(String source, float x) {
+
+                tempoBox.setText(Integer.toString((int) x));
+
+            }
+
+        });
+
         dispatcher.addListener("num_bars_info", new PdListener.Adapter() {
 
             @Override
