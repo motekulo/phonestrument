@@ -4,6 +4,14 @@ title: Documentation
 permalink: /doc/
 ---
 
+# Overview
+
+The Android app contains classes that transfer interactions from the app views, via controller classes, to a Puredata backend. PdLib is used to communicate between Android and Pd.
+
+![overview](../assets/overview2.png)
+
+
+
 # Phonestrument Backend Puredata patch
 
 The main base patch is phonestrument.pd
