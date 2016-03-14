@@ -70,13 +70,19 @@ those that are designed to be accessed externally (from the app, for example).
 key (scalewriter): MIDI note of key tonic (so 24 for C, for example)
 
 metro_on (main_pulse): Main on/off switch - starts the pulse.
+
 tempo (main_pulse): Sets tempo, in beats per minute
+
 density (main_pulse): Sets number of pulses per beat
+
 num_beats (main_pulse): Sets number of beats per bar
+
 ping_patch_for_info (main_pulse): triggers senders posting patch info
 
 num_bars (bars): sets number of bars in sequencer
+
 loop_start_bar (bars): sets start bar for looping playback
+
 loop_end_bar (bars): sets end bar for looping playback 
 
 record_sequence (phonestrument.pd): sets checkbox for recording
@@ -93,7 +99,9 @@ key_info (scalewriter): MIDI note of key on key set or change of key
 Responding to the ping_patch_for_info message:
 
 density_info (main_pulse): sends number of pulses per beat
+
 tempo_info (main_pulse): sends current tempo in beats per minute
+
 num_beats_info (main_pulse): sends number of beats per bar
 
 num_bars_info (bars): sends number of bars
