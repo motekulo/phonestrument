@@ -94,15 +94,15 @@ public class BeatSequencerFragment extends Fragment {
         barView.setXmax(4);
         barView.setYmax(1);
 
-		sequence = new float[4][16];
+		sequence = new float[4][16]; // This is arbitrary for the moment - needs to be more flexible
 
         /* Keep as much state in the backend as possible and use that as the ultimate source rather
          than duplicating data. Here we have a message that bangs a number of float boxes in the pd
          patch that then sends their values to which the listeners listen.
          */
-        PdBase.sendBang("ping_patch_for_info");
+        //PdBase.sendBang("ping_patch_for_info");
 
-		updateBeatArrayView();
+		//updateBeatArrayView();
         readPreferences();
         // Get the base directory for saving patch arrays
         String dataPath = getActivity().getExternalFilesDir(null).getPath();
@@ -145,6 +145,7 @@ public class BeatSequencerFragment extends Fragment {
                 //Log.i(APP_NAME, "num_beats_info: " + x);
                 numBeats = (int) x;
                 beatView1.setXmax(numBeats * pulsesPerBeat);
+                numbeatsBox.setText(Integer.toString(numBeats));
             }
 
         });
@@ -156,6 +157,10 @@ public class BeatSequencerFragment extends Fragment {
                 //Log.i(APP_NAME, "density_info: " + x);
                 pulsesPerBeat = (int) x;
                 beatView1.setXmax(numBeats * pulsesPerBeat);
+                if (numBeats * pulsesPerBeat > 0) {
+                    updateBeatArrayView();
+                }
+
             }
 
         });
@@ -200,7 +205,7 @@ public class BeatSequencerFragment extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		updateBeatArrayView();
+		//updateBeatArrayView();
         readPreferences();
         PdBase.sendBang("ping_patch_for_info");
 
@@ -298,7 +303,10 @@ public class BeatSequencerFragment extends Fragment {
                 //Log.i(APP_NAME, "Tempo is " + v.getText());
                 Float beats = Float.valueOf(v.getText().toString());
                 PdBase.sendFloat("num_beats", beats);
-                PdBase.sendBang("ping_patch_for_info");  // the actual view changes will be made in the dispatcher listener
+
+                writePrefsArraytoPd();
+
+                //PdBase.sendBang("ping_patch_for_info");  // the actual view changes will be made in the dispatcher listener
                 handled = true;
             }
             return handled;
@@ -331,27 +339,26 @@ public class BeatSequencerFragment extends Fragment {
     }
 
 	private void updateBeatArrayView(){
-// pinged info might not have returned from backend so set some defaults in case
-        if (numBeats == 0) numBeats = 4;
-        if (pulsesPerBeat == 0) pulsesPerBeat = 4;
-        ;
 
-        int pulsesPerBar = numBeats * pulsesPerBeat;
+        if (numBeats != 0 && pulsesPerBeat != 0) {
+
+            int pulsesPerBar = numBeats * pulsesPerBeat;
 //		int[][] beatArray = new int[4][16];
-        int[][] beatArray = new int[4][pulsesPerBar];
+            int[][] beatArray = new int[4][pulsesPerBar];
 
 
-        PdBase.readArray(sequence[0], 0, "dr1_sequence", 0, 16);
-		PdBase.readArray(sequence[1], 0, "dr2_sequence", 0, 16);
-		PdBase.readArray(sequence[2], 0, "dr3_sequence", 0, 16);
-		PdBase.readArray(sequence[3], 0, "dr4_sequence", 0, 16);
-		
-		for (int i=0; i < 4; i++) {
-			for (int j=0; j< pulsesPerBar; j++) {
-				beatArray[i][j] = (int) sequence[i][j];
-			}
-		}
-		beatView1.setToggleState(beatArray);
+            PdBase.readArray(sequence[0], 0, "dr1_sequence", 0, pulsesPerBar);
+            PdBase.readArray(sequence[1], 0, "dr2_sequence", 0, pulsesPerBar);
+            PdBase.readArray(sequence[2], 0, "dr3_sequence", 0, pulsesPerBar);
+            PdBase.readArray(sequence[3], 0, "dr4_sequence", 0, pulsesPerBar);
+
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < pulsesPerBar; j++) {
+                    beatArray[i][j] = (int) sequence[i][j];
+                }
+            }
+            beatView1.setToggleState(beatArray);
+        }
 	}
     private void updateBeatArrayView(int barnum){
         if (numBeats == 0) {numBeats = 4;}

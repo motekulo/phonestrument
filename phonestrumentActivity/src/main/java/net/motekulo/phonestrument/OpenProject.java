@@ -150,13 +150,16 @@ public class OpenProject extends ListFragment {
                             // find prefs and set accordingly (gets internal pd array lengths sorted
                             String baseName = FilenameUtils.getBaseName(file.getPath());
                             if (baseName.equals("project_preferences")) {
+                                // Read from project file prefs into Pd patch:
                                 PdBase.sendMessage("array_to_read", "symbol", file.getPath()); // baseName is the same as the Pd array name
                                 PdBase.sendMessage("read_array", "symbol", baseName);
                                 PdBase.sendBang("set_numbars_from_prefs");
                                 PdBase.sendBang  ("set_tempo_from_prefs");
+                                PdBase.sendBang  ("set_beatsperbar_from_prefs");
+                                PdBase.sendBang  ("set_pulsesperbeat_from_prefs");
                             }
                         }
-
+// FIXME a simple if then else above can replace this second loop?
                         for (File file : files) {
                             String baseName = FilenameUtils.getBaseName(file.getPath());
                             // Log.i(APP_NAME, "File: " + baseName);
