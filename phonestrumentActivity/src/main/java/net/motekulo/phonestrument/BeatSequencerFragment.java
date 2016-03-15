@@ -22,6 +22,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -146,6 +147,9 @@ public class BeatSequencerFragment extends Fragment {
                 numBeats = (int) x;
                 beatView1.setXmax(numBeats * pulsesPerBeat);
                 numbeatsBox.setText(Integer.toString(numBeats));
+                if (numBeats * pulsesPerBeat > 0) {
+                    updateBeatArrayView();
+                }
             }
 
         });
@@ -157,6 +161,7 @@ public class BeatSequencerFragment extends Fragment {
                 //Log.i(APP_NAME, "density_info: " + x);
                 pulsesPerBeat = (int) x;
                 beatView1.setXmax(numBeats * pulsesPerBeat);
+                numpulsesBox.setText(Integer.toString(pulsesPerBeat));
                 if (numBeats * pulsesPerBeat > 0) {
                     updateBeatArrayView();
                 }
@@ -165,11 +170,11 @@ public class BeatSequencerFragment extends Fragment {
 
         });
 
-        dispatcher.addListener("current_pulse_num", new PdListener.Adapter() {
-            @Override
-            public void receiveFloat(String source, float x) {
+ //       dispatcher.addListener("current_pulse_num", new PdListener.Adapter() {
+ //           @Override
+  //          public void receiveFloat(String source, float x) {
                // Log.i(APP_NAME, "pulse: " + x);
-                beatNum = (int) x;
+ //               beatNum = (int) x;
 //				if (playState == false) {
 //					Log.i(APP_NAME, "Dispatcher and playstate false ");
 //					PdBase.sendFloat("metro_on", 0);
@@ -181,15 +186,15 @@ public class BeatSequencerFragment extends Fragment {
 //					updateBeatArrayView(0);
 //				}
 
-            }
-        });
+ //           }
+ //       });
 
 		dispatcher.addListener("current_bar_num", new PdListener.Adapter() {
 
 
 			@Override
 			public void receiveFloat(String source, float x) {
-				//Log.i(APP_NAME, "Getting bar number " + x);
+				Log.i(APP_NAME, "Getting bar number " + x);
 				currentBar = (int) x;
                // Log.i(APP_NAME, "Bar " + x);
                 // Scroll to correct bar (well, display it)
