@@ -51,25 +51,6 @@ public class OpenProject extends ListFragment {
 
     private final List<String> fileList = new ArrayList<String>();
 
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//
-//
-//        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1,countries);
-//
-//        /** Setting the list adapter for the ListFragment */
-//       // setListAdapter(adapter);
-//
-//
-//        ArrayAdapter<String> directoryList
-//                = new ArrayAdapter<String>(getActivity(),
-//                android.R.layout.simple_list_item_1, fileList);
-//        setListAdapter(directoryList);
-//
-//
-//
-//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,13 +68,8 @@ public class OpenProject extends ListFragment {
     @Override
     public void onViewCreated (View view, Bundle savedInstanceState) {
 
-      //  File root = new File(Environment
-      //          .getExternalStorageDirectory()
-      //          .getAbsolutePath());
 
         String filepath = getActivity().getExternalFilesDir(null).getPath();
-        // String filepath = Environment.getDataDirectory().getPath();
-       // File appDir = new File(filepath, APP_DATA_DIR_NAME);
 
         File appDir = new File(filepath, net.motekulo.phonestrument.PhonestrumentActivity.APP_DATA_DIR_NAME);
 
@@ -126,14 +102,8 @@ public class OpenProject extends ListFragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                // When clicked, show a toast with the TextView text
-                //Toast.makeText(getApplicationContext(),
-                //((TextView) view).getText(), Toast.LENGTH_SHORT).show();
                 CharSequence listText = ((TextView) view).getText();
-                if (listText == null) {
-                   // setResult(RESULT_CANCELED);
-                   // finish();
-                } else {
+                if (listText != null) {
                     currentProjectName = listText.toString();
                     setPreferences();
 

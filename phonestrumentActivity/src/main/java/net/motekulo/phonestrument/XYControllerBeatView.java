@@ -105,7 +105,7 @@ public class XYControllerBeatView extends View {
         Xmax = 1000; // so this will set the density and also the max number of bars FIXME
 
         Ymax = 4;
-        
+
         toggleState = new int[Ymax][Xmax]; // might need an arrayList here?n(see above FIXME)
 
         setOnTouchListener(new OnTouchListener() {
