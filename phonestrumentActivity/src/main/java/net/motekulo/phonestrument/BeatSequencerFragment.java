@@ -55,7 +55,7 @@ public class BeatSequencerFragment extends Fragment {
 	private int pulsesPerBeat;
     private int numBeats;
     private int numBars;
-    private int beatNum; //current beat
+    //private int beatNum; //current beat
     private int currentBar;
 	float[][] sequence;
     private EditText numbarsBox;
@@ -170,24 +170,6 @@ public class BeatSequencerFragment extends Fragment {
 
         });
 
- //       dispatcher.addListener("current_pulse_num", new PdListener.Adapter() {
- //           @Override
-  //          public void receiveFloat(String source, float x) {
-               // Log.i(APP_NAME, "pulse: " + x);
- //               beatNum = (int) x;
-//				if (playState == false) {
-//					Log.i(APP_NAME, "Dispatcher and playstate false ");
-//					PdBase.sendFloat("metro_on", 0);
-//				}
-
-//				beatView1.setCurrentBeat((int) x);
-//
-//				if (x == 0) {
-//					updateBeatArrayView(0);
-//				}
-
- //           }
- //       });
 
 		dispatcher.addListener("current_bar_num", new PdListener.Adapter() {
 
@@ -196,8 +178,6 @@ public class BeatSequencerFragment extends Fragment {
 			public void receiveFloat(String source, float x) {
 				Log.i(APP_NAME, "Getting bar number " + x);
 				currentBar = (int) x;
-               // Log.i(APP_NAME, "Bar " + x);
-                // Scroll to correct bar (well, display it)
 
 				updateBeatArrayView(currentBar);
 			}
@@ -210,7 +190,7 @@ public class BeatSequencerFragment extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		//updateBeatArrayView();
+
         readPreferences();
         PdBase.sendBang("ping_patch_for_info");
 
@@ -242,7 +222,7 @@ public class BeatSequencerFragment extends Fragment {
             int startOfBarInPulses = pulsesPerBeat * numBeats * currentBar;
 			PdBase.writeArray(drSequenceToWrite, startOfBarInPulses, sequence[row], 0, pulsesPerBeat * numBeats);
             String arrayFilename = projectDir + "/" + drSequenceToWrite + ".txt";
-           // Log.i(APP_NAME, "Log test: " + arrayFilename);
+
             PdBase.sendMessage("array_to_write", "symbol", arrayFilename);
             PdBase.sendMessage("write_array", "symbol", drSequenceToWrite);
 
@@ -260,7 +240,7 @@ public class BeatSequencerFragment extends Fragment {
 				InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(
 						Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(tempoBox.getWindowToken(), 0);
-				//Log.i(APP_NAME, "Tempo is " + v.getText());
+
 				Float tempo = Float.valueOf(v.getText().toString());
 				PdBase.sendFloat("tempo", tempo);
                 writePrefsArraytoPd();
@@ -280,15 +260,10 @@ public class BeatSequencerFragment extends Fragment {
                 InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(
                         Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(tempoBox.getWindowToken(), 0);
-                //Log.i(APP_NAME, "Tempo is " + v.getText());
+
                 Float bars = Float.valueOf(v.getText().toString());
                 PdBase.sendFloat("num_bars", bars);
-               // float[] prefsArray;
-             //   prefsArray = new float[8];
 
-               // prefsArray[0] = bars;
-               // PdBase.writeArray("project_preferences", 0, prefsArray, 0, 1); // just changing single pref value
-                // write prefs to array on device
                 writePrefsArraytoPd();
                 handled = true;
             }
@@ -305,13 +280,12 @@ public class BeatSequencerFragment extends Fragment {
                 InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(
                         Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(tempoBox.getWindowToken(), 0);
-                //Log.i(APP_NAME, "Tempo is " + v.getText());
+
                 Float beats = Float.valueOf(v.getText().toString());
                 PdBase.sendFloat("num_beats", beats);
 
                 writePrefsArraytoPd();
 
-                //PdBase.sendBang("ping_patch_for_info");  // the actual view changes will be made in the dispatcher listener
                 handled = true;
             }
             return handled;
@@ -348,7 +322,7 @@ public class BeatSequencerFragment extends Fragment {
         if (numBeats != 0 && pulsesPerBeat != 0) {
 
             int pulsesPerBar = numBeats * pulsesPerBeat;
-//		int[][] beatArray = new int[4][16];
+
             int[][] beatArray = new int[4][pulsesPerBar];
 
 
@@ -406,20 +380,5 @@ public class BeatSequencerFragment extends Fragment {
 
     }
 
-//	private final ServiceConnection pdConnection = new ServiceConnection() { 
-//
-//		@Override
-//		public void onServiceConnected(ComponentName name, IBinder service) { 
-//			pdService = ((PdService.PdBinder)service).getService();
-//
-//			pdServiceConnection = true;
-//		}
-//
-//		@Override
-//		public void onServiceDisconnected(ComponentName name) {
-//
-//			pdServiceConnection = false;
-//		}
-//	};
 
 }

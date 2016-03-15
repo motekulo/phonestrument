@@ -104,18 +104,6 @@ public class PhonestrumentActivity extends Activity {
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         setTitle("Phonestrument");
 
-        //Tab tab = actionBar.newTab()
-//				.setText("Seq 1")
-//				.setTabListener(new TabListener<SynthSequencerFragment>(
-//						this, "synthseq", SynthSequencerFragment.class));
-//		actionBar.addTab(tab);
-
-//		tab = actionBar.newTab()
-//				.setText("Seq 2")
-//				.setTabListener(new TabListener<Synth2SequencerFragment>(
-//						this, "synth2seq", Synth2SequencerFragment.class));
-//		actionBar.addTab(tab);
-
         Tab tab = actionBar.newTab()
                 .setText("Drums")
                 .setTabListener(new TabListener<BeatSequencerFragment>(
@@ -133,13 +121,7 @@ public class PhonestrumentActivity extends Activity {
                 .setTabListener(new TabListener<OpenProject>(
                         this, "Open", OpenProject.class));
         actionBar.addTab(tab);
-//		tab = actionBar.newTab()
-//				.setText("Synths")
-//				.setTabListener(new TabListener<SynthControllerFragment>(
-//						this, "synth", SynthControllerFragment.class));
-//		actionBar.addTab(tab);
 
-        //String filepath = Environment.getExternalStorageDirectory().getPath();
         String filepath = getExternalFilesDir(null).getPath();
         File appdir = new File(filepath, APP_DATA_DIR_NAME);
 
@@ -193,8 +175,6 @@ public class PhonestrumentActivity extends Activity {
             player5Sample = new File(sampleForPlayer5);
         }
 
-
-       // readPreferences();
 
         if (currentProjectName.equals("untitled")) {
             checkAndCreateUniqueProjectName();
@@ -377,7 +357,7 @@ public class PhonestrumentActivity extends Activity {
     private void checkAndCreateUniqueProjectName() {
         int i = 1;
         String filepath = getExternalFilesDir(null).getPath();
-        // String filepath = Environment.getDataDirectory().getPath();
+
         File appDir = new File(filepath, APP_DATA_DIR_NAME);
         String potentialProjectName = "Project_" + Integer.toString(i);
         File potentialProjectFileDir = new File(appDir, potentialProjectName);
@@ -532,38 +512,6 @@ public class PhonestrumentActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
 
-            //		case R.id.menu_settings: {
-            //			Intent i = new Intent(this, Settings.class);
-            //			startActivityForResult(i, SETTINGS_ID);
-            //			break;
-            //		}
-            //
-            //		case R.id.menu_help: {
-            //			Intent i = new Intent(this, BeatsAndLoopsHelp.class);
-            //			startActivityForResult(i, HELP_ID);
-            //			break;
-            //		}
-
-          /*  case R.id.menu_rate_app: {
-//			Intent rateIntent = new Intent(Intent.ACTION_VIEW);
-//			rateIntent.setData(Uri.parse("market://details?id=net.motekulo.phonstrument"));
-//			if (mStartActivity(rateIntent) == false) {
-//				// Try a browser
-//				rateIntent.setData(Uri.parse("https://play.google.com/store/apps/details?id=net.motekulo.phonstrument"));
-//				mStartActivity(rateIntent);
-//			}
-                break;
-            }
-
-            case R.id.menu_tell_friend: {
-//			Intent tellIntent = new Intent(Intent.ACTION_SEND);
-//			tellIntent.putExtra(Intent.EXTRA_SUBJECT, "Phonstrument - a great phone app for live sequencing");
-//			tellIntent.putExtra(Intent.EXTRA_TEXT, "Check this out - https://play.google.com/store/apps/details?id=net.motekulo.phonstrument");
-//			tellIntent.setType("plain/text");
-//			startActivity(Intent.createChooser(tellIntent, "Tell a friend..."));
-                break;
-            }*/
-
             case R.id.toggle_on_off: {
                 PdBase.sendBang("metro_on");
                 break;
@@ -627,17 +575,6 @@ public class PhonestrumentActivity extends Activity {
         File prefFile = getPreferenceFile();
         setProjectDefaults(prefFile);
 
-    }
-
-
-
-    private boolean mStartActivity(Intent intent) {
-        try {
-            startActivity(intent);
-            return true;
-        } catch (ActivityNotFoundException e) {
-            return false;
-        }
     }
 
     private void readPreferences() {

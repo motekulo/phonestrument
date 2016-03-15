@@ -45,17 +45,16 @@ public class XYControllerBeatView extends View {
     private XYControllerBeatView.touchListener mTouchListener;
     private int height;
     private int width;
-    private boolean isRealtimePlayer; // Whether or not a oneshot player
-    //private int mcolor = Color.BLACK;
+
     private ShapeDrawable gridBoundary;
     private ShapeDrawable YDivLine;
     private ShapeDrawable XDivLine;
     private ShapeDrawable beatIndicator;
 
 
-    //private int Xmin;
+
     private int Xmax;
-    //private int Ymin;
+
     private int Ymax;
 
     private int[][] toggleState;
@@ -103,11 +102,10 @@ public class XYControllerBeatView extends View {
         beatIndicator = new ShapeDrawable((new RoundRectShape(beatOuterRadii, null, null)));
         beatIndicator.getPaint().setColor(MLIGHTBLUE);
 
-        //Xmin = 0;
         Xmax = 1000; // so this will set the density and also the max number of bars FIXME
-        //Ymin = 0;
+
         Ymax = 4;
-        isRealtimePlayer = false;
+        
         toggleState = new int[Ymax][Xmax]; // might need an arrayList here?n(see above FIXME)
 
         setOnTouchListener(new OnTouchListener() {
@@ -120,7 +118,7 @@ public class XYControllerBeatView extends View {
 
                 if (event.getAction() == android.view.MotionEvent.ACTION_UP) {
                     sendMouseValues(Xpos, Ypos);
-                    //toggleBeat(pos);
+
                 }
                 return true;
             }
@@ -137,9 +135,6 @@ public class XYControllerBeatView extends View {
         Ymax = ymax;
     }
 
-    public void setIsRealtimePlayer(boolean isRealtimePlayer) {
-        this.isRealtimePlayer = isRealtimePlayer;
-    }
 
     public void setCurrentBeat(int beat) {
         currentBeat = beat;
@@ -163,7 +158,7 @@ public class XYControllerBeatView extends View {
         // convert to values useful for Pd
         int Xval;
         int Yval;
-        //Yval = (int) (()/height) * Ymax);
+
         float Xproportion;
         float Yproportion;
 
@@ -202,7 +197,7 @@ public class XYControllerBeatView extends View {
 
         width = View.MeasureSpec.getSize(widthMeasureSpec);
         height = View.MeasureSpec.getSize(heightMeasureSpec);
-        //height = (width/Xmax) * Ymax + 16;
+
         this.setMeasuredDimension(width, height);
 
     }
@@ -223,16 +218,15 @@ public class XYControllerBeatView extends View {
         int pixelsPerXDiv;
         int pixelsPerYDiv;
 
-        //pixelsPerYDiv = height/Ymax;
         pixelsPerXDiv = (width - PADDING) / Xmax;
-//		pixelsPerYDiv = pixelsPerXDiv;
+
         pixelsPerYDiv = height / Ymax;
 
         for (int i = 0; i < Ymax; i++) {
             for (int j = 0; j < Xmax; j++) {
 
                 if (toggleState[i][j] == 0) {
-                    //if (i % 2 == 0) {
+
                     beatIndicator.getPaint().setColor(MGREY);
                     // Draw a coloured rect
                 } else {
