@@ -12,15 +12,15 @@ Four part beat sequencer working (not released to Google Play Store yet(.
 
 ## Capabilities:
 
-Change number of bars
-Adjust beats per bar
-Adjust pulses per beat
-Change tempo
-Change between different projects
+- Change number of bars
+- Adjust beats per bar
+- Adjust pulses per beat
+- Change tempo
+- Change between different projects
 
 ## Known problems
 
-Bars not updating on some devices (Lenovo A10 7" tablet, for one) after
+- Bars not updating on some devices (Lenovo A10 7" tablet, for one) after
 changing project. libpd dispatcher not firing for some reason?
 
 
