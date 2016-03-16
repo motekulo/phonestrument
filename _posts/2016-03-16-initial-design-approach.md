@@ -48,21 +48,23 @@ I think it should be easier than it currently is to do that, and that's why this
 
 # A simple, practical direction for design
 
-Listen to a subset of current Melanesian songs circulating on the Internet
+* Listen to a subset of current Melanesian songs circulating on the Internet
 
-Build an app, or suite of apps, that allow that music to be created on smartphones.
+* Build an app, or suite of apps, that allow that music to be created on smartphones.
 
-Bear in mind tenets from the [music technology manifesto](http://www.musictechifesto.org).
+* Bear in mind tenets from the [music technology manifesto](http://www.musictechifesto.org).
 
-So, I'm starting with the drums. The current code is getting close to being able to create a simple drum part, of chosen length, beat subdivision, and tempo.
+* So, I'm starting with the drums. The current code is getting close to being able to create a simple drum part, of chosen length, beat subdivision, and tempo.
 
-Then I'll move on to the bass, then keyboard and other rhythm parts, and lead parts.
+* Then I'll move on to the bass, then keyboard and other rhythm parts, and lead parts.
 
-Overdubbing vocal parts will happen last, and at this stage I'll aim to export
-the completed track as a wav file, then import into another app I've developed
-called "Twotrack" which allows overdubbing. That has some latency issues to be
-fixed (or rather, worked around, sigh...), but hey, there's lots of things to
-fix and work around!
+* Overdubbing vocal parts will happen last, and at this stage I'll aim to
+  export the completed track as a wav file, then import into another app I've
+developed called
+[Twotrack](https://play.google.com/store/apps/details?id=net.motekulo.twotrack&hl=en)
+which allows overdubbing. That has some latency issues to be fixed (or rather,
+worked around, sigh...), but hey, there's lots of things to fix and work
+around!
 
 
 
