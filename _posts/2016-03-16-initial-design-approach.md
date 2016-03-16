@@ -31,7 +31,7 @@ example or two:
 
 Search Youtube for "West Papua Protest songs" and you'll see lots more, with
 varying approaches to production. The most straightforward, of course, is just
-recording a [live performance](https://www.youtube.com/watch?v=GMNBCu8iDKA)
+recording a [live performance](https://www.youtube.com/watch?v=GMNBCu8iDKA).
 
 So to make most of these songs, you need some basic music hardware - a
 microphone, a computer, and of course electricity. And skills, but I'll leave
