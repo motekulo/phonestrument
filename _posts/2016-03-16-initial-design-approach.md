@@ -52,6 +52,8 @@ I think it should be easier than it currently is to do that, and that's why this
 
 * Build an app, or suite of apps, that allow that music to be created on smartphones.
 
+* Test with Melanesian musicians during fieldwork in PNG, Vanuatu and New Caledonia, and workshops at Fest'Napuan in Port Vila.
+
 * Bear in mind tenets from the [music technology manifesto](http://www.musictechifesto.org).
 
 * So, I'm starting with the drums. The current code is getting close to being able to create a simple drum part, of chosen length, beat subdivision, and tempo.
