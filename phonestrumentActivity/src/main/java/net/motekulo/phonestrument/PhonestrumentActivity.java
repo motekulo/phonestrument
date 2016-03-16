@@ -37,8 +37,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.analytics.tracking.android.EasyTracker;
-
 import org.puredata.android.io.AudioParameters;
 import org.puredata.android.service.PdService;
 import org.puredata.android.utils.PdUiDispatcher;
@@ -245,7 +243,7 @@ public class PhonestrumentActivity extends Activity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
 
 
-        EasyTracker.getInstance(this).activityStart(this);  // Add this method.
+//        EasyTracker.getInstance(this).activityStart(this);  // Add this method.
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
 
@@ -258,7 +256,7 @@ public class PhonestrumentActivity extends Activity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
 
 
-        EasyTracker.getInstance(this).activityStop(this);  // Add this method.
+       // EasyTracker.getInstance(this).activityStop(this);  // Add this method.
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
 

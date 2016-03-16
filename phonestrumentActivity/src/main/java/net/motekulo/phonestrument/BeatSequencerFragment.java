@@ -90,7 +90,7 @@ public class BeatSequencerFragment extends Fragment {
 		beatView1.setYmax(4);
 
         barView = (XYControllerBeatView) view.findViewById(R.id.barView);
-       // barView.setTouchListener(beatArray1Touched);
+        barView.setTouchListener(barArrayTouched);
 
         barView.setXmax(4);
         barView.setYmax(1);
@@ -228,8 +228,24 @@ public class BeatSequencerFragment extends Fragment {
 
 			updateBeatArrayView(currentBar);
 		}
-	};
 
+        @Override
+        public void setRange(View view, int xDown, int yDown, int xUp, int yUp) {
+
+        }
+    };
+
+    private touchListener barArrayTouched = new XYControllerBeatView.touchListener() {
+        @Override
+        public void onPositionChange(View view, int row, int col, int value) {
+            Log.i(APP_NAME, "Row: " + row + " Col: " + col + "Value: " + value);
+        }
+
+        @Override
+        public void setRange(View view, int xDown, int yDown, int xUp, int yUp) {
+            Log.i(APP_NAME, "xDown: " + xDown + " yDown: " + yDown + " xUp: " + xUp + " yUp: " + yUp);
+        }
+    };
 
 	private TextView.OnEditorActionListener tempoEditorChanged =  new OnEditorActionListener() {
 		@Override

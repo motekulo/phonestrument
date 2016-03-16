@@ -27,8 +27,12 @@ import android.view.MotionEvent;
 import android.view.View;
 
 public class XYControllerBeatView extends View {
+    private int xDown;
+    private int yDown;
+
     public interface touchListener {
         void onPositionChange(View view, int mouseX, int mouseY, int value);
+        void setRange(View view, int xDown, int yDown, int xUp, int yUp);
     }
 
     private static final String APP_NAME = "Phonestrument";
@@ -116,6 +120,11 @@ public class XYControllerBeatView extends View {
                 Ypos = (int) event.getY();
                 //Log.i(APP_NAME, "Xpos, Ypos " + Xpos + ", " + Ypos);
 
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                   // Log.i(APP_NAME, "Mouse down at col " + Ypos);
+                    setTouchdownPoint(Xpos, Ypos);
+                }
+
                 if (event.getAction() == android.view.MotionEvent.ACTION_UP) {
                     sendMouseValues(Xpos, Ypos);
 
@@ -154,24 +163,18 @@ public class XYControllerBeatView extends View {
         invalidate();
     }
 
+    private void setTouchdownPoint(int xPos, int yPos) {
+        xDown = convertXToBeatArrayValues(xPos);
+        yDown = convertYToBeatArrayValues(yPos);
+    }
+
     private void sendMouseValues(int Xpos, int Ypos) {
         // convert to values useful for Pd
         int Xval;
         int Yval;
 
-        float Xproportion;
-        float Yproportion;
-
-        Xproportion = (Xpos / (float) width);
-        Xval = (int) (Xproportion * Xmax);
-
-        Yproportion = (height - Ypos) / (float) height;
-        Yval = (int) (Yproportion * Ymax);
-
-        if (Xval < 0) Xval = 0;
-        if (Xval >= Xmax) Xval = Xmax - 1;
-        if (Yval < 0) Yval = 0;
-        if (Yval >= Ymax) Yval = Ymax - 1; // index to be sent
+        Xval = convertXToBeatArrayValues(Xpos);
+        Yval = convertYToBeatArrayValues(Ypos);
 
 
         if (toggleState[Yval][Xval] == 0) {
@@ -182,10 +185,38 @@ public class XYControllerBeatView extends View {
 
         if (mTouchListener != null) {
             mTouchListener.onPositionChange(this, Yval, Xval, toggleState[Yval][Xval]);
+            mTouchListener.setRange(this, xDown, yDown, Xval, Yval);
         }
         invalidate();
     }
 
+    private int convertXToBeatArrayValues(int x) {
+        int Xval;
+        float Xproportion;
+
+        Xproportion = (x / (float) width);
+        Xval = (int) (Xproportion * Xmax);
+
+        if (Xval < 0) Xval = 0;
+        if (Xval >= Xmax) Xval = Xmax - 1;
+
+        return Xval;
+    }
+
+    private int convertYToBeatArrayValues(int y) {
+
+        int Yval;
+
+        float Yproportion;
+
+        Yproportion = (height - y) / (float) height;
+        Yval = (int) (Yproportion * Ymax);
+
+        if (Yval < 0) Yval = 0;
+        if (Yval >= Ymax) Yval = Ymax - 1; // index to be sent
+
+        return Yval;
+    }
 
     public void setTouchListener(final touchListener listener) {
         mTouchListener = listener;
