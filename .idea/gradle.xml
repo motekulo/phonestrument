@@ -9,10 +9,6 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/androidMidi" />
-            <option value="$PROJECT_DIR$/libmotekulo" />
-            <option value="$PROJECT_DIR$/libphonemusic" />
-            <option value="$PROJECT_DIR$/pdCore" />
             <option value="$PROJECT_DIR$/phonestrumentActivity" />
           </set>
         </option>
