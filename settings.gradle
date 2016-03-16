@@ -1,1 +1,1 @@
-include ':phonestrumentActivity'
+include ':phonestrumentActivity', ':PdCore'
