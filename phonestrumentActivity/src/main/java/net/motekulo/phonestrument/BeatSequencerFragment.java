@@ -239,11 +239,14 @@ public class BeatSequencerFragment extends Fragment {
         @Override
         public void onPositionChange(View view, int row, int col, int value) {
             Log.i(APP_NAME, "Row: " + row + " Col: " + col + "Value: " + value);
+
         }
 
         @Override
         public void setRange(View view, int xDown, int yDown, int xUp, int yUp) {
             Log.i(APP_NAME, "xDown: " + xDown + " yDown: " + yDown + " xUp: " + xUp + " yUp: " + yUp);
+            barView.colorArrayBackground(xDown, xUp);
+
         }
     };
 
@@ -355,6 +358,7 @@ public class BeatSequencerFragment extends Fragment {
             beatView1.setToggleState(beatArray);
         }
 	}
+
     private void updateBeatArrayView(int barnum){
         if (numBeats == 0) {numBeats = 4;}
         if (pulsesPerBeat == 0) {pulsesPerBeat = 4;};

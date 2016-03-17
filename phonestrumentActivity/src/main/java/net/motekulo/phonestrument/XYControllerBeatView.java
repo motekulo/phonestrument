@@ -29,6 +29,8 @@ import android.view.View;
 public class XYControllerBeatView extends View {
     private int xDown;
     private int yDown;
+    private int highlghtStart;
+    private int highlightEnd;
 
     public interface touchListener {
         void onPositionChange(View view, int mouseX, int mouseY, int value);
@@ -40,7 +42,7 @@ public class XYControllerBeatView extends View {
     private static final int MGREY = 0xff4c494f;
     //private static final int MOFFWHITE = 0xffd7d7db;
     private static final int MLIGHTBLUE = 0xff00d4d9;
-    //private static final int MTURQ = 0xff039599;
+    private static final int MTURQ = 0xff039599;
     private static final int MBLUE = 0xff003d4e;
     //private static final int MRED = 0xffc8001a;
 
@@ -111,7 +113,8 @@ public class XYControllerBeatView extends View {
         Ymax = 4;
 
         toggleState = new int[Ymax][Xmax]; // might need an arrayList here?n(see above FIXME)
-
+        highlghtStart = -1;
+        highlightEnd = -1;
         setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(final View v, final MotionEvent event) {
                 final int Xpos;
@@ -161,6 +164,13 @@ public class XYControllerBeatView extends View {
         }
 
         invalidate();
+    }
+
+    // Color in some of the dots from start to end
+    public void colorArrayBackground(int start, int end) {
+        highlghtStart = start;
+        highlightEnd = end;
+
     }
 
     private void setTouchdownPoint(int xPos, int yPos) {
@@ -257,13 +267,18 @@ public class XYControllerBeatView extends View {
             for (int j = 0; j < Xmax; j++) {
 
                 if (toggleState[i][j] == 0) {
-
-                    beatIndicator.getPaint().setColor(MGREY);
+                    if (j >= highlghtStart && j <= highlightEnd) {
+                        beatIndicator.getPaint().setColor(MTURQ);
+                    } else {
+                        beatIndicator.getPaint().setColor(MGREY);
+                    }
                     // Draw a coloured rect
                 } else {
                     beatIndicator.getPaint().setColor(MLIGHTBLUE);
                     // Draw another coloured rect (black?)
                 }
+
+
                 beatIndicator.setBounds(j * pixelsPerXDiv + PADDING, ((Ymax - (i + 1)) * pixelsPerYDiv) + PADDING,
                         j * pixelsPerXDiv + pixelsPerXDiv, (Ymax - (i + 1)) * pixelsPerYDiv + pixelsPerYDiv);
                 beatIndicator.draw(canvas);
