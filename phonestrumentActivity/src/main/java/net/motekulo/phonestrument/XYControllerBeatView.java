@@ -128,6 +128,14 @@ public class XYControllerBeatView extends View {
                     setTouchdownPoint(Xpos, Ypos);
                 }
 
+                if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                    // Log.i(APP_NAME, "Mouse down at col " + Ypos);
+                   // setTouchdownPoint(Xpos, Ypos);
+                    if (convertXToBeatArrayValues(Xpos) > xDown) {
+                        sendMouseValues(Xpos, Ypos);
+                    }
+                }
+
                 if (event.getAction() == android.view.MotionEvent.ACTION_UP) {
                     sendMouseValues(Xpos, Ypos);
 
