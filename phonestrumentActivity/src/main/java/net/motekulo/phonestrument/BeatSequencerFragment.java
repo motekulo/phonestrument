@@ -246,6 +246,8 @@ public class BeatSequencerFragment extends Fragment {
         public void setRange(View view, int xDown, int yDown, int xUp, int yUp) {
             Log.i(APP_NAME, "xDown: " + xDown + " yDown: " + yDown + " xUp: " + xUp + " yUp: " + yUp);
             barView.colorArrayBackground(xDown, xUp);
+            PdBase.sendFloat("loop_start_bar", xDown + 1); // FIXME quirks in Pd patch
+            PdBase.sendFloat("loop_end_bar", xUp + 2); // FIXME quirks in Pd patch
 
         }
     };
