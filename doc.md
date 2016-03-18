@@ -89,6 +89,13 @@ record_sequence (phonestrument.pd): sets checkbox for recording
 
 keepit (record_it): receives a filename, and writes sequence to that file in wav format
 
+dr1_vol (drumplayer): volume for the first drum sample part
+
+dr2_vol (drumplayer): volume for the second drum sample part
+
+dr3_vol (drumplayer): volume for the third drum sample part
+
+dr4_vol (drumplayer): volume for the fourth drum sample part
 
 
 ## Senders
@@ -105,6 +112,7 @@ tempo_info (main_pulse): sends current tempo in beats per minute
 num_beats_info (main_pulse): sends number of beats per bar
 
 num_bars_info (bars): sends number of bars
+
 
 
 
