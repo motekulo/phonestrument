@@ -1,4 +1,4 @@
-#N canvas 1600 107 1440 818 12;
+#N canvas 1 81 1425 818 12;
 #X msg 84 20 \; scale_struct 0 2 2 1 2 2 2 1;
 #X floatatom 988 65 5 0 0 0 - - -, f 5;
 #N canvas 172 262 1155 818 chordtone_calc 0;
@@ -61,7 +61,7 @@
 #X connect 25 0 21 0;
 #X connect 25 0 27 0;
 #X restore 441 176 pd chordtone_calc;
-#N canvas 432 83 649 794 scalewriter 1;
+#N canvas 430 86 649 794 scalewriter 0;
 #X floatatom 86 134 5 0 0 0 - - -, f 5;
 #X text 122 133 MIDI note of key root;
 #X msg 140 64 24;
@@ -217,7 +217,7 @@
 #X coords 0 0 16 47 200 140 1 0 0;
 #X restore 16 33 graph;
 #X restore 67 315 pd sequence_arrays;
-#N canvas 1600 87 1440 818 gui 1;
+#N canvas 1 81 1425 818 gui 1;
 #N canvas 2018 92 1037 998 lead_gui 0;
 #X obj 36 141 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144 -1
 -1 0;
@@ -991,12 +991,12 @@ block chord to be played on that beat. That's actually quite important.
 #X text 1261 -282 Get it all going!;
 #N canvas 0 93 1425 818 drum_gui 0;
 #X obj 7 20 tgl 15 0 drumplayer_on empty empty 17 7 0 10 -262144 -1
--1 0 1;
-#X obj 25 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
+-1 1 1;
+#X obj 25 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
 ;
-#X obj 6 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
+#X obj 6 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
 ;
-#X obj 44 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
+#X obj 44 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
 ;
 #X obj 62 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
 ;
@@ -1006,7 +1006,7 @@ block chord to be played on that beat. That's actually quite important.
 ;
 #X obj 120 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 138 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 138 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 176 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
@@ -1014,13 +1014,13 @@ block chord to be played on that beat. That's actually quite important.
 1;
 #X obj 195 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 213 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 213 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 251 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X obj 232 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 270 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 270 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 288 60 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
@@ -1065,13 +1065,13 @@ block chord to be played on that beat. That's actually quite important.
 #X msg 824 -398 15;
 #X obj 25 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
 ;
-#X obj 6 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
+#X obj 6 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
 ;
-#X obj 44 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
+#X obj 44 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
 ;
 #X obj 62 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
 ;
-#X obj 100 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 100 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 81 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
 ;
@@ -1081,19 +1081,19 @@ block chord to be played on that beat. That's actually quite important.
 1;
 #X obj 176 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 157 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 157 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 196 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X obj 211 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 251 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 251 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 232 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X obj 270 80 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 288 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 288 81 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 626 -607 t f f;
 #X obj 627 -581 t f f;
@@ -1111,7 +1111,7 @@ block chord to be played on that beat. That's actually quite important.
 #X obj 474 -586 t f f;
 #X obj 472 -560 t f f;
 #X obj 471 -534 t f f;
-#X obj 25 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 25 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 6 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
 ;
@@ -1119,9 +1119,9 @@ block chord to be played on that beat. That's actually quite important.
 1;
 #X obj 62 101 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 100 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 100 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
-#X obj 81 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 81 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 138 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
@@ -1131,15 +1131,15 @@ block chord to be played on that beat. That's actually quite important.
 1;
 #X obj 157 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 193 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 193 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 211 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X obj 251 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 232 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 232 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
-#X obj 288 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 288 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 268 102 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
@@ -1159,13 +1159,13 @@ block chord to be played on that beat. That's actually quite important.
 #X obj 787 -582 t f f;
 #X obj 785 -556 t f f;
 #X obj 784 -530 t f f;
-#X obj 25 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 25 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
-#X obj 6 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
+#X obj 6 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
 ;
-#X obj 44 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 44 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
-#X obj 63 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 63 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 100 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
@@ -1173,21 +1173,21 @@ block chord to be played on that beat. That's actually quite important.
 1;
 #X obj 119 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 137 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 137 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 176 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 157 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 157 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
-#X obj 194 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 194 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 213 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X obj 251 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 232 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 232 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
-#X obj 268 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 268 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X obj 288 123 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
@@ -1671,7 +1671,7 @@ dr2_sequence 0 0 0 0 1 0 0 0 0 0 1 0 1 0 0 0 \; dr3_sequence 0 0 1
 1 1 0;
 #X obj 974 -293 t b b;
 #X obj 1082 -227 print loadbang;
-#N canvas 1600 106 1440 818 main_control_gui 1;
+#N canvas 1 81 1425 818 main_control_gui 0;
 #X floatatom 403 51 5 0 0 0 - - -, f 5;
 #X obj 587 290 r pulses_per_bar;
 #X floatatom 588 331 5 0 0 0 - - -, f 5;
@@ -1745,16 +1745,16 @@ dr2_sequence 0 0 0 0 1 0 0 0 0 0 1 0 1 0 0 0 \; dr3_sequence 0 0 1
 -1 -1 0 1;
 #X text 835 25 Bass;
 #X obj 847 202 s bass_vol;
-#X obj 895 45 vsl 15 64 0 120 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 0 1;
+#X obj 895 45 vsl 15 64 0 1 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 5300 1;
 #X text 895 23 Dr1;
 #X obj 953 132 s dr1_vol;
-#X obj 925 45 vsl 15 64 0 120 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 0 1;
-#X obj 956 45 vsl 15 64 0 120 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 0 1;
-#X obj 987 45 vsl 15 64 0 120 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 0 1;
+#X obj 925 45 vsl 15 64 0 1 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 5600 1;
+#X obj 956 45 vsl 15 64 0 1 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 5200 1;
+#X obj 987 45 vsl 15 64 0 1 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 5500 1;
 #X text 925 23 Dr2;
 #X text 956 23 Dr3;
 #X text 987 24 Dr4;
@@ -2152,7 +2152,7 @@ particular chords in that key:;
 #X obj 292 263 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X obj 258 203 tgl 15 0 empty metro_on empty 17 7 0 10 -262144 -1 -1
-1 1;
+0 1;
 #X obj 288 148 expr 60000/$f1/$f2;
 #X obj 320 82 int;
 #X floatatom 370 115 5 0 0 0 - - -, f 5;
@@ -2665,7 +2665,7 @@ resize \$1 \;;
 #X obj 878 595 tabwrite~ recordR;
 #X text 875 427 check to record;
 #X text 591 596 Arrays for recording;
-#N canvas 1623 92 1320 818 drumplayer 1;
+#N canvas 119 81 1320 818 drumplayer 1;
 #X obj 384 38 inlet;
 #X floatatom 252 400 5 0 0 0 - - -, f 5;
 #X floatatom 247 480 5 0 0 0 - - -, f 5;
@@ -2720,10 +2720,11 @@ resize \$1 \;;
 #X obj 1097 51 r dr4_vol;
 #X obj 1019 50 r dr3_vol;
 #X obj 945 48 r dr2_vol;
-#X obj 724 320 f 90;
-#X obj 851 320 f 90;
-#X obj 808 320 f 90;
-#X obj 764 320 f 90;
+#X obj 661 388 * 120;
+#X obj 715 320 f 0.9;
+#X obj 760 321 f 0.9;
+#X obj 806 322 f 0.9;
+#X obj 851 321 f 0.9;
 #X connect 0 0 24 0;
 #X connect 0 0 25 0;
 #X connect 0 0 26 0;
@@ -2753,19 +2754,19 @@ resize \$1 \;;
 #X connect 31 0 28 1;
 #X connect 32 0 3 0;
 #X connect 32 1 27 0;
-#X connect 32 1 52 0;
+#X connect 32 1 53 0;
 #X connect 33 0 27 1;
 #X connect 34 0 30 1;
 #X connect 35 0 29 1;
 #X connect 36 0 3 0;
 #X connect 36 1 30 0;
-#X connect 36 1 53 0;
+#X connect 36 1 56 0;
 #X connect 37 0 3 0;
 #X connect 37 1 28 0;
-#X connect 37 1 55 0;
+#X connect 37 1 54 0;
 #X connect 38 0 3 0;
 #X connect 38 1 29 0;
-#X connect 38 1 54 0;
+#X connect 38 1 55 0;
 #X connect 39 0 33 0;
 #X connect 39 0 31 0;
 #X connect 39 0 35 0;
@@ -2777,14 +2778,15 @@ resize \$1 \;;
 #X connect 44 0 43 0;
 #X connect 46 0 37 0;
 #X connect 47 0 46 0;
-#X connect 48 0 52 1;
-#X connect 49 0 53 1;
-#X connect 50 0 54 1;
-#X connect 51 0 55 1;
+#X connect 48 0 53 1;
+#X connect 49 0 56 1;
+#X connect 50 0 55 1;
+#X connect 51 0 54 1;
 #X connect 52 0 14 0;
-#X connect 53 0 14 0;
-#X connect 54 0 14 0;
-#X connect 55 0 14 0;
+#X connect 53 0 52 0;
+#X connect 54 0 52 0;
+#X connect 55 0 52 0;
+#X connect 56 0 52 0;
 #X restore 1209 268 pd drumplayer;
 #X text 38 289 These is the array that hold sequence information:;
 #N canvas 2160 87 877 818 bassplayer 0;
