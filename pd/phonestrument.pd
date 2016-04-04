@@ -217,7 +217,7 @@
 #X coords 0 0 16 47 200 140 1 0 0;
 #X restore 16 33 graph;
 #X restore 67 315 pd sequence_arrays;
-#N canvas 1 81 1425 818 gui 1;
+#N canvas 1 56 718 843 gui 1;
 #N canvas 2018 92 1037 998 lead_gui 0;
 #X obj 36 141 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144 -1
 -1 0;
@@ -512,7 +512,7 @@
 #X connect 108 0 76 0;
 #X connect 108 1 47 0;
 #X coords 0 -1 1 1 450 300 1 0 0;
-#X restore 21 -108 pd lead_gui;
+#X restore 21 -83 pd lead_gui;
 #N canvas 2193 82 847 818 arp_gui 0;
 #X obj 653 715 spigot;
 #X obj 658 755 tabwrite arpseq4_8ve_seq;
@@ -793,7 +793,7 @@
 #X connect 94 0 90 1;
 #X connect 94 0 1 1;
 #X coords 0 -1 1 1 480 300 1 0 0;
-#X restore 931 -107 pd arp_gui;
+#X restore 931 -82 pd arp_gui;
 #N canvas 1856 109 961 801 chordprog_gui 0;
 #X text 2 191 Chord;
 #X text 16 207 I;
@@ -940,7 +940,7 @@ block chord to be played on that beat. That's actually quite important.
 #X connect 61 1 23 0;
 #X connect 62 0 48 0;
 #X coords 0 -1 1 1 500 200 1 0 120;
-#X restore 215 197 pd chordprog_gui;
+#X restore 215 222 pd chordprog_gui;
 #N canvas 1663 82 1007 840 reset_arrays 0;
 #X obj 44 -29 inlet;
 #X msg 52 371 \; blockchord_8ve_sequence 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -985,10 +985,10 @@ block chord to be played on that beat. That's actually quite important.
 #X connect 0 0 14 0;
 #X connect 0 0 15 0;
 #X connect 0 0 16 0;
-#X restore 1270 -371 pd reset_arrays;
-#X obj 1270 -397 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X restore 1270 -346 pd reset_arrays;
+#X obj 1270 -372 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X text 1261 -282 Get it all going!;
+#X text 1261 -257 Get it all going!;
 #N canvas 0 93 1425 818 drum_gui 0;
 #X obj 7 20 tgl 15 0 drumplayer_on empty empty 17 7 0 10 -262144 -1
 -1 1 1;
@@ -1421,7 +1421,7 @@ block chord to be played on that beat. That's actually quite important.
 #X connect 151 0 21 0;
 #X connect 151 1 43 0;
 #X coords 0 -1 1 1 320 200 1 0 0;
-#X restore 720 197 pd drum_gui;
+#X restore 720 222 pd drum_gui;
 #N canvas 1494 120 809 837 bass_gui 0;
 #X obj 29 163 vradio 15 1 0 7 empty empty empty 0 -8 0 10 -262144 -1
 -1 0;
@@ -1609,7 +1609,7 @@ block chord to be played on that beat. That's actually quite important.
 #X connect 65 0 66 0;
 #X connect 67 0 65 1;
 #X coords 0 -1 1 1 450 300 1 0 0;
-#X restore 476 -108 pd bass_gui;
+#X restore 476 -83 pd bass_gui;
 #N canvas 1953 82 949 722 save_and_open 0;
 #X obj 204 120 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
 -1;
@@ -1637,7 +1637,7 @@ block chord to be played on that beat. That's actually quite important.
 #X connect 9 0 6 0;
 #X connect 11 0 13 0;
 #X connect 13 0 12 0;
-#X restore 1061 215 pd save_and_open;
+#X restore 1061 240 pd save_and_open;
 #N canvas 2047 162 689 652 random_filler 0;
 #X obj 140 37 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
@@ -1660,18 +1660,18 @@ block chord to be played on that beat. That's actually quite important.
 #X connect 7 0 6 1;
 #X connect 7 0 8 0;
 #X connect 8 0 5 1;
-#X restore 1072 285 pd random_filler;
-#X obj 953 -402 loadbang;
-#X msg 1121 -393 \; density 4 \; num_beats 4 \; num_bars 1 \; tempo
+#X restore 1072 310 pd random_filler;
+#X obj 953 -377 loadbang;
+#X msg 1121 -368 \; density 4 \; num_beats 4 \; num_bars 1 \; tempo
 112 \; init_samples bang \; master_vol 82 \; drum_vol 100 \; drumplayer_on
 1 \; metro_on 1;
-#X msg 1019 -194 \; dr1_sequence 1 0 0 0 1 0 0 0 1 0 0 0 1 0 0 0 \;
+#X msg 1019 -169 \; dr1_sequence 1 0 0 0 1 0 0 0 1 0 0 0 1 0 0 0 \;
 dr2_sequence 0 0 0 0 1 0 0 0 0 0 1 0 1 0 0 0 \; dr3_sequence 0 0 1
 0 1 0 0 1 1 0 0 1 0 1 0 1 \; dr4_sequence 0 1 0 0 0 1 0 0 0 0 1 0 0
 1 1 0;
-#X obj 974 -293 t b b;
-#X obj 1082 -227 print loadbang;
-#N canvas 1 81 1425 818 main_control_gui 0;
+#X obj 974 -268 t b b;
+#X obj 1082 -202 print loadbang;
+#N canvas 1 56 718 843 main_control_gui 1;
 #X floatatom 403 51 5 0 0 0 - - -, f 5;
 #X obj 587 290 r pulses_per_bar;
 #X floatatom 588 331 5 0 0 0 - - -, f 5;
@@ -1746,13 +1746,13 @@ dr2_sequence 0 0 0 0 1 0 0 0 0 0 1 0 1 0 0 0 \; dr3_sequence 0 0 1
 #X text 835 25 Bass;
 #X obj 847 202 s bass_vol;
 #X obj 895 45 vsl 15 64 0 1 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 5300 1;
+-1 -1 1900 1;
 #X text 895 23 Dr1;
 #X obj 953 132 s dr1_vol;
 #X obj 925 45 vsl 15 64 0 1 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 5600 1;
+-1 -1 5400 1;
 #X obj 956 45 vsl 15 64 0 1 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 5200 1;
+-1 -1 5500 1;
 #X obj 987 45 vsl 15 64 0 1 0 0 empty empty empty 0 -9 0 10 -262144
 -1 -1 5500 1;
 #X text 925 23 Dr2;
@@ -1791,12 +1791,12 @@ dr2_sequence 0 0 0 0 1 0 0 0 0 0 1 0 1 0 0 0 \; dr3_sequence 0 0 1
 #X connect 71 0 77 0;
 #X connect 72 0 78 0;
 #X coords 0 -1 1 1 1040 100 1 0 20;
-#X restore 21 -399 pd main_control_gui;
+#X restore 21 -374 pd main_control_gui;
 #X connect 4 0 3 0;
 #X connect 10 0 13 0;
 #X connect 11 0 14 0;
 #X connect 13 1 11 0;
-#X coords 0 818 1 817 1400 280 0;
+#X coords 0 843 1 842 1400 280 0;
 #X restore 634 -4 pd gui;
 #N canvas 1742 87 960 818 leadplayer 0;
 #X obj 184 21 inlet;
@@ -2665,7 +2665,7 @@ resize \$1 \;;
 #X obj 878 595 tabwrite~ recordR;
 #X text 875 427 check to record;
 #X text 591 596 Arrays for recording;
-#N canvas 119 81 1320 818 drumplayer 1;
+#N canvas 721 56 718 843 drumplayer 1;
 #X obj 384 38 inlet;
 #X floatatom 252 400 5 0 0 0 - - -, f 5;
 #X floatatom 247 480 5 0 0 0 - - -, f 5;
@@ -2725,6 +2725,9 @@ resize \$1 \;;
 #X obj 760 321 f 0.9;
 #X obj 806 322 f 0.9;
 #X obj 851 321 f 0.9;
+#X floatatom 776 422 5 0 0 0 - - -, f 5;
+#X obj 656 329 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
 #X connect 0 0 24 0;
 #X connect 0 0 25 0;
 #X connect 0 0 26 0;
@@ -2783,10 +2786,12 @@ resize \$1 \;;
 #X connect 50 0 55 1;
 #X connect 51 0 54 1;
 #X connect 52 0 14 0;
+#X connect 52 0 57 0;
 #X connect 53 0 52 0;
 #X connect 54 0 52 0;
 #X connect 55 0 52 0;
 #X connect 56 0 52 0;
+#X connect 58 0 53 0;
 #X restore 1209 268 pd drumplayer;
 #X text 38 289 These is the array that hold sequence information:;
 #N canvas 2160 87 877 818 bassplayer 0;

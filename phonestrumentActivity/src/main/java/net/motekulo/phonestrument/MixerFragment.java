@@ -225,24 +225,22 @@ public class MixerFragment extends Fragment implements OnClickListener{
 			switch (fader.getId()) {
 
 			case R.id.verticalFader1:
-
-                y = Math.pow(volValue, 4);
-                PdBase.sendFloat("dr1_vol", (float)y * 120);
-                Log.i(APP_NAME, "Vol 1: " + y);
+                PdBase.sendFloat("dr1_vol", volValue);
+                Log.i(APP_NAME, "Vol 1: " + volValue);
 				break;
 
 			case R.id.verticalFader2:
-				PdBase.sendFloat("dr2_vol", volValue * 120);
+				PdBase.sendFloat("dr2_vol", volValue);
                 Log.i(APP_NAME, "Vol 2: " + volValue);
 				break;
 
 			case R.id.verticalFader3:
-				PdBase.sendFloat("dr3_vol", volValue * 120);
+				PdBase.sendFloat("dr3_vol", volValue);
                 Log.i(APP_NAME, "Vol 3: " + volValue);
 				break;
 
 			case R.id.verticalFader4:
-				PdBase.sendFloat("dr4_vol", volValue * 120);
+				PdBase.sendFloat("dr4_vol", volValue);
                 Log.i(APP_NAME, "Vol 4: " + volValue);
 				break;
 
