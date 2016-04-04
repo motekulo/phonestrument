@@ -20,6 +20,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -88,41 +89,31 @@ public class MixerFragment extends Fragment implements OnClickListener{
 		mainSwitch.setChecked(true);
 		mainSwitch.setOnClickListener(this);
 
-		synth1Pan = (HorizontalFader) view.findViewById(R.id.horFader1);
-		synth1Pan.setPositionListener(horFaderChanged);
 
-		synth2Pan = (HorizontalFader) view.findViewById(R.id.horFader6);
-		synth2Pan.setPositionListener(horFaderChanged);
 
-		dr1Pan = (HorizontalFader) view.findViewById(R.id.horFader2);
+		dr1Pan = (HorizontalFader) view.findViewById(R.id.horFader1);
 		dr1Pan.setPositionListener(horFaderChanged);
 
-		dr2Pan = (HorizontalFader) view.findViewById(R.id.horFader3);
+		dr2Pan = (HorizontalFader) view.findViewById(R.id.horFader2);
 		dr2Pan.setPositionListener(horFaderChanged);
 
-		dr3Pan = (HorizontalFader) view.findViewById(R.id.horFader4);
+		dr3Pan = (HorizontalFader) view.findViewById(R.id.horFader3);
 		dr3Pan.setPositionListener(horFaderChanged);
 
-		dr4Pan = (HorizontalFader) view.findViewById(R.id.horFader5);
+		dr4Pan = (HorizontalFader) view.findViewById(R.id.horFader4);
 		dr4Pan.setPositionListener(horFaderChanged);
 
-		synth1Vol = (VerticalFader) view.findViewById(R.id.verticalFader1);
-		synth1Vol.setPositionListener(faderChanged);
-		synth1Vol.setmKnobPosition(50);
 
-		synth2Vol = (VerticalFader) view.findViewById(R.id.verticalFader6);
-		synth2Vol.setPositionListener(faderChanged);
-
-		dr1Vol = (VerticalFader) view.findViewById(R.id.verticalFader2);
+		dr1Vol = (VerticalFader) view.findViewById(R.id.verticalFader1);
 		dr1Vol.setPositionListener(faderChanged);
 
-		dr2Vol = (VerticalFader) view.findViewById(R.id.verticalFader3);
+		dr2Vol = (VerticalFader) view.findViewById(R.id.verticalFader2);
 		dr2Vol.setPositionListener(faderChanged);
 
-		dr3Vol = (VerticalFader) view.findViewById(R.id.verticalFader4);
+		dr3Vol = (VerticalFader) view.findViewById(R.id.verticalFader3);
 		dr3Vol.setPositionListener(faderChanged);
 
-		dr4Vol = (VerticalFader) view.findViewById(R.id.verticalFader5);
+		dr4Vol = (VerticalFader) view.findViewById(R.id.verticalFader4);
 		dr4Vol.setPositionListener(faderChanged);
 
 		exportNameTextView = (EditText) view.findViewById(R.id.editText1);
@@ -221,13 +212,6 @@ public class MixerFragment extends Fragment implements OnClickListener{
 				PdBase.sendFloat("player_2_pan", panValue);
 				break;
 
-			case R.id.horFader5:
-				PdBase.sendFloat("player_3_pan", panValue);
-				break;
-
-			case R.id.horFader6:
-				PdBase.sendFloat("player_4_pan", panValue);
-				break;
 
 			}
 		}
@@ -237,30 +221,29 @@ public class MixerFragment extends Fragment implements OnClickListener{
 		@Override
 		public void onPositionChange(View fader, int newPosition) {
 			float volValue = (float) newPosition / 100;
+            double y;
 			switch (fader.getId()) {
 
 			case R.id.verticalFader1:
-				PdBase.sendFloat("synth_1_vol", volValue);
+
+                y = Math.pow(volValue, 4);
+                PdBase.sendFloat("dr1_vol", (float)y * 120);
+                Log.i(APP_NAME, "Vol 1: " + y);
 				break;
 
 			case R.id.verticalFader2:
-				PdBase.sendFloat("synth_2_volume", volValue);						
+				PdBase.sendFloat("dr2_vol", volValue * 120);
+                Log.i(APP_NAME, "Vol 2: " + volValue);
 				break;
 
 			case R.id.verticalFader3:
-				PdBase.sendFloat("player_1_vol", volValue);				
+				PdBase.sendFloat("dr3_vol", volValue * 120);
+                Log.i(APP_NAME, "Vol 3: " + volValue);
 				break;
 
 			case R.id.verticalFader4:
-				PdBase.sendFloat("player_2_vol", volValue);				
-				break;
-
-			case R.id.verticalFader5:
-				PdBase.sendFloat("player_3_vol", volValue);				
-				break;
-
-			case R.id.verticalFader6:
-				PdBase.sendFloat("player_4_vol", volValue);	
+				PdBase.sendFloat("dr4_vol", volValue * 120);
+                Log.i(APP_NAME, "Vol 4: " + volValue);
 				break;
 
 			}
