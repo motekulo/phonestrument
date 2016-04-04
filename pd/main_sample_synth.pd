@@ -1,4 +1,4 @@
-#N canvas 141 92 1271 818 10;
+#N canvas 721 56 718 843 10;
 #X text -19 24 ARGUMENTS FOR NOTES:;
 #X text -19 46 pitch in halftones;
 #X text -19 70 amplitude (dB);
@@ -189,13 +189,6 @@ sample10 \, read samples/ohh.wav sample11 \, read samples/chh.wav sample12
 #X text 399 135 (acts like a MIDI pitch to;
 #X text 400 154 identify the note to "poly");
 #X text 381 183 supply delayed note-off message;
-#X obj 670 530 sampvoice;
-#X obj 670 502 sampvoice;
-#X obj 670 475 sampvoice;
-#X obj 670 447 sampvoice;
-#X obj 670 420 sampvoice;
-#X obj 670 392 sampvoice;
-#X obj 670 364 sampvoice;
 #X text -23 333 License: BSD-3-clause This software is copyrighted
 by Miller Puckette and others. The following terms (the "Standard Improved
 BSD License") apply to all files associated with the software unless
@@ -222,14 +215,21 @@ OF THE USE OF THIS SOFTWARE \, EVEN IF ADVISED OF THE POSSIBILITY OF
 SUCH DAMAGE.;
 #X text -20 277 From Puredata documentation \, file D10.sampler.notes.pd
 Copyright: 1996-2013 Miller Puckette \, License: BSD-3-clause;
-#X obj 596 574 throw~ sigL;
-#X obj 716 575 throw~ sigR;
+#X obj 596 623 throw~ sigL;
+#X obj 699 623 throw~ sigR;
+#X obj 670 530 sampvoice;
+#X obj 670 502 sampvoice;
+#X obj 670 475 sampvoice;
+#X obj 670 447 sampvoice;
+#X obj 670 420 sampvoice;
+#X obj 670 392 sampvoice;
+#X obj 670 364 sampvoice;
 #X connect 10 0 9 0;
 #X connect 11 0 9 0;
 #X connect 12 0 9 0;
 #X connect 21 0 9 0;
 #X connect 22 0 9 0;
-#X connect 23 0 54 0;
+#X connect 23 0 58 0;
 #X connect 24 0 25 0;
 #X connect 25 0 26 0;
 #X connect 25 1 33 2;
@@ -252,19 +252,19 @@ Copyright: 1996-2013 Miller Puckette \, License: BSD-3-clause;
 #X connect 32 0 33 0;
 #X connect 33 0 34 0;
 #X connect 34 0 23 1;
-#X connect 34 1 54 1;
-#X connect 34 2 53 1;
-#X connect 34 3 52 1;
-#X connect 34 4 51 1;
-#X connect 34 5 50 1;
-#X connect 34 6 49 1;
-#X connect 34 7 48 1;
+#X connect 34 1 58 1;
+#X connect 34 2 57 1;
+#X connect 34 3 56 1;
+#X connect 34 4 55 1;
+#X connect 34 5 54 1;
+#X connect 34 6 53 1;
+#X connect 34 7 52 1;
 #X connect 43 0 38 0;
-#X connect 48 0 57 0;
-#X connect 48 0 58 0;
-#X connect 49 0 48 0;
-#X connect 50 0 49 0;
-#X connect 51 0 50 0;
+#X connect 52 0 50 0;
 #X connect 52 0 51 0;
 #X connect 53 0 52 0;
 #X connect 54 0 53 0;
+#X connect 55 0 54 0;
+#X connect 56 0 55 0;
+#X connect 57 0 56 0;
+#X connect 58 0 57 0;

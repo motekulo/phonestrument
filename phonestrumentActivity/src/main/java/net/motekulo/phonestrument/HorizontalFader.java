@@ -91,7 +91,7 @@ public class HorizontalFader extends View {
 				outerRadius, outerRadius};
 
 		faderKnob = new ShapeDrawable((new RoundRectShape(knobRadii, null, null)));
-		faderKnob.getPaint().setColor(MGREY);
+		faderKnob.getPaint().setColor(MOFFWHITE);
 
 		setOnTouchListener(new OnTouchListener() {
 			public boolean onTouch(final View v, final MotionEvent event) {
