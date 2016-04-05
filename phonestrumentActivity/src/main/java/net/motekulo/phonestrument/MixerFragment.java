@@ -198,6 +198,7 @@ public class MixerFragment extends Fragment implements OnClickListener{
 
 			case R.id.horFader1:
 				PdBase.sendFloat("dr1_pan", panValue);
+                Log.i(APP_NAME, "Pan 1: " + panValue);
 				break;
 
 			case R.id.horFader2:
