@@ -197,21 +197,20 @@ public class MixerFragment extends Fragment implements OnClickListener{
 			switch (fader.getId()) {
 
 			case R.id.horFader1:
-				PdBase.sendFloat("synth_1_pan", panValue);
+				PdBase.sendFloat("dr1_pan", panValue);
 				break;
 
 			case R.id.horFader2:
-				PdBase.sendFloat("synth_2_pan", panValue);
+				PdBase.sendFloat("dr2_pan", panValue);
 				break;
 
 			case R.id.horFader3: 
-				PdBase.sendFloat("player_1_pan", panValue);
+				PdBase.sendFloat("dr3_pan", panValue);
 				break;
 
 			case R.id.horFader4:
-				PdBase.sendFloat("player_2_pan", panValue);
+				PdBase.sendFloat("dr4_pan", panValue);
 				break;
-
 
 			}
 		}
