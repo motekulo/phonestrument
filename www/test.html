@@ -38,7 +38,7 @@ Tone.Transport.start();
 var a = new Interface.Panel();
 var multiButton = new Interface.MultiButton({
     rows:4, columns:16,
-    bounds:[.05,.05,.9,.8],
+    bounds:[.05,.05,.8,.8],
     onvaluechange : function(row, col, value) {
         console.log( 'row : ' + row + ' , col : ' + col + ' , value : ' + value);
         timestring = "0:0:" + col;
@@ -50,7 +50,22 @@ var multiButton = new Interface.MultiButton({
 });
 
 a.background = 'black';
-a.add(multiButton);
+
+var b = new Interface.Button({ 
+    bounds:[.9,.05,.1,.1],  
+    label:'On/Off',
+    onvaluechange : function() {
+        console.log("Value: " + this.value)
+        if (this.value == 1) {
+            Tone.Transport.start();
+        } else {
+            Tone.Transport.stop();
+        }
+    }
+
+});
+
+a.add(multiButton, b);
 
 for(var i = 0; i < multiButton.count; i++) {
     multiButton._values[i] = Math.random() > .5 ;
