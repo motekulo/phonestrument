@@ -12,26 +12,70 @@
         </div>
         <script>
 
-var synth = new Tone.DrumSynth().toMaster();
-var synth2 = new Tone.DrumSynth().toMaster();
-//synth.triggerAttackRelease("C2", "8n");
-
-var note = new Array(16);
-
+var drumpitches =  ["C2","D3","E4","F2"];
 var timestring = "";
-for (i = 0; i < 16; i++) {
-    note[i] = new Tone.Event(function(time, pitch){
-        synth.triggerAttackRelease(pitch, "16n", time);
-    }, "C2");
-    note[i].set({
-        "loop" : true,
-        "loopEnd" : "1m"
-    });
 
+var synth = new Array(4);
+var note = new Array(4);
+//var row = new Array(16);
+
+
+for (i = 0; i < 4; i++){
+    synth[i] = new Tone.DrumSynth().toMaster();
 }
 
-//Tone.Transport.start();
 
+for (j = 0; j < 4; j++) {
+
+    note[j] = [,,,,,,,,,,,,,,,];
+    for (i = 0; i < 16; i++) {
+
+        /* Weird switch construct, because simply passing in j as the index to
+           the array in the callback fails. So this doesn't work (because j is
+           undefined when called back I guess?).:
+
+           note[j][i] = new Tone.Event(function(time, pitch){
+           synth[j].triggerAttackRelease(pitch, "16n", time);
+           }, drumpitches[j]);
+
+        // have tried j.valueOf() as well to no avail
+
+         */
+
+        switch(j) {
+            case 0: {
+                note[j][i] = new Tone.Event(function(time, pitch){
+                    synth[0].triggerAttackRelease(pitch, "16n", time);
+                }, drumpitches[0]);
+                break;
+            }
+            case 1: {
+                note[j][i] = new Tone.Event(function(time, pitch){
+                    synth[1].triggerAttackRelease(pitch, "16n", time);
+                }, drumpitches[1]);
+                break;
+            }
+            case 2: {
+                note[j][i] = new Tone.Event(function(time, pitch){
+                    synth[2].triggerAttackRelease(pitch, "16n", time);
+                }, drumpitches[2]);
+                break;
+            }
+            case 3: {
+                note[j][i] = new Tone.Event(function(time, pitch){
+                    synth[3].triggerAttackRelease(pitch, "16n", time);
+                }, drumpitches[3]);
+                break;
+            }
+        }
+
+        note[j][i].set({
+            "loop" : true,
+            "loopEnd" : "1m"
+        });
+
+    }
+}
 
 // Interface section
 
@@ -44,9 +88,9 @@ var multiButton = new Interface.MultiButton({
         timestring = "0:0:" + col;
         console.log("timestring: " + timestring);
         if (value == 1) {
-            note[col].start(timestring);
+            note[row][col].start(timestring);
         } else {
-            note[col].stop();
+            note[row][col].stop();
         }
 
     },
@@ -70,10 +114,10 @@ var b = new Interface.Button({
 
 a.add(multiButton, b);
 
-for(var i = 0; i < multiButton.count; i++) {
-    multiButton._values[i] = Math.random() > .5 ;
-}
-
+//for(var i = 0; i < multiButton.count; i++) {
+//    multiButton._values[i] = Math.random() > .5 ;
+//}
+//
 
         </script>
     </body>
