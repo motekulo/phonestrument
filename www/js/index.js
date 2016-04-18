@@ -19,63 +19,170 @@
 
 document.addEventListener("deviceready", function(event) {
 
-    var synth = new Tone.SimpleSynth().toMaster();
-    synth.triggerAttackRelease("C4", "8n");
-    console.log("console log test")
+    var drumpitches =  ["C2","D3","E4","F2"];
+    var timestring = "";
 
-    panel = new Interface.Panel({ useRelativeSizesAndPositions:true }) // panel fills page by default, alternatively you can specify boundaries
+    var synth = new Array(4);
+    var note = new Array(4);
+    //var row = new Array(16);
 
-        slider2 = new Interface.Slider({
-        bounds: [.1,0,.1,.5],
-        target : synth,
-        key : 'frequency',
-        param : "frequency",
-        name : "frequency",
-        max : 1000
-    })
 
-    button1 = new Interface.Button({
-        bounds: [0,0,.1,.5],
-        target : synth,
-        //key : 32, //spacebar
-        mode: 'toggle',
-        text : "Trigger Attack",
-        ontouchmousedown: function() {
-            synth.triggerAttack();
-            //synth.triggerAttackRelease("C4", "8n");
+    for (i = 0; i < 4; i++){
+        synth[i] = new Tone.DrumSynth().toMaster();
+    }
+
+
+    for (j = 0; j < 4; j++) {
+
+        note[j] = [,,,,,,,,,,,,,,,];
+        for (i = 0; i < 16; i++) {
+
+            /* Weird switch construct, because simply passing in j as the index to
+               the array in the callback fails. So this doesn't work (because j is
+               undefined when called back I guess?).:
+
+               note[j][i] = new Tone.Event(function(time, pitch){
+               synth[j].triggerAttackRelease(pitch, "16n", time);
+               }, drumpitches[j]);
+
+            // have tried j.valueOf() as well to no avail
+
+*/
+
+            switch(j) {
+                case 0: {
+                    note[j][i] = new Tone.Event(function(time, pitch){
+                        synth[0].triggerAttackRelease(pitch, "16n", time);
+                    }, drumpitches[0]);
+                    break;
+                }
+                case 1: {
+                    note[j][i] = new Tone.Event(function(time, pitch){
+                        synth[1].triggerAttackRelease(pitch, "16n", time);
+                    }, drumpitches[1]);
+                    break;
+                }
+                case 2: {
+                    note[j][i] = new Tone.Event(function(time, pitch){
+                        synth[2].triggerAttackRelease(pitch, "16n", time);
+                    }, drumpitches[2]);
+                    break;
+                }
+                case 3: {
+                    note[j][i] = new Tone.Event(function(time, pitch){
+                        synth[3].triggerAttackRelease(pitch, "16n", time);
+                    }, drumpitches[3]);
+                    break;
+                }
+            }
+
+            note[j][i].set({
+                "loop" : true,
+                "loopEnd" : "1m"
+            });
+
+        }
+    }
+
+    // Interface section
+
+    var b = new Interface.Button({ 
+        bounds:[.05,.05,.1,.1],  
+        label:'On/Off',
+        onvaluechange : function() {
+            console.log("Value: " + this.value)
+                if (this.value == 1) {
+                    Tone.Transport.start();
+                } else {
+                    Tone.Transport.stop();
+                }
+        }
+
+    });
+
+
+    var a = new Interface.Panel();
+    var multiButton = new Interface.MultiButton({
+        rows:4, columns:16,
+        bounds:[.2,.05,.6,.8],
+        onvaluechange : function(row, col, value) {
+            console.log( 'row : ' + row + ' , col : ' + col + ' , value : ' + value);
+            timestring = "0:0:" + col;
+            console.log("timestring: " + timestring);
+            if (value == 1) {
+                note[row][col].start(timestring);
+            } else {
+                note[row][col].stop();
+            }
+
         },
-        ontouchmouseup: function() {
-            synth.triggerRelease();
-            //synth.triggerAttackRelease("C4", "8n");
+    });
+
+    a.background = 'black';
+
+    var so1 = new Interface.Slider({
+        target: synth[0],
+        key: 'octaves',
+        min: 0,
+        max: 20,
+        label: '8ves',
+        bounds: [0.85, 0.05, 0.08, 0.2],
+        onvaluechange : function() {
+            synth[0].octaves.value = this.value;
+            console.log("this.value " + this.value);
         }
     });
 
-    panel.add(slider2, button1)
+    var so2 = new Interface.Slider({
+        target: synth[1],
+        key: 'octaves',
+        min: 0,
+        max: 20,
+        label: '8ves',
+        bounds: [0.85, 0.25, 0.08, 0.2],
+        onvaluechange : function() {
+            synth[1].octaves.value = this.value;
+            console.log("this.value " + this.value);
+        }
+    });
 
-        orientation = new Interface.Orientation({ // this only works on devices with a gyro sensor
-            onvaluechange : function(pitch, roll, yaw) {
-                slider2.setValue(pitch);
-            }
-        })
-    orientation.start()
+    var so3 = new Interface.Slider({
+        target: synth[2],
+        key: 'octaves',
+        min: 0,
+        max: 20,
+        label: '8ves',
+        bounds: [0.85, 0.45, 0.08, 0.2],
+        onvaluechange : function() {
+            synth[2].octaves.value = this.value;
+            console.log("this.value " + this.value);
+        }
+    });
 
-        var xy = new Interface.XY({
-            childWidth: 50,
-            numChildren: 6,
-            background:"#111",
-            target: "OSC",
-            key: "/xy",
-            fill: "rgba(127,127,127,.2)",
-            bounds:[0,0,.6,1],
-            usePhysics: true,
-            detectCollisions: false,
-            oninit: function() { 
-                this.rainbow(); 
-                this.sendValues();
-            },
+    var so4 = new Interface.Slider({
+        target: synth[3],
+        key: 'octaves',
+        min: 0,
+        max: 20,
+        label: '8ves',
+        bounds: [0.85, 0.65, 0.08, 0.2],
+        onvaluechange : function() {
+            synth[3].octaves.value = this.value;
+            console.log("this.value " + this.value);
+        }
+    });
 
-        });
-    //    panel.add(xy);
+
+    a.add(b, multiButton, so1, so2, so3, so4);
+
+    //for(var i = 0; i < multiButton.count; i++) {
+    //    multiButton._values[i] = Math.random() > .5 ;
+    //}
+    //
+
+
+
+
 });
 
 

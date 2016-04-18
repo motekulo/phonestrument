@@ -93,6 +93,59 @@ var b = new Interface.Button({
 
 });
 
+var v1 = new Interface.Slider({
+    target: synth[0],
+    key: 'volume',
+    min: -36,
+    max: 6,
+    label: 'Vol',
+    bounds: [0.15, 0.05, 0.05, 0.2],
+    onvaluechange : function() {
+        synth[0].volume.value = this.value;
+        console.log("this.value " + this.value);
+    }
+});
+
+var v2 = new Interface.Slider({
+    target: synth[1],
+    key: 'volume',
+    min: -36,
+    max: 6,
+    label: 'Vol',
+    bounds: [0.15, 0.25, 0.05, 0.2],
+    onvaluechange : function() {
+        synth[1].volume.value = this.value;
+        console.log("this.value " + this.value);
+    }
+});
+
+var v3 = new Interface.Slider({
+    target: synth[2],
+    key: 'volume',
+    min: -36,
+    max: 6,
+    label: 'Vol',
+    bounds: [0.15, 0.45, 0.05, 0.2],
+    onvaluechange : function() {
+        synth[2].volume.value = this.value;
+        console.log("this.value " + this.value);
+    }
+});
+
+var v4 = new Interface.Slider({
+    target: synth[3],
+    key: 'volume',
+    min: -36,
+    max: 6,
+    label: 'Vol',
+    bounds: [0.15, 0.65, 0.05, 0.2],
+    onvaluechange : function() {
+        synth[3].volume.value = this.value;
+        console.log("this.value " + this.value);
+    }
+});
+
+
 
 var a = new Interface.Panel();
 var multiButton = new Interface.MultiButton({
@@ -166,12 +219,8 @@ var so4 = new Interface.Slider({
 });
 
 
-a.add(b, multiButton, so1, so2, so3, so4);
+a.add(b, v1, v2, v3, v4, multiButton, so1, so2, so3, so4);
 
-//for(var i = 0; i < multiButton.count; i++) {
-//    multiButton._values[i] = Math.random() > .5 ;
-//}
-//
 
         </script>
     </body>
