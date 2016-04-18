@@ -97,7 +97,7 @@ var b = new Interface.Button({
 var a = new Interface.Panel();
 var multiButton = new Interface.MultiButton({
     rows:4, columns:16,
-    bounds:[.2,.05,.7,.8],
+    bounds:[.2,.05,.6,.8],
     onvaluechange : function(row, col, value) {
         console.log( 'row : ' + row + ' , col : ' + col + ' , value : ' + value);
         timestring = "0:0:" + col;
@@ -113,20 +113,60 @@ var multiButton = new Interface.MultiButton({
 
 a.background = 'black';
 
-var s1 = new Interface.Slider({
+var so1 = new Interface.Slider({
     target: synth[0],
     key: 'octaves',
     min: 0,
     max: 20,
     label: '8ves',
-    bounds: [0.9, 0.05, 0.1, 0.2],
+    bounds: [0.85, 0.05, 0.08, 0.2],
     onvaluechange : function() {
         synth[0].octaves.value = this.value;
         console.log("this.value " + this.value);
     }
 });
 
-a.add(b, multiButton, s1);
+var so2 = new Interface.Slider({
+    target: synth[1],
+    key: 'octaves',
+    min: 0,
+    max: 20,
+    label: '8ves',
+    bounds: [0.85, 0.25, 0.08, 0.2],
+    onvaluechange : function() {
+        synth[1].octaves.value = this.value;
+        console.log("this.value " + this.value);
+    }
+});
+
+var so3 = new Interface.Slider({
+    target: synth[2],
+    key: 'octaves',
+    min: 0,
+    max: 20,
+    label: '8ves',
+    bounds: [0.85, 0.45, 0.08, 0.2],
+    onvaluechange : function() {
+        synth[2].octaves.value = this.value;
+        console.log("this.value " + this.value);
+    }
+});
+
+var so4 = new Interface.Slider({
+    target: synth[3],
+    key: 'octaves',
+    min: 0,
+    max: 20,
+    label: '8ves',
+    bounds: [0.85, 0.65, 0.08, 0.2],
+    onvaluechange : function() {
+        synth[3].octaves.value = this.value;
+        console.log("this.value " + this.value);
+    }
+});
+
+
+a.add(b, multiButton, so1, so2, so3, so4);
 
 //for(var i = 0; i < multiButton.count; i++) {
 //    multiButton._values[i] = Math.random() > .5 ;
