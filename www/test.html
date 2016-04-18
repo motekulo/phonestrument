@@ -19,9 +19,11 @@ var synth = new Array(4);
 var note = new Array(4);
 //var row = new Array(16);
 
+var dist = new Tone.Distortion().toMaster();
 
 for (i = 0; i < 4; i++){
-    synth[i] = new Tone.DrumSynth().toMaster();
+    //synth[i] = new Tone.DrumSynth().toMaster();
+    synth[i] = new Tone.DrumSynth().connect(dist);
 }
 
 
@@ -172,7 +174,7 @@ var so1 = new Interface.Slider({
     min: 0,
     max: 20,
     label: '8ves',
-    bounds: [0.85, 0.05, 0.08, 0.2],
+    bounds: [0.85, 0.05, 0.04, 0.2],
     onvaluechange : function() {
         synth[0].octaves.value = this.value;
         console.log("this.value " + this.value);
@@ -185,7 +187,7 @@ var so2 = new Interface.Slider({
     min: 0,
     max: 20,
     label: '8ves',
-    bounds: [0.85, 0.25, 0.08, 0.2],
+    bounds: [0.85, 0.25, 0.04, 0.2],
     onvaluechange : function() {
         synth[1].octaves.value = this.value;
         console.log("this.value " + this.value);
@@ -198,7 +200,7 @@ var so3 = new Interface.Slider({
     min: 0,
     max: 20,
     label: '8ves',
-    bounds: [0.85, 0.45, 0.08, 0.2],
+    bounds: [0.85, 0.45, 0.04, 0.2],
     onvaluechange : function() {
         synth[2].octaves.value = this.value;
         console.log("this.value " + this.value);
@@ -211,15 +213,28 @@ var so4 = new Interface.Slider({
     min: 0,
     max: 20,
     label: '8ves',
-    bounds: [0.85, 0.65, 0.08, 0.2],
+    bounds: [0.85, 0.65, 0.04, 0.2],
     onvaluechange : function() {
         synth[3].octaves.value = this.value;
         console.log("this.value " + this.value);
     }
 });
 
+var d1 = new Interface.Slider({
+    target: synth[0],
+    key: 'distortion',
+    min: 0,
+    max: 1,
+    label: 'dist',
+    bounds: [0.90, 0.05, 0.04, 0.2],
+    onvaluechange : function() {
+        dist.wet.value = this.value;
+        console.log("this.value " + this.value);
+    }
+});
 
-a.add(b, v1, v2, v3, v4, multiButton, so1, so2, so3, so4);
+
+a.add(b, v1, v2, v3, v4, multiButton, so1, so2, so3, so4, d1);
 
 
         </script>
