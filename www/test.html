@@ -82,7 +82,7 @@ for (j = 0; j < 4; j++) {
 var a = new Interface.Panel();
 var multiButton = new Interface.MultiButton({
     rows:4, columns:16,
-    bounds:[.05,.05,.8,.8],
+    bounds:[.2,.05,.7,.8],
     onvaluechange : function(row, col, value) {
         console.log( 'row : ' + row + ' , col : ' + col + ' , value : ' + value);
         timestring = "0:0:" + col;
@@ -99,7 +99,7 @@ var multiButton = new Interface.MultiButton({
 a.background = 'black';
 
 var b = new Interface.Button({ 
-    bounds:[.9,.05,.1,.1],  
+    bounds:[.05,.05,.1,.1],  
     label:'On/Off',
     onvaluechange : function() {
         console.log("Value: " + this.value)
