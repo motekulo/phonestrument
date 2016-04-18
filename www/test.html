@@ -30,7 +30,7 @@ for (i = 0; i < 16; i++) {
 
 }
 
-Tone.Transport.start();
+//Tone.Transport.start();
 
 
 // Interface section
@@ -43,8 +43,11 @@ var multiButton = new Interface.MultiButton({
         console.log( 'row : ' + row + ' , col : ' + col + ' , value : ' + value);
         timestring = "0:0:" + col;
         console.log("timestring: " + timestring);
-        note[col].start(timestring);
-        note[col].stop("80m");
+        if (value == 1) {
+            note[col].start(timestring);
+        } else {
+            note[col].stop();
+        }
 
     },
 });
