@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <title>Phonestrument</title>
+        <script src="js/interface.js"></script>
+        <script src="js/Tone.js"></script>
+    </head>
+
+    <body>
+
+        <div id='Content'>
+
+        </div>
+        <script>
+
+var synth = new Tone.DrumSynth().toMaster();
+var synth2 = new Tone.DrumSynth().toMaster();
+//synth.triggerAttackRelease("C2", "8n");
+
+var note = new Array(16);
+
+var timestring = "";
+for (i = 0; i < 16; i++) {
+    note[i] = new Tone.Event(function(time, pitch){
+        synth.triggerAttackRelease(pitch, "16n", time);
+    }, "C2");
+    note[i].set({
+        "loop" : true,
+        "loopEnd" : "1m"
+    });
+
+}
+
+Tone.Transport.start();
+
+
+// Interface section
+
+var a = new Interface.Panel();
+var multiButton = new Interface.MultiButton({
+    rows:4, columns:16,
+    bounds:[.05,.05,.9,.8],
+    onvaluechange : function(row, col, value) {
+        console.log( 'row : ' + row + ' , col : ' + col + ' , value : ' + value);
+        timestring = "0:0:" + col;
+        console.log("timestring: " + timestring);
+        note[col].start(timestring);
+        note[col].stop("80m");
+
+    },
+});
+
+a.background = 'black';
+a.add(multiButton);
+
+for(var i = 0; i < multiButton.count; i++) {
+    multiButton._values[i] = Math.random() > .5 ;
+}
+
+
+        </script>
+    </body>
+</html>
+
