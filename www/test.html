@@ -79,6 +79,21 @@ for (j = 0; j < 4; j++) {
 
 // Interface section
 
+var b = new Interface.Button({ 
+    bounds:[.05,.05,.1,.1],  
+    label:'On/Off',
+    onvaluechange : function() {
+        console.log("Value: " + this.value)
+        if (this.value == 1) {
+            Tone.Transport.start();
+        } else {
+            Tone.Transport.stop();
+        }
+    }
+
+});
+
+
 var a = new Interface.Panel();
 var multiButton = new Interface.MultiButton({
     rows:4, columns:16,
@@ -98,21 +113,20 @@ var multiButton = new Interface.MultiButton({
 
 a.background = 'black';
 
-var b = new Interface.Button({ 
-    bounds:[.05,.05,.1,.1],  
-    label:'On/Off',
+var s1 = new Interface.Slider({
+    target: synth[0],
+    key: 'octaves',
+    min: 0,
+    max: 20,
+    label: '8ves',
+    bounds: [0.9, 0.05, 0.1, 0.2],
     onvaluechange : function() {
-        console.log("Value: " + this.value)
-        if (this.value == 1) {
-            Tone.Transport.start();
-        } else {
-            Tone.Transport.stop();
-        }
+        synth[0].octaves.value = this.value;
+        console.log("this.value " + this.value);
     }
-
 });
 
-a.add(multiButton, b);
+a.add(b, multiButton, s1);
 
 //for(var i = 0; i < multiButton.count; i++) {
 //    multiButton._values[i] = Math.random() > .5 ;
