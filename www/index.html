@@ -1,30 +1,85 @@
-<!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="msapplication-tap-highlight" content="no" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <title>Phonestrument</title>
 
-        <link rel="icon" type="image/png" sizes="174x174" href="img/favicon.png">
-
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <meta http-equiv="Content-Security-Policy" content="
+            default-src *;
+            child-src blob: ;
+            media-src 'self' blob: ;
+            style-src 'self' 'unsafe-inline';
+            script-src 'self' 'unsafe-inline' 'unsafe-eval'">
 
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/Tone.js"></script>
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/interface.js"></script>
+        <script type="text/javascript" src="js/recorder.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
 
-        <title>Phonestrument test</title>
+        <style>
+        html, body {
+        height: 100%;
+        color:#555;
+        font-family:'Helvetica', sans-serif;
+        }
+        h1, h2, h3 {
+        color:#000;
+        font-family: "HelveticaNeue-Light", sans-serif;
+        font-weight: normal;
+        }
+
+h2 { font-size:1.5em;}
+
+h3 { color :#000; margin:0;}
+
+ul {
+padding:0;
+margin:0;
+list-decoration:none;
+}
+code,pre{
+margin:0;
+padding:0;
+font-size:.8em;
+overflow:scroll;
+height: 275px;
+background-color:#efefef;
+width:90%;
+}
+.interfacePanel {
+display:block;
+width:100%;
+height:80%;
+float:right;
+left:0;
+}
+.interfaceCode {
+width:50%;
+float:left;
+}
+#container {
+width: 1024px;
+}
+li {
+min-height:300px;
+padding:5px;
+border:1px solid #666;
+display:block;
+}
+        </style>
 
     </head>
 
     <body>
-        <div id="Content">
-            <div id="example_title"></div>
-            <div id="test"></div>
-        </div>
+
+        <button onclick="startRecording(this);">record</button>
+        <button onclick="stopRecording(this);" disabled>stop</button>
+
+        <div id='InterfacePanel' class='interfacePanel'> </div>
+
+        <h2>Recordings</h2>
+        <ul id="recordingslist"></ul>
+
     </body>
 </html>
 
