@@ -3,14 +3,85 @@
         <title>Phonestrument</title>
         <script src="js/interface.js"></script>
         <script src="js/Tone.js"></script>
+        <script src="js/recorder.js"></script>
+
+
+        <style>
+html, body {
+    height: 100%;
+    color:#555;
+    font-family:'Helvetica', sans-serif;
+}
+        h1, h2, h3 {
+            color:#000;
+            font-family: "HelveticaNeue-Light", sans-serif;
+            font-weight: normal;
+        }
+
+        h2 { font-size:1.5em;}
+
+        h3 { color :#000; margin:0;}
+
+        ul {
+            padding:0;
+            margin:0;
+            list-decoration:none;
+        }
+        code,pre{
+            margin:0;
+            padding:0;
+            font-size:.8em;
+            overflow:scroll;
+            height: 275px;
+            background-color:#efefef;
+            width:90%;
+        }
+        .interfacePanel {
+            display:block;
+            width:50%;
+            height:300px;
+            float:right;
+            left:0;
+        }
+        .interfaceCode {
+            width:50%;
+            float:left;
+        }
+        #container {
+            width: 1024px;
+        }
+        li {
+            min-height:300px;
+            padding:5px;
+            border:1px solid #666;
+            display:block;
+        }
+        </style>
+
     </head>
 
     <body>
 
-        <div id='Content'>
+        <button onclick="startRecording(this);">record</button>
+        <button onclick="stopRecording(this);" disabled>stop</button>
+
+        <h2>Recordings</h2>
+        <ul id="recordingslist"></ul>
+
+        <h2>Log</h2>
+        <pre id="log"></pre>
+
+        <div id='InterfacePanel' class='interfacePanel'>
 
         </div>
+
+
         <script>
+
+  function __log(e, data) {
+    log.innerHTML += "\n" + e + " " + (data || '');
+  }
+
 
 var drumpitches =  ["C2","D3","E4","F2"];
 var timestring = "";
@@ -20,6 +91,49 @@ var note = new Array(4);
 //var row = new Array(16);
 
 var dist = new Tone.Distortion().toMaster();
+
+var mcontext;
+var recorder;
+
+recorder = new Recorder(dist);
+
+function startRecording(button) {
+    recorder && recorder.record();
+    button.disabled = true;
+    button.nextElementSibling.disabled = false;
+    __log('Recording...');
+}
+
+function stopRecording(button) {
+    recorder && recorder.stop();
+    button.disabled = true;
+    button.previousElementSibling.disabled = false;
+    __log('Stopped recording.');
+
+    // create WAV download link using audio data blob
+    createDownloadLink();
+
+    recorder.clear();
+}
+
+function createDownloadLink() {
+    recorder && recorder.exportWAV(function(blob) {
+        var url = URL.createObjectURL(blob);
+        var li = document.createElement('li');
+        var au = document.createElement('audio');
+        var hf = document.createElement('a');
+
+        au.controls = true;
+        au.src = url;
+        hf.href = url;
+        hf.download = new Date().toISOString() + '.wav';
+        hf.innerHTML = hf.download;
+        li.appendChild(au);
+        li.appendChild(hf);
+        recordingslist.appendChild(li);
+    });
+}
+
 
 for (i = 0; i < 4; i++){
     //synth[i] = new Tone.DrumSynth().toMaster();
@@ -79,6 +193,20 @@ for (j = 0; j < 4; j++) {
     }
 }
 
+window.onload = function init() {
+    try {
+        mcontext = Tone.context;
+
+    } catch (e) {
+        alert('No web audio support in this browser!');
+    }
+
+
+    //    navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
+    //     __log('No live audio input: ' + e);
+    //  });
+};
+
 // Interface section
 
 var b = new Interface.Button({ 
@@ -86,11 +214,11 @@ var b = new Interface.Button({
     label:'On/Off',
     onvaluechange : function() {
         console.log("Value: " + this.value)
-        if (this.value == 1) {
-            Tone.Transport.start();
-        } else {
-            Tone.Transport.stop();
-        }
+            if (this.value == 1) {
+                Tone.Transport.start();
+            } else {
+                Tone.Transport.stop();
+            }
     }
 
 });
@@ -149,7 +277,9 @@ var v4 = new Interface.Slider({
 
 
 
-var a = new Interface.Panel();
+var a = new Interface.Panel({ 
+    container:document.querySelector("#InterfacePanel") 
+});
 var multiButton = new Interface.MultiButton({
     rows:4, columns:16,
     bounds:[.2,.05,.6,.8],
