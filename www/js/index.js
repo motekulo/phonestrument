@@ -250,32 +250,46 @@ function stopRecording(button) {
 
 function createDownloadLink() {
     recorder && recorder.exportWAV(function(blob) {
-        window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function(dir) {
-//            console.log("dir is ",dir);
-            console.log("Blob size is " + blob.size);
-            dir.getFile("test.wav", {create:true}, function(file) {
-                file.createWriter(function(fileWriter) {
-                    fileWriter.seek(fileWriter.length);
-                    fileWriter.write(blob);
-                    console.log("ok, in theory i worked");
+        var isAndroid = true;
+        var url = "";
+        console.log("file system is " + cordova.file.externalDataDirectory);
+        if (!cordova.file.externalDataDirectory) {
+            isAndroid = false;
+        }
+        if (isAndroid == true) {
 
+            window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function(dir) {
+                //            console.log("dir is ",dir);
+                console.log("Blob size is " + blob.size);
+                dir.getFile("test.wav", {create:true}, function(file) {
+                    console.log("file url will be " + file.nativeURL);
+                    url = file.nativeURL;
+                    file.createWriter(function(fileWriter) {
+                        fileWriter.seek(fileWriter.length);
+                        fileWriter.write(blob);
+                        console.log("File written to storage");
+
+                    });
                 });
-            });
-            //   window.requestFileSystem(window.TEMPORARY, 1024*1024, onInitFs, errorHandler);
 
-            //        var url = URL.createObjectURL(blob);
-            //        var li = document.createElement('li');
-            //        var au = document.createElement('audio');
-            //        var hf = document.createElement('a');
-            //        au.controls = true;
-            //        au.src = url;
-            //        hf.href = url;
-            //        hf.download = new Date().toISOString() + '.wav';
-            //        hf.innerHTML = hf.download;
-            //        li.appendChild(au);
-            //        li.appendChild(hf);
-            //        recordingslist.appendChild(li);
-        });
+
+            });
+
+        } else {
+            var url = URL.createObjectURL(blob);
+        }
+        var li = document.createElement('li');
+        var au = document.createElement('audio');
+        var hf = document.createElement('a');
+        au.controls = true;
+        au.src = url;
+        hf.href = url;
+        hf.download = new Date().toISOString() + '.wav';
+        hf.innerHTML = hf.download;
+        li.appendChild(au);
+        li.appendChild(hf);
+        recordingslist.appendChild(li);
+
     });
 }
 
