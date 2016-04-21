@@ -250,77 +250,35 @@ function stopRecording(button) {
 
 function createDownloadLink() {
     recorder && recorder.exportWAV(function(blob) {
-        console.log("Blob size is " + blob.size);
+        window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function(dir) {
+//            console.log("dir is ",dir);
+            console.log("Blob size is " + blob.size);
+            dir.getFile("test.wav", {create:true}, function(file) {
+                file.createWriter(function(fileWriter) {
+                    fileWriter.seek(fileWriter.length);
+                    fileWriter.write(blob);
+                    console.log("ok, in theory i worked");
 
-        window.requestFileSystem(window.TEMPORARY, 1024*1024, onInitFs, errorHandler);
+                });
+            });
+            //   window.requestFileSystem(window.TEMPORARY, 1024*1024, onInitFs, errorHandler);
 
-        //        var url = URL.createObjectURL(blob);
-        //        var li = document.createElement('li');
-        //        var au = document.createElement('audio');
-        //        var hf = document.createElement('a');
-        //        au.controls = true;
-        //        au.src = url;
-        //        hf.href = url;
-        //        hf.download = new Date().toISOString() + '.wav';
-        //        hf.innerHTML = hf.download;
-        //        li.appendChild(au);
-        //        li.appendChild(hf);
-        //        recordingslist.appendChild(li);
+            //        var url = URL.createObjectURL(blob);
+            //        var li = document.createElement('li');
+            //        var au = document.createElement('audio');
+            //        var hf = document.createElement('a');
+            //        au.controls = true;
+            //        au.src = url;
+            //        hf.href = url;
+            //        hf.download = new Date().toISOString() + '.wav';
+            //        hf.innerHTML = hf.download;
+            //        li.appendChild(au);
+            //        li.appendChild(hf);
+            //        recordingslist.appendChild(li);
+        });
     });
 }
 
-function onInitFs(fs) {
 
-    fs.root.getFile('log.txt', {create: true}, function(fileEntry) {
 
-        // Create a FileWriter object for our FileEntry (log.txt).
-        fileEntry.createWriter(function(fileWriter) {
-
-            fileWriter.onwriteend = function(e) {
-                console.log('Write completed.');
-            };
-
-            fileWriter.onerror = function(e) {
-                console.log('Write failed: ' + e.toString());
-            };
-
-            // Create a new Blob and write it to log.txt.
-            var blob = new Blob(['Lorem Ipsum'], {type: 'text/plain'});
-
-            fileWriter.write(blob);
-
-        }, errorHandler);
-
-    }, errorHandler);
-
-}
-
-//window.requestFileSystem(window.TEMPORARY, 1024*1024, onInitFs, errorHandler);
-
-function errorHandler(e) {
-    var msg = '';
-
-    switch (e.code) {
-        case FileError.QUOTA_EXCEEDED_ERR:
-            msg = 'QUOTA_EXCEEDED_ERR';
-            break;
-        case FileError.NOT_FOUND_ERR:
-            msg = 'NOT_FOUND_ERR';
-            break;
-        case FileError.SECURITY_ERR:
-            msg = 'SECURITY_ERR';
-            break;
-        case FileError.INVALID_MODIFICATION_ERR:
-            msg = 'INVALID_MODIFICATION_ERR';
-            break;
-        case FileError.INVALID_STATE_ERR:
-            msg = 'INVALID_STATE_ERR';
-            break;
-        default:
-            msg = 'Unknown Error';
-            break;
-    };
-
-    console.log('Error: ' + msg);
-}
 
