@@ -30,6 +30,7 @@ document.addEventListener("deviceready", function(event) {
         text: "Bar sequencer", 
         id: 'btn1',
         click: function () {
+            $("#btn1").remove();
             var mbarseq = new barsequencer();
         }
     });
