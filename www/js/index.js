@@ -26,17 +26,31 @@ document.addEventListener("deviceready", function(event) {
         alert('No web audio support in this browser!');
     }
 
+
     var $barSeqButton = $('<button/>', {
         text: "Bar sequencer", 
         id: 'btn1',
         click: function () {
             $("#btn1").remove();
+            makeBackButton();
             var mbarseq = new barsequencer();
         }
     });
 
-    $("#buttons").append($barSeqButton);
+    $("#mainbuttons").append($barSeqButton);
 
 });
 
+function makeBackButton(){
+    $backButton = $('<button/>', {
+        text: "Back", 
+        id: 'backbtn',
+        click: function () {
+            console.log("We get here?");
+            window.location = "../index.html";
+        }
+    });
+
+    $("#mainbuttons").append($backButton);
+}
 
