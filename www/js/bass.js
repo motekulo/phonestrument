@@ -45,20 +45,61 @@ function bass() {
         },
     });
 
-    var v = new Interface.Slider({
+    var vs = new Interface.Slider({
         target: pluckbass,
         key: 'volume',
         min: -36,
         max: 6,
         label: 'Vol',
-        bounds: [0.65, 0.05, 0.25, 0.25],
+        bounds: [0.65, 0.05, 0.15, 0.25],
         onvaluechange : function() {
             pluckbass.volume.value = this.value;
             // console.log("this.value " + this.value);
         }
     });
 
-    a.add(mb, v);
+    var as = new Interface.Slider({
+        target: pluckbass,
+        key: 'attackNoise',
+        min: 0,
+        max: 1,
+        label: 'Attack',
+        bounds: [0.85, 0.05, 0.15, 0.25],
+        onvaluechange : function() {
+            pluckbass.attackNoise.value = this.value;
+            // console.log("this.value " + this.value);
+        }
+    });
+
+    var ds = new Interface.Slider({
+        target: pluckbass,
+        key: 'dampening',
+        min: 0,
+        max: 5000,
+        label: 'Dampening',
+        bounds: [0.65, 0.35, 0.15, 0.25],
+        onvaluechange : function() {
+            pluckbass.dampening.value = this.value;
+            // console.log("this.value " + this.value);
+        }
+    });
+
+    var rs = new Interface.Slider({
+        target: pluckbass,
+        key: 'resonance',
+        min: 0,
+        max: 1,
+        label: 'Resonance',
+        bounds: [0.85, 0.35, 0.15, 0.25],
+        onvaluechange : function() {
+            pluckbass.resonance.value = this.value;
+            // console.log("this.value " + this.value);
+        }
+    });
+
+
+
+    a.add(mb, vs, as, ds, rs);
 
 
 
