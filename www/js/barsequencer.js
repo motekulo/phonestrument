@@ -84,7 +84,7 @@ function barsequencer() {
 
     $("#buttons").append($stopRecordButton);
     
-    // Interface section
+    // Interface section //////////////////////////////////////////////////////
     var b = new Interface.Button({ 
         bounds:[.05,.05,.1,.1],  
         label:'On/Off',

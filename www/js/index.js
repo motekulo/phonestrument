@@ -32,12 +32,27 @@ document.addEventListener("deviceready", function(event) {
         id: 'btn1',
         click: function () {
             $("#btn1").remove();
+            $("#btn2").remove();
             makeBackButton();
             var mbarseq = new barsequencer();
         }
     });
 
     $("#mainbuttons").append($barSeqButton);
+
+    var $bassPlayerButton = $('<button/>', {
+        text: "Bass player", 
+        id: 'btn2',
+        click: function () {
+            $("#btn1").remove();
+            $("#btn2").remove();
+            makeBackButton();
+            var mbass = new bass();
+        }
+    });
+
+    $("#mainbuttons").append($bassPlayerButton);
+
 
 });
 
