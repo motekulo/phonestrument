@@ -1,5 +1,5 @@
 
-function bass() {
+function pluckedbass() {
     console.log("Starting bass");
     // Following a musical practice, a workflow, thus:
     //

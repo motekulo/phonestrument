@@ -41,13 +41,13 @@ document.addEventListener("deviceready", function(event) {
     $("#mainbuttons").append($barSeqButton);
 
     var $bassPlayerButton = $('<button/>', {
-        text: "Bass player", 
+        text: "Plucked bass", 
         id: 'btn2',
         click: function () {
             $("#btn1").remove();
             $("#btn2").remove();
             makeBackButton();
-            var mbass = new bass();
+            var mbass = new pluckedbass();
         }
     });
 
