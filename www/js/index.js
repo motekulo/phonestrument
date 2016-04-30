@@ -53,6 +53,21 @@ document.addEventListener("deviceready", function(event) {
 
     $("#mainbuttons").append($bassPlayerButton);
 
+    var $monoSynthButton = $('<button/>', {
+        text: "Mono synth", 
+        id: 'btn3',
+        click: function () {
+            $("#btn1").remove();
+            $("#btn2").remove();
+            $("#btn3").remove();
+            makeBackButton();
+            var mono = new monosynth();
+        }
+    });
+
+    $("#mainbuttons").append($monoSynthButton);
+
+
 
 });
 
