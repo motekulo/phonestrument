@@ -18,8 +18,8 @@ function monosynth() {
     // dampening:4000
     // resonance:0.9
 
-    //var note = ["C2", "D2", "E2", "F2", "G2", "A2", "B2"];
-    var note = [60, 62, 64, 65, 67, 69, 71];
+    var notename = ["C", "D", "E", "F", "G", "A", "B"];
+    var octave = 4;
 
     // Interface ////////////////////////////////////////////
 
@@ -36,13 +36,12 @@ function monosynth() {
         textLocation: {x:.5,y:.5},
         onvaluechange : function (){
             console.log("8ve up");
-            if (note[0] < 96) {
-                for (i=0; i < note.length; i++){
-                    note[i] = note[i] + 12;
-                }
-
+            if (octave < 8) {
+                octave++;
             }
+
         }
+
     });
 
     var db = new Interface.ButtonV({
@@ -54,12 +53,10 @@ function monosynth() {
         textLocation: {x:.5,y:.5},
         onvaluechange : function (){
             console.log("8ve down");
-            if (note[0] > 12) {
-                for (i=0; i < note.length; i++){
-                    note[i] = note[i] - 12;
-                }
-
+            if (octave > 1) {
+                octave--;
             }
+
         }
 
     });
@@ -75,7 +72,9 @@ function monosynth() {
             console.log("timestring: " + timestring);
             if (value == 1) {
                 //note[row][col].start(timestring);
-                mono.triggerAttackRelease(note[6 - row], "4n");
+                note = notename[6-row]+octave;
+                console.log(note);
+                mono.triggerAttackRelease(note, "8n");
             } else {
                 //note[row][col].stop();
             }
