@@ -1,9 +1,9 @@
 
 function monosynth() {
-    console.log("Starting bass");
+    // console.log("Starting monosynth");
     // Following a musical practice, a workflow, thus:
     //
-    // - Select a bass
+    // - Select an instrument
     // - Adjust the sound
     // - Start playing
     // - Adjust tempo
@@ -11,12 +11,7 @@ function monosynth() {
     //
 
     var mono = new Tone.MonoSynth().toMaster();
-    mono.triggerAttackRelease("E3", "4n");
-
-    // Defaults:
-    // attackNoise:1
-    // dampening:4000
-    // resonance:0.9
+    //    mono.triggerAttackRelease("E3", "4n");
 
     var notename = ["C", "D", "E", "F", "G", "A", "B"];
     var octave = 4;
@@ -84,28 +79,81 @@ function monosynth() {
     var ob = new Interface.MultiButton({
         rows: 1,
         columns: 3,
-        mode: 'toggle',
-        bounds:[.5, .05, .15, .1]
+        bounds:[.5, .05, .15, .1],
+        onvaluechange : function(row, col, value) {
+            switch(col){
+                case 0: {
+                    mono.oscillator.type = "square";
+                    ob._values[0] = 1;
+                    ob._values[1] = 0;
+                    ob._values[2] = 0;
+                    break;
+                }
+                case 1: {
+                    mono.oscillator.type = "sine";
+                    ob._values[0] = 0;
+                    ob._values[1] = 1;
+                    ob._values[2] = 0;
+                    break;
+                }
+                case 2: {
+                    mono.oscillator.type = "triangle";
+                    ob._values[0] = 0;
+                    ob._values[1] = 0;
+                    ob._values[2] = 1;
+                    break;
+                }
+            } 
 
+        }
     });
 
-    var k1 = new Interface.Knob({ 
+    var k1 = new Interface.Knob({ // detune
         bounds:[.5, .15, .15, .15],
-        value:.25,
+        value: 0,
         usesRotation:true,
-        centerZero: false,
+        centerZero: true,
+        min: -100,
+        max: 100,
+        onvaluechange : function() {
+            //console.log("Detune " + this.value);
+            mono.oscillator.detune.value = this.value;
+        }
+
+
     });
 
-    var ems = new Interface.MultiSlider({
+    var ems = new Interface.MultiSlider({  // ADSR envelope
         count:4,
         min: 0,
         max: 1,
         label: 'ADSR',
         bounds: [0.7, 0.05, 0.25, 0.25],
-        onvaluechange : function() {
-            // console.log("this.value " + this.value);
+        onvaluechange : function(number, value) {
+            console.log("number, value: " + number + ", " + value);
+            switch(number) {
+                case 0: {
+                    mono.envelope.attack = value;
+                    break;
+                }
+                case 1: {
+                    mono.envelope.decay = value;
+                    break;
+                }
+                case 2: {
+                    mono.envelope.sustain = value;
+                    break;
+                }
+                case 3: {
+                    mono.envelope.release = value;
+                    break;
+                }
+
+            }
+
         }
     });
+
 
     var fk2 = new Interface.Knob({ 
         bounds:[.5, .5, .15, .15],
@@ -127,6 +175,12 @@ function monosynth() {
 
 
     a.add(ub, db, mb, ob, k1, ems, fk2, efms);
+
+    //    ems.children[0].setValue(0.005);  // Default attack
+    //    ems.children[1].setValue(0.1);  // Default decay
+    //    ems.children[2].setValue(0.9);  // Default sustain
+    //    ems.children[3].setValue(1);  // Default release
+
 
 
 
