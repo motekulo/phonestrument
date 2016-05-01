@@ -157,9 +157,17 @@ function monosynth() {
 
     var fk2 = new Interface.Knob({ 
         bounds:[.5, .5, .15, .15],
-        value:.25,
+        min : 20,
+        max: 15000,
+        value: 200,
         usesRotation:true,
         centerZero: false,
+        onvaluechange : function() {
+            console.log("freq value " + this.value);
+            //            mono.filter.frequency.value = this.value
+            mono.filterEnvelope.baseFrequency = this.value
+
+        }
     });
 
     var efms = new Interface.MultiSlider({
@@ -168,8 +176,27 @@ function monosynth() {
         max: 1,
         label: 'ADSR',
         bounds: [0.7, 0.5, 0.25, 0.25],
-        onvaluechange : function() {
-            // console.log("this.value " + this.value);
+        onvaluechange : function(number, value) {
+            console.log("number, value: " + number + ", " + value);
+            switch(number) {
+                case 0: {
+                    mono.filterEnvelope.attack = value;
+                    break;
+                }
+                case 1: {
+                    mono.filterEnvelope.decay = value;
+                    break;
+                }
+                case 2: {
+                    mono.filterEnvelope.sustain = value;
+                    break;
+                }
+                case 3: {
+                    mono.filterEnvelope.release = value;
+                    break;
+                }
+
+            }
         }
     });
 
