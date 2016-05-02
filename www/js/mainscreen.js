@@ -1,6 +1,7 @@
 function Mainscreen() {
 
     var mono = new Basicmonosynth();
+    var barseq = new Barsequencer();
 
     var mp = new Interface.Panel({ 
         container:document.querySelector("#InterfacePanel") 
@@ -11,13 +12,12 @@ function Mainscreen() {
         label: "Home",
         mode: 'momentary',
         onmouseup : function() {
-        //    console.log("Mouse up over home");
+            //    console.log("Mouse up over home");
             mp.clear();
-            mp.add(home, ib1);
+            mp.add(home, ib1, ib2);
         }
 
     });
-
 
     var ib1 = new Interface.Button({
         bounds: [.15, 0, .1, .1],
@@ -28,9 +28,22 @@ function Mainscreen() {
             mono.draw(mp);
         } 
 
+    }
+    );
+
+    var ib2 = new Interface.Button({
+        bounds: [.15, 0, .1, .1],
+        label: "Bar sequencer",
+        mode: 'momentary',
+        onmouseup : function() {
+            mp.remove(ib1, ib2);
+            mono.draw(mp);
+        } 
+
     });
+
     this.draw = function(){
-        mp.add(home, ib1);
+        mp.add(home, ib1, ib2);
     }
 
 }
