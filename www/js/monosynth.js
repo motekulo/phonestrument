@@ -1,5 +1,5 @@
 
-function monosynth() {
+function Basicmonosynth() {
     // console.log("Starting monosynth");
     // Following a musical practice, a workflow, thus:
     //
@@ -9,31 +9,19 @@ function monosynth() {
     // - Adjust tempo
     // - Play and record (when ready)
     //
+    this.draw = function(panel){
+        panel.clear();
+        panel.add(ub, db, mb, ob, k1, ems, fk2, efms);
+    };
 
     var mono = new Tone.MonoSynth().toMaster();
-    //    mono.triggerAttackRelease("E3", "4n");
 
     var notename = ["C", "D", "E", "F", "G", "A", "B"];
     var octave = 4;
 
     // Interface ////////////////////////////////////////////
 
-    var a = new Interface.Panel({ 
-        container:document.querySelector("#InterfacePanel") 
-    });
-
-    var back = new Interface.Button({
-        bounds: [0, 0, .1, .1],
-        label: "Back",
-        mode: 'momentary',
-        onvaluechange : function() {
-            $('#InterfacePanel').empty();
-            makeMainPage();
-        } 
-
-    });
-
-    var ub = new Interface.ButtonV({
+        var ub = new Interface.ButtonV({
         bounds: [.05, .1, .1, .1],
         points: [{x:.25,y:1},{x:.75,y:1},{x:.75,y:.5},{x:1,y:.5},{x:.5,y:0},
         {x:0,y:.5},{x:.25,y:.5}],
@@ -77,7 +65,6 @@ function monosynth() {
             timestring = "0:0:" + col;
             console.log("timestring: " + timestring);
             if (value == 1) {
-                //note[row][col].start(timestring);
                 note = notename[6-row]+octave;
                 console.log(note);
                 mono.triggerAttackRelease(note, "8n");
@@ -127,7 +114,6 @@ function monosynth() {
         min: -100,
         max: 100,
         onvaluechange : function() {
-            //console.log("Detune " + this.value);
             mono.oscillator.detune.value = this.value;
         }
 
@@ -174,8 +160,7 @@ function monosynth() {
         usesRotation:true,
         centerZero: false,
         onvaluechange : function() {
-            console.log("freq value " + this.value);
-            //            mono.filter.frequency.value = this.value
+            //console.log("freq value " + this.value);
             mono.filterEnvelope.baseFrequency = this.value
 
         }
@@ -212,14 +197,10 @@ function monosynth() {
     });
 
 
-    a.add(back, ub, db, mb, ob, k1, ems, fk2, efms);
-
     //    ems.children[0].setValue(0.005);  // Default attack
     //    ems.children[1].setValue(0.1);  // Default decay
     //    ems.children[2].setValue(0.9);  // Default sustain
     //    ems.children[3].setValue(1);  // Default release
-
-
 
 
 }

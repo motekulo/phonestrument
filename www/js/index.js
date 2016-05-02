@@ -1,4 +1,5 @@
 /*
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,82 +27,37 @@ document.addEventListener("deviceready", function(event) {
         alert('No web audio support in this browser!');
     }
 
+    var mono = new Basicmonosynth();
+    //var mono = Object.create(Monosynth);
+    var main = new Mainscreen();
+    main.draw();
+    /*makeMainPage();
 
-    var $barSeqButton = $('<button/>', {
-        text: "Bar sequencer", 
-        id: 'btn1',
-        click: function () {
-            $("#btn1").remove();
-            $("#btn2").remove();
-            makeBackButton();
-            var mbarseq = new barsequencer();
-        }
-    });
+    function makeMainPage() {
 
-    $("#mainbuttons").append($barSeqButton);
+        var mp = new Interface.Panel({ 
+            container:document.querySelector("#InterfacePanel") 
+        });
 
-    var $bassPlayerButton = $('<button/>', {
-        text: "Plucked bass", 
-        id: 'btn2',
-        click: function () {
-            $("#btn1").remove();
-            $("#btn2").remove();
-            makeBackButton();
-            var mbass = new pluckedbass();
-        }
-    });
+        var ib1 = new Interface.Button({
+            bounds: [.05, .05, .1, .1],
+            label: "Monosynth",
+            mode: 'momentary',
+            onvaluechange : function() {
+            //    $('#InterfacePanel').empty();
+                mono.draw(mp);
+                //var mono = new monosynth();
 
-    $("#mainbuttons").append($bassPlayerButton);
+            } 
 
-    var $monoSynthButton = $('<button/>', {
-        text: "Mono synth", 
-        id: 'btn3',
-        click: function () {
-            $("#btn1").remove();
-            $("#btn2").remove();
-            $("#btn3").remove();
-            makeBackButton();
-            var mono = new monosynth();
-        }
-    });
+        });
 
-   // $("#mainbuttons").append($monoSynthButton);
-    makeMainPage();
+        mp.add(ib1);
 
-
+    }
+*/
 });
 
-function makeBackButton(){
-    $backButton = $('<button/>', {
-        text: "Back", 
-        id: 'backbtn',
-        click: function () {
-            console.log("We get here?");
-            window.location = "../index.html";
-        }
-    });
 
-    $("#mainbuttons").append($backButton);
-}
 
-function makeMainPage() {
 
-    var mp = new Interface.Panel({ 
-        container:document.querySelector("#InterfacePanel") 
-    });
-
-    var ib1 = new Interface.Button({
-        bounds: [.05, .05, .1, .1],
-        label: "Monosynth",
-        mode: 'momentary',
-        onvaluechange : function() {
-            $('#InterfacePanel').empty();
-            var mono = new monosynth();
-
-        } 
-
-    });
-
-    mp.add(ib1);
-
-}
