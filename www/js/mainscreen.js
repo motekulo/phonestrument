@@ -8,7 +8,7 @@ function Mainscreen() {
     });
 
     var home = new Interface.Button({
-        bounds: [0, 0, .1, .1],
+        bounds: [0, 0, .1, .05],
         label: "Home",
         mode: 'momentary',
         onmouseup : function() {
@@ -20,11 +20,12 @@ function Mainscreen() {
     });
 
     var ib1 = new Interface.Button({
-        bounds: [.15, 0, .1, .1],
+        bounds: [.15, 0, .1, .05],
         label: "Monosynth",
         mode: 'momentary',
         onmouseup : function() {
             mp.remove(ib1);
+            mp.remove(ib2);
             mono.draw(mp);
         } 
 
@@ -32,12 +33,13 @@ function Mainscreen() {
     );
 
     var ib2 = new Interface.Button({
-        bounds: [.15, 0, .1, .1],
+        bounds: [.35, 0, .2, .05],
         label: "Bar sequencer",
         mode: 'momentary',
         onmouseup : function() {
-            mp.remove(ib1, ib2);
-            mono.draw(mp);
+            mp.remove(ib1);
+            mp.remove(ib2);
+            barseq.draw(mp);
         } 
 
     });

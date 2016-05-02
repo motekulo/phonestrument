@@ -11,7 +11,7 @@ function Barsequencer() {
     var mcontext;
 
     this.draw = function(panel){
-        a.add(b, v1, v2, v3, v4, multiButton, 
+        panel.add(b, v1, v2, v3, v4, multiButton, 
                        so1, so2, so3, so4, d1);
     };
 
@@ -149,10 +149,6 @@ function Barsequencer() {
         }
     });
 
-    var a = new Interface.Panel({ 
-        container:document.querySelector("#InterfacePanel") 
-    });
-
     var multiButton = new Interface.MultiButton({
         rows:4, columns:16,
         bounds:[.2,.05,.6,.8],
@@ -167,7 +163,7 @@ function Barsequencer() {
             }
         },
     });
-    a.background = 'black';
+    //a.background = 'black';
     var so1 = new Interface.Slider({
         target: synth[0],
         key: 'octaves',
