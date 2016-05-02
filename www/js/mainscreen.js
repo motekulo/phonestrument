@@ -20,7 +20,7 @@ function Mainscreen() {
 
 
     var ib1 = new Interface.Button({
-        bounds: [.05, .05, .1, .1],
+        bounds: [.15, 0, .1, .1],
         label: "Monosynth",
         mode: 'momentary',
         onmouseup : function() {

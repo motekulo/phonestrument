@@ -10,7 +10,7 @@ function Basicmonosynth() {
     // - Play and record (when ready)
     //
     this.draw = function(panel){
-        panel.clear();
+        //panel.clear();
         panel.add(ub, db, mb, ob, k1, ems, fk2, efms);
     };
 
