@@ -65,8 +65,8 @@ document.addEventListener("deviceready", function(event) {
         }
     });
 
-    $("#mainbuttons").append($monoSynthButton);
-
+   // $("#mainbuttons").append($monoSynthButton);
+    makeMainPage();
 
 
 });
@@ -84,3 +84,24 @@ function makeBackButton(){
     $("#mainbuttons").append($backButton);
 }
 
+function makeMainPage() {
+
+    var mp = new Interface.Panel({ 
+        container:document.querySelector("#InterfacePanel") 
+    });
+
+    var ib1 = new Interface.Button({
+        bounds: [.05, .05, .1, .1],
+        label: "Monosynth",
+        mode: 'momentary',
+        onvaluechange : function() {
+            $('#InterfacePanel').empty();
+            var mono = new monosynth();
+
+        } 
+
+    });
+
+    mp.add(ib1);
+
+}

@@ -22,6 +22,17 @@ function monosynth() {
         container:document.querySelector("#InterfacePanel") 
     });
 
+    var back = new Interface.Button({
+        bounds: [0, 0, .1, .1],
+        label: "Back",
+        mode: 'momentary',
+        onvaluechange : function() {
+            $('#InterfacePanel').empty();
+            makeMainPage();
+        } 
+
+    });
+
     var ub = new Interface.ButtonV({
         bounds: [.05, .1, .1, .1],
         points: [{x:.25,y:1},{x:.75,y:1},{x:.75,y:.5},{x:1,y:.5},{x:.5,y:0},
@@ -201,7 +212,7 @@ function monosynth() {
     });
 
 
-    a.add(ub, db, mb, ob, k1, ems, fk2, efms);
+    a.add(back, ub, db, mb, ob, k1, ems, fk2, efms);
 
     //    ems.children[0].setValue(0.005);  // Default attack
     //    ems.children[1].setValue(0.1);  // Default decay
