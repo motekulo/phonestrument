@@ -27,35 +27,58 @@ document.addEventListener("deviceready", function(event) {
         alert('No web audio support in this browser!');
     }
 
+    //var main = new Mainscreen();
+    //main.draw();
+
     var mono = new Basicmonosynth();
-    //var mono = Object.create(Monosynth);
-    var main = new Mainscreen();
-    main.draw();
-    /*makeMainPage();
+    var barseq = new Barsequencer();
 
-    function makeMainPage() {
+    var mp = new Interface.Panel({ 
+        container:document.querySelector("#InterfacePanel") 
+    });
 
-        var mp = new Interface.Panel({ 
-            container:document.querySelector("#InterfacePanel") 
-        });
+    console.log("Mainscreen...");
 
-        var ib1 = new Interface.Button({
-            bounds: [.05, .05, .1, .1],
-            label: "Monosynth",
-            mode: 'momentary',
-            onvaluechange : function() {
-            //    $('#InterfacePanel').empty();
-                mono.draw(mp);
-                //var mono = new monosynth();
+    var home = new Interface.Button({
+        bounds: [0, 0, .2, .1],
+        label: "Home",
+        mode: 'momentary',
+        ontouchend : function() {
+            //    console.log("Mouse up over home");
+            mp.clear();
+            mp.add(home, ib1, ib2);
+        }
 
-            } 
+    });
 
-        });
-
-        mp.add(ib1);
+    var ib1 = new Interface.Button({
+        bounds: [.25, 0, .2, .1],
+        label: "Monosynth",
+        mode: 'momentary',
+        ontouchend : function() {
+            mp.remove(ib1);
+            mp.remove(ib2);
+            mono.draw(mp);
+        } 
 
     }
-*/
+    );
+
+    var ib2 = new Interface.Button({
+        bounds: [.5, 0, .2, .1],
+        label: "Bar seq",
+        mode: 'momentary',
+        ontouchend : function() {
+            mp.remove(ib1);
+            mp.remove(ib2);
+            barseq.draw(mp);
+        } 
+
+    });
+
+    mp.add(home, ib1, ib2);
+
+
 });
 
 

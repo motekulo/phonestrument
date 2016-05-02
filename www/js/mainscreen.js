@@ -7,8 +7,10 @@ function Mainscreen() {
         container:document.querySelector("#InterfacePanel") 
     });
 
+    console.log("Mainscreen...");
+
     var home = new Interface.Button({
-        bounds: [0, 0, .1, .05],
+        bounds: [0, 0, .2, .25],
         label: "Home",
         mode: 'momentary',
         onmouseup : function() {
@@ -20,7 +22,7 @@ function Mainscreen() {
     });
 
     var ib1 = new Interface.Button({
-        bounds: [.15, 0, .1, .05],
+        bounds: [.25, 0, .2, .25],
         label: "Monosynth",
         mode: 'momentary',
         onmouseup : function() {
@@ -33,8 +35,8 @@ function Mainscreen() {
     );
 
     var ib2 = new Interface.Button({
-        bounds: [.35, 0, .2, .05],
-        label: "Bar sequencer",
+        bounds: [.5, 0, .2, .25],
+        label: "Bar seq",
         mode: 'momentary',
         onmouseup : function() {
             mp.remove(ib1);
