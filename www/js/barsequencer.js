@@ -2,89 +2,40 @@
 function Barsequencer() {
 
 
-    var drumpitches =  ["C2","D3","E4","F2"];
+    var pitches =  ["C4","D4","E4","F4"];
     var timestring = "";
-    var synth = new Array(4);
-    var note = new Array(4);
+    var line = new Array(4);
     //var row = new Array(16);
-    var dist = new Tone.Distortion().toMaster();
-    var mcontext;
+    //var dist = new Tone.Distortion().toMaster();
+//    var synth = new Tone.MonoSynth().toMaster();
+    var synth = new Tone.PolySynth(4, Tone.MonoSynth).toMaster();
+    synth.triggerAttackRelease("C4", "16n");
 
     this.draw = function(panel){
-        panel.add(b, v1, v2, v3, v4, multiButton, 
-                       so1, so2, so3, so4, d1);
+        panel.add(b, multiButton);
     };
 
-    for (i = 0; i < 4; i++){
-        //synth[i] = new Tone.DrumSynth().toMaster();
-        synth[i] = new Tone.DrumSynth().connect(dist);
-    }
+    //    for (i = 0; i < 4; i++){
+    //synth[i] = new Tone.DrumSynth().toMaster();
+    //   }
+    //var seq = new Tone.Sequence(callback, ["C3", "Eb3", "F4", "Bb4"], "8n");
 
     for (j = 0; j < 4; j++) {
-        note[j] = [,,,,,,,,,,,,,,,];
+        //note[j] = [,,,,,,,,,,,,,,,];
+
+        var initialArray = new Array(16);
         for (i = 0; i < 16; i++) {
-            /* Weird switch construct, because simply passing in j as the index to
-               the array in the callback fails. So this doesn't work (because j is
-               undefined when called back I guess?).:
-               note[j][i] = new Tone.Event(function(time, pitch){
-               synth[j].triggerAttackRelease(pitch, "16n", time);
-               }, drumpitches[j]);
-            // have tried j.valueOf() as well to no avail
-            */
-            switch(j) {
-                case 0: {
-                    note[j][i] = new Tone.Event(function(time, pitch){
-                        synth[0].triggerAttackRelease(pitch, "16n", time);
-                    }, drumpitches[0]);
-                    break;
-                }
-                case 1: {
-                    note[j][i] = new Tone.Event(function(time, pitch){
-                        synth[1].triggerAttackRelease(pitch, "16n", time);
-                    }, drumpitches[1]);
-                    break;
-                }
-                case 2: {
-                    note[j][i] = new Tone.Event(function(time, pitch){
-                        synth[2].triggerAttackRelease(pitch, "16n", time);
-                    }, drumpitches[2]);
-                    break;
-                }
-                case 3: {
-                    note[j][i] = new Tone.Event(function(time, pitch){
-                        synth[3].triggerAttackRelease(pitch, "16n", time);
-                    }, drumpitches[3]);
-                    break;
-                }
-            }
-            note[j][i].set({
-                "loop" : true,
-                "loopEnd" : "1m"
-            });
+            beatstring = i + " * 16n";
+            initialArray[i] = [beatstring, null];
         }
+
+        line[j] = new Tone.Part(function(time, note){
+            console.log("Triggered");
+            synth.triggerAttackRelease(note, "16n", time);
+        }, initialArray);
+        line[j].loop = true;
+        line[j].start(1);
     }
-    // Recording buttons
-
-
-    var $startRecordButton = $('<button/>', {
-        text: "Start", 
-        id: 'recbtn',
-        click: function () {
-            startRecording(this);
-        }
-    });
-
-    $("#buttons").append($startRecordButton);
-
-    var $stopRecordButton = $('<button/>', {
-        text: "Stop", 
-        id: 'stoprecbtn',
-        click: function () {
-            stopRecording(this);
-        }
-    });
-
-    $("#buttons").append($stopRecordButton);
 
     // Interface section //////////////////////////////////////////////////////
     var b = new Interface.Button({ 
@@ -100,133 +51,28 @@ function Barsequencer() {
         }
     });
 
-    var v1 = new Interface.Slider({
-        target: synth[0],
-        key: 'volume',
-        min: -36,
-        max: 6,
-        label: 'Vol',
-        bounds: [0.15, 0.05, 0.05, 0.2],
-        onvaluechange : function() {
-            synth[0].volume.value = this.value;
-            console.log("this.value " + this.value);
-        }
-    });
-    var v2 = new Interface.Slider({
-        target: synth[1],
-        key: 'volume',
-        min: -36,
-        max: 6,
-        label: 'Vol',
-        bounds: [0.15, 0.25, 0.05, 0.2],
-        onvaluechange : function() {
-            synth[1].volume.value = this.value;
-            console.log("this.value " + this.value);
-        }
-    });
-    var v3 = new Interface.Slider({
-        target: synth[2],
-        key: 'volume',
-        min: -36,
-        max: 6,
-        label: 'Vol',
-        bounds: [0.15, 0.45, 0.05, 0.2],
-        onvaluechange : function() {
-            synth[2].volume.value = this.value;
-            console.log("this.value " + this.value);
-        }
-    });
-    var v4 = new Interface.Slider({
-        target: synth[3],
-        key: 'volume',
-        min: -36,
-        max: 6,
-        label: 'Vol',
-        bounds: [0.15, 0.65, 0.05, 0.2],
-        onvaluechange : function() {
-            synth[3].volume.value = this.value;
-            console.log("this.value " + this.value);
-        }
-    });
-
     var multiButton = new Interface.MultiButton({
         rows:4, columns:16,
         bounds:[.2,.05,.6,.8],
         onvaluechange : function(row, col, value) {
             console.log( 'row : ' + row + ' , col : ' + col + ' , value : ' + value);
             timestring = "0:0:" + col;
-            console.log("timestring: " + timestring);
+            beatstring = col + " * " + "16n";
+            console.log("beatstring: " + beatstring);
             if (value == 1) {
-                note[row][col].start(timestring);
+                //line[0].at(beatstring, pitches[0]); 
+                line[row].at(beatstring, pitches[row]); 
+                // note[row][col].start(timestring);
             } else {
-                note[row][col].stop();
+                //line[row].at(beatstring, null); 
+                line[row].at(beatstring, null); 
+                // note[row][col].stop();
             }
-        },
-    });
-    //a.background = 'black';
-    var so1 = new Interface.Slider({
-        target: synth[0],
-        key: 'octaves',
-        min: 0,
-        max: 20,
-        label: '8ves',
-        bounds: [0.85, 0.05, 0.04, 0.2],
-        onvaluechange : function() {
-            synth[0].octaves.value = this.value;
-            console.log("this.value " + this.value);
         }
     });
-    var so2 = new Interface.Slider({
-        target: synth[1],
-        key: 'octaves',
-        min: 0,
-        max: 20,
-        label: '8ves',
-        bounds: [0.85, 0.25, 0.04, 0.2],
-        onvaluechange : function() {
-            synth[1].octaves.value = this.value;
-            console.log("this.value " + this.value);
-        }
-    });
-    var so3 = new Interface.Slider({
-        target: synth[2],
-        key: 'octaves',
-        min: 0,
-        max: 20,
-        label: '8ves',
-        bounds: [0.85, 0.45, 0.04, 0.2],
-        onvaluechange : function() {
-            synth[2].octaves.value = this.value;
-            console.log("this.value " + this.value);
-        }
-    });
-    var so4 = new Interface.Slider({
-        target: synth[3],
-        key: 'octaves',
-        min: 0,
-        max: 20,
-        label: '8ves',
-        bounds: [0.85, 0.65, 0.04, 0.2],
-        onvaluechange : function() {
-            synth[3].octaves.value = this.value;
-            console.log("this.value " + this.value);
-        }
-    });
-    var d1 = new Interface.Slider({
-        target: synth[0],
-        key: 'distortion',
-        min: 0,
-        max: 1,
-        label: 'dist',
-        bounds: [0.90, 0.05, 0.04, 0.2],
-        onvaluechange : function() {
-            dist.wet.value = this.value;
-            console.log("this.value " + this.value);
-        }
-    });
-    //    a.add(b, v1, v2, v3, v4, multiButton, so1, so2, so3, so4, d1);
-
-
 }
+
+
+
 
 

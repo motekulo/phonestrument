@@ -4,8 +4,33 @@
 
 
 var recorder;
+var mcontext;
 
 recorder = new Recorder(dist);
+//
+// Recording buttons
+
+
+var $startRecordButton = $('<button/>', {
+    text: "Start", 
+    id: 'recbtn',
+    click: function () {
+        startRecording(this);
+    }
+});
+
+$("#buttons").append($startRecordButton);
+
+var $stopRecordButton = $('<button/>', {
+    text: "Stop", 
+    id: 'stoprecbtn',
+    click: function () {
+        stopRecording(this);
+    }
+});
+
+$("#buttons").append($stopRecordButton);
+
 
 function startRecording(button) {
     recorder && recorder.record();
