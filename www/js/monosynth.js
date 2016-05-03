@@ -9,19 +9,32 @@ function Basicmonosynth() {
     // - Adjust tempo
     // - Play and record (when ready)
     //
+
+   // var mono = new Tone.MonoSynth(); //.toMaster();
+    var mono = new Tone.PolySynth(4, Tone.MonoSynth);//.toMaster();
+
+    var notename = ["C", "D", "E", "F", "G", "A", "B"];
+    var octave = 4;
+
     this.draw = function(panel){
         //panel.clear();
         panel.add(ub, db, mb, ob, k1, ems, fk2, efms);
     };
 
-    var mono = new Tone.MonoSynth().toMaster();
+    this.disconnectsynth = function(){
+        mono.disconnect();
+    }
 
-    var notename = ["C", "D", "E", "F", "G", "A", "B"];
-    var octave = 4;
+    this.connectsynth = function(){
+        mono.connect(Tone.Master);
+    }
 
+    this.getsynth = function(){
+        return mono;
+    }
     // Interface ////////////////////////////////////////////
 
-        var ub = new Interface.ButtonV({
+    var ub = new Interface.ButtonV({
         bounds: [.05, .1, .1, .1],
         points: [{x:.25,y:1},{x:.75,y:1},{x:.75,y:.5},{x:1,y:.5},{x:.5,y:0},
         {x:0,y:.5},{x:.25,y:.5}],
@@ -81,21 +94,34 @@ function Basicmonosynth() {
         onvaluechange : function(row, col, value) {
             switch(col){
                 case 0: {
-                    mono.oscillator.type = "square";
+                    mono.set({
+                        "oscillator" : {
+                            "type" : "square"
+                        }
+                    });
+
                     ob._values[0] = 1;
                     ob._values[1] = 0;
                     ob._values[2] = 0;
                     break;
                 }
                 case 1: {
-                    mono.oscillator.type = "sine";
+                    mono.set({
+                        "oscillator" : {
+                            "type" : "sine"
+                        }
+                    });
                     ob._values[0] = 0;
                     ob._values[1] = 1;
                     ob._values[2] = 0;
                     break;
                 }
                 case 2: {
-                    mono.oscillator.type = "triangle";
+                    mono.set({
+                        "oscillator" : {
+                            "type" : "triangle"
+                        }
+                    });
                     ob._values[0] = 0;
                     ob._values[1] = 0;
                     ob._values[2] = 1;
@@ -114,9 +140,12 @@ function Basicmonosynth() {
         min: -100,
         max: 100,
         onvaluechange : function() {
-            mono.oscillator.detune.value = this.value;
+            mono.set({
+                "oscillator" : {
+                    "detune" : this.value
+                }
+            });
         }
-
 
     });
 
@@ -130,19 +159,39 @@ function Basicmonosynth() {
             console.log("number, value: " + number + ", " + value);
             switch(number) {
                 case 0: {
-                    mono.envelope.attack = value;
+                    mono.set({
+                        "envelope" : {
+                            "attack" : value
+                        }
+                    });
+
                     break;
                 }
                 case 1: {
-                    mono.envelope.decay = value;
-                    break;
+                    mono.set({
+                        "envelope" : {
+                            "decay" : value
+                        }
+                    });
+
+break;
                 }
                 case 2: {
-                    mono.envelope.sustain = value;
+                    mono.set({
+                        "envelope" : {
+                            "sustain" : value
+                        }
+                    });
+
                     break;
                 }
                 case 3: {
-                    mono.envelope.release = value;
+                    mono.set({
+                        "envelope" : {
+                            "release" : value
+                        }
+                    });
+
                     break;
                 }
 
@@ -161,7 +210,12 @@ function Basicmonosynth() {
         centerZero: false,
         onvaluechange : function() {
             //console.log("freq value " + this.value);
-            mono.filterEnvelope.baseFrequency = this.value
+            mono.set({
+                "filterEnvelope" : {
+                    "baseFrequency" : this.value
+                }
+            });
+
 
         }
     });
@@ -176,19 +230,39 @@ function Basicmonosynth() {
             console.log("number, value: " + number + ", " + value);
             switch(number) {
                 case 0: {
-                    mono.filterEnvelope.attack = value;
+                    mono.set({
+                        "filterEnvelope" : {
+                            "attack" : value
+                        }
+                    });
+
                     break;
                 }
                 case 1: {
-                    mono.filterEnvelope.decay = value;
+                    mono.set({
+                        "filterEnvelope" : {
+                            "decay" : value
+                        }
+                    });
+
                     break;
                 }
                 case 2: {
-                    mono.filterEnvelope.sustain = value;
+                    mono.set({
+                        "filterEnvelope" : {
+                            "sustain" : value
+                        }
+                    });
+
                     break;
                 }
                 case 3: {
-                    mono.filterEnvelope.release = value;
+                    mono.set({
+                        "filterEnvelope" : {
+                            "release" : value
+                        }
+                    });
+
                     break;
                 }
 

@@ -7,14 +7,21 @@ function Barsequencer() {
     var line = new Array(4);
     //var row = new Array(16);
     //var dist = new Tone.Distortion().toMaster();
-//    var synth = new Tone.MonoSynth().toMaster();
-    var synth = new Tone.PolySynth(4, Tone.MonoSynth).toMaster();
-    synth.triggerAttackRelease("C4", "16n");
+    //var synth = new Tone.MonoSynth().toMaster();
+    var synth;
+   
+    //synth.triggerAttackRelease("C4", "16n");
+
+    this.connectsynth = function(extsynth){
+
+       // synth = new Tone.PolySynth(4, extsynth).toMaster();
+       synth = extsynth;
+    }
 
     this.draw = function(panel){
         panel.add(b, multiButton);
     };
-
+    
     //    for (i = 0; i < 4; i++){
     //synth[i] = new Tone.DrumSynth().toMaster();
     //   }

@@ -30,7 +30,7 @@ document.addEventListener("deviceready", function(event) {
     //var main = new Mainscreen();
     //main.draw();
 
-    var mono = new Basicmonosynth();
+    var monosynth = new Basicmonosynth();
     var barseq = new Barsequencer();
 
     var mp = new Interface.Panel({ 
@@ -45,8 +45,10 @@ document.addEventListener("deviceready", function(event) {
         mode: 'momentary',
         ontouchend : function() {
             //    console.log("Mouse up over home");
+//            mono.disconnectsynth();
             mp.clear();
             mp.add(home, ib1, ib2);
+
         }
 
     });
@@ -58,7 +60,8 @@ document.addEventListener("deviceready", function(event) {
         ontouchend : function() {
             mp.remove(ib1);
             mp.remove(ib2);
-            mono.draw(mp);
+            monosynth.connectsynth();
+            monosynth.draw(mp);
         } 
 
     }
@@ -71,6 +74,7 @@ document.addEventListener("deviceready", function(event) {
         ontouchend : function() {
             mp.remove(ib1);
             mp.remove(ib2);
+            barseq.connectsynth(monosynth.getsynth());
             barseq.draw(mp);
         } 
 
