@@ -43,9 +43,9 @@ document.addEventListener("deviceready", function(event) {
         bounds: [0, 0, .2, .1],
         label: "Home",
         mode: 'momentary',
-        ontouchend : function() {
+        onmouseup : function() {
             //    console.log("Mouse up over home");
-//            mono.disconnectsynth();
+            //            mono.disconnectsynth();
             mp.clear();
             mp.add(home, ib1, ib2);
 
@@ -57,7 +57,7 @@ document.addEventListener("deviceready", function(event) {
         bounds: [.25, 0, .2, .1],
         label: "Monosynth",
         mode: 'momentary',
-        ontouchend : function() {
+        onmouseup : function() {
             mp.remove(ib1);
             mp.remove(ib2);
             monosynth.connectsynth();
@@ -71,7 +71,7 @@ document.addEventListener("deviceready", function(event) {
         bounds: [.5, 0, .2, .1],
         label: "Bar seq",
         mode: 'momentary',
-        ontouchend : function() {
+        onmouseup : function() {
             mp.remove(ib1);
             mp.remove(ib2);
             barseq.connectsynth(monosynth.getsynth());
@@ -80,8 +80,40 @@ document.addEventListener("deviceready", function(event) {
 
     });
 
-    mp.add(home, ib1, ib2);
+    var pb = new Interface.Patchbay({ 
+        bounds:[0, .2, 1, .6],
+        points:[ 
+        {name:'synth', name2:'out'},{name:'seq', name2:'in'},{name:'pt 1', name2:'in'},{name:'pt1', name2:'out'}, 
+        {name:'Main', name2:'in' }],
+        onconnection: function( start, end ) {
+            pbl.setValue( start.name + ' connected to ' + end.name );
+            console.log("Connection made");
+        },
+        ondisconnection: function( start, end ) {
+            pbl.setValue( start.name + ' disconnected from ' + end.name );
+            console.log("Connection made");
+        }
+    }); 
 
+    var pbl = new Interface.Label({
+        bounds:[.05, .75, 1, .05],
+        vAlign:'middle',
+        value:'Drag a cable between patch points',
+    })
+
+    var dconnect = new Interface.Button({
+        bounds: [0, .8, .1, .1],
+        label: "Disconnect",
+        mode: 'momentary',
+        onmouseup : function() {
+            for (i=0; i < pb.connections.length; i++) {
+                console.log("connection " + pb.connections[i]);
+                pb.deleteConnection(pb.connections[i]);
+            }
+        }
+    });
+
+    mp.add(home, ib1, ib2, pb, pbl, dconnect);
 
 });
 
