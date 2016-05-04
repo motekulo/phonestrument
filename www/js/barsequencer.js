@@ -11,8 +11,10 @@ function Barsequencer() {
     var synth;
    
     //synth.triggerAttackRelease("C4", "16n");
-    var part = Object.create(Part);
-    part.setSynth();
+//    var part = Object.create(Part);
+
+    var part = new Part();
+//    part.setSynth();
     part.connectSynthToMainOut();
 
     this.connectsynth = function(extsynth){
@@ -44,7 +46,7 @@ function Barsequencer() {
        //     synth.triggerAttackRelease(note, "16n", time);
        // }, initialArray);
 
-        line[j] = part.addVoice(synth);
+        line[j] = part.addVoice();
 
         line[j].loop = true;
         line[j].start(1);
