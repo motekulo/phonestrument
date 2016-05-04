@@ -16,9 +16,10 @@ function Barsequencer() {
     //    var part = new Part();
     //    part.setSynth();
     //   part.connectSynthToMainOut();
+
     this.setSynthOut = function(extsynth){
         synth = extsynth;
-    };
+    }
 
     //    this.connectsynth = function(extsynth){
     //

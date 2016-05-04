@@ -61,7 +61,7 @@ document.addEventListener("deviceready", function(event) {
             mp.remove(pb);
             mp.remove(pbl);
             mp.remove(dconnect);
-            //monosynth.connectsynth();
+            monosynth.connectsynth();
             monosynth.draw(mp);
         } 
 
@@ -79,7 +79,8 @@ document.addEventListener("deviceready", function(event) {
             mp.remove(pbl);
             mp.remove(dconnect);
             //barseq.connectsynth(monosynth.getsynth());
-            barseq.setSynthOut(monosynth.getSynth);
+            barseq.initPart();
+            barseq.setSynthOut(monosynth.getSynth());
             barseq.draw(mp);
         } 
 
