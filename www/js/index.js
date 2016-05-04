@@ -61,7 +61,7 @@ document.addEventListener("deviceready", function(event) {
             mp.remove(pb);
             mp.remove(pbl);
             mp.remove(dconnect);
-            monosynth.connectsynth();
+            //monosynth.connectsynth();
             monosynth.draw(mp);
         } 
 
@@ -78,7 +78,8 @@ document.addEventListener("deviceready", function(event) {
             mp.remove(pb);
             mp.remove(pbl);
             mp.remove(dconnect);
-            barseq.connectsynth(monosynth.getsynth());
+            //barseq.connectsynth(monosynth.getsynth());
+            barseq.setSynthOut(monosynth.getSynth);
             barseq.draw(mp);
         } 
 
@@ -87,8 +88,8 @@ document.addEventListener("deviceready", function(event) {
     var pb = new Interface.Patchbay({ 
         bounds:[0, .2, 1, .6],
         points:[ 
-        {name:'synth', name2:'out'},
-        {name:'seq', name2:'in'},{name:'seq', name2:'out'},
+        {name:'syn-in'},{name:'syn-out'},
+        {name:'seq-in'},{name:'seq-out'},
         {name:'pt1-in'},{name:'pt1-out'}, 
         {name:'main', name2:'in' }],
         onconnection: function( start, end ) {
@@ -99,7 +100,13 @@ document.addEventListener("deviceready", function(event) {
 
             if ((start.name == "pt1-out") && (end.name == "main")) {
                 console.log("going to connect pt1 synth to out");
-            }
+            };
+
+            if ((start.name == "seq-out") && (end.name == "syn-in")) {
+                console.log("connecting seq out to syn in");
+                barseq.setSynthOut(monosynth.getSynth);
+                barseq.initPart();
+            };
 
         },
         ondisconnection: function( start, end ) {

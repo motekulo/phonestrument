@@ -11,7 +11,7 @@ function Basicmonosynth() {
     //
 
    // var mono = new Tone.MonoSynth(); //.toMaster();
-    var mono = new Tone.PolySynth(4, Tone.MonoSynth);//.toMaster();
+    var mono = new Tone.PolySynth(4, Tone.MonoSynth).toMaster();
 
     var notename = ["C", "D", "E", "F", "G", "A", "B"];
     var octave = 4;
@@ -29,7 +29,7 @@ function Basicmonosynth() {
         mono.connect(Tone.Master);
     }
 
-    this.getsynth = function(){
+    this.getSynth = function(){
         return mono;
     }
     // Interface ////////////////////////////////////////////

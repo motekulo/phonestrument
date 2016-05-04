@@ -8,49 +8,53 @@ function Barsequencer() {
     //var row = new Array(16);
     //var dist = new Tone.Distortion().toMaster();
     //var synth = new Tone.MonoSynth().toMaster();
-    var synth;
-   
+    var synth;// = new Tone.MonoSynth();
+
     //synth.triggerAttackRelease("C4", "16n");
-//    var part = Object.create(Part);
+    //    var part = Object.create(Part);
 
-    var part = new Part();
-//    part.setSynth();
-    part.connectSynthToMainOut();
+    //    var part = new Part();
+    //    part.setSynth();
+    //   part.connectSynthToMainOut();
+    this.setSynthOut = function(extsynth){
+        synth = extsynth;
+    };
 
-    this.connectsynth = function(extsynth){
-
-       // synth = new Tone.PolySynth(4, extsynth).toMaster();
-       synth = extsynth;
-    }
+    //    this.connectsynth = function(extsynth){
+    //
+    //       // synth = new Tone.PolySynth(4, extsynth).toMaster();
+    //       synth = extsynth;
+    //    }
 
     this.draw = function(panel){
         panel.add(b, multiButton);
     };
-    
+
     //    for (i = 0; i < 4; i++){
     //synth[i] = new Tone.DrumSynth().toMaster();
     //   }
     //var seq = new Tone.Sequence(callback, ["C3", "Eb3", "F4", "Bb4"], "8n");
+    this.initPart = function(){
+        for (j = 0; j < 4; j++) {
+            //note[j] = [,,,,,,,,,,,,,,,];
 
-    for (j = 0; j < 4; j++) {
-        //note[j] = [,,,,,,,,,,,,,,,];
+            var initialArray = new Array(16);
+            for (i = 0; i < 16; i++) {
+                beatstring = i + " * 16n";
+                initialArray[i] = [beatstring, null];
+            }
 
-        var initialArray = new Array(16);
-        for (i = 0; i < 16; i++) {
-            beatstring = i + " * 16n";
-            initialArray[i] = [beatstring, null];
+            line[j] = new Tone.Part(function(time, note){
+                console.log("Triggered");
+                synth.triggerAttackRelease(note, "16n", time);
+            }, initialArray);
+
+            // line[j] = part.addVoice();
+
+            line[j].loop = true;
+            line[j].start(1);
         }
-
-       // line[j] = new Tone.Part(function(time, note){
-       //     console.log("Triggered");
-       //     synth.triggerAttackRelease(note, "16n", time);
-       // }, initialArray);
-
-        line[j] = part.addVoice();
-
-        line[j].loop = true;
-        line[j].start(1);
-    }
+    };
 
     // Interface section //////////////////////////////////////////////////////
     var b = new Interface.Button({ 
