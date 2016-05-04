@@ -54,7 +54,7 @@ function Barsequencer() {
 
     // Interface section //////////////////////////////////////////////////////
     var b = new Interface.Button({ 
-        bounds:[.05,.05,.1,.1],  
+        bounds:[.05,.15,.1,.1],  
         label:'On/Off',
         onvaluechange : function() {
             console.log("Value: " + this.value)
@@ -68,7 +68,7 @@ function Barsequencer() {
 
     var multiButton = new Interface.MultiButton({
         rows:4, columns:16,
-        bounds:[.2,.05,.6,.8],
+        bounds:[.2,.15,.6,.6],
         onvaluechange : function(row, col, value) {
             console.log( 'row : ' + row + ' , col : ' + col + ' , value : ' + value);
             timestring = "0:0:" + col;

@@ -47,7 +47,7 @@ document.addEventListener("deviceready", function(event) {
             //    console.log("Mouse up over home");
             //            mono.disconnectsynth();
             mp.clear();
-            mp.add(home, ib1, ib2);
+            mp.add(home, ib1, ib2, pb, pbl, dconnect);
         }
     });
 
@@ -58,6 +58,9 @@ document.addEventListener("deviceready", function(event) {
         onmouseup : function() {
             mp.remove(ib1);
             mp.remove(ib2);
+            mp.remove(pb);
+            mp.remove(pbl);
+            mp.remove(dconnect);
             monosynth.connectsynth();
             monosynth.draw(mp);
         } 
@@ -72,6 +75,9 @@ document.addEventListener("deviceready", function(event) {
         onmouseup : function() {
             mp.remove(ib1);
             mp.remove(ib2);
+            mp.remove(pb);
+            mp.remove(pbl);
+            mp.remove(dconnect);
             barseq.connectsynth(monosynth.getsynth());
             barseq.draw(mp);
         } 
