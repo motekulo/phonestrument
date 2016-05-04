@@ -48,9 +48,7 @@ document.addEventListener("deviceready", function(event) {
             //            mono.disconnectsynth();
             mp.clear();
             mp.add(home, ib1, ib2);
-
         }
-
     });
 
     var ib1 = new Interface.Button({
@@ -83,11 +81,20 @@ document.addEventListener("deviceready", function(event) {
     var pb = new Interface.Patchbay({ 
         bounds:[0, .2, 1, .6],
         points:[ 
-        {name:'synth', name2:'out'},{name:'seq', name2:'in'},{name:'pt 1', name2:'in'},{name:'pt1', name2:'out'}, 
-        {name:'Main', name2:'in' }],
+        {name:'synth', name2:'out'},
+        {name:'seq', name2:'in'},{name:'seq', name2:'out'},
+        {name:'pt1-in'},{name:'pt1-out'}, 
+        {name:'main', name2:'in' }],
         onconnection: function( start, end ) {
             pbl.setValue( start.name + ' connected to ' + end.name );
-            console.log("Connection made");
+            console.log("Connection made " + start.name + 
+                    " " + start.name2 + " to " + end.name + 
+                    " " + end.name2);
+
+            if ((start.name == "pt1-out") && (end.name == "main")) {
+                console.log("going to connect pt1 synth to out");
+            }
+
         },
         ondisconnection: function( start, end ) {
             pbl.setValue( start.name + ' disconnected from ' + end.name );
