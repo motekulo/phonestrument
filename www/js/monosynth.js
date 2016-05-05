@@ -46,9 +46,7 @@ function Basicmonosynth() {
             if (octave < 8) {
                 octave++;
             }
-
         }
-
     });
 
     var db = new Interface.ButtonV({

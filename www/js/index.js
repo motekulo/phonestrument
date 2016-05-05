@@ -35,7 +35,8 @@ document.addEventListener("deviceready", function(event) {
     var part = new Part();
     barseq.initExternalPart(part);
     part.setSynthOut(monosynth.getSynth());
-    part.connectSynthToMainOut();
+    //part.connectSynthToMainOut();
+    //monosynth.connectsynth();
     var mp = new Interface.Panel({ 
         container:document.querySelector("#InterfacePanel") 
     });
@@ -64,7 +65,7 @@ document.addEventListener("deviceready", function(event) {
             mp.remove(pb);
             mp.remove(pbl);
             mp.remove(dconnect);
-            monosynth.connectsynth();
+            //monosynth.connectsynth();
             monosynth.draw(mp);
         } 
 
@@ -101,6 +102,10 @@ document.addEventListener("deviceready", function(event) {
             console.log("Connection made " + start.name + 
                     " " + start.name2 + " to " + end.name + 
                     " " + end.name2);
+
+            if ((start.name == "syn-out") && (end.name == "main")) {
+                monosynth.connectsynth();
+            };
 
             if ((start.name == "pt1-out") && (end.name == "main")) {
                 console.log("going to connect pt1 synth to out");
