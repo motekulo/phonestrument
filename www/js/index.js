@@ -32,7 +32,10 @@ document.addEventListener("deviceready", function(event) {
 
     var monosynth = new Basicmonosynth();
     var barseq = new Barsequencer();
-
+    var part = new Part();
+    barseq.initExternalPart(part);
+    part.setSynthOut(monosynth.getSynth());
+    part.connectSynthToMainOut();
     var mp = new Interface.Panel({ 
         container:document.querySelector("#InterfacePanel") 
     });
@@ -79,8 +82,8 @@ document.addEventListener("deviceready", function(event) {
             mp.remove(pbl);
             mp.remove(dconnect);
             //barseq.connectsynth(monosynth.getsynth());
-            barseq.initPart();
-            barseq.setSynthOut(monosynth.getSynth());
+            //barseq.initInternalPart();
+            //barseq.setSynthOut(monosynth.getSynth());
             barseq.draw(mp);
         } 
 

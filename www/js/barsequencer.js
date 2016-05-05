@@ -1,31 +1,37 @@
+/*
+ *
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 
 function Barsequencer() {
-
 
     var pitches =  ["C4","D4","E4","F4"];
     var timestring = "";
     var line = new Array(4);
-    //var row = new Array(16);
-    //var dist = new Tone.Distortion().toMaster();
-    //var synth = new Tone.MonoSynth().toMaster();
     var synth;// = new Tone.MonoSynth();
-
-    //synth.triggerAttackRelease("C4", "16n");
-    //    var part = Object.create(Part);
-
-    //    var part = new Part();
-    //    part.setSynth();
-    //   part.connectSynthToMainOut();
+    var part;
+//    var part = new Part();
+ //   part.setSynth();
+  //  part.connectSynthToMainOut();
 
     this.setSynthOut = function(extsynth){
         synth = extsynth;
     }
-
-    //    this.connectsynth = function(extsynth){
-    //
-    //       // synth = new Tone.PolySynth(4, extsynth).toMaster();
-    //       synth = extsynth;
-    //    }
 
     this.draw = function(panel){
         panel.add(b, multiButton);
@@ -35,7 +41,7 @@ function Barsequencer() {
     //synth[i] = new Tone.DrumSynth().toMaster();
     //   }
     //var seq = new Tone.Sequence(callback, ["C3", "Eb3", "F4", "Bb4"], "8n");
-    this.initPart = function(){
+    this.initInternalPart = function(){
         for (j = 0; j < 4; j++) {
             //note[j] = [,,,,,,,,,,,,,,,];
 
@@ -57,6 +63,15 @@ function Barsequencer() {
         }
     };
 
+    this.initExternalPart = function(extpart){
+        part = extpart; 
+        for (j = 0; j < 4; j++) {
+            part.addVoice();
+            //line[j].loop = true;
+            //line[j].start(1);
+        }
+    }
+
     // Interface section //////////////////////////////////////////////////////
     var b = new Interface.Button({ 
         bounds:[.05,.15,.1,.1],  
@@ -76,18 +91,10 @@ function Barsequencer() {
         bounds:[.2,.15,.6,.6],
         onvaluechange : function(row, col, value) {
             console.log( 'row : ' + row + ' , col : ' + col + ' , value : ' + value);
-            timestring = "0:0:" + col;
-            beatstring = col + " * " + "16n";
-            console.log("beatstring: " + beatstring);
-            if (value == 1) {
-                //line[0].at(beatstring, pitches[0]); 
-                line[row].at(beatstring, pitches[row]); 
-                // note[row][col].start(timestring);
-            } else {
-                //line[row].at(beatstring, null); 
-                line[row].at(beatstring, null); 
-                // note[row][col].stop();
-            }
+            //timestring = "0:0:" + col;
+            //beatstring = col + " * " + "16n";
+            //console.log("beatstring: " + beatstring);
+            part.setNoteArray(row, col, value);
         }
     });
 }
