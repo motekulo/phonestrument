@@ -25,10 +25,7 @@ function Barsequencer() {
     var line = new Array(4);
     var synth;// = new Tone.MonoSynth();
     var part;
-//    var part = new Part();
- //   part.setSynth();
-  //  part.connectSynthToMainOut();
-
+    var isConnected = false;
     this.setSynthOut = function(extsynth){
         synth = extsynth;
     }
@@ -37,13 +34,8 @@ function Barsequencer() {
         panel.add(b, multiButton);
     };
 
-    //    for (i = 0; i < 4; i++){
-    //synth[i] = new Tone.DrumSynth().toMaster();
-    //   }
-    //var seq = new Tone.Sequence(callback, ["C3", "Eb3", "F4", "Bb4"], "8n");
     this.initInternalPart = function(){
         for (j = 0; j < 4; j++) {
-            //note[j] = [,,,,,,,,,,,,,,,];
 
             var initialArray = new Array(16);
             for (i = 0; i < 16; i++) {
@@ -56,8 +48,6 @@ function Barsequencer() {
                 synth.triggerAttackRelease(note, "16n", time);
             }, initialArray);
 
-            // line[j] = part.addVoice();
-
             line[j].loop = true;
             line[j].start(1);
         }
@@ -65,11 +55,14 @@ function Barsequencer() {
 
     this.initExternalPart = function(extpart){
         part = extpart; 
+        isConnected = true;
         for (j = 0; j < 4; j++) {
             part.addVoice();
-            //line[j].loop = true;
-            //line[j].start(1);
         }
+    }
+
+    this.disconnectFromPart = function(){
+        isConnected = false;
     }
 
     // Interface section //////////////////////////////////////////////////////
@@ -91,10 +84,9 @@ function Barsequencer() {
         bounds:[.2,.15,.6,.6],
         onvaluechange : function(row, col, value) {
             console.log( 'row : ' + row + ' , col : ' + col + ' , value : ' + value);
-            //timestring = "0:0:" + col;
-            //beatstring = col + " * " + "16n";
-            //console.log("beatstring: " + beatstring);
-            part.setNoteArray(row, col, value);
+            if (isConnected) {
+                part.setNoteArray(row, col, value);
+            }
         }
     });
 }

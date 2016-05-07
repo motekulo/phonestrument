@@ -21,11 +21,11 @@ function Basicmonosynth() {
         panel.add(ub, db, mb, ob, k1, ems, fk2, efms);
     };
 
-    this.disconnectsynth = function(){
+    this.disconnectSynth = function(){
         mono.disconnect();
     }
 
-    this.connectsynth = function(){
+    this.connectSynth = function(){
         mono.connect(Tone.Master);
     }
 

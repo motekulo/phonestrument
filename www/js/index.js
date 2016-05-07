@@ -27,29 +27,21 @@ document.addEventListener("deviceready", function(event) {
         alert('No web audio support in this browser!');
     }
 
-    //var main = new Mainscreen();
-    //main.draw();
-
     var monosynth = new Basicmonosynth();
     var barseq = new Barsequencer();
     var part = new Part();
-    barseq.initExternalPart(part);
-    part.setSynthOut(monosynth.getSynth());
-    //part.connectSynthToMainOut();
-    //monosynth.connectsynth();
+    //barseq.initExternalPart(part);
+    //part.setSynthOut(monosynth.getSynth());
+
     var mp = new Interface.Panel({ 
         container:document.querySelector("#InterfacePanel") 
     });
-
-    console.log("Mainscreen...");
 
     var home = new Interface.Button({
         bounds: [0, 0, .2, .1],
         label: "Home",
         mode: 'momentary',
         onmouseup : function() {
-            //    console.log("Mouse up over home");
-            //            mono.disconnectsynth();
             mp.clear();
             mp.add(home, ib1, ib2, pb, pbl, dconnect);
         }
@@ -65,7 +57,6 @@ document.addEventListener("deviceready", function(event) {
             mp.remove(pb);
             mp.remove(pbl);
             mp.remove(dconnect);
-            //monosynth.connectsynth();
             monosynth.draw(mp);
         } 
 
@@ -104,12 +95,22 @@ document.addEventListener("deviceready", function(event) {
                     " " + end.name2);
 
             if ((start.name == "syn-out") && (end.name == "main")) {
-                monosynth.connectsynth();
+                monosynth.connectSynth();
             };
 
-            if ((start.name == "pt1-out") && (end.name == "main")) {
-                console.log("going to connect pt1 synth to out");
+            if ((start.name == "pt1-out") && (end.name == "syn-in")) {
+                console.log("going to connect pt1 synth to syn-in");
+                part.setSynthOut(monosynth.getSynth());
             };
+
+            if ((start.name == "seq-out") && (end.name == "pt1-in")) {
+                console.log("connecting seq out to pt1 in");
+                barseq.initExternalPart(part);
+                barseq.isConnected = true;
+                //barseq.setSynthOut(monosynth.getSynth);
+                //barseq.initPart();
+            };
+
 
             if ((start.name == "seq-out") && (end.name == "syn-in")) {
                 console.log("connecting seq out to syn in");
@@ -121,6 +122,11 @@ document.addEventListener("deviceready", function(event) {
         ondisconnection: function( start, end ) {
             pbl.setValue( start.name + ' disconnected from ' + end.name );
             console.log("Connection made");
+            if ((start.name == "syn-out") && (end.name == "main")) {
+                monosynth.disconnectSynth();
+            };
+
+
         }
     }); 
 
