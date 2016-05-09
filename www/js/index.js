@@ -43,10 +43,10 @@ document.addEventListener("deviceready", function(event) {
         mode: 'momentary',
         onmouseup : function() {
             mp.clear();
-            mp.add(home, ib1, ib2, pb, pbl, dconnect);
+            mp.add(home, ib1, ib2, tb, pb, pbl, dconnect);
         }
     });
-
+ 
     var ib1 = new Interface.Button({
         bounds: [.25, 0, .2, .1],
         label: "Monosynth",
@@ -54,6 +54,7 @@ document.addEventListener("deviceready", function(event) {
         onmouseup : function() {
             mp.remove(ib1);
             mp.remove(ib2);
+            mp.remove(tb);
             mp.remove(pb);
             mp.remove(pbl);
             mp.remove(dconnect);
@@ -70,6 +71,7 @@ document.addEventListener("deviceready", function(event) {
         onmouseup : function() {
             mp.remove(ib1);
             mp.remove(ib2);
+            mp.remove(tb);
             mp.remove(pb);
             mp.remove(pbl);
             mp.remove(dconnect);
@@ -81,8 +83,25 @@ document.addEventListener("deviceready", function(event) {
 
     });
 
+    var tb = new Interface.ButtonV({
+        bounds: [.05, .15, .05, .1],
+        points: [{x:0,y:0},{x:1,y:.5},{x:0,y:1}],
+        mode: 'toggle', 
+        textLocation: {x:.5,y:.5},
+        onvaluechange : function (){
+            if (this.value == 1) {
+                console.log("Transport start");
+                Tone.Transport.start();
+            } else {
+                console.log("Transport stop");
+                Tone.Transport.stop();
+            }
+        }
+    });
+
+
     var pb = new Interface.Patchbay({ 
-        bounds:[0, .2, 1, .6],
+        bounds:[0, .25, 1, .5],
         points:[ 
         {name:'syn-in'},{name:'syn-out'},
         {name:'seq-in'},{name:'seq-out'},
@@ -148,7 +167,7 @@ document.addEventListener("deviceready", function(event) {
         }
     });
 
-    mp.add(home, ib1, ib2, pb, pbl, dconnect);
+    mp.add(home, ib1, ib2, tb, pb, pbl, dconnect);
 
 });
 
