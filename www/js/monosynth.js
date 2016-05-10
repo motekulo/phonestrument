@@ -11,11 +11,14 @@ function Basicmonosynth() {
     //
 
    // var mono = new Tone.MonoSynth(); //.toMaster();
+    this.moct = 4;
+
+
     var mono = new Tone.PolySynth(4, Tone.MonoSynth);//.toMaster();
 
     var notename = ["C", "D", "E", "F", "G", "A", "B"];
     var octave = 4;
-
+    
     this.draw = function(panel){
         //panel.clear();
         panel.add(ub, db, mb, ob, k1, ems, fk2, efms);
@@ -35,7 +38,7 @@ function Basicmonosynth() {
     // Interface ////////////////////////////////////////////
 
     var ub = new Interface.ButtonV({
-        bounds: [.05, .155555, .1, .1],
+        bounds: [.05, .15, .1, .1],
         points: [{x:.25,y:1},{x:.75,y:1},{x:.75,y:.5},{x:1,y:.5},{x:.5,y:0},
         {x:0,y:.5},{x:.25,y:.5}],
         mode: 'contact', 

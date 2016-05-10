@@ -1,0 +1,32 @@
+{
+  "name": "phonestrument",
+  "version": "0.0.1",
+  "description": "Music production for all",
+  "main": "www/js/index.js",
+  "directories": {
+    "doc": "doc",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/motekulo/phonestrument.git"
+  },
+  "keywords": [
+    "music"
+  ],
+  "author": "Denis Crowdy",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/motekulo/phonestrument/issues"
+  },
+  "homepage": "https://github.com/motekulo/phonestrument#readme",
+  "devDependencies": {
+    "jasmine": "^2.4.1",
+    "karma-chrome-launcher": "^1.0.1",
+    "karma-jasmine": "^1.0.2",
+    "karma-jasmine-html-reporter": "^0.2.0"
+  }
+}
