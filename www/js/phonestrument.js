@@ -3,6 +3,8 @@ function Phonestrument(){
     var monosynth = new Basicmonosynth();
     var barseq = new BarSequencer();
     var part = new Part();
+    var adaptor = null;
+
     //barseq.initExternalPart(part);
     //part.setSynthOut(monosynth.getSynth());
 
@@ -97,6 +99,10 @@ function Phonestrument(){
 
             if ((start.name == "seq-out") && (end.name == "pt1-in")) {
                 console.log("connecting seq out to pt1 in");
+                // we are connecting an adaptor between the sequence and part
+                adaptor = new SimpleBarSequencerAdaptor();
+                adaptor.connectToPart(part);
+                barseq.setAdaptor(adaptor);
                 barseq.initExternalPart(part);
                 barseq.isConnected = true;
                 //barseq.setSynthOut(monosynth.getSynth);

@@ -9,10 +9,6 @@ function SimpleBarSequencerAdaptor() {
     // voice index, time (eg "1 * 4s"), pitch (eg "C4)
     //
 
-    this.index = null;
-    this.time = "";
-    this.note = "";
-
     this.part = null;
 
     this.connectToPart = function(part) {
@@ -33,20 +29,23 @@ function SimpleBarSequencerAdaptor() {
             var col = data[1];
             var val = data[2];
 
-            this.index = row;
-            this.time = col + " * 16n";
+            var index = row;
+            var time = col + " * 16n";
             if (val == 1) {
-                this.note = pitch[row] + octave;
+                note = pitch[row] + octave;
             } else {
-                this.note = null;
+                note = null;
             }
-//        this.part.setNoteArray(row, time. note);
-        return 0;
+            var converteddata = [index, time, note];
+            return converteddata;
         }
 
     }
 
-    this.sendConvertedDataToPart = function(index, time, note) {
+    this.sendConvertedDataToPart = function(data) {
+        var index = data[0]; //FIXME indexed collection would be better
+        var time = data[1];
+        var note = data[2];
         this.part.setNoteArray(index, time, note);
     }
 

@@ -25,9 +25,14 @@ function BarSequencer() {
     var line = new Array(4);
     var synth;// = new Tone.MonoSynth();
     //    var part;
-    var adaptor;
-
+//    this.adaptor = null;//new SimpleBarAdaptor();
+    var adaptor = null;
     var isConnected = false;
+
+    this.setAdaptor = function(extadaptor){
+        adaptor = extadaptor;
+    }
+
     this.setSynthOut = function(extsynth){
         synth = extsynth;
     }
@@ -55,10 +60,6 @@ function BarSequencer() {
           }
           };
           */
-
-    this.sendDataToAdaptor = function(adaptor, data){
-        adaptor.setDataToConvert(data);
-    }
 
     this.initExternalPart = function(extpart){
         part = extpart; 
@@ -93,7 +94,9 @@ function BarSequencer() {
             console.log( 'row : ' + row + ' , col : ' + col + ' , value : ' + value);
             if (isConnected) {
                 //part.setNoteArray(row, col, value);
-                adaptor.setDataToConvert(row, col, value);
+                var datatoconvert = [row, col, value];
+                var converteddata = adaptor.convertData(datatoconvert);
+                adaptor.sendConvertedDataToPart(converteddata);
             }
         }
     });
