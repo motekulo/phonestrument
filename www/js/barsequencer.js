@@ -18,13 +18,15 @@
  * under the License.
  */
 
-function Barsequencer() {
+function BarSequencer() {
 
     var pitches =  ["C4","D4","E4","F4"];
     var timestring = "";
     var line = new Array(4);
     var synth;// = new Tone.MonoSynth();
-    var part;
+    //    var part;
+    var adaptor;
+
     var isConnected = false;
     this.setSynthOut = function(extsynth){
         synth = extsynth;
@@ -34,24 +36,29 @@ function Barsequencer() {
         panel.add(b, multiButton);
     };
 
-    this.initInternalPart = function(){
-        for (j = 0; j < 4; j++) {
+    /*    this.initInternalPart = function(){
+          for (j = 0; j < 4; j++) {
 
-            var initialArray = new Array(16);
-            for (i = 0; i < 16; i++) {
-                beatstring = i + " * 16n";
-                initialArray[i] = [beatstring, null];
-            }
+          var initialArray = new Array(16);
+          for (i = 0; i < 16; i++) {
+          beatstring = i + " * 16n";
+          initialArray[i] = [beatstring, null];
+          }
 
-            line[j] = new Tone.Part(function(time, note){
-                console.log("Triggered");
-                synth.triggerAttackRelease(note, "16n", time);
-            }, initialArray);
+          line[j] = new Tone.Part(function(time, note){
+          console.log("Triggered");
+          synth.triggerAttackRelease(note, "16n", time);
+          }, initialArray);
 
-            line[j].loop = true;
-            line[j].start(1);
-        }
-    };
+          line[j].loop = true;
+          line[j].start(1);
+          }
+          };
+          */
+
+    this.sendDataToAdaptor = function(adaptor, data){
+        adaptor.setDataToConvert(data);
+    }
 
     this.initExternalPart = function(extpart){
         part = extpart; 
@@ -85,7 +92,8 @@ function Barsequencer() {
         onvaluechange : function(row, col, value) {
             console.log( 'row : ' + row + ' , col : ' + col + ' , value : ' + value);
             if (isConnected) {
-                part.setNoteArray(row, col, value);
+                //part.setNoteArray(row, col, value);
+                adaptor.setDataToConvert(row, col, value);
             }
         }
     });
