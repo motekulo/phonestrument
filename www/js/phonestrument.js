@@ -1,12 +1,37 @@
+/*
+ *
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+
 function Phonestrument(){
 
     var monosynth = new Basicmonosynth();
     var barseq = new BarSequencer();
     var part = new Part();
     var adaptor = null;
-
-    //barseq.initExternalPart(part);
-    //part.setSynthOut(monosynth.getSynth());
+    var currentbarnum = 0;
+    // Bar counter
+    Tone.Transport.scheduleRepeat(function(time){
+            console.log("Bar: " + currentbarnum);
+            tfl_bar.setValue(currentbarnum);
+            currentbarnum++;
+    }, "1m");
 
     var mp = new Interface.Panel({ 
         container:document.querySelector("#InterfacePanel") 
@@ -21,7 +46,7 @@ function Phonestrument(){
             mp.add(home, ib1, ib2, tb, pb, pbl, dconnect);
         }
     });
- 
+
     var ib1 = new Interface.Button({
         bounds: [.25, 0, .2, .1],
         label: "Monosynth",
@@ -50,9 +75,6 @@ function Phonestrument(){
             mp.remove(pb);
             mp.remove(pbl);
             mp.remove(dconnect);
-            //barseq.connectsynth(monosynth.getsynth());
-            //barseq.initInternalPart();
-            //barseq.setSynthOut(monosynth.getSynth());
             barseq.draw(mp);
         } 
 
@@ -74,6 +96,13 @@ function Phonestrument(){
         }
     });
 
+    var tfl_bar = new Interface.Label({ 
+        bounds:[.25,.15, .1, .1],
+        size: 24,
+        style: 'bold',
+        hAlign:"left",
+        value: "0"
+    });
 
     var pb = new Interface.Patchbay({ 
         bounds:[0, .25, 1, .5],
@@ -105,8 +134,6 @@ function Phonestrument(){
                 barseq.setAdaptor(adaptor);
                 barseq.initExternalPart(part);
                 barseq.isConnected = true;
-                //barseq.setSynthOut(monosynth.getSynth);
-                //barseq.initPart();
             };
 
 
@@ -146,6 +173,8 @@ function Phonestrument(){
         }
     });
 
-    mp.add(home, ib1, ib2, tb, pb, pbl, dconnect);
+    mp.add(home, ib1, ib2, tb, tfl_bar, pb, pbl, dconnect);
+    //mp.background = 'black';
+    //mp.add(tfl_bar);
 
 }
