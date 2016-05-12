@@ -17,7 +17,7 @@ function Part() {
             synth.triggerAttackRelease(note,"16n", time);
         }, notes);
         this.voices.push(voice);
-        voice.loop = true;
+        voice.loop = false;
         voice.start(0.5);
     };
 }

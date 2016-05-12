@@ -26,12 +26,20 @@ function Phonestrument(){
     var part = new Part();
     var adaptor = null;
     var currentbarnum = 0;
+    var currentpos = 0;
     // Bar counter
     Tone.Transport.scheduleRepeat(function(time){
-            console.log("Bar: " + currentbarnum);
-            tfl_bar.setValue(currentbarnum);
+            //console.log("Bar: " + currentbarnum);
+            currentpos = Tone.Transport.position;
+            console.log("Bar: " + currentpos);
+//            tfl_bar.setValue(currentbarnum);
+            barseq.setCurrentBarNum(currentpos);
             currentbarnum++;
     }, "1m");
+
+    Tone.Transport.loop = true;
+    Tone.Transport.loopStart = 0;
+    Tone.Transport.loopEnd = "4m";
 
     var mp = new Interface.Panel({ 
         container:document.querySelector("#InterfacePanel") 

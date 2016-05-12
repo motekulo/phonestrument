@@ -20,6 +20,7 @@
 
 function BarSequencer() {
 
+    var currentposition = 0;
     var pitches =  ["C4","D4","E4","F4"];
     var timestring = "";
     var line = new Array(4);
@@ -28,6 +29,11 @@ function BarSequencer() {
 //    this.adaptor = null;//new SimpleBarAdaptor();
     var adaptor = null;
     var isConnected = false;
+
+    this.setCurrentBarNum = function(position){
+        currentposition = position;
+        console.log("barseq position " + currentposition);
+    }
 
     this.setAdaptor = function(extadaptor){
         adaptor = extadaptor;
@@ -94,7 +100,7 @@ function BarSequencer() {
             console.log( 'row : ' + row + ' , col : ' + col + ' , value : ' + value);
             if (isConnected) {
                 //part.setNoteArray(row, col, value);
-                var datatoconvert = [row, col, value];
+                var datatoconvert = [currentposition, row, col, value];
                 var converteddata = adaptor.convertData(datatoconvert);
                 adaptor.sendConvertedDataToPart(converteddata);
             }

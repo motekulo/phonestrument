@@ -17,20 +17,23 @@ function SimpleBarSequencerAdaptor() {
     }
 
     this.convertData = function(data) {
-        /* From a simple bar sequencer we get row, column, value data
+        /* From a simple bar sequencer we get position (transport), row, column, value data
 
            A part expects a voice index (row, in this case), time, and pitch
 
 
 
 */
-        if (data.length >= 3) {
-            var row = data[0];
-            var col = data[1];
-            var val = data[2];
+        if (data.length >= 4) {
+            var pos = data[0];
+            var row = data[1];
+            var col = data[2];
+            var val = data[3];
 
             var index = row;
-            var time = col + " * 16n";
+            //var time = col + " * 16n";
+            var time = pos + " + (" + col + " * 16n)";
+            console.log("Time is " + time);
             if (val == 1) {
                 note = pitch[row] + octave;
             } else {
