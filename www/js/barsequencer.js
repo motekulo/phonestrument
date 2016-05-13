@@ -21,18 +21,31 @@
 function BarSequencer() {
 
     var currentposition = 0;
+    var subdivision = 16;
     var pitches =  ["C4","D4","E4","F4"];
     var timestring = "";
     var line = new Array(4);
-    var synth;// = new Tone.MonoSynth();
-    //    var part;
-//    this.adaptor = null;//new SimpleBarAdaptor();
+    var synth;
     var adaptor = null;
     var isConnected = false;
 
     this.setCurrentBarNum = function(position){
         currentposition = position;
         console.log("barseq position " + currentposition);
+        var bar = currentposition.split(':')[0];
+        var bararray = adaptor.getBarArray(bar, subdivision);
+
+        for (j = 0; j < bararray.length; j++){
+            var voicearray = bararray[j];
+            for (i = 0; i < voicearray.length; i++) {
+                multiButton._values[(j * 16 + i)] = voicearray[i];
+            }
+
+        }
+
+        multiButton.refresh();
+        return bararray; // for test purposes only really
+
     }
 
     this.setAdaptor = function(extadaptor){
@@ -46,26 +59,6 @@ function BarSequencer() {
     this.draw = function(panel){
         panel.add(b, multiButton);
     };
-
-    /*    this.initInternalPart = function(){
-          for (j = 0; j < 4; j++) {
-
-          var initialArray = new Array(16);
-          for (i = 0; i < 16; i++) {
-          beatstring = i + " * 16n";
-          initialArray[i] = [beatstring, null];
-          }
-
-          line[j] = new Tone.Part(function(time, note){
-          console.log("Triggered");
-          synth.triggerAttackRelease(note, "16n", time);
-          }, initialArray);
-
-          line[j].loop = true;
-          line[j].start(1);
-          }
-          };
-          */
 
     this.initExternalPart = function(extpart){
         part = extpart; 

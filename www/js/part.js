@@ -32,30 +32,6 @@ function Part() {
         this.voices[voiceindex].at(time, pitch);
     }
 
-    this.getBarArray = function(bar, division){
-        var bararray = [];
-        var note;
-        var time;
-        for (j=0; j < this.voices.length; j++){
-            var voicearray = [];
-            for (i=0; i < division;i++){
-                time = bar + "m" + " + (" + i + " * " + division + "n)";
-                note = this.voices[j].at(time);
-                if (note != null) {
-                    voicearray[i] = 1;
-                } else {
-                    voicearray[i] = 0;
-                }
-                //return time;
-
-
-            }
-            bararray[j] = voicearray;
-        }
-        return bararray;
-
-    }
-
     this.addVoice = function() {
         var notes = [];
         var voice = new Tone.Part(function(time,note){
