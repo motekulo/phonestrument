@@ -52,6 +52,8 @@ function Phonestrument(){
         onmouseup : function() {
             mp.clear();
             mp.add(home, ib1, ib2, tb, pb, pbl, dconnect);
+            barseq.setForeground(false); // stop sequencer from redrawing its view
+
         }
     });
 
@@ -68,6 +70,7 @@ function Phonestrument(){
             mp.remove(pbl);
             mp.remove(dconnect);
             monosynth.draw(mp);
+            barseq.setForeground(false); // stop sequencer from redrawing its view
         } 
 
     }
@@ -84,6 +87,7 @@ function Phonestrument(){
             mp.remove(pb);
             mp.remove(pbl);
             mp.remove(dconnect);
+            barseq.setForeground(true); // stop sequencer from redrawing its view
             barseq.draw(mp);
         } 
 

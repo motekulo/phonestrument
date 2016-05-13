@@ -28,7 +28,22 @@ function BarSequencer() {
     var synth;
     var adaptor = null;
     var isConnected = false;
+    var foreground = false;
 
+    this.setForeground = function(inforeground) {
+        foreground = inforeground;
+    }
+
+    /** 
+     * Sets current bar position, then queries adaptor for note
+     * information and updates display accordingly.
+     *
+     * @param {string} current Tone.js position string 
+     *
+     * @returns (array) 2d array of voice, note info (1 for on, 0 for
+     * off)
+     *
+     **/
     this.setCurrentBarNum = function(position){
         currentposition = position;
         console.log("barseq position " + currentposition);
@@ -43,7 +58,9 @@ function BarSequencer() {
 
         }
 
-        multiButton.refresh();
+        if (foreground) {
+            multiButton.refresh();
+        }
         return bararray; // for test purposes only really
 
     }
