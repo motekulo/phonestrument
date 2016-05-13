@@ -18,6 +18,13 @@
  * under the License.
  */
 
+/** 
+ * A simple adaptor that connects a bar sequencer to its associated
+ * part. An adaptor is able to convert part information into a format
+ * useful for a sequencer. The idea here being that a sequencer is
+ * simply a view, and a part a means of storing musical information.
+ * The adaptor sits in between
+ **/
 function SimpleBarSequencerAdaptor() {
     var octave = 4; // fudge for now
     var pitch = ["C","D","E","F"]; // fudge it for now
@@ -31,21 +38,31 @@ function SimpleBarSequencerAdaptor() {
 
     this.part = null;
 
+    /**
+     * Connects to the part that it needs to write to and extract
+     * information from.
+     *
+     * @params {Part} the part to connect to
+     *
+     **/
     this.connectToPart = function(part) {
         this.part = part;
 
     }
 
+    /**
+     *
+     * Convert data from a form output by the sequencer, to a form usable
+     * by a Part.  From a simple bar sequencer we get position
+     * (transport), row, column, value data. A part expects a voice index
+     * (row, in this case), time, *and pitch
+     *
+     * @params{array} the data to convert
+     *
+     **/
     this.convertData = function(data) {
-        /* From a simple bar sequencer we get position (transport), row, column, value data
-
-           A part expects a voice index (row, in this case), time, and pitch
-
-
-
-*/
         if (data.length >= 4) {
-            var pos = data[0];
+            var pos = data[0]; //FIXME - should be indexed collection
             var row = data[1];
             var col = data[2];
             var val = data[3];
@@ -65,6 +82,12 @@ function SimpleBarSequencerAdaptor() {
 
     }
 
+    /**
+     * Send converted data to a part.
+     *
+     * @params {array} - converted data
+     *
+     **/
     this.sendConvertedDataToPart = function(data) {
         var index = data[0]; //FIXME indexed collection would be better
         var time = data[1];
@@ -72,7 +95,8 @@ function SimpleBarSequencerAdaptor() {
         this.part.setNoteArray(index, time, note);
     }
 
-    /** Queries associated part for note data for a particular bar,
+    /** 
+     * Queries associated part for note data for a particular bar,
      * then returns an array for the associated sequencer for
      * display purposes (so bararray[1][4]==0 means there is no
      * note to display on voice 1, 5th indicator/button on
@@ -83,7 +107,6 @@ function SimpleBarSequencerAdaptor() {
      * query (so 16 is 16th note)
      * @returns - a 2 dim array of voices and notes (vaues 1 or 0)  
      **/
-
     this.getBarArray = function(bar, division){
         var bararray = [];
         var note;
@@ -105,8 +128,6 @@ function SimpleBarSequencerAdaptor() {
             bararray[j] = voicearray;
         }
         return bararray;
-
     }
-
 }
 

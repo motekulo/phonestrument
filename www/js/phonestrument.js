@@ -18,7 +18,12 @@
  * under the License.
  */
 
-
+/**
+ * A Phonestrument is the main controller for the application. It draws the
+ * main (home) screen, and controls how components are connected together. Most
+ * of the action takes place in the callbacks from the Interface widgets.
+ *
+ **/
 function Phonestrument(){
 
     var monosynth = new Basicmonosynth();
@@ -27,12 +32,16 @@ function Phonestrument(){
     var adaptor = null;
     var currentbarnum = 0;
     var currentpos = 0;
-    // Bar counter
+
+    /**
+     * Schedule a regular start of bar notification to a bar sequencer, so that
+     * it can draw itself
+     *
+     **/
     Tone.Transport.scheduleRepeat(function(time){
             //console.log("Bar: " + currentbarnum);
             currentpos = Tone.Transport.position;
             console.log("Bar: " + currentpos);
-//            tfl_bar.setValue(currentbarnum);
             barseq.setCurrentBarNum(currentpos);
             currentbarnum++;
     }, "1m");
@@ -187,7 +196,5 @@ function Phonestrument(){
     });
 
     mp.add(home, ib1, ib2, tb, tfl_bar, pb, pbl, dconnect);
-    //mp.background = 'black';
-    //mp.add(tfl_bar);
 
 }

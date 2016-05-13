@@ -18,6 +18,11 @@
  * under the License.
  */
 
+/**
+ * A bar sequencer is a view in the form of rows of buttons. Each row
+ * represents a pitch, and each column an even subdivision in the bar. 
+ *
+ **/
 function BarSequencer() {
 
     var currentposition = 0;
@@ -65,18 +70,46 @@ function BarSequencer() {
 
     }
 
+    /**
+     * Connects an adaptor 
+     *
+     * @params {adaptor} - adaptor to connect to
+     *
+     **/
     this.setAdaptor = function(extadaptor){
         adaptor = extadaptor;
     }
 
+    /**
+     *
+     * Connects a synth directly. It makes it possible to have a bar sequencer
+     * not connected to a part, but just outputting sound directly to a synth.
+     * Not very useful?
+     *
+     * @params {extsynth} - the synth to connect to
+     *
+     **/
     this.setSynthOut = function(extsynth){
         synth = extsynth;
     }
 
+    /**
+     * Draws the view
+     *
+     * @params {panel} - the Interface.Panel to draw widgets to
+     *
+     **/
     this.draw = function(panel){
         panel.add(b, multiButton);
     };
 
+    /**
+     *
+     * Initialize the part that the sequencer will write to
+     *
+     * @params {extpart} - the part the sequencer writes to and reads from
+     *
+     **/
     this.initExternalPart = function(extpart){
         part = extpart; 
         isConnected = true;
@@ -85,11 +118,17 @@ function BarSequencer() {
         }
     }
 
+    /**
+     * Disconnect from the associated part
+     *
+     **/
     this.disconnectFromPart = function(){
         isConnected = false;
     }
 
+    //
     // Interface section //////////////////////////////////////////////////////
+
     var b = new Interface.Button({ 
         bounds:[.05,.15,.1,.1],  
         label:'On/Off',
