@@ -226,7 +226,7 @@ function Phonestrument(){
     })
 
     var dconnect = new Interface.Button({
-        bounds: [0, .8, .1, .1],
+        bounds: [0, .9, .1, .1],
         label: "Disconnect",
         mode: 'momentary',
         ontouchend : function() {

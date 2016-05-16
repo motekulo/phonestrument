@@ -79,7 +79,6 @@ function SimpleBarSequencerAdaptor() {
             var converteddata = [index, time, note];
             return converteddata;
         }
-
     }
 
     /**
