@@ -113,7 +113,7 @@ function Phonestrument(){
     var showBarSeq = function() {
         mp.remove(ib1);
         mp.remove(ib2);
-        mp.remove(tb);
+        //mp.remove(tb);
         mp.remove(pb);
         mp.remove(pbl);
         mp.remove(dconnect);
@@ -121,7 +121,7 @@ function Phonestrument(){
         barseq.draw(mp);
     }
 
-    var tb = new Interface.ButtonV({
+    var tb = new Interface.ButtonV({    // Transport play button
         bounds: [.05, .15, .05, .1],
         points: [{x:0,y:0},{x:1,y:.5},{x:0,y:1}],
         mode: 'toggle', 
@@ -133,6 +133,26 @@ function Phonestrument(){
             } else {
                 console.log("Transport stop");
                 Tone.Transport.stop();
+            }
+        }
+    });
+
+    var lb = new Interface.ButtonV({   // Loop button
+        bounds: [.15, .15, .05, .1],
+        points: [{x:0,y:.5},{x:.35,y:.85},{x:.65,y:.85},{x:1,y:.5},{x:.65,y:.15},{x:.5,y:.15},{x:.5,y:.05},{x:.3,y:.25},{x:.5,y:.5},{x:.5,y:.4},{x:.65,y:.4},{x:.75,y:.5},{x:.65,y:.6},{x:.35,y:.6},{x:.25,y:.5},{x:.35,y:.4},{x:.2,y:.25},{x:0,y:.5}],
+        mode: 'toggle', 
+        textLocation: {x:.5,y:.5},
+        onvaluechange : function (){
+            if (this.value == 1) {
+                console.log("Loop start");
+                Tone.Transport.loopStart = currentpos;
+                var end = currentpos + " + 1m";
+                console.log("loopend is " + end);
+                Tone.Transport.loopEnd = end;
+            } else {
+                console.log("Loop stop");
+                Tone.Transport.loopStart = 0;
+                Tone.Transport.loopEnd = "4m";
             }
         }
     });
@@ -214,6 +234,6 @@ function Phonestrument(){
         }
     });
 
-    mp.add(home, ib1, ib2, tb, tfl_bar, pb, pbl, dconnect);
+    mp.add(home, ib1, ib2, tb, lb, tfl_bar, pb, pbl, dconnect);
 
 }

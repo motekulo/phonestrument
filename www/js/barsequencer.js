@@ -100,7 +100,7 @@ function BarSequencer() {
      *
      **/
     this.draw = function(panel){
-        panel.add(b, multiButton);
+        panel.add(multiButton);
     };
 
     /**
@@ -129,22 +129,22 @@ function BarSequencer() {
     //
     // Interface section //////////////////////////////////////////////////////
 
-    var b = new Interface.Button({ 
-        bounds:[.05,.15,.1,.1],  
-        label:'On/Off',
-        onvaluechange : function() {
-            console.log("Value: " + this.value)
-                if (this.value == 1) {
-                    Tone.Transport.start();
-                } else {
-                    Tone.Transport.stop();
-                }
-        }
-    });
+//    var b = new Interface.Button({ 
+//        bounds:[.05,.15,.1,.1],  
+//        label:'On/Off',
+//        onvaluechange : function() {
+//            console.log("Value: " + this.value)
+//                if (this.value == 1) {
+//                    Tone.Transport.start();
+//                } else {
+//                    Tone.Transport.stop();
+//                }
+//        }
+//    });
 
     var multiButton = new Interface.MultiButton({
         rows:4, columns:16,
-        bounds:[.2,.15,.6,.6],
+        bounds:[.2,.25,.6,.6],
         onvaluechange : function(row, col, value) {
             console.log( 'row : ' + row + ' , col : ' + col + ' , value : ' + value);
             if (isConnected) {
