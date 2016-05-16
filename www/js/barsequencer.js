@@ -55,6 +55,7 @@ function BarSequencer() {
         var bar = currentposition.split(':')[0];
         var bararray = adaptor.getBarArray(bar, subdivision);
 
+
         for (j = 0; j < bararray.length; j++){
             var voicearray = bararray[j];
             for (i = 0; i < voicearray.length; i++) {
@@ -62,10 +63,10 @@ function BarSequencer() {
             }
 
         }
-
         if (foreground) {
             multiButton.refresh();
         }
+
         return bararray; // for test purposes only really
 
     }

@@ -44,11 +44,13 @@ function Phonestrument(){
         console.log("Bar: " + currentpos);
         barseq.setCurrentBarNum(currentpos);
         currentbarnum++;
+        tfl_bar.setValue(currentpos);
     }, "1m");
 
     Tone.Transport.loop = true;
     Tone.Transport.loopStart = 0;
     Tone.Transport.loopEnd = "4m";
+    Tone.Transport.bpm.value = 30;
 
     var mp = new Interface.Panel({ 
         container:document.querySelector("#InterfacePanel") 
@@ -68,7 +70,8 @@ function Phonestrument(){
 
     var goHome = function() {
         mp.clear();
-        mp.add(home, ib1, ib2, tb, pb, pbl, dconnect);
+        //        mp.add(home, ib1, ib2, tb, lb, tfl_bar, pb, pbl, dconnect);
+        drawHomePage();
         barseq.setForeground(false); // stop sequencer from redrawing its view
     }
 
@@ -166,7 +169,7 @@ function Phonestrument(){
     });
 
     var pb = new Interface.Patchbay({ 
-        bounds:[0, .25, 1, .5],
+        bounds:[0, .35, 1, .5],
         points:[ 
         {name:'syn-in'},{name:'syn-out'},
         {name:'seq-in'},{name:'seq-out'},
@@ -234,6 +237,10 @@ function Phonestrument(){
         }
     });
 
-    mp.add(home, ib1, ib2, tb, lb, tfl_bar, pb, pbl, dconnect);
+    drawHomePage();
+
+    function drawHomePage() {
+        mp.add(home, ib1, ib2, tb, lb, tfl_bar, pb, pbl, dconnect);
+    };
 
 }

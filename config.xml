@@ -18,6 +18,8 @@
     <allow-intent href="geo:*" />
     <allow-navigation href="http://*/*" />
     <platform name="android">
+        <preference name="webviewbounce" value="false" />
+        <preference name="DisallowOverscroll" value="true" />
         <allow-intent href="market:*" />
     </platform>
     <platform name="ios">

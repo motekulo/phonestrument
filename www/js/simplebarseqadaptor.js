@@ -122,8 +122,6 @@ function SimpleBarSequencerAdaptor() {
                     voicearray[i] = 0;
                 }
                 //return time;
-
-
             }
             bararray[j] = voicearray;
         }
