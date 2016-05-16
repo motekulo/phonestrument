@@ -39,11 +39,11 @@ function Phonestrument(){
      *
      **/
     Tone.Transport.scheduleRepeat(function(time){
-            //console.log("Bar: " + currentbarnum);
-            currentpos = Tone.Transport.position;
-            console.log("Bar: " + currentpos);
-            barseq.setCurrentBarNum(currentpos);
-            currentbarnum++;
+        //console.log("Bar: " + currentbarnum);
+        currentpos = Tone.Transport.position;
+        console.log("Bar: " + currentpos);
+        barseq.setCurrentBarNum(currentpos);
+        currentbarnum++;
     }, "1m");
 
     Tone.Transport.loop = true;
@@ -58,49 +58,68 @@ function Phonestrument(){
         bounds: [0, 0, .2, .1],
         label: "Home",
         mode: 'momentary',
+        ontouchend : function() {
+            goHome();
+        },
         onmouseup : function() {
-            mp.clear();
-            mp.add(home, ib1, ib2, tb, pb, pbl, dconnect);
-            barseq.setForeground(false); // stop sequencer from redrawing its view
-
+            goHome();
         }
     });
+
+    var goHome = function() {
+        mp.clear();
+        mp.add(home, ib1, ib2, tb, pb, pbl, dconnect);
+        barseq.setForeground(false); // stop sequencer from redrawing its view
+    }
 
 
     var ib1 = new Interface.Button({
         bounds: [.25, 0, .2, .1],
         label: "Monosynth",
         mode: 'momentary',
+        ontouchend : function() {
+            showMonoSynth();
+        },
         onmouseup : function() {
-            mp.remove(ib1);
-            mp.remove(ib2);
-            mp.remove(tb);
-            mp.remove(pb);
-            mp.remove(pbl);
-            mp.remove(dconnect);
-            monosynth.draw(mp);
-            barseq.setForeground(false); // stop sequencer from redrawing its view
+            showMonoSynth();
         } 
 
+    });
+
+    var showMonoSynth = function(){
+        mp.remove(ib1);
+        mp.remove(ib2);
+        mp.remove(tb);
+        mp.remove(pb);
+        mp.remove(pbl);
+        mp.remove(dconnect);
+        monosynth.draw(mp);
+        barseq.setForeground(false); // stop sequencer from redrawing its view
     }
-    );
 
     var ib2 = new Interface.Button({
         bounds: [.5, 0, .2, .1],
         label: "Bar seq",
         mode: 'momentary',
+        ontouchend : function() {
+            showBarSeq();
+        }, 
         onmouseup : function() {
-            mp.remove(ib1);
-            mp.remove(ib2);
-            mp.remove(tb);
-            mp.remove(pb);
-            mp.remove(pbl);
-            mp.remove(dconnect);
-            barseq.setForeground(true); // stop sequencer from redrawing its view
-            barseq.draw(mp);
+            showBarSeq();
         } 
 
     });
+
+    var showBarSeq = function() {
+        mp.remove(ib1);
+        mp.remove(ib2);
+        mp.remove(tb);
+        mp.remove(pb);
+        mp.remove(pbl);
+        mp.remove(dconnect);
+        barseq.setForeground(true); // stop sequencer from redrawing its view
+        barseq.draw(mp);
+    }
 
     var tb = new Interface.ButtonV({
         bounds: [.05, .15, .05, .1],
@@ -187,7 +206,7 @@ function Phonestrument(){
         bounds: [0, .8, .1, .1],
         label: "Disconnect",
         mode: 'momentary',
-        onmouseup : function() {
+        ontouchend : function() {
             for (i=0; i < pb.connections.length; i++) {
                 console.log("connection " + pb.connections[i]);
                 pb.deleteConnection(pb.connections[i]);
