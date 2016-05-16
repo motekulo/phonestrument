@@ -38,7 +38,7 @@ function Basicmonosynth() {
     // Interface ////////////////////////////////////////////
 
     var ub = new Interface.ButtonV({
-        bounds: [.05, .15, .1, .1],
+        bounds: [.05, .35, .1, .1],
         points: [{x:.25,y:1},{x:.75,y:1},{x:.75,y:.5},{x:1,y:.5},{x:.5,y:0},
         {x:0,y:.5},{x:.25,y:.5}],
         mode: 'contact', 
@@ -53,7 +53,7 @@ function Basicmonosynth() {
     });
 
     var db = new Interface.ButtonV({
-        bounds: [.05, .65, .1, .1],
+        bounds: [.05, .85, .1, .1],
         points: [{x:.25,y:0},{x:.75,y:0},{x:.75,y:.5},{x:1,y:0.5},{x:.5,y:1},
         {x:0,y:.5},{x:.25,y:.5}],
         mode: 'contact', 
@@ -71,7 +71,7 @@ function Basicmonosynth() {
         rows: 7, 
         columns: 1,
         mode: 'contact',  
-        bounds:[.2, .15, .25, .6],
+        bounds:[.2, .35, .25, .6],
         onvaluechange : function(row, col, value) {
             console.log( 'row : ' + row + ' , col : ' + col + ' , value : ' + value);
             timestring = "0:0:" + col;
@@ -89,7 +89,7 @@ function Basicmonosynth() {
     var ob = new Interface.MultiButton({
         rows: 1,
         columns: 3,
-        bounds:[.5, .15, .15, .1],
+        bounds:[.5, .35, .15, .1],
         onvaluechange : function(row, col, value) {
             switch(col){
                 case 0: {
@@ -132,7 +132,7 @@ function Basicmonosynth() {
     });
 
     var k1 = new Interface.Knob({ // detune
-        bounds:[.5, .25, .15, .15],
+        bounds:[.5, .45, .10, .10],
         value: 0,
         usesRotation:true,
         centerZero: true,
@@ -153,7 +153,7 @@ function Basicmonosynth() {
         min: 0,
         max: 1,
         label: 'ADSR',
-        bounds: [0.7, 0.15, 0.25, 0.25],
+        bounds: [0.7, 0.35, 0.25, 0.25],
         onvaluechange : function(number, value) {
             console.log("number, value: " + number + ", " + value);
             switch(number) {
@@ -201,7 +201,7 @@ break;
 
 
     var fk2 = new Interface.Knob({ 
-        bounds:[.5, .5, .15, .15],
+        bounds:[.5, .7, .10, .10],
         min : 20,
         max: 15000,
         value: 200,
@@ -224,7 +224,7 @@ break;
         min: 0,
         max: 1,
         label: 'ADSR',
-        bounds: [0.7, 0.5, 0.25, 0.25],
+        bounds: [0.7, 0.7, 0.25, 0.25],
         onvaluechange : function(number, value) {
             console.log("number, value: " + number + ", " + value);
             switch(number) {

@@ -92,7 +92,7 @@ function Phonestrument(){
     var showMonoSynth = function(){
         mp.remove(ib1);
         mp.remove(ib2);
-        mp.remove(tb);
+        //mp.remove(tb);
         mp.remove(pb);
         mp.remove(pbl);
         mp.remove(dconnect);
