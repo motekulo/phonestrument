@@ -35,6 +35,17 @@ function BarSequencer() {
     var isConnected = false;
     var foreground = false;
 
+    /**
+     * Connects an adaptor 
+     *
+     * @params {adaptor} - adaptor to connect to
+     *
+     **/
+    this.setAdaptor = function(extadaptor){
+        adaptor = extadaptor;
+        isConnected = true;
+    }
+
     this.setForeground = function(inforeground) {
         foreground = inforeground;
     }
@@ -55,7 +66,6 @@ function BarSequencer() {
         var bar = currentposition.split(':')[0];
         var bararray = adaptor.getBarArray(bar, subdivision);
 
-
         for (j = 0; j < bararray.length; j++){
             var voicearray = bararray[j];
             for (i = 0; i < voicearray.length; i++) {
@@ -69,29 +79,6 @@ function BarSequencer() {
 
         return bararray; // for test purposes only really
 
-    }
-
-    /**
-     * Connects an adaptor 
-     *
-     * @params {adaptor} - adaptor to connect to
-     *
-     **/
-    this.setAdaptor = function(extadaptor){
-        adaptor = extadaptor;
-    }
-
-    /**
-     *
-     * Connects a synth directly. It makes it possible to have a bar sequencer
-     * not connected to a part, but just outputting sound directly to a synth.
-     * Not very useful?
-     *
-     * @params {extsynth} - the synth to connect to
-     *
-     **/
-    this.setSynthOut = function(extsynth){
-        synth = extsynth;
     }
 
     /**
@@ -111,13 +98,13 @@ function BarSequencer() {
      * @params {extpart} - the part the sequencer writes to and reads from
      *
      **/
-    this.initExternalPart = function(extpart){
+    /*this.initExternalPart = function(extpart){
         part = extpart; 
         isConnected = true;
         for (j = 0; j < 4; j++) {
             part.addVoice();
         }
-    }
+    } */
 
     /**
      * Disconnect from the associated part

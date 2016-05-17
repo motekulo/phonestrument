@@ -27,12 +27,12 @@
 function Part() { 
 
     var synth; 
-
-    // FIXME - voices ends up as a 2d array, but doesn't have to be given
-    // Tone.Part structure; it is done like this at the moment to easily
-    // transfer note info across to a sequencer.  
-
-    this.voices = []; 
+    var notes = [];
+    this.tonepart = new Tone.Part(function(time,note){
+        synth.triggerAttackRelease(note,"16n", time);
+    }, notes);
+    this.tonepart.loop = false;
+    this.tonepart.start(0.2);
 
     /**
      *
@@ -45,30 +45,5 @@ function Part() {
         synth = extsynth;
     }
 
-    /**
-     * Writes note data to the part
-     *
-     * @params {voiceindex} - index of the voice to write to
-     * @params {time} - time info in Tone.js format for the note
-     * @params {pitch} - pitch of note to write (C4 style)
-     *
-     **/
-    this.setNoteArray = function(voiceindex, time, pitch) {
-        this.voices[voiceindex].at(time, pitch);
-    }
-
-    /**
-     * Add a voice to the part
-     *
-     **/
-    this.addVoice = function() {
-        var notes = [];
-        var voice = new Tone.Part(function(time,note){
-            synth.triggerAttackRelease(note,"16n", time);
-        }, notes);
-        this.voices.push(voice);
-        voice.loop = false;
-        voice.start(0.5);
-    };
 }
 

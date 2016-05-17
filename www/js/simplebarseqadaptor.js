@@ -76,7 +76,7 @@ function SimpleBarSequencerAdaptor() {
             } else {
                 note = null;
             }
-            var converteddata = [index, time, note];
+            var converteddata = [time, note];
             return converteddata;
         }
     }
@@ -88,10 +88,10 @@ function SimpleBarSequencerAdaptor() {
      *
      **/
     this.sendConvertedDataToPart = function(data) {
-        var index = data[0]; //FIXME indexed collection would be better
-        var time = data[1];
-        var note = data[2];
-        this.part.setNoteArray(index, time, note);
+        var time = data[0];
+        var note = data[1];
+        //this.part.setNoteArray(index, time, note);
+        this.part.tonepart.at(time, note);
     }
 
     /** 
@@ -110,13 +110,13 @@ function SimpleBarSequencerAdaptor() {
         var bararray = [];
         var note;
         var time;
-        for (j=0; j < this.part.voices.length; j++){
+        for (j=0; j < 4; j++){
             var voicearray = [];
             for (i=0; i < division;i++){
                 time = bar + "m" + " + (" + i + " * " + division + "n)";
-                note = this.part.voices[j].at(time);
+                note = this.part.tonepart.at(time);
                 if (note != null) {
-                    voicearray[i] = 1;
+                    voicearray[i] = note.value;
                 } else {
                     voicearray[i] = 0;
                 }
