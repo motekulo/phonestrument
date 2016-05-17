@@ -50,7 +50,7 @@ function Phonestrument(){
     Tone.Transport.loop = true;
     Tone.Transport.loopStart = 0;
     Tone.Transport.loopEnd = "4m";
-    Tone.Transport.bpm.value = 30;
+    Tone.Transport.bpm.value = 60;
 
     var mp = new Interface.Panel({ 
         container:document.querySelector("#InterfacePanel") 
