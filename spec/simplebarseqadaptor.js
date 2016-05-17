@@ -31,7 +31,7 @@ describe("Simple bar sequencer adaptor", function() {
         part.setNoteArray(1, "1:0:0 + (1 * 4n)", "E5");
         var bar = 1;
         var division = "16";
-        var timestring;
+        //var timestring;
         var bararray = adaptor.getBarArray(bar, division);
         expect(bararray[0][0]).toBe(0);
         expect(bararray[0][8]).toBe(1);
@@ -42,7 +42,19 @@ describe("Simple bar sequencer adaptor", function() {
 
     });
 
+    it("should be able to play polyphonically", function() {
 
+        part.addVoice();
+        part.setNoteArray(0, "1:0:0 + (3 * 4n)", "D5");
+        //part.setNoteArray(0, "1:0:0 + (3 * 4n)", "F5");
+        var testarray = part.voices[0].at("1:0:0 + (3 * 4n)");
+        console.log("testarray is " + testarray);
+        var bar = 1;
+        var division = "16";
+        var bararray = adaptor.getBarArray(bar, division);
+        console.log("bararray is " + bararray);
+
+    });
 
 });
 

@@ -26,10 +26,12 @@ document.addEventListener("deviceready", function(event) {
     } catch (e) {
         alert('No web audio support in this browser!');
     }
-       var phonestrument = new Phonestrument();
+    var mono = new Tone.MonoSynth().toMaster();
+    mono.triggerAttackRelease("E3", "4n");
+    var phonestrument = new Phonestrument();
 
-    });
 
+});
 
 
 
