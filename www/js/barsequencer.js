@@ -65,14 +65,33 @@ function BarSequencer() {
         console.log("barseq position " + currentposition);
         var bar = currentposition.split(':')[0];
         var bararray = adaptor.getBarArray(bar, subdivision);
+        var row = 0;
 
-        for (j = 0; j < bararray.length; j++){
-            var voicearray = bararray[j];
-            for (i = 0; i < voicearray.length; i++) {
-                multiButton._values[(j * 16 + i)] = voicearray[i];
-            }
+            for (i = 0; i < bararray.length; i++) {
+                switch(bararray[i]){
+                    case "C4":
+                        row = 0;
+                        break;
 
-        }
+                    case "D4":
+                        row = 1;
+                        break;
+
+                    case "E4":
+                        row = 2;
+                        break;
+
+                    case "F4":
+                        row = 3;
+                        break;
+                }
+
+
+                    multiButton._values[(row * 16 + i)] = 1;
+                }
+            
+
+        
         if (foreground) {
             multiButton.refresh();
         }
@@ -99,12 +118,12 @@ function BarSequencer() {
      *
      **/
     /*this.initExternalPart = function(extpart){
-        part = extpart; 
-        isConnected = true;
-        for (j = 0; j < 4; j++) {
-            part.addVoice();
-        }
-    } */
+      part = extpart; 
+      isConnected = true;
+      for (j = 0; j < 4; j++) {
+      part.addVoice();
+      }
+      } */
 
     /**
      * Disconnect from the associated part

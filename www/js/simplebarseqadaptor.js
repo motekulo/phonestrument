@@ -110,20 +110,16 @@ function SimpleBarSequencerAdaptor() {
         var bararray = [];
         var note;
         var time;
-        for (j=0; j < 4; j++){
-            var voicearray = [];
             for (i=0; i < division;i++){
                 time = bar + "m" + " + (" + i + " * " + division + "n)";
                 note = this.part.tonepart.at(time);
                 if (note != null) {
-                    voicearray[i] = note.value;
+                    bararray[i] = note.value;
                 } else {
-                    voicearray[i] = 0;
+                    bararray[i] = 0;
                 }
                 //return time;
             }
-            bararray[j] = voicearray;
-        }
         return bararray;
     }
 }
