@@ -26,8 +26,30 @@
  * The adaptor sits in between
  **/
 function SimpleBarSequencerAdaptor() {
-    var octave = 4; // fudge for now
-    var pitch = ["C","D","E","F"]; // fudge it for now
+    this.notesinscale = 4;
+    this.scalestructure = [2,2,1];
+    this.key = "C";
+    this.scale = [];
+    this.octave = 4; // fudge for now
+    var pitch = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"]; 
+
+    this.setScale = function(key){
+        var scale = [];
+        var start = pitch.indexOf(key);
+        scale.push(pitch[start]);
+        var prevnoteindex = start;
+        for (i = 0; i < this.scalestructure.length; i++) {
+            nextnoteindex = prevnoteindex + this.scalestructure[i];
+            if (nextnoteindex >= pitch.length) {
+                nextnoteindex = nextnoteindex - pitch.length; // wrap
+            }
+            scale.push(pitch[nextnoteindex]); 
+            prevnoteindex = nextnoteindex;        
+        }
+        this.scale = scale;
+        return scale
+    }
+
 
     // converts from:
     // Array of data in row, column, value form
@@ -72,7 +94,7 @@ function SimpleBarSequencerAdaptor() {
             var time = pos + " + (" + col + " * 16n)";
             console.log("Time is " + time);
             if (val == 1) {
-                note = pitch[row] + octave;
+                note = this.scale[row] + this.octave;
             } else {
                 note = null;
             }
@@ -106,21 +128,53 @@ function SimpleBarSequencerAdaptor() {
      * query (so 16 is 16th note)
      * @returns - a 2 dim array of voices and notes (vaues 1 or 0)  
      **/
+
+    /* 
+     *
+     * So this should know what a simple bar sequencer needs for its display; it's
+     * the adaptor. It knows the scale and associated notes that will be sent to
+     * the part once the bar sequencer data (row and column) comes in. Again, it's
+     * the adaptor; that's the idea. So, if there's a scale[0] at the 4th 16th
+     * note, it will send back bararray[0][3] = 1;
+     *
+     * A bararray is an array of linearrays (where each linearray represents the
+     * row for a particular note)
+     *
+     *
+     */
+
     this.getBarArray = function(bar, division){
-        var bararray = [];
+        bararray = new Array();
+        for (i = 0; i < this.scale.length; i++) {
+            bararray[i] = new Array();
+            for (j = 0; j < division; j++) {
+                bararray[i][j] = 0;
+            }
+
+        }
         var note;
         var time;
-            for (i=0; i < division;i++){
-                time = bar + "m" + " + (" + i + " * " + division + "n)";
-                note = this.part.tonepart.at(time);
-                if (note != null) {
-                    bararray[i] = note.value;
+
+        for (i=0; i < division; i++){
+            time = bar + "m" + " + (" + i + " * " + division + "n)";
+            note = this.part.tonepart.at(time);
+            if (note != null) {
+                notestoprocess = [];
+                if (Array.isArray(note.value)) {
+                    notestoprocess = note.value;
                 } else {
-                    bararray[i] = 0;
+                    notestoprocess.push(note.value);
                 }
-                //return time;
+                for (j = 0; j < notestoprocess.length; j++) {
+                    // row value will be determined by place in scale - so index of scale array
+                    var octavestripped = notestoprocess[j].slice(0, -1);
+                    var row = this.scale.indexOf(octavestripped); // strip off octave 
+                    bararray[row][i] = 1;
+                }
+
             }
+
+        }
         return bararray;
     }
 }
-

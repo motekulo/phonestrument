@@ -14,7 +14,7 @@ function Basicmonosynth() {
     this.moct = 4;
 
 
-    var mono = new Tone.PolySynth(3, Tone.SimpleSynth);//.toMaster();
+    var mono = new Tone.PolySynth(4, Tone.SimpleSynth);//.toMaster();
 //    var mono = new Tone.SimpleSynth;//.toMaster();
     //var mono = new Tone.MonoSynth;//.toMaster();
 

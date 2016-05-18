@@ -43,6 +43,7 @@ function BarSequencer() {
      **/
     this.setAdaptor = function(extadaptor){
         adaptor = extadaptor;
+        adaptor.setScale("C");
         isConnected = true;
     }
 
@@ -67,31 +68,12 @@ function BarSequencer() {
         var bararray = adaptor.getBarArray(bar, subdivision);
         var row = 0;
 
-            for (i = 0; i < bararray.length; i++) {
-                switch(bararray[i]){
-                    case "C4":
-                        row = 0;
-                        break;
+        for (i = 0; i < bararray.length; i++) { 
+            for (j = 0; j < bararray[i].length; j++) {
+                multiButton._values[(i * 16 + j)] = bararray[i][j]; 
+            }
+        }
 
-                    case "D4":
-                        row = 1;
-                        break;
-
-                    case "E4":
-                        row = 2;
-                        break;
-
-                    case "F4":
-                        row = 3;
-                        break;
-                }
-
-
-                    multiButton._values[(row * 16 + i)] = 1;
-                }
-            
-
-        
         if (foreground) {
             multiButton.refresh();
         }

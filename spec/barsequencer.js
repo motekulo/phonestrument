@@ -11,7 +11,7 @@ describe("Bar sequencer", function() {
         part = new Part();
         adaptor.connectToPart(part);
     });
-
+/*
     it("can set bar then query adaptor for notes info", function() {
         part.tonepart.at("1:0:0 + (2 * 4n)", "D5");
         part.tonepart.at("1:0:0 + (3 * 4n)", "E5");
@@ -30,7 +30,7 @@ describe("Bar sequencer", function() {
        // expect(bararray[1][12]).toBe(0);
 
     });
-
+*/
 
 
 });
