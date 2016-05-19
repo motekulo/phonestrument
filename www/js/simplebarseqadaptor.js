@@ -27,7 +27,7 @@
  **/
 function SimpleBarSequencerAdaptor() {
     this.notesinscale = 4;
-    this.scalestructure = [2,2,1];
+    this.scalestructure = [2,2,1,2,2,2,1];
     this.key = "C";
     this.scale = [];
     this.octave = 4; // fudge for now
@@ -168,6 +168,7 @@ function SimpleBarSequencerAdaptor() {
         for (i=0; i < division; i++){
             time = bar + "m" + " + (" + i + " * " + division + "n)";
             note = this.part.tonepart.at(time);
+            console.log("Note is " + note);
             if (note != null && note.value != null) {
                 notestoprocess = [];
                 if (Array.isArray(note.value)) {

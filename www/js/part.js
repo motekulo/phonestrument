@@ -29,7 +29,9 @@ function Part() {
     var synth; 
     var notes = [];
     this.tonepart = new Tone.Part(function(time,note){
-        synth.triggerAttackRelease(note,"16n", time);
+        //console.log("Time: "+ time + "and Note: " + note);
+        synth.triggerAttackRelease(note,"16n");
+        //synth.triggerAttackRelease(note,"16n", time);
     }, notes);
     this.tonepart.loop = false;
     this.tonepart.start(0.2);

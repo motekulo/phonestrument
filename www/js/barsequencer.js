@@ -27,9 +27,10 @@ function BarSequencer() {
 
     var currentposition = 0;
     var subdivision = 16;
-    var pitches =  ["C4","D4","E4","F4"];
+    var seqrows = 7;
+    //var pitches =  ["C4","D4","E4","F4"];
     var timestring = "";
-    var line = new Array(4);
+    //var line = new Array(4);
     var synth;
     var adaptor = null;
     var isConnected = false;
@@ -43,6 +44,7 @@ function BarSequencer() {
      **/
     this.setAdaptor = function(extadaptor){
         adaptor = extadaptor;
+        adaptor.notesinscale = 7;
         adaptor.setScale("C");
         isConnected = true;
     }
@@ -70,7 +72,7 @@ function BarSequencer() {
 
         for (i = 0; i < bararray.length; i++) { 
             for (j = 0; j < bararray[i].length; j++) {
-                multiButton._values[(i * 16 + j)] = bararray[i][j]; 
+                multiButton._values[(i * subdivision + j)] = bararray[i][j]; 
             }
         }
 
@@ -90,6 +92,9 @@ function BarSequencer() {
      **/
     this.draw = function(panel){
         panel.add(multiButton);
+        multiButton._values.length = 8 * 16;
+        multiButton._values.fill(0); 
+        console.log("finished drawing");
     };
 
     /**
@@ -119,7 +124,8 @@ function BarSequencer() {
     // Interface section //////////////////////////////////////////////////////
 
     var multiButton = new Interface.MultiButton({
-        rows:4, columns:16,
+        rows: 7, 
+        columns: 16,
         bounds:[.2,.35,.7,.6],
         onvaluechange : function(row, col, value) {
             console.log( 'row : ' + row + ' , col : ' + col + ' , value : ' + value);
