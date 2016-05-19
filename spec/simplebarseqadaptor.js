@@ -13,12 +13,12 @@ describe("Simple bar sequencer adaptor", function() {
     });
 
     it("should be able to receive data to convert ", function() {
-        var data = ["2:0:0", 0, 1, 1];  // simple bar seq sends transport pos, row, col, val
+        var data = ["2:0:0", [0], 1, 1];  // simple bar seq sends transport pos, row, col, val
         var converteddata = [];
         adaptor.setScale("C");
         converteddata = adaptor.convertData(data);
         expect(converteddata[0]).toBe("2:0:0 + (1 * 16n)");
-        expect(converteddata[1]).toBe("C4");
+        expect(converteddata[1][0]).toBe("C4");
 
     });
 

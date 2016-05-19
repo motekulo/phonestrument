@@ -74,35 +74,45 @@ function SimpleBarSequencerAdaptor() {
 
     /**
      *
-     * Convert data from a form output by the sequencer, to a form usable
-     * by a Part.  From a simple bar sequencer we get position
-     * (transport), row, column, value data. A part expects a voice index
-     * (row, in this case), time, *and pitch
+     * Convert data from a form output by the sequencer, to a form usable by a
+     * Part.  From a simple bar sequencer we get position (transport), rows
+     * (an array), column, value data. A part expects a voice index (row, in
+     * this case), time, and pitch
      *
      * @params{array} the data to convert
      *
      **/
+
     this.convertData = function(data) {
         if (data.length >= 4) {
             var pos = data[0]; //FIXME - should be indexed collection
-            var row = data[1];
+            var rows = data[1];// an array of which rows have notes
             var col = data[2];
             var val = data[3];
+            var notes = [];
 
-            var index = row;
-            //var time = col + " * 16n";
+            //var index = row;
             var time = pos + " + (" + col + " * 16n)";
+
             console.log("Time is " + time);
-            if (val == 1) {
-                note = this.scale[row] + this.octave;
+            if (rows == null) {
+                notes = null;
             } else {
-                note = null;
+                for (i = 0; i < rows.length; i++) {
+                    notes[i] = this.scale[rows[i]] + this.octave;
+                }
+
+                //            if (val == 1) {
+                //                note = this.scale[row] + this.octave;
+                //            } else {
+                //                note = null;
+                //            }
+
+                var converteddata = [time, notes];
+                return converteddata;
             }
-            var converteddata = [time, note];
-            return converteddata;
         }
     }
-
     /**
      * Send converted data to a part.
      *
@@ -111,9 +121,9 @@ function SimpleBarSequencerAdaptor() {
      **/
     this.sendConvertedDataToPart = function(data) {
         var time = data[0];
-        var note = data[1];
+        var notes = data[1];
         //this.part.setNoteArray(index, time, note);
-        this.part.tonepart.at(time, note);
+        this.part.tonepart.at(time, notes);
     }
 
     /** 
@@ -166,7 +176,7 @@ function SimpleBarSequencerAdaptor() {
                     notestoprocess.push(note.value);
                 }
                 for (j = 0; j < notestoprocess.length; j++) {
-                    
+
                     // row value will be determined by place in scale -
                     // so index of scale array
                     var octavestripped = notestoprocess[j].slice(0, -1);

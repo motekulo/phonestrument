@@ -124,8 +124,18 @@ function BarSequencer() {
         onvaluechange : function(row, col, value) {
             console.log( 'row : ' + row + ' , col : ' + col + ' , value : ' + value);
             if (isConnected) {
-                //part.setNoteArray(row, col, value);
-                var datatoconvert = [currentposition, row, col, value];
+                // send whole column, so an array for notes can be built
+                
+                var rows = [];
+                var note;
+                for (i = 0; i < multiButton.rows; i ++) {
+                    note = multiButton._values[i * multiButton.columns + col];
+                    if (note != 0) {
+                        rows.push(i);
+                    }
+                }
+
+                var datatoconvert = [currentposition, rows, col, value];
                 var converteddata = adaptor.convertData(datatoconvert);
                 adaptor.sendConvertedDataToPart(converteddata);
             }
