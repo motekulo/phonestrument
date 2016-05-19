@@ -158,7 +158,7 @@ function SimpleBarSequencerAdaptor() {
         for (i=0; i < division; i++){
             time = bar + "m" + " + (" + i + " * " + division + "n)";
             note = this.part.tonepart.at(time);
-            if (note != null) {
+            if (note != null && note.value != null) {
                 notestoprocess = [];
                 if (Array.isArray(note.value)) {
                     notestoprocess = note.value;
@@ -166,7 +166,9 @@ function SimpleBarSequencerAdaptor() {
                     notestoprocess.push(note.value);
                 }
                 for (j = 0; j < notestoprocess.length; j++) {
-                    // row value will be determined by place in scale - so index of scale array
+                    
+                    // row value will be determined by place in scale -
+                    // so index of scale array
                     var octavestripped = notestoprocess[j].slice(0, -1);
                     var row = this.scale.indexOf(octavestripped); // strip off octave 
                     bararray[row][i] = 1;
