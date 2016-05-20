@@ -34,20 +34,20 @@ describe("Sample sequencer adaptor", function() {
 
     });
 
-    it("should return an array to the bar sequencer", function() {
+    it("should return an array to the sample sequencer", function() {
 
-        adaptor = new SimpleBarSequencerAdaptor();
+        adaptor = new SampleSequencerAdaptor();
         part = new Part();
         adaptor.connectToPart(part);
-        adaptor.setScale("C");
-        part.tonepart.at("1:0:0 + (2 * 4n)", ["C5","D5"]);
-        part.tonepart.at("1:0:0 + (3 * 4n)", "E5");
-        part.tonepart.at("1:0:0 + (0 * 4n)", "D5");
+        //adaptor.setScale("C");
+        part.tonepart.at("1:0:0 + (2 * 4n)", ["A.1","A.3"]);
+        part.tonepart.at("1:0:0 + (3 * 4n)", "A.2");
+        part.tonepart.at("1:0:0 + (0 * 4n)", "A.4");
         var bararray = adaptor.getBarArray(1, 16); 
         expect(bararray[0][8]).toBe(1);
-        expect(bararray[1][8]).toBe(1);
-        expect(bararray[2][12]).toBe(1);
-        expect(bararray[1][0]).toBe(1);
+        expect(bararray[2][8]).toBe(1);
+        expect(bararray[1][12]).toBe(1);
+        expect(bararray[3][0]).toBe(1);
     });
 
 

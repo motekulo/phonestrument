@@ -1,12 +1,12 @@
 
-describe("Bar sequencer", function() {
+describe("Sample sequencer", function() {
     var seq;
     var adaptor;
     var part;
 
     beforeEach(function() {
-        seq = new BarSequencer();
-        adaptor = new SimpleBarSequencerAdaptor();
+        seq = new SampleSequencer();
+        adaptor = new SampleSequencerAdaptor();
         seq.setAdaptor(adaptor)
         part = new Part();
         adaptor.connectToPart(part);

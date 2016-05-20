@@ -151,7 +151,7 @@ function SampleSequencerAdaptor() {
 
     this.getBarArray = function(bar, division){
         bararray = new Array();
-        for (i = 0; i < this.scale.length; i++) {
+        for (i = 0; i < samplenames.length; i++) {
             bararray[i] = new Array();
             for (j = 0; j < division; j++) {
                 bararray[i][j] = 0;
@@ -176,8 +176,8 @@ function SampleSequencerAdaptor() {
 
                     // row value will be determined by place in scale -
                     // so index of scale array
-                    var octavestripped = notestoprocess[j].slice(0, -1);
-                    var row = this.scale.indexOf(octavestripped); // strip off octave 
+                  //  var prefixstripped = notestoprocess[j].slice(0, -1);
+                    var row = samplenames.indexOf(notestoprocess[j]); 
                     bararray[row][i] = 1;
                 }
 

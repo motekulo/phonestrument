@@ -31,7 +31,8 @@ function Phonestrument(){
     var barseq = new BarSequencer();
     var sampleseq = new SampleSequencer();
     var part = new Part();
-    var adaptor = new SimpleBarSequencerAdaptor();
+   // var adaptor = new SimpleBarSequencerAdaptor();
+    var adaptor = new SampleSequencerAdaptor();
     var currentbarnum = 0;
     var currentpos = 0;
 
@@ -44,7 +45,8 @@ function Phonestrument(){
         //console.log("Bar: " + currentbarnum);
         currentpos = Tone.Transport.position;
         console.log("Bar: " + currentpos);
-        barseq.setCurrentBarNum(currentpos);
+        //barseq.setCurrentBarNum(currentpos);
+        sampleseq.setCurrentBarNum(currentpos);
         currentbarnum++;
         tfl_bar.setValue(currentpos);
     }, "1m");
@@ -123,7 +125,8 @@ function Phonestrument(){
         mp.remove(pb);
         mp.remove(pbl);
         mp.remove(dconnect);
-        barseq.setForeground(true); // stop sequencer from redrawing its view
+        //barseq.setForeground(true); // stop sequencer from redrawing its view
+        sampleseq.setForeground(true); // stop sequencer from redrawing its view
         //barseq.draw(mp);
         sampleseq.draw(mp);
     }
@@ -186,19 +189,23 @@ function Phonestrument(){
                     " " + end.name2);
 
             if ((start.name == "syn-out") && (end.name == "main")) {
-                monosynth.connectSynth();
+                //monosynth.connectSynth();
+                samplesynth.connectSynth();
             };
 
             if ((start.name == "pt1-out") && (end.name == "syn-in")) {
                 console.log("going to connect pt1 synth to syn-in");
-                part.setSynthOut(monosynth.getSynth());
+               // part.setSynthOut(monosynth.getSynth());
+                //part.setSynthOut(samplesynth.getSynth());
+                part.setSynthOut(samplesynth);
             };
 
             if ((start.name == "seq-out") && (end.name == "pt1-in")) {
                 console.log("connecting seq out to pt1 in");
                 // we are connecting an adaptor between the sequence and part
                 adaptor.connectToPart(part);
-                barseq.setAdaptor(adaptor);
+                sampleseq.setAdaptor(adaptor);
+                //barseq.setAdaptor(adaptor);
                 //barseq.initExternalPart(part);
                 barseq.isConnected = true;
             };
@@ -215,7 +222,7 @@ function Phonestrument(){
             pbl.setValue( start.name + ' disconnected from ' + end.name );
             console.log("Connection made");
             if ((start.name == "syn-out") && (end.name == "main")) {
-                monosynth.disconnectSynth();
+                //monosynth.disconnectSynth();
             };
 
 

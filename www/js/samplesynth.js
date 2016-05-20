@@ -14,23 +14,81 @@ function Samplesynth() {
     this.moct = 4;
 
 
-    //    var mono = new Tone.PolySynth(4, Tone.SimpleSynth);//.toMaster();
+    /*
+       var msampler = new Tone.Sampler({
+       A : {
+       1 : "./samples/chh_mixed_1.wav",
+       2 : "./samples/kick_mix_1.wav",
+       3 : "./samples/ohh_mixed_1.wav",
+       4 : "./samples/snare_mix_1.wav"
+       }
+       }).toMaster();
 
-    var sampler = new Tone.Sampler({
+    //var sampler = new Tone.PolySynth(4, msampler);//.toMaster();
+    var sampler = new Tone.PolySynth(4, Tone.Sampler);//.toMaster();
+
+    var murls = ["./samples/chh_mixed_1.wav", "./samples/kick_mix_1.wav", "./samples/ohh_mixed_1.wav", "./samples/snare_mix_1.wav"];
+
+    //    sampler._loadBuffers(murls);
+
+    Tone.Buffer.onload = function(){
+    sampler.triggerAttack("A.1")
+    }
+    */   
+    var samplenames = ["A.1", "A.2", "A.3", "A.4"];
+
+    var kicksampler = new Tone.Sampler({
         A : {
-            1 : "./samples/chh_mixed_1.wav",
-            2 : "./samples/kick_mix_1.wav",
-            3 : "./samples/ohh_mixed_1.wav",
-            4 : "./samples/snare_mix_1.wav"
+            1 : "./samples/kick_mix_1.wav"
         }
     }).toMaster();
 
-    Tone.Buffer.onload = function(){
-        sampler.triggerAttack("A.1")
+    var snaresampler = new Tone.Sampler({
+        A : {
+            1 : "./samples/snare_mix_1.wav"
+        }
+    }).toMaster();
+
+    var ohhsampler = new Tone.Sampler({
+        A : {
+            1 : "./samples/ohh_mixed_1.wav"
+        }
+    }).toMaster();
+
+    var chhsampler = new Tone.Sampler({
+        A : {
+            1 : "./samples/chh_mixed_1.wav"
+        }
+    }).toMaster();
+
+
+
+
+    this.triggerDrum = function(samplename) {
+        console.log("Triggering " + samplename);
+        for (i = 0; i < samplename.length; i++) {
+            switch(samplename[i]) {
+                case "A.1":
+                    kicksampler.triggerAttack("A.1");
+                    break;
+
+                case "A.2":
+                    snaresampler.triggerAttack("A.1");
+                    break;
+
+                case "A.3":
+                    ohhsampler.triggerAttack("A.1");
+                    break;
+
+                case "A.4":
+                    chhsampler.triggerAttack("A.1");
+                    break;
+
+
+            }
+        }
     }
-    
-    var samplenames = ["A.1", "A.2", "A.3", "A.4"];
-//    var octave = 4;
+    //    var octave = 4;
 
     this.draw = function(panel){
         //panel.clear();

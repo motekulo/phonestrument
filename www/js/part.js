@@ -30,7 +30,8 @@ function Part() {
     var notes = [];
     this.tonepart = new Tone.Part(function(time,note){
         //console.log("Time: "+ time + "and Note: " + note);
-        synth.triggerAttackRelease(note,"16n");
+        //synth.triggerAttackRelease(note,"16n");
+        synth.triggerDrum(note);
         //synth.triggerAttackRelease(note,"16n", time);
     }, notes);
     this.tonepart.loop = false;

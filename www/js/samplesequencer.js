@@ -124,7 +124,7 @@ function SampleSequencer() {
     // Interface section //////////////////////////////////////////////////////
 
     var multiButton = new Interface.MultiButton({
-        rows: 7, 
+        rows: 4, 
         columns: 16,
         bounds:[.2,.35,.7,.6],
         onvaluechange : function(row, col, value) {
