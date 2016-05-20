@@ -19,7 +19,9 @@ function Samplesynth() {
     var sampler = new Tone.Sampler({
         A : {
             1 : "./samples/chh_mixed_1.wav",
-            2 : "./samples/kick_mix_1.wav"
+            2 : "./samples/kick_mix_1.wav",
+            3 : "./samples/ohh_mixed_1.wav",
+            4 : "./samples/snare_mix_1.wav"
         }
     }).toMaster();
 
@@ -27,13 +29,8 @@ function Samplesynth() {
         sampler.triggerAttack("A.1")
     }
     
-    //../samples/chh_mixed_1.wav
-    //../samples/kick_mix_1.wav
-    //../samples/ohh_mixed_1.wav
-    //../samples/snare_mix_1.wav
-
-    var notename = ["C", "D", "E", "F", "G", "A", "B"];
-    var octave = 4;
+    var samplenames = ["A.1", "A.2", "A.3", "A.4"];
+//    var octave = 4;
 
     this.draw = function(panel){
         //panel.clear();
@@ -41,20 +38,20 @@ function Samplesynth() {
     };
 
     this.disconnectSynth = function(){
-        mono.disconnect();
+        sampler.disconnect();
     }
 
     this.connectSynth = function(){
-        mono.connect(Tone.Master);
+        sampler.connect(Tone.Master);
     }
 
     this.getSynth = function(){
-        return mono;
+        return sampler;
     }
     // Interface ////////////////////////////////////////////
 
     var mb = new Interface.MultiButton({
-        rows: 7, 
+        rows: 4, 
         columns: 1,
         mode: 'contact',  
         bounds:[.2, .35, .25, .6],
@@ -63,9 +60,9 @@ function Samplesynth() {
             timestring = "0:0:" + col;
             console.log("timestring: " + timestring);
             if (value == 1) {
-                note = notename[6-row]+octave;
+                note = samplenames[4-row];
                 console.log(note);
-                mono.triggerAttackRelease(note, "8n");
+                sampler.triggerAttackRelease(note);
             } else {
                 //note[row][col].stop();
             }

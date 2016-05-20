@@ -90,14 +90,15 @@ function Phonestrument(){
 
     });
 
-    var showMonoSynth = function(){
+    var showMonoSynth = function(){  // synth
         mp.remove(ib1);
         mp.remove(ib2);
         //mp.remove(tb);
         mp.remove(pb);
         mp.remove(pbl);
         mp.remove(dconnect);
-        monosynth.draw(mp);
+        //monosynth.draw(mp);
+        samplesynth.draw(mp);
         barseq.setForeground(false); // stop sequencer from redrawing its view
     }
 
