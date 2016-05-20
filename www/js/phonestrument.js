@@ -29,6 +29,7 @@ function Phonestrument(){
     var monosynth = new Basicmonosynth();
     var samplesynth = new Samplesynth();
     var barseq = new BarSequencer();
+    var sampleseq = new SampleSequencer();
     var part = new Part();
     var adaptor = new SimpleBarSequencerAdaptor();
     var currentbarnum = 0;
@@ -123,7 +124,8 @@ function Phonestrument(){
         mp.remove(pbl);
         mp.remove(dconnect);
         barseq.setForeground(true); // stop sequencer from redrawing its view
-        barseq.draw(mp);
+        //barseq.draw(mp);
+        sampleseq.draw(mp);
     }
 
     var tb = new Interface.ButtonV({    // Transport play button
