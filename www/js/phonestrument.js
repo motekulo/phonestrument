@@ -27,6 +27,7 @@
 function Phonestrument(){
 
     var monosynth = new Basicmonosynth();
+    var samplesynth = new Samplesynth();
     var barseq = new BarSequencer();
     var part = new Part();
     var adaptor = new SimpleBarSequencerAdaptor();
