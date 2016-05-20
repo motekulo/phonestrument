@@ -21,7 +21,25 @@ describe("Simple bar sequencer adaptor", function() {
         expect(converteddata[0]).toBe("2:0:0 + (1 * 16n)");
         expect(converteddata[1][0]).toBe("G4");
 
+        adaptor.sendConvertedDataToPart(converteddata);
+        var partdata = part.tonepart.at("2:0:0 + (1 * 16n)");
+        expect(partdata.value[0]).toBe("G4");
 
+        data = ["2:0:0", [5], 0, 1];  
+        converteddata = adaptor.convertData(data);
+        expect(converteddata[0]).toBe("2:0:0 + (0 * 16n)");
+        expect(converteddata[1][0]).toBe("A4");
+        adaptor.sendConvertedDataToPart(converteddata);
+        partdata = part.tonepart.at("2:0:0 + (0 * 16n)");
+        expect(partdata.value[0]).toBe("A4");
+
+        data = ["2:0:0", [6], 15, 1];  
+        converteddata = adaptor.convertData(data);
+        expect(converteddata[0]).toBe("2:0:0 + (15 * 16n)");
+        expect(converteddata[1][0]).toBe("B4");
+        adaptor.sendConvertedDataToPart(converteddata);
+        partdata = part.tonepart.at("2:0:0 + (15 * 16n)");
+        expect(partdata.value[0]).toBe("B4");
 
     });
 

@@ -102,17 +102,12 @@ function SimpleBarSequencerAdaptor() {
                     notes[i] = this.scale[rows[i]] + this.octave;
                 }
 
-                //            if (val == 1) {
-                //                note = this.scale[row] + this.octave;
-                //            } else {
-                //                note = null;
-                //            }
-
                 var converteddata = [time, notes];
                 return converteddata;
             }
         }
     }
+
     /**
      * Send converted data to a part.
      *
