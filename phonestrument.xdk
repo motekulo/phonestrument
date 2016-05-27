@@ -5,7 +5,7 @@
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "jsapp/template-blank-game-landscape/sample.zip",
       "projectGuid": "b716cb9a-08fe-426d-a001-73b5e8938bef",
-      "lastModifiedDate": 1464249097366,
+      "lastModifiedDate": 1464259888361,
       "creationDate": 1464249089277
     },
     "sourceDirectory": "www",
@@ -135,7 +135,7 @@
         "appName_": "phonestrument",
         "appID_": "xdk.intel.blank.project",
         "appAccess_": {
-          "mode": "legacy",
+          "mode": "whitelist",
           "network": [
             "*"
           ],
@@ -149,7 +149,8 @@
             "itms:*",
             "itms-apps:*"
           ],
-          "navigation": []
+          "navigation": [],
+          "properties": {}
         },
         "icons_": [],
         "splashes_": [],
@@ -177,7 +178,7 @@
         "appName_": "phonestrument",
         "appID_": "xdk.intel.blank.project",
         "appAccess_": {
-          "mode": "legacy",
+          "mode": "whitelist",
           "network": [
             "*"
           ],
@@ -189,7 +190,8 @@
             "mailto:*",
             "geo:*"
           ],
-          "navigation": []
+          "navigation": [],
+          "properties": {}
         },
         "icons_": [],
         "splashes_": [],

@@ -6,7 +6,7 @@
 	
 	// Wait for DOM tree is ready for access
     document.addEventListener('DOMContentLoaded', function() {
-        var canvas = document.getElementById('gameScene');
+       /* var canvas = document.getElementById('gameScene');
         // make canvas full screen
         var width = screen.availWidth;
         var height = screen.availHeight;
@@ -25,6 +25,9 @@
             context.drawImage(img, (width - img.width) / 2, (height - img.height) / 2);
         };
         img.src = "asset/logo.png";
+        */
+        var phonestrument = new Phonestrument();
     }, false);
+    
 
 }());

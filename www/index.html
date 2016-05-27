@@ -6,7 +6,12 @@
 	<head>
 		<title>Blank Hybrid App Project Template</title>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-
+    <meta http-equiv="Content-Security-Policy" content="
+            default-src *;
+            child-src blob: ;
+            media-src 'self' blob: ;
+            style-src 'self' 'unsafe-inline';
+            script-src 'self' 'unsafe-inline' 'unsafe-eval'">
 		<!--
 		* The "meta viewport" tag (below) helps your app size appropriately to a device's screen.
 		* Note that the meta viewport approach is being phased out in favor of the @viewport CSS rule.
@@ -14,7 +19,21 @@
 		*   http://webdesign.tutsplus.com/tutorials/htmlcss-tutorials/quick-tip-dont-forget-the-viewport-meta-tag
 		* To see what happens, try the app on a real device with and without a "meta viewport" tag.
 		-->
-
+        
+        <script type="text/javascript" src="js/lib/Tone.js"></script>
+        <script type="text/javascript" src="js/lib/jquery.js"></script>
+        <script type="text/javascript" src="js/lib/interface.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/phonestrument.js"></script>
+        <script type="text/javascript" src="js/barsequencer.js"></script>
+        <script type="text/javascript" src="js/bass.js"></script>
+        <script type="text/javascript" src="js/monosynth.js"></script>
+        <script type="text/javascript" src="js/samplesynth.js"></script>
+        <script type="text/javascript" src="js/samplesequencer.js"></script>
+        <script type="text/javascript" src="js/samplesequenceradaptor.js"></script>
+        <script type="text/javascript" src="js/part.js"></script>
+        <script type="text/javascript" src="js/simplebarseqadaptor.js"></script>
+        
 		<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 		<!-- <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1, maximum-scale=2"> -->
@@ -51,8 +70,8 @@
 
 	<body>
 		<!-- Main stage for rendering game scenes -->
-		<canvas id="gameScene"></canvas>
-
+<!--		<canvas id="gameScene"></canvas>-->
+        <div id='InterfacePanel' class='interfacePanel'> </div>
 		<!-- IMPORTANT: Do not include your weinre script tag as part of your release builds! -->
 		<!-- Place your remote debugging (weinre) script URL from the Test tab here, if it does not work below -->
 		<!-- <script src="http://debug-software.intel.com/target/target-script-min.js#insertabiglongfunkynumberfromthexdkstesttab"></script> -->

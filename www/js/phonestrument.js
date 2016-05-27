@@ -35,7 +35,8 @@ function Phonestrument(){
     var adaptor = new SampleSequencerAdaptor();
     var currentbarnum = 0;
     var currentpos = 0;
-
+    var synth = new Tone.MonoSynth().toMaster();
+    synth.triggerAttackRelease("C4", "8n");
     /**
      * Schedule a regular start of bar notification to a bar sequencer, so that
      * it can draw itself
@@ -57,7 +58,7 @@ function Phonestrument(){
     Tone.Transport.bpm.value = 60;
 
     var mp = new Interface.Panel({ 
-        container:document.querySelector("#InterfacePanel") 
+        container:document.querySelector("#InterfacePanel") // FIXME - should be passed in to constructor
     });
 
     var home = new Interface.Button({
