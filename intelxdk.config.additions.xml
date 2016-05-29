@@ -27,6 +27,8 @@
     <!-- below requires the splash screen plugin -->
     <!-- docs: https://github.com/apache/cordova-plugin-splashscreen -->
     <preference name="SplashMaintainAspectRatio" value="false" />
+    <preference name="Orientation" value="landscape"/></platform>
+
 </platform>
 
 <!-- use this feature to add command-lines to be used by Crosswalk builds on device -->
