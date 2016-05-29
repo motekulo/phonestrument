@@ -5,8 +5,29 @@
   -->
 <head>
     <title>Blank Cordova Mobile App Project Template (Lite)</title>
+    
+    <meta http-equiv="Content-Security-Policy" content="
+            default-src *;
+            child-src blob: ;
+            media-src 'self' blob: ;
+            style-src 'self' 'unsafe-inline';
+            script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+    
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
 
+    <script type="text/javascript" src="js/lib/Tone.js"></script>
+    <script type="text/javascript" src="js/lib/jquery.js"></script>
+    <script type="text/javascript" src="js/lib/interface.js"></script>
+    <script type="text/javascript" src="js/phonestrument.js"></script>
+    <script type="text/javascript" src="js/barsequencer.js"></script>
+    <script type="text/javascript" src="js/bass.js"></script>
+    <script type="text/javascript" src="js/monosynth.js"></script>
+    <script type="text/javascript" src="js/samplesynth.js"></script>
+    <script type="text/javascript" src="js/samplesequencer.js"></script>
+    <script type="text/javascript" src="js/samplesequenceradaptor.js"></script>
+    <script type="text/javascript" src="js/part.js"></script>
+    <script type="text/javascript" src="js/simplebarseqadaptor.js"></script>
+    
     <!-- see http://webdesign.tutsplus.com/tutorials/htmlcss-tutorials/quick-tip-dont-forget-the-viewport-meta-tag -->
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <style>
@@ -14,6 +35,54 @@
         /* see http://www.quirksmode.org/blog/archives/2014/05/html5_dev_conf.html and http://dev.w3.org/csswg/css-device-adapt/ */
         @-ms-viewport { width: 100vw ; zoom: 100% ; }  @viewport { width: 100vw ; zoom: 100% ; }
         @-ms-viewport { user-zoom: fixed ; }           @viewport { user-zoom: fixed ; }
+        
+               html, body {
+        height: 100%;
+        color:#555;
+        font-family:'Helvetica', sans-serif;
+        }
+        h1, h2, h3 {
+        color:#000;
+        font-family: "HelveticaNeue-Light", sans-serif;
+        font-weight: normal;
+        }
+h2 { font-size:1.5em;}
+h3 { color :#000; margin:0;}
+ul {
+padding:0;
+margin:0;
+list-decoration:none;
+}
+code,pre{
+margin:0;
+padding:0;
+font-size:.8em;
+overflow:scroll;
+height: 275px;
+background-color:#efefef;
+width:90%;
+}
+.interfacePanel {
+display:block;
+width:100%;
+height:80%;
+float:right;
+left:0;
+}
+.interfaceCode {
+width:50%;
+float:left;
+}
+#container {
+width: 1024px;
+}
+li {
+min-height:300px;
+padding:5px;
+border:1px solid #666;
+display:block;
+}
+        
     </style>
 
     <script src="cordova.js"></script>          <!-- phantom library, needed for Cordova api calls, added during build -->
@@ -24,6 +93,7 @@
 <body>
 
     <p>Hello, Cordova!</p>
-
+<div id="InterfacePanel" class="interfacePanel"></div>
+<!--    <div id="InterfacePanel"> </div>-->
 </body>
 </html>

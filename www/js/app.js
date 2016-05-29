@@ -32,6 +32,15 @@
 function onAppReady() {
     if( navigator.splashscreen && navigator.splashscreen.hide ) {   // Cordova API detected
         navigator.splashscreen.hide() ;
+        
+        var el = document.getElementById('InterfacePanel');
+        // make canvas full screen
+        var width = screen.availWidth;
+        var height = screen.availHeight;
+        el.clientWidth = width;
+        el.clientHeight = height;
+        
+        var phonestrument = new Phonestrument();
     }
 }
 document.addEventListener("app.Ready", onAppReady, false) ;

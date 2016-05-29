@@ -57,10 +57,15 @@ function Phonestrument(){
     Tone.Transport.loopEnd = "4m";
     Tone.Transport.bpm.value = 60;
 
+    var paneldiv = document.querySelector("#InterfacePanel");
+   // paneldiv.clientHeight = 200;
+    
+    
     var mp = new Interface.Panel({ 
-        container:document.querySelector("#InterfacePanel") // FIXME - should be passed in to constructor
+        container: paneldiv // FIXME - should be passed in to constructor
         
 //        container:document.querySelector("#gameScene")
+        
     });
 
     var home = new Interface.Button({
@@ -253,6 +258,7 @@ function Phonestrument(){
     drawHomePage();
 
     function drawHomePage() {
+        mp.height = 200;
         mp.add(home, ib1, ib2, tb, lb, tfl_bar, pb, pbl, dconnect);
     };
 
