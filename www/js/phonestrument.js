@@ -59,6 +59,8 @@ function Phonestrument(){
 
     var mp = new Interface.Panel({ 
         container:document.querySelector("#InterfacePanel") // FIXME - should be passed in to constructor
+        
+//        container:document.querySelector("#gameScene")
     });
 
     var home = new Interface.Button({

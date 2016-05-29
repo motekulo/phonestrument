@@ -45,3 +45,11 @@ body {
 .align-center {
 	text-align:center;
 }
+.interfacePanel {
+display:block;
+width:100%;
+height:80%;
+float:right;
+left:0;
+}
+
