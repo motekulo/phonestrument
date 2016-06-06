@@ -65,26 +65,32 @@
             <canvas nx="stage" id="mainStage" style="width:400px; height:180px"></canvas>
             </div>
 
-            <div class="panel" data-title="Favorites" id="tab2" >
+            <div class="panel" data-title="Sequencer" id="tab2" >
                 
                 <canvas nx="matrix" id="seqMatrix" style="width:400px; height:180px"></canvas>
             </div>
 
-            <div class="panel" data-title="Messages" id="tab3">
+            <div class="panel" data-title="Instrument" id="tab3">
                 This is view for third Tab
             </div>
 
-            <div class="panel" data-title="Profile" id="tab4">
+            <div class="panel" data-title="Settings" id="tab4">
                 This is view for fourth Tab
             </div>
 
         </div>
 
         <footer>
-            <a href="#tab1" class="icon home" onclick="$.afui.clearHistory()">Home</a>
-            <a href="#tab2" class="icon heart" onclick="$.afui.clearHistory()">Favorites</a>
-            <a href="#tab3" class="icon message" onclick="$.afui.clearHistory()">Messages</a>
-            <a href="#tab4" class="icon user" onclick="$.afui.clearHistory()">Profile</a>
+            <a href="#tab1" onclick="$.afui.clearHistory()">Home</a>
+            <a href="#tab2" onclick="$.afui.clearHistory()">Sequencer</a>
+            <a href="#tab3" onclick="$.afui.clearHistory()">Instrument</a>
+            <a href="#tab4" onclick="$.afui.clearHistory()">Settings</a>
+            
+           <!-- <a href="#tab1" class="icon home" onclick="$.afui.clearHistory()">Home</a>
+            <a href="#tab2" class="icon heart" onclick="$.afui.clearHistory()">Sequencer</a>
+            <a href="#tab3" class="icon message" onclick="$.afui.clearHistory()">Instrument</a>
+            <a href="#tab4" class="icon user" onclick="$.afui.clearHistory()">Settings</a> -->
+            
         </footer>
     </div>
 

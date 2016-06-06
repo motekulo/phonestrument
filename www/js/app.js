@@ -47,10 +47,10 @@ var phonestrument = new Phonestrument();
 // messages that can help you debug Cordova app initialization issues.
 nx.onload = function(){
     console.log("nexusUI loaded from phonestrument");
-//    seqmatrix.row = 4;
-//    seqmatrix.col = 16;
-//    seqmatrix.init();
-//    seqmatrix.draw();
+    seqMatrix.row = 4;
+    seqMatrix.col = 12;
+    seqMatrix.init();
+    seqMatrix.draw();
 //    multi1.erase();
     
     addItemButton.on('*', function(data) {
