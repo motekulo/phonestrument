@@ -4,22 +4,14 @@
     "creationData": {
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "jsapp/template-blank-cordova-project-lite/sample.zip",
-      "projectGuid": "10ffcaf8-6701-4de8-b06a-4131d6791142",
-      "lastModifiedDate": 1464503129080,
-      "creationDate": 1464490117508
+      "projectGuid": "9111ba69-9d2e-4e28-93bc-d61d680b9ce2",
+      "lastModifiedDate": 1465179330244,
+      "creationDate": 1465178800490
     },
     "XDK-app-designer": "false",
     "sourceDirectory": "www",
     "startFile": "index.html",
-    "projectFiles": {
-      "xdk-publish-meta-data.json": {
-        "settings": {
-          "project": {
-            "XDK-not-deployed": "True"
-          }
-        }
-      }
-    },
+    "projectFiles": {},
     "projectDirectories": {},
     "libraries": [],
     "serviceMethods": [],
