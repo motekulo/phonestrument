@@ -29,10 +29,16 @@
 // You can add other code to it or add additional functions that are triggered
 // by the same event or other events.
 
+var phonestrument = new Phonestrument();
+
 function onAppReady() {
     if( navigator.splashscreen && navigator.splashscreen.hide ) {   // Cordova API detected
         navigator.splashscreen.hide() ;
     }
+
+    console.log("app.js app ready");
+    
+
 }
 document.addEventListener("app.Ready", onAppReady, false) ;
 // document.addEventListener("deviceready", onAppReady, false) ;
@@ -48,3 +54,58 @@ document.addEventListener("app.Ready", onAppReady, false) ;
 
 // NOTE: change "dev.LOG" in "init-dev.js" to "true" to enable some console.log
 // messages that can help you debug Cordova app initialization issues.
+nx.onload = function(){
+    console.log("nexusUI loaded from phonestrument");
+//    seqmatrix.row = 4;
+//    seqmatrix.col = 16;
+//    seqmatrix.init();
+//    seqmatrix.draw();
+//    multi1.erase();
+    var tohide = document.querySelector("#sequencerscreen");
+    tohide.style.display="none";
+    addItemButton.on('*', function(data) {
+        if (data.press == 1) {
+            mainStage.addItem();
+            phonestrument.beepToTest();
+        }
+    })
+/*
+    changebutton.on('*', function(data){
+        console.log("Press: " + data.press + " X: " + data.x + " Y: " + data.y);
+        if (data.press == 1) {
+            //seqmatrix.erase();
+            //nx.add("multislider");
+            //window.location.href='page2.html';
+            var canvastotransform = document.querySelector("#seqmatrix");
+            nx.transform(canvastotransform, "multislider"); 
+            //$("#seqmatrix").remove();
+            //$("#nexusgui").append("<canvas nx=\"button\" id=\"testbutton\"></canvas>");
+            //testbutton.init();
+            //testbutton.draw();
+            var parentDiv = document.querySelector("#tochange");
+            var newChild = document.querySelector("#multi1");
+            var oldChild = document.querySelector("#seqmatrix");
+            //$("#multi1").height("100%");
+            newChild.style.display="block";
+            oldChild.style.display="none";
+
+//            parentDiv.replaceChild(newChild, oldChild);
+        };
+    })
+
+    changebackbutton.on('press', function(data) {
+        if (data == 1) {
+            var oldChild = document.querySelector("#multi1");
+            var newChild = document.querySelector("#seqmatrix");
+            //$("#multi1").height("100%");
+            newChild.style.display="block";
+            oldChild.style.display="none";
+
+          console.log("Changing back");
+        }
+    })
+
+*/
+
+}
+

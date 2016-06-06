@@ -17,22 +17,27 @@
         -->
 
         <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/lib/Tone.js"></script>
-        <script type="text/javascript" src="js/lib/jquery.js"></script>
-        <script type="text/javascript" src="js/lib/interface.js"></script>
-        <script type="text/javascript" src="js/lib/nexusUI.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript" src="js/phonestrument.js"></script>
-        <script type="text/javascript" src="js/barsequencer.js"></script>
-        <script type="text/javascript" src="js/bass.js"></script>
-        <script type="text/javascript" src="js/monosynth.js"></script>
-        <script type="text/javascript" src="js/samplesynth.js"></script>
-        <script type="text/javascript" src="js/samplesequencer.js"></script>
-        <script type="text/javascript" src="js/samplesequenceradaptor.js"></script>
-        <script type="text/javascript" src="js/part.js"></script>
-        <script type="text/javascript" src="js/simplebarseqadaptor.js"></script>
+        
 
-        <style>
+        
+    <script type="text/javascript" src="js/lib/Tone.js"></script>
+    <script type="text/javascript" src="js/lib/jquery.js"></script>
+    <script type="text/javascript" src="js/lib/interface.js"></script>
+    <script type="text/javascript" src="js/lib/nexusUI.js"></script>
+    <script type="text/javascript" src="js/phonestrument.js"></script>
+    <script type="text/javascript" src="js/barsequencer.js"></script>
+    <script type="text/javascript" src="js/bass.js"></script>
+    <script type="text/javascript" src="js/monosynth.js"></script>
+    <script type="text/javascript" src="js/samplesynth.js"></script>
+    <script type="text/javascript" src="js/samplesequencer.js"></script>
+    <script type="text/javascript" src="js/samplesequenceradaptor.js"></script>
+    <script type="text/javascript" src="js/part.js"></script>
+    <script type="text/javascript" src="js/simplebarseqadaptor.js"></script>
+
+    <script src="js/app.js"></script>           <!-- recommended location of your JavaScript code relative to other JS files -->
+    <script src="xdk/init-dev.js"></script>     <!-- normalizes device and document ready events, see README for details -->
+        
+    <style>
 
 .transport {
     float:left;
@@ -42,7 +47,7 @@
             float:left;
         }
 
-        </style>
+    </style>
 
     </head>
 
@@ -51,11 +56,11 @@
         <div id="transport">
 
             <canvas class="transport" nx="button" id="playButton" 
-                label="Play" style="width:20%">
+                                                  label="Play" style="width:30%">
             </canvas>
 
             <canvas class="transport"  nx="number" id="tempoBox" label="Tempo"
-               style="width:20%" >
+                                                                 style="width:20%" >
             </canvas>
 
         </div>

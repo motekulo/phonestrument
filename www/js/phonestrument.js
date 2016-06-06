@@ -35,8 +35,13 @@ function Phonestrument(){
     var adaptor = new SampleSequencerAdaptor();
     var currentbarnum = 0;
     var currentpos = 0;
-    //    var synth = new Tone.MonoSynth().toMaster();
-    //    synth.triggerAttackRelease("C4", "8n");
+    var synth = new Tone.MonoSynth().toMaster();
+    synth.triggerAttackRelease("C4", "8n");
+    
+    this.beepToTest = function(){
+        synth.triggerAttackRelease("G4", "8n");
+    }
+    
     /**
      * Schedule a regular start of bar notification to a bar sequencer, so that
      * it can draw itself
@@ -57,67 +62,15 @@ function Phonestrument(){
     Tone.Transport.loopEnd = "4m";
     Tone.Transport.bpm.value = 60;
 
-    var paneldiv = document.querySelector("#InterfacePanel");
-
+    
+    console.log("New phonestrument ready");
     /* Interface section - experimenting with nexusUI
      *
      */
 
-    drawHomePage();
-
-    function drawHomePage() {
-
-    };
+   
 
 }
 
-nx.onload = function(){
-    console.log("nexusUI loaded from phonestrument");
-//    seqmatrix.row = 4;
-//    seqmatrix.col = 16;
-//    seqmatrix.init();
-//    seqmatrix.draw();
-//    multi1.erase();
-//    var tohide = document.querySelector("#multi1");
-//   tohide.style.display="none";
-/*
-    changebutton.on('*', function(data){
-        console.log("Press: " + data.press + " X: " + data.x + " Y: " + data.y);
-        if (data.press == 1) {
-            //seqmatrix.erase();
-            //nx.add("multislider");
-            //window.location.href='page2.html';
-            var canvastotransform = document.querySelector("#seqmatrix");
-            nx.transform(canvastotransform, "multislider"); 
-            //$("#seqmatrix").remove();
-            //$("#nexusgui").append("<canvas nx=\"button\" id=\"testbutton\"></canvas>");
-            //testbutton.init();
-            //testbutton.draw();
-            var parentDiv = document.querySelector("#tochange");
-            var newChild = document.querySelector("#multi1");
-            var oldChild = document.querySelector("#seqmatrix");
-            //$("#multi1").height("100%");
-            newChild.style.display="block";
-            oldChild.style.display="none";
-
-//            parentDiv.replaceChild(newChild, oldChild);
-        };
-    })
-
-    changebackbutton.on('press', function(data) {
-        if (data == 1) {
-            var oldChild = document.querySelector("#multi1");
-            var newChild = document.querySelector("#seqmatrix");
-            //$("#multi1").height("100%");
-            newChild.style.display="block";
-            oldChild.style.display="none";
-
-          console.log("Changing back");
-        }
-    })
-
-*/
-
-}
 
 
