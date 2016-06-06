@@ -1,79 +1,94 @@
+<!DOCTYPE html>
+<!--HTML5 doctype-->
 <html>
-    <head>
-        <title>Phonestrument</title>
 
-        <meta http-equiv="Content-Security-Policy" content="
+<head>
+
+    <title>Tab View Template</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Security-Policy" content="
         default-src *;
         child-src blob: ;
         media-src 'self' blob: ;
         style-src 'self' 'unsafe-inline' http://fonts.googleapis.com/;
         script-src 'self' 'unsafe-inline' 'unsafe-eval'">
 
-        <!--        'sha256-2GjrB6icaMvRr8QueZTaVeOI999zVDbvc1qkbibXFy0='
+    <link rel="stylesheet" type="text/css" href="lib/appframework/icons.css" />
+    <link rel="stylesheet" type="text/css" href="lib/appframework/af.ui.css" />
 
-            'sha256-2GjrB6icaMvRr8QueZTaVeOI999zVDbvc1qkbibXFy0='
-
-            'sha256-E3XWXbIXwu49tGbw3oEZ2LNM0gSmCvIrEIoK8m/pKCI='
-        -->
-
-        <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8" src="lib/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="lib/fastclick.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="lib/appframework/appframework.ui.min.js"></script>  
         
-
-        
-    <script type="text/javascript" src="js/lib/Tone.js"></script>
-    <script type="text/javascript" src="js/lib/jquery.js"></script>
-    <script type="text/javascript" src="js/lib/interface.js"></script>
-    <script type="text/javascript" src="js/lib/nexusUI.js"></script>
-    <script type="text/javascript" src="js/phonestrument.js"></script>
-    <script type="text/javascript" src="js/barsequencer.js"></script>
-    <script type="text/javascript" src="js/bass.js"></script>
+    <script type="text/javascript" src="lib/Tone.js"></script>
+    <script type="text/javascript" src="lib/nexusUI.js"></script>
+    
     <script type="text/javascript" src="js/monosynth.js"></script>
-    <script type="text/javascript" src="js/samplesynth.js"></script>
-    <script type="text/javascript" src="js/samplesequencer.js"></script>
-    <script type="text/javascript" src="js/samplesequenceradaptor.js"></script>
-    <script type="text/javascript" src="js/part.js"></script>
-    <script type="text/javascript" src="js/simplebarseqadaptor.js"></script>
+    <script type="text/javascript" src="js/phonestrument.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
 
-    <script src="js/app.js"></script>           <!-- recommended location of your JavaScript code relative to other JS files -->
-    <script src="xdk/init-dev.js"></script>     <!-- normalizes device and document ready events, see README for details -->
-        
-    <style>
+    <script src='cordova.js'></script>
 
-.transport {
-    float:left;
-}
-        .interfaceCode {
-            width:50%;
-            float:left;
-        }
+</head>
 
-    </style>
+<body>
 
-    </head>
+    <div id="splashscreen" class='ui-loader heavy'>
+        App Framework - Tab View
+        <br>
+        <br>
+        <span class='ui-icon ui-icon-loading spin'></span>
+        <h1>Starting app</h1>
+    </div>
 
-    <body>
-
-        <div id="transport">
-
-            <canvas class="transport" nx="button" id="playButton" 
-                                                  label="Play" style="width:30%">
+    <div class="view">
+        <header>
+            <h1>Title</h1>
+             <canvas  nx="button" id="playButton" label="Play" style="width:60px; height:60px"  >
             </canvas>
 
-            <canvas class="transport"  nx="number" id="tempoBox" label="Tempo"
-                                                                 style="width:20%" >
+            <canvas  nx="number" id="tempoBox" label="Tempo" style="width:100px; height:60px">
             </canvas>
+        </header>
 
-        </div>
-        <div id="mainscreen">
-            <canvas class="transport" nx="button" id="addItemButton" label="Add item">
+        <div class="pages">
+
+            <!--Tab View Pages-->
+            <div class="panel" data-title="Home" id="tab1" data-selected="true">
+                
+                <canvas  nx="button" id="addItemButton" label="Add item" style="width:60px; height:60px">
             </canvas>
-            <canvas nx="stage" id="mainStage" style="width:80%"></canvas>
-        </div>
-        <div id="sequencerscreen">
-            <canvas nx="matrix" id="seqMatrix" style="width:80%"></canvas>
+            <canvas nx="stage" id="mainStage" style="width:400px; height:180px"></canvas>
+            </div>
+
+            <div class="panel" data-title="Favorites" id="tab2" >
+                
+                <canvas nx="matrix" id="seqMatrix" style="width:400px; height:180px"></canvas>
+            </div>
+
+            <div class="panel" data-title="Messages" id="tab3">
+                This is view for third Tab
+            </div>
+
+            <div class="panel" data-title="Profile" id="tab4">
+                This is view for fourth Tab
+            </div>
+
         </div>
 
+        <footer>
+            <a href="#tab1" class="icon home" onclick="$.afui.clearHistory()">Home</a>
+            <a href="#tab2" class="icon heart" onclick="$.afui.clearHistory()">Favorites</a>
+            <a href="#tab3" class="icon message" onclick="$.afui.clearHistory()">Messages</a>
+            <a href="#tab4" class="icon user" onclick="$.afui.clearHistory()">Profile</a>
+        </footer>
+    </div>
 
-    </body>
+
+</body>
+
 </html>
-

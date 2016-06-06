@@ -27,12 +27,12 @@
 function Phonestrument(){
 
     var monosynth = new Basicmonosynth();
-    var samplesynth = new Samplesynth();
-    var barseq = new BarSequencer();
-    var sampleseq = new SampleSequencer();
-    var part = new Part();
+    //var samplesynth = new Samplesynth();
+    //var barseq = new BarSequencer();
+    //var sampleseq = new SampleSequencer();
+    //var part = new Part();
     // var adaptor = new SimpleBarSequencerAdaptor();
-    var adaptor = new SampleSequencerAdaptor();
+    //var adaptor = new SampleSequencerAdaptor();
     var currentbarnum = 0;
     var currentpos = 0;
     var synth = new Tone.MonoSynth().toMaster();
@@ -52,7 +52,7 @@ function Phonestrument(){
         currentpos = Tone.Transport.position;
         console.log("Bar: " + currentpos);
         //barseq.setCurrentBarNum(currentpos);
-        sampleseq.setCurrentBarNum(currentpos);
+        //sampleseq.setCurrentBarNum(currentpos);
         currentbarnum++;
         tfl_bar.setValue(currentpos);
     }, "1m");

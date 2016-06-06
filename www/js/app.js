@@ -31,16 +31,7 @@
 
 var phonestrument = new Phonestrument();
 
-function onAppReady() {
-    if( navigator.splashscreen && navigator.splashscreen.hide ) {   // Cordova API detected
-        navigator.splashscreen.hide() ;
-    }
 
-    console.log("app.js app ready");
-    
-
-}
-document.addEventListener("app.Ready", onAppReady, false) ;
 // document.addEventListener("deviceready", onAppReady, false) ;
 // document.addEventListener("onload", onAppReady, false) ;
 
@@ -72,14 +63,14 @@ nx.onload = function(){
     mainStage.on('*', function(data) {
         
         console.log(data);
-        var tohide = document.querySelector("#mainscreen");
-        tohide.style.display="none";
-        var toshow = document.querySelector("#sequencerscreen");
-        toshow.style.display="block";
+      //  var tohide = document.querySelector("#mainscreen");
+      //  tohide.style.display="none";
+     //   var toshow = document.querySelector("#sequencerscreen");
+      //  toshow.style.display="block";
         
     })
-    var tohide = document.querySelector("#sequencerscreen");
-    tohide.style.display="none";
+    //var tohide = document.querySelector("#sequencerscreen");
+   // tohide.style.display="none";
 /*
     changebutton.on('*', function(data){
         console.log("Press: " + data.press + " X: " + data.x + " Y: " + data.y);
