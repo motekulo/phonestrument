@@ -53,22 +53,22 @@ nx.onload = function(){
     seqMatrix.draw();
 //    multi1.erase();
     
-    addItemButton.on('*', function(data) {
+  /*  addItemButton.on('*', function(data) {
         if (data.press == 1) {
             mainStage.addItem();
             phonestrument.beepToTest();
         }
-    })
+    })*/
     
-    mainStage.on('*', function(data) {
+ //   mainStage.on('*', function(data) {
         
-        console.log(data);
+ //       console.log(data);
       //  var tohide = document.querySelector("#mainscreen");
       //  tohide.style.display="none";
      //   var toshow = document.querySelector("#sequencerscreen");
       //  toshow.style.display="block";
         
-    })
+   // })
     //var tohide = document.querySelector("#sequencerscreen");
    // tohide.style.display="none";
 /*
