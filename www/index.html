@@ -19,19 +19,19 @@
 
 <link rel="stylesheet" type="text/css" href="lib/appframework/icons.css" />
 <link rel="stylesheet" type="text/css" href="lib/appframework/af.ui.css" />
-
+    
+<script src='cordova.js'></script>
 <script type="text/javascript" charset="utf-8" src="lib/jquery.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="lib/fastclick.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="lib/appframework/appframework.ui.min.js"></script>  
-
-<script type="text/javascript" src="lib/Tone.js"></script>
 <script type="text/javascript" src="lib/nexusUI.js"></script>
+<script type="text/javascript" src="lib/Tone.js"></script>
+
 
 <script type="text/javascript" src="js/monosynth.js"></script>
 <script type="text/javascript" src="js/phonestrument.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
 
-<script src='cordova.js'></script>
 
 </head>
 
@@ -56,26 +56,16 @@
     <div class="pages">
         <!--Tab View Pages-->
         <div class="panel" data-title="Home" id="tab1" data-selected="true">
-            <canvas nx="matrix" id="seqMatrix" style="width:400px; height:180px"></canvas>
-<!--
-            <canvas  nx="button" id="addItemButton" label="Add item" style="width:60px; height:60px">
-        </canvas>
--->
-<!--            <canvas nx="stage" id="mainStage" style="width:400px; height:180px"></canvas>-->
+            <canvas nx="stage" id="mainstage" style="width:400px;height:180px"></canvas>
         </div>
         <div class="panel" data-title="Sequencer" id="tab2">
-            <canvas nx="stage" id="mainStage" style="width:400px; height:180px"></canvas>
+            <canvas nx="matrix" id="seqmatrix" style="width:400px;height:180px"></canvas>
+<!--            <canvas nx="position" id="positiontest" style="width:400px;height:180px"></canvas>-->
         </div>
-     <div class="panel" data-title="Instrument" id="tab3">
+        <div class="panel" data-title="Instrument" id="tab3">
             This is view for third Tab
         </div>
         <div class="panel" data-title="Settings" id="tab4">
-<!--
-             <canvas  nx="button" id="playButton" label="Play" style="width:60px; height:60px"  >
-        </canvas>
-             <canvas  nx="number" id="tempoBox" label="Tempo" style="width:100px; height:60px">
-        </canvas>
--->
         </div>
     </div>
     <footer>
@@ -90,6 +80,78 @@
         <a href="#tab4" class="icon user" onclick="$.afui.clearHistory()">Settings</a> -->
 
     </footer>
+    <script>
+nx.onload = function(){
+    console.log("nexusUI loaded from phonestrument");
+    
+//    multi1.erase();
+    
+  /*  addItemButton.on('*', function(data) {
+        if (data.press == 1) {
+            mainStage.addItem();
+            phonestrument.beepToTest();
+        }
+    })*/
+    
+  
+    
+   mainstage.on('*', function(data) {
+        
+        console.log(data);
+      //  var tohide = document.querySelector("#mainscreen");
+      //  tohide.style.display="none";
+     //   var toshow = document.querySelector("#sequencerscreen");
+      //  toshow.style.display="block";
+        
+    })
+   
+    seqmatrix.row = 4;
+    seqmatrix.col = 12;
+    seqmatrix.init();
+    seqmatrix.draw();
+    
+    //var tohide = document.querySelector("#sequencerscreen");
+   // tohide.style.display="none";
+/*
+    changebutton.on('*', function(data){
+        console.log("Press: " + data.press + " X: " + data.x + " Y: " + data.y);
+        if (data.press == 1) {
+            //seqmatrix.erase();
+            //nx.add("multislider");
+            //window.location.href='page2.html';
+            var canvastotransform = document.querySelector("#seqmatrix");
+            nx.transform(canvastotransform, "multislider"); 
+            //$("#seqmatrix").remove();
+            //$("#nexusgui").append("<canvas nx=\"button\" id=\"testbutton\"></canvas>");
+            //testbutton.init();
+            //testbutton.draw();
+            var parentDiv = document.querySelector("#tochange");
+            var newChild = document.querySelector("#multi1");
+            var oldChild = document.querySelector("#seqmatrix");
+            //$("#multi1").height("100%");
+            newChild.style.display="block";
+            oldChild.style.display="none";
+
+//            parentDiv.replaceChild(newChild, oldChild);
+        };
+    })
+
+    changebackbutton.on('press', function(data) {
+        if (data == 1) {
+            var oldChild = document.querySelector("#multi1");
+            var newChild = document.querySelector("#seqmatrix");
+            //$("#multi1").height("100%");
+            newChild.style.display="block";
+            oldChild.style.display="none";
+
+          console.log("Changing back");
+        }
+    })
+
+*/
+
+}
+</script>
 </div>
 
 

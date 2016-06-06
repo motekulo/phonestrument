@@ -34,7 +34,7 @@ window.onload = function() {
 
   // get all canvases on the page and add them to the manager
   var allcanvi = document.getElementsByTagName("canvas");
-  for (i=0;i<allcanvi.length;i++) nx.transform(allcanvi[i]);
+  for (i=0;i< allcanvi.length; i++) nx.transform(allcanvi[i]);
 
   if (nx.isTouchDevice) {
     document.addEventListener("touchmove", nx.blockMove, true);
@@ -46,6 +46,7 @@ window.onload = function() {
   nx.startPulse();
   
 };
+
 },{"./lib/core/manager":2,"./lib/utils/dom":4,"./lib/utils/drawing":5,"./lib/utils/math":6,"extend":49,"webfontloader":54}],2:[function(require,module,exports){
 
 /** 
@@ -6666,7 +6667,7 @@ stage.prototype.draw = function() {
         var stageY = (this.GUI.h - this.GUI.h * this.stageSize)/2;
         strokeRect(stageX, stageY, this.GUI.w * this.stageSize, this.GUI.h * this.stageSize);
 
-        for (i = 0; i < this.val.length; i++) {
+        for (var i = 0; i < this.val.length; i++) {
 
             var drawingX = this.val[i].x * this.actualWid + this.nodeSize
                 var drawingY = math.invert(this.val[i].y) * this.actualHgt + this.nodeSize
@@ -6785,7 +6786,7 @@ stage.prototype.addItem = function() {
 }
 
 stage.prototype.findClosestItem = function(clickedPos) {
-//    var previousClosest = this.closestIndex;
+    //    var previousClosest = this.closestIndex;
 
     for (i = 0; i < this.val.length; i++) {
 
@@ -6801,7 +6802,7 @@ stage.prototype.findClosestItem = function(clickedPos) {
             return i;  // index of item hit
         }
     }
-return this.closestIndex;
+    return this.closestIndex;
 
 }
 
