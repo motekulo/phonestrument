@@ -61,14 +61,25 @@ nx.onload = function(){
 //    seqmatrix.init();
 //    seqmatrix.draw();
 //    multi1.erase();
-    var tohide = document.querySelector("#sequencerscreen");
-    tohide.style.display="none";
+    
     addItemButton.on('*', function(data) {
         if (data.press == 1) {
             mainStage.addItem();
             phonestrument.beepToTest();
         }
     })
+    
+    mainStage.on('*', function(data) {
+        
+        console.log(data);
+        var tohide = document.querySelector("#mainscreen");
+        tohide.style.display="none";
+        var toshow = document.querySelector("#sequencerscreen");
+        toshow.style.display="block";
+        
+    })
+    var tohide = document.querySelector("#sequencerscreen");
+    tohide.style.display="none";
 /*
     changebutton.on('*', function(data){
         console.log("Press: " + data.press + " X: " + data.x + " Y: " + data.y);
