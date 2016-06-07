@@ -46,33 +46,31 @@
 </div>
 
 <div class="view">
-    <!-- <header>
-       <h1>Phonestrument</h1>
-
-        <canvas  nx="button" id="dummyButton" label="Dummy" style="width:20px; height:20px"  >
-        </canvas>
-
-    </header>-->
     <div class="pages">
         <!--Tab View Pages-->
         <div class="panel" data-title="Home" id="tab1" data-selected="true">
-            <canvas nx="stage" id="mainstage" style="width:400px;height:180px"></canvas>
+            <canvas  nx="button" id="addItemButton" label="Add"></canvas>
+            <canvas nx="stage" id="mainStage" style="width:400px;height:180px"></canvas>
         </div>
         <div class="panel" data-title="Sequencer" id="tab2">
-            <canvas nx="matrix" id="seqmatrix" style="width:400px;height:180px"></canvas>
-<!--            <canvas nx="position" id="positiontest" style="width:400px;height:180px"></canvas>-->
+            <canvas nx="matrix" id="seqMatrix" style="width:400px;height:180px"></canvas>
         </div>
         <div class="panel" data-title="Instrument" id="tab3">
-            This is view for third Tab
+            <canvas nx="envelope" id="instrumentEnvelope" style="width:200px;height:180px"></canvas>
+            <canvas nx="select" choices="sine,saw,square" style="width:180px;height:40px"></canvas>
         </div>
-        <div class="panel" data-title="Settings" id="tab4">
+        <div class="panel" data-title="Transport" id="tab4">
+            <canvas  nx="button" id="rewindButton" label="Rewind" style="width:80px;height:80px"></canvas>
+            <canvas  nx="button" id="playButton" label="Play" style="width:80px;height:80px"></canvas>
+            <canvas  nx="button" id="recordButton" label="Record" style="width:80px;height:80px"></canvas>
+            <canvas  nx="number" id="tempoText" label="Tempo" style="width:160px;height:80px"></canvas>
         </div>
     </div>
     <footer>
         <a href="#tab1" onclick="$.afui.clearHistory()">Home</a>
         <a href="#tab2" onclick="$.afui.clearHistory()">Sequencer</a>
         <a href="#tab3" onclick="$.afui.clearHistory()">Instrument</a>
-        <a href="#tab4" onclick="$.afui.clearHistory()">Settings</a>
+        <a href="#tab4" onclick="$.afui.clearHistory()">Transport</a>
 
        <!-- <a href="#tab1" class="icon home" onclick="$.afui.clearHistory()">Home</a>
         <a href="#tab2" class="icon heart" onclick="$.afui.clearHistory()">Sequencer</a>
@@ -80,78 +78,8 @@
         <a href="#tab4" class="icon user" onclick="$.afui.clearHistory()">Settings</a> -->
 
     </footer>
-    <script>
-nx.onload = function(){
-    console.log("nexusUI loaded from phonestrument");
     
-//    multi1.erase();
-    
-  /*  addItemButton.on('*', function(data) {
-        if (data.press == 1) {
-            mainStage.addItem();
-            phonestrument.beepToTest();
-        }
-    })*/
-    
-  
-    
-   mainstage.on('*', function(data) {
-        
-        console.log(data);
-      //  var tohide = document.querySelector("#mainscreen");
-      //  tohide.style.display="none";
-     //   var toshow = document.querySelector("#sequencerscreen");
-      //  toshow.style.display="block";
-        
-    })
-   
-    seqmatrix.row = 4;
-    seqmatrix.col = 12;
-    seqmatrix.init();
-    seqmatrix.draw();
-    
-    //var tohide = document.querySelector("#sequencerscreen");
-   // tohide.style.display="none";
-/*
-    changebutton.on('*', function(data){
-        console.log("Press: " + data.press + " X: " + data.x + " Y: " + data.y);
-        if (data.press == 1) {
-            //seqmatrix.erase();
-            //nx.add("multislider");
-            //window.location.href='page2.html';
-            var canvastotransform = document.querySelector("#seqmatrix");
-            nx.transform(canvastotransform, "multislider"); 
-            //$("#seqmatrix").remove();
-            //$("#nexusgui").append("<canvas nx=\"button\" id=\"testbutton\"></canvas>");
-            //testbutton.init();
-            //testbutton.draw();
-            var parentDiv = document.querySelector("#tochange");
-            var newChild = document.querySelector("#multi1");
-            var oldChild = document.querySelector("#seqmatrix");
-            //$("#multi1").height("100%");
-            newChild.style.display="block";
-            oldChild.style.display="none";
 
-//            parentDiv.replaceChild(newChild, oldChild);
-        };
-    })
-
-    changebackbutton.on('press', function(data) {
-        if (data == 1) {
-            var oldChild = document.querySelector("#multi1");
-            var newChild = document.querySelector("#seqmatrix");
-            //$("#multi1").height("100%");
-            newChild.style.display="block";
-            oldChild.style.display="none";
-
-          console.log("Changing back");
-        }
-    })
-
-*/
-
-}
-</script>
 </div>
 
 

@@ -1,3 +1,8 @@
+.nx {
+    float:left;
+    position: relative;
+    margin:5px;
+}
 #af_actionsheet {
   position: absolute;
   left: 0px;
@@ -480,7 +485,7 @@
 .android .view,
 .android .view .pages {
   font: 14px 'Roboto', sans-serif;
-  background: #000;
+  background: #9C8E8E;
   color: #fff;
   border-color: #fff;
 }
