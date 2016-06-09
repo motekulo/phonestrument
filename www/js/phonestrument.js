@@ -1,5 +1,4 @@
 /*
- *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,27 +23,33 @@
  * of the action takes place in the callbacks from the Interface widgets.
  *
  **/
-function Phonestrument(){
+/** 
+ * Constructor of a new Phonestrument
+ * 
+ * @param {tempo}
+ * @param {timesig}
+ * @param {key}
+ * @param {numparts}
+ *
+ **/
 
-    var monosynth = new Basicmonosynth();
-    //var samplesynth = new Samplesynth();
-    //var barseq = new BarSequencer();
-    //var sampleseq = new SampleSequencer();
-    //var part = new Part();
-    // var adaptor = new SimpleBarSequencerAdaptor();
-    //var adaptor = new SampleSequencerAdaptor();
+function Phonestrument(tempo, timesig, key, numparts){
+
+    this.tempo = tempo;
+    this.timesig = timesig;
+    this.key = key;
+    this.player = [];
+
+    for (var i = 0; i < numparts; i++) {
+        this.createNewPlayer();
+    }
+    //this.parts
+
     var currentbarnum = 0;
     var currentpos = 0;
-    var synth = new Tone.MonoSynth().toMaster();
-    synth.triggerAttackRelease("C4", "8n");
-    
-    this.beepToTest = function(){
-        synth.triggerAttackRelease("G4", "8n");
-    }
-    
-    /**
-     * Schedule a regular start of bar notification to a bar sequencer, so that
-     * it can draw itself
+
+    /** Schedule a regular start of bar notification to a bar
+     * sequencer, so that it can draw itself
      *
      **/
     Tone.Transport.scheduleRepeat(function(time){
@@ -62,15 +67,26 @@ function Phonestrument(){
     Tone.Transport.loopEnd = "4m";
     Tone.Transport.bpm.value = 60;
 
-    
     console.log("New phonestrument ready");
-    /* Interface section - experimenting with nexusUI
-     *
-     */
-
-   
 
 }
+
+Phonestrument.prototype.createNewPlayer = function(){
+
+    var newPlayer = new Player();
+    this.player.push(newPlayer);
+
+}
+
+
+Phonestrument.prototype.beepToTest = function(){
+    var synth = new Tone.MonoSynth().ToMaster();
+    synth.triggerAttackRelease("G4", "8n");
+}
+
+
+
+
 
 
 

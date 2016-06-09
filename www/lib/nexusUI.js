@@ -6719,7 +6719,7 @@ stage.prototype.click = function() {
     this.val[this.closestIndex].y = this.clickPos.y;
     this.scaleNode();
     this.val[this.closestIndex]["state"] = "click";
-    this.transmit(this.val);
+    this.transmit(this.val[this.closestIndex]);
     this.draw();
 }
 
@@ -6730,7 +6730,7 @@ stage.prototype.move = function() {
     this.val[this.closestIndex].y = this.clickPos.y;
     this.scaleNode();
     this.val[this.closestIndex]["state"] = "move";
-    this.transmit(this.val);
+    this.transmit(this.val[this.closestIndex]);
     this.draw();
 }
 
@@ -6788,7 +6788,7 @@ stage.prototype.addItem = function() {
 stage.prototype.findClosestItem = function(clickedPos) {
     //    var previousClosest = this.closestIndex;
 
-    for (i = 0; i < this.val.length; i++) {
+    for (var i = 0; i < this.val.length; i++) {
 
         var itemX = this.val[i].x * this.GUI.w;
         var itemY = this.val[i].y * this.GUI.h;

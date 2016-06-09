@@ -2,6 +2,7 @@
 # in essence, everything but *.xdk file and www directory
 /*
 !/www
+!/spec
 !/docs
 !/plugins
 !/config.xml
