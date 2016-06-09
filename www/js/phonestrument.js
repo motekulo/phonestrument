@@ -43,27 +43,21 @@ function Phonestrument(tempo, timesig, key, numparts){
     for (var i = 0; i < numparts; i++) {
         this.createNewPlayer();
     }
-    //this.parts
+    this.currentPlayer = this.player[0];
 
-    var currentbarnum = 0;
-    var currentpos = 0;
+    this.currentBar = "";
 
+     Tone.Transport.scheduleRepeat(function(time){
+            this.currentBar = Tone.Transport.position;
+            console.log("Bar: " + this.currentBar);
+            
+        }, "1m");
+    
     /** Schedule a regular start of bar notification to a bar
      * sequencer, so that it can draw itself
      *
      **/
-    Phonestrument.prototype.schedulePing = function(callback, interval){
-        Tone.Transport.scheduleRepeat(function(time){
-            //console.log("Bar: " + currentbarnum);
-            currentpos = Tone.Transport.position;
-            console.log("Bar: " + currentpos);
-            //barseq.setCurrentBarNum(currentpos);
-            //sampleseq.setCurrentBarNum(currentpos);
-            currentbarnum++;
-            callback("ping");
-           // tfl_bar.setValue(currentpos);
-        }, "1m");
-    }
+   
     
     Tone.Transport.loop = true;
     Tone.Transport.loopStart = 0;
@@ -72,6 +66,17 @@ function Phonestrument(tempo, timesig, key, numparts){
 
     console.log("New phonestrument ready");
 
+}
+
+Phonestrument.prototype.getCurrentBar = function(){
+    var bar = this.currentBar;
+    return bar;
+}
+
+Phonestrument.prototype.schedulePing = function(callback, interval){
+    Tone.Transport.scheduleRepeat(function(time){
+        callback(Tone.Transport.position);
+    }, "1m");
 }
 
 Phonestrument.prototype.startPlaying = function(){

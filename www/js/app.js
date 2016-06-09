@@ -1,7 +1,11 @@
 var phonestrument = new Phonestrument(116, 4, "E", 2);
-
-phonestrument.schedulePing(function(){
-    console.log("Ping");
+var currentBar = "";
+phonestrument.schedulePing(function(pos){
+    console.log(pos);
+    currentBar = pos;
+    seqMatrix.matrix[1][4] = 1;
+    seqMatrix.matrix[4][1] = 1;
+    seqMatrix.draw();
 }, "1m");
 
 nx.onload = function(){
@@ -27,13 +31,16 @@ nx.onload = function(){
         console.log(data);
     })
 
-    seqMatrix.row = 4;
-    seqMatrix.col = 12;
+    seqMatrix.row = 7;
+    seqMatrix.col = 16;
     seqMatrix.init();
     seqMatrix.draw();
 
     seqMatrix.on('*', function(data) {
         console.log(data);
+        
+        phonestrument.currentPlayer.updatePart(currentBar, data);
+
     })
     var playing = false;
     playButton.on('press', function(data) {

@@ -28,20 +28,32 @@
 function Player(){
 
 
-    this.instrument = new Tone.SimpleSynth().toMaster();
-
+    //this.instrument = new Tone.SimpleSynth().toMaster();
+    var instrument = new Tone.SimpleSynth().toMaster();
+    
     var notes = [];
     this.part = new Tone.Part(function(time, note) {
-        this.instrument.triggerAttackRelease(note, "16n");
+        instrument.triggerAttackRelease(note, "16n");
     }, notes);
     this.part.loop = false;
     this.part.start(0.2);
+    this.adaptor = new SimpleBarSequencerAdaptor();
 
 }
 
+Player.prototype.setAdaptor = function(adaptor){
+    this.adaptor = adaptor;
+
+}
 
 Player.prototype.changeInstrument = function(instrument){
     this.instrument = instrument;
 
 }
 
+Player.prototype.updatePart = function(pos, data){
+    //console.log("Updating data");
+    var convertedData = this.adaptor.convertData(pos, data);
+    this.part.at(convertedData[0],convertedData[1]);
+
+}
