@@ -29,11 +29,9 @@ function SimpleBarSequencerAdaptor() {
     this.notesinscale = 4;
     this.scalestructure = [2,2,1,2,2,2,1];
     this.key = "C";
-   // this.scale = [];
     this.scale = this.setScale(this.key);
     this.octave = 4; // fudge for now
    
-    //this.part = null;
 }
 
 SimpleBarSequencerAdaptor.prototype.setScale = function(key){
@@ -137,11 +135,11 @@ SimpleBarSequencerAdaptor.prototype.sendConvertedDataToPart = function(data) {
  *
  */
 
-SimpleBarSequencerAdaptor.prototype.getBarArray = function(bar, division){
+SimpleBarSequencerAdaptor.prototype.getBarArray = function(part, bar, division){
     bararray = new Array();
-    for (i = 0; i < this.scale.length; i++) {
+    for (i = 0; i < division; i++) {
         bararray[i] = new Array();
-        for (j = 0; j < division; j++) {
+        for (j = 0; j < this.scale.length; j++) {
             bararray[i][j] = 0;
         }
 
@@ -151,7 +149,7 @@ SimpleBarSequencerAdaptor.prototype.getBarArray = function(bar, division){
 
     for (i=0; i < division; i++){
         time = bar + "m" + " + (" + i + " * " + division + "n)";
-        note = this.part.tonepart.at(time);
+        note = part.at(time);
         console.log("Note is " + note);
         if (note != null && note.value != null) {
             notestoprocess = [];
@@ -166,7 +164,7 @@ SimpleBarSequencerAdaptor.prototype.getBarArray = function(bar, division){
                 // so index of scale array
                 var octavestripped = notestoprocess[j].slice(0, -1);
                 var row = this.scale.indexOf(octavestripped); // strip off octave 
-                bararray[row][i] = 1;
+                bararray[i][row] = 1;
             }
 
         }

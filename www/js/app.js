@@ -3,8 +3,10 @@ var currentBar = "";
 phonestrument.schedulePing(function(pos){
     console.log(pos);
     currentBar = pos;
-    seqMatrix.matrix[1][4] = 1;
-    seqMatrix.matrix[4][1] = 1;
+    var bar = currentBar.split(':')[0];
+    var barMatrix = phonestrument.currentPlayer.getCurrentBarDataToDisplay(bar, 16);
+    seqMatrix.matrix = barMatrix;
+    //seqMatrix.matrix[4][1] = 1;
     seqMatrix.draw();
 }, "1m");
 

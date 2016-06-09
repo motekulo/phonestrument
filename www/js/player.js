@@ -57,3 +57,7 @@ Player.prototype.updatePart = function(pos, data){
     this.part.at(convertedData[0],convertedData[1]);
 
 }
+
+Player.prototype.getCurrentBarDataToDisplay = function(currentBar, barDiv) {
+    return this.adaptor.getBarArray(this.part, currentBar, barDiv);
+}
