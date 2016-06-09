@@ -1,10 +1,16 @@
 var phonestrument = new Phonestrument(116, 4, "E", 2);
 
+phonestrument.schedulePing(function(){
+    console.log("Ping");
+}, "1m");
+
 nx.onload = function(){
     console.log("nexusUI loaded from phonestrument");
     nx.colorize("#00CCFF"); // sets accent (default)
     nx.colorize("border", "#222222");
     nx.colorize("fill", "#222222");
+    playButton.mode = "toggle";
+    addItemButton.mode = "toggle";
 //    rewindButton1.getOffset();
 
     addItemButton.on('*', function(data) {
@@ -29,10 +35,19 @@ nx.onload = function(){
     seqMatrix.on('*', function(data) {
         console.log(data);
     })
-    
+    var playing = false;
     playButton.on('press', function(data) {
-        if (data == 1) {
-            console.log("Play pressed");
+        //console.log(data);
+        if (data == 1){
+            if (!playing) {
+                console.log("Starting transport");
+                phonestrument.startPlaying();
+                playing = true;
+            } else if (playing) {
+                console.log("Stopping transport");
+                phonestrument.stopPlaying();
+                playing = false;
+            }
         }
     })
 

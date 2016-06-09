@@ -52,16 +52,19 @@ function Phonestrument(tempo, timesig, key, numparts){
      * sequencer, so that it can draw itself
      *
      **/
-    Tone.Transport.scheduleRepeat(function(time){
-        //console.log("Bar: " + currentbarnum);
-        currentpos = Tone.Transport.position;
-        console.log("Bar: " + currentpos);
-        //barseq.setCurrentBarNum(currentpos);
-        //sampleseq.setCurrentBarNum(currentpos);
-        currentbarnum++;
-        tfl_bar.setValue(currentpos);
-    }, "1m");
-
+    Phonestrument.prototype.schedulePing = function(callback, interval){
+        Tone.Transport.scheduleRepeat(function(time){
+            //console.log("Bar: " + currentbarnum);
+            currentpos = Tone.Transport.position;
+            console.log("Bar: " + currentpos);
+            //barseq.setCurrentBarNum(currentpos);
+            //sampleseq.setCurrentBarNum(currentpos);
+            currentbarnum++;
+            callback("ping");
+           // tfl_bar.setValue(currentpos);
+        }, "1m");
+    }
+    
     Tone.Transport.loop = true;
     Tone.Transport.loopStart = 0;
     Tone.Transport.loopEnd = "4m";
@@ -69,6 +72,14 @@ function Phonestrument(tempo, timesig, key, numparts){
 
     console.log("New phonestrument ready");
 
+}
+
+Phonestrument.prototype.startPlaying = function(){
+    Tone.Transport.start();
+}
+
+Phonestrument.prototype.stopPlaying = function(){
+    Tone.Transport.stop();
 }
 
 Phonestrument.prototype.createNewPlayer = function(){

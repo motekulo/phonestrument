@@ -50,25 +50,17 @@
     <div class="pages">
         <!--Tab View Pages-->
         <div class="panel" data-title="Home" id="tab1" data-selected="true">
-            <canvas  nx="button" id="playButton1" label="Play" style="width:120px;height:120px"></canvas>
-            <canvas  nx="button" id="rewindButton1" label="Rewind" style="width:180px;height:180px"></canvas>       
-            <canvas  nx="button" id="recordButton1" label="Record" style="width:80px;height:80px"></canvas>
-           <!-- <canvas  nx="button" id="addItemButton" label="Add" style="width:80px;height:80px"></canvas>
-            <canvas nx="position" id="mainStage" style="width:400px;height:180px"></canvas> -->  
+            <canvas  nx="button" id="addItemButton" label="Add" style="width:80px;height:80px"></canvas>
+            <canvas nx="stage" id="mainStage" style="width:400px;height:180px"></canvas>  
         </div>
         <div class="panel" data-title="Sequencer" id="tab2">
-            <canvas  nx="button" id="playButton2" label="Play" style="width:120px;height:120px"></canvas>
-            <canvas  nx="button" id="rewindButton2" label="Rewind" style="width:180px;height:180px;position:relative"></canvas>       
-            <canvas  nx="button" id="recordButton2" label="Record" style="width:80px;height:80px"></canvas>
-<!--             <canvas nx="matrix" id="seqMatrix" style="width:400px;height:180px"></canvas>-->
+             <canvas nx="matrix" id="seqMatrix" style="width:400px;height:180px"></canvas>
         </div>
         <div class="panel" data-title="Instrument" id="tab3">
             <canvas nx="slider" id="instSlider1" style="width:80px;height:180px"></canvas>
         </div>
         <div class="panel" data-title="Transport" id="tab4">        
             <canvas  nx="button" id="playButton" label="Play" style="width:120px;height:120px"></canvas>
-            <canvas  nx="button" id="rewindButton" label="Rewind" style="width:180px;height:180px"></canvas>       
-            <canvas  nx="button" id="recordButton" label="Record" style="width:80px;height:80px"></canvas>       
             <canvas  nx="number" id="tempoText" label="Tempo" style="width:160px;height:80px"></canvas>
         </div>
     </div>
