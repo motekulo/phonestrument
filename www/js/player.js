@@ -27,18 +27,31 @@
 
 function Player(){
 
-
+    //_this = this;
     //this.instrument = new Tone.SimpleSynth().toMaster();
-    var instrument = new Tone.SimpleSynth().toMaster();
+    this.instrument = new Tone.SimpleSynth()
+    this.connectToMaster();
+    //this.isConnected = true;
+    //instrument.connect(Tone.Master);
     
     var notes = [];
-    this.part = new Tone.Part(function(time, note) {
-        instrument.triggerAttackRelease(note, "16n");
-    }, notes);
+    this.part = new Tone.Part((function(time, note) {
+        this.instrument.triggerAttackRelease(note, "16n");
+    }).bind(this), notes);
     this.part.loop = false;
     this.part.start(0.2);
     this.adaptor = new SimpleBarSequencerAdaptor();
 
+}
+
+Player.prototype.connectToMaster = function(){
+    this.instrument.connect(Tone.Master);
+    this.isConnected = true;
+}
+
+Player.prototype.disconnectFromMaster = function(){
+    this.instrument.disconnect();
+    this.isConnected = false;
 }
 
 Player.prototype.setAdaptor = function(adaptor){

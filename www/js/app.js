@@ -22,17 +22,24 @@ nx.onload = function(){
     addItemButton.on('*', function(data) {
         if (data.press == 1) {
             mainStage.addItem();
-            //phonestrument.beepToTest();
-            //
-            phonestrument.createNewPlayer();
             
+            phonestrument.createNewPlayer();
+         
         }
     })
-
+    
+    
     mainStage.on('*', function(data) {
         console.log(data);
         if (data.state = "release"){
             phonestrument.currentPlayer = phonestrument.player[data.item];
+            if (data.onstage && !phonestrument.currentPlayer.isConnected) {
+                phonestrument.currentPlayer.connectToMaster();
+                
+            } else if (!data.onstage && phonestrument.currentPlayer.isConnected) {
+                phonestrument.currentPlayer.disconnectFromMaster();
+                
+            }
         }
     })
 
