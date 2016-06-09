@@ -31,6 +31,9 @@ nx.onload = function(){
 
     mainStage.on('*', function(data) {
         console.log(data);
+        if (data.state = "release"){
+            phonestrument.currentPlayer = phonestrument.player[data.item];
+        }
     })
 
     seqMatrix.row = 7;
