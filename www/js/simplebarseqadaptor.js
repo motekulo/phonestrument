@@ -86,7 +86,7 @@ SimpleBarSequencerAdaptor.prototype.convertData = function(pos, data) {
     //var index = row;
     var time = pos + " + (" + col + " * 16n)";
 
-    console.log("Time is " + time);
+    //console.log("Time is " + time);
     note = this.scale[row] + this.octave;
 
     var converteddata = [time, note];
@@ -150,7 +150,7 @@ SimpleBarSequencerAdaptor.prototype.getBarArray = function(part, bar, division){
     for (i=0; i < division; i++){
         time = bar + "m" + " + (" + i + " * " + division + "n)";
         note = part.at(time);
-        console.log("Note is " + note);
+        //console.log("Note is " + note);
         if (note != null && note.value != null) {
             notestoprocess = [];
             if (Array.isArray(note.value)) {

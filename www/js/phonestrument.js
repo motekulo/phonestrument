@@ -49,7 +49,7 @@ function Phonestrument(tempo, timesig, key, numparts){
 
      Tone.Transport.scheduleRepeat(function(time){
             this.currentBar = Tone.Transport.position;
-            console.log("Bar: " + this.currentBar);
+            //console.log("Bar: " + this.currentBar);
             
         }, "1m");
     

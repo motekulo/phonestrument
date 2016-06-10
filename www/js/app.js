@@ -1,7 +1,10 @@
 var phonestrument = new Phonestrument(116, 4, "E", 2);
 var currentBar = "";
 phonestrument.schedulePing(function(pos){
-    console.log(pos);
+
+    var partState = phonestrument.currentPlayer.part.state;
+    var partProgress = phonestrument.currentPlayer.part.progress;
+    console.log(pos + "  and part is " + partState + " and progress " + partProgress);
     currentBar = pos;
     var bar = currentBar.split(':')[0];
     var barMatrix = phonestrument.currentPlayer.getCurrentBarDataToDisplay(bar, 16);
@@ -54,14 +57,24 @@ nx.onload = function(){
     
     
     mainStage.on('*', function(data) {
-        console.log(data);
+       // console.log(data);
+
+
+
         if (data.state == "release"){
             phonestrument.currentPlayer = phonestrument.player[data.item];
-            if (data.onstage && !phonestrument.currentPlayer.isConnected) {
-                phonestrument.currentPlayer.connectToMaster();
+            if (data.onstage && phonestrument.currentPlayer.part.state == "stopped") {
+                //phonestrument.currentPlayer.connectToMaster();
+                var nextBar = currentBar + " + 1m";
+                console.log("starting part at " + nextBar);               
+                phonestrument.currentPlayer.part.start(0);
                 
-            } else if (!data.onstage && phonestrument.currentPlayer.isConnected) {
-                phonestrument.currentPlayer.disconnectFromMaster();
+                
+            } else if (!data.onstage && phonestrument.currentPlayer.part.state == "started") {
+               //phonestrument.currentPlayer.disconnectFromMaster();
+                var nextBar = currentBar + " + 1m";
+                console.log("stopping part at " + nextBar);               
+                phonestrument.currentPlayer.part.stop(0);
                 
             }
         }
@@ -73,7 +86,7 @@ nx.onload = function(){
     seqMatrix.draw();
 
     seqMatrix.on('*', function(data) {
-        console.log(data);
+        //console.log(data);
         
         phonestrument.currentPlayer.updatePart(currentBar, data);
 
@@ -83,11 +96,11 @@ nx.onload = function(){
         //console.log(data);
         if (data == 1){
             if (!playing) {
-                console.log("Starting transport");
+                //console.log("Starting transport");
                 phonestrument.startPlaying();
                 playing = true;
             } else if (playing) {
-                console.log("Stopping transport");
+               // console.log("Stopping transport");
                 phonestrument.stopPlaying();
                 playing = false;
             }

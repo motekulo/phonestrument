@@ -38,8 +38,11 @@ function Player(){
     this.part = new Tone.Part((function(time, note) {
         this.instrument.triggerAttackRelease(note, "16n");
     }).bind(this), notes);
-    this.part.loop = false;
-    this.part.start(0.2);
+    //this.part.at("0", "C5");
+    //this.part.at("3:0:0", "G5"); // dummy values to set length of part initially
+    this.part.loop = true;
+    this.part.loopEnd = "4m";
+    this.part.start(0);
     this.adaptor = new SimpleBarSequencerAdaptor();
 
 }
