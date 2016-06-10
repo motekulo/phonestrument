@@ -31,6 +31,18 @@ nx.onload = function(){
     addItemButton.mode = "toggle";
 //    rewindButton1.getOffset();
 
+    tempoText.set({
+        value: 116
+    })
+    tempoText.min = 1;
+    tempoText.max = 360;
+    tempoText.decimalPlaces = 0;
+    
+    tempoText.on('*', function(data){
+        //console.log(data);
+        phonestrument.changeTempo(data.value);
+    })
+    
     addItemButton.on('*', function(data) {
         if (data.press == 1) {
             mainStage.addItem();

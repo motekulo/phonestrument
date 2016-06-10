@@ -62,7 +62,7 @@ function Phonestrument(tempo, timesig, key, numparts){
     Tone.Transport.loop = true;
     Tone.Transport.loopStart = 0;
     Tone.Transport.loopEnd = "4m";
-    Tone.Transport.bpm.value = 60;
+    Tone.Transport.bpm.value = 116;
 
     console.log("New phonestrument ready");
 
@@ -94,6 +94,9 @@ Phonestrument.prototype.createNewPlayer = function(){
 
 }
 
+Phonestrument.prototype.changeTempo = function(tempo){
+    Tone.Transport.bpm.value = tempo;
+}
 
 Phonestrument.prototype.beepToTest = function(){
     var synth = new Tone.MonoSynth().ToMaster();
