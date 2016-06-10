@@ -31,7 +31,7 @@ nx.onload = function(){
     
     mainStage.on('*', function(data) {
         console.log(data);
-        if (data.state = "release"){
+        if (data.state == "release"){
             phonestrument.currentPlayer = phonestrument.player[data.item];
             if (data.onstage && !phonestrument.currentPlayer.isConnected) {
                 phonestrument.currentPlayer.connectToMaster();

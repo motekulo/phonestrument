@@ -6642,8 +6642,8 @@ util.inherits(stage, widget);
 
 // .init() is called automatically when the widget is created on a webpage.
 stage.prototype.init = function() {
-    this.nodeSize = Math.min(this.GUI.h,this.GUI.w)/15;
-    this.nodeSize = Math.max(this.nodeSize,10)
+    this.nodeSize = Math.min(this.GUI.h,this.GUI.w)/10;
+    this.nodeSize = Math.max(this.nodeSize,15)
         this.actualWid = this.GUI.w - this.nodeSize*2;
     this.actualHgt = this.GUI.h - this.nodeSize*2;
     this.closestIndex = 0;
@@ -6798,7 +6798,7 @@ stage.prototype.findClosestItem = function(clickedPos) {
 
         var yDiff = Math.abs(invertedClickedY - itemY);
 
-        if (( xDiff < this.nodeSize) && (yDiff < this.nodeSize)) {
+        if (( xDiff < this.nodeSize * 2) && (yDiff < this.nodeSize * 2)) {
             return i;  // index of item hit
         }
     }
