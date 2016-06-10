@@ -54,10 +54,15 @@
             <canvas nx="stage" id="mainStage" style="width:400px;height:180px"></canvas>  
         </div>
         <div class="panel" data-title="Sequencer" id="tab2">
-             <canvas nx="matrix" id="seqMatrix" style="width:400px;height:180px"></canvas>
+             <canvas nx="matrix" id="seqMatrix" style="width:460px;height:230px"></canvas>
         </div>
         <div class="panel" data-title="Instrument" id="tab3">
             <canvas nx="slider" id="instSlider1" style="width:80px;height:180px"></canvas>
+        <select name="select" id="instWaveSelect">
+            <option value="square">square</option> 
+            <option value="sine" selected>sine</option>
+            <option value="triangle">triangle</option>
+        </select>
         </div>
         <div class="panel" data-title="Transport" id="tab4">        
             <canvas  nx="button" id="playButton" label="Play" style="width:120px;height:120px"></canvas>

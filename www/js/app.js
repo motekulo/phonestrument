@@ -10,6 +10,18 @@ phonestrument.schedulePing(function(pos){
     seqMatrix.draw();
 }, "1m");
 
+        $(document).ready(function() {
+            $('#instWaveSelect').change(function() {
+                var waveType = ( $(this).find(":selected").val() );
+                phonestrument.currentPlayer.instrument.set({
+                        "oscillator" : {
+                            "type" : waveType
+                        }
+                    });
+                
+            });
+        });
+
 nx.onload = function(){
     console.log("nexusUI loaded from phonestrument");
     nx.colorize("#00CCFF"); // sets accent (default)
