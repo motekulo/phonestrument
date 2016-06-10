@@ -60,6 +60,7 @@ nx.onload = function(){
        //console.log(data.x);
         
         phonestrument.currentPlayer.panVol.pan.value = data.x;
+        phonestrument.currentPlayer.panVol.volume.value = data.y * -24;
         if (data.state == "release"){
             phonestrument.currentPlayer = phonestrument.player[data.item];
             if (data.onstage && phonestrument.currentPlayer.part.state == "stopped") {
