@@ -30,6 +30,7 @@ function Player(){
     //_this = this;
     //this.instrument = new Tone.SimpleSynth().toMaster();
     this.instrument = new Tone.SimpleSynth()
+    this.panVol = new Tone.PanVol(0.25, -12);
     this.connectToMaster();
     //this.isConnected = true;
     //instrument.connect(Tone.Master);
@@ -48,12 +49,16 @@ function Player(){
 }
 
 Player.prototype.connectToMaster = function(){
-    this.instrument.connect(Tone.Master);
+    
+    //this.instrument.connect(Tone.Master);
+    this.instrument.connect(this.panVol);
+    this.panVol.connect(Tone.Master);
     this.isConnected = true;
 }
 
 Player.prototype.disconnectFromMaster = function(){
     this.instrument.disconnect();
+    this.panVol.disconnect();
     this.isConnected = false;
 }
 

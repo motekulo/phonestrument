@@ -57,24 +57,20 @@ nx.onload = function(){
     
     
     mainStage.on('*', function(data) {
-       // console.log(data);
-
-
-
+       //console.log(data.x);
+        
+        phonestrument.currentPlayer.panVol.pan.value = data.x;
         if (data.state == "release"){
             phonestrument.currentPlayer = phonestrument.player[data.item];
             if (data.onstage && phonestrument.currentPlayer.part.state == "stopped") {
-                //phonestrument.currentPlayer.connectToMaster();
                 var nextBar = currentBar + " + 1m";
                 console.log("starting part at " + nextBar);               
-                phonestrument.currentPlayer.part.start(0);
-                
-                
+                phonestrument.currentPlayer.part.start("0:0:0"); // doesn't work as expected; starts immediately
+                 
             } else if (!data.onstage && phonestrument.currentPlayer.part.state == "started") {
-               //phonestrument.currentPlayer.disconnectFromMaster();
                 var nextBar = currentBar + " + 1m";
                 console.log("stopping part at " + nextBar);               
-                phonestrument.currentPlayer.part.stop(0);
+                phonestrument.currentPlayer.part.stop("0:0:0"); // doesn't work as expected; stops immediately
                 
             }
         }
