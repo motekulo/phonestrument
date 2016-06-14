@@ -16,6 +16,7 @@ nav li a {
     padding: 0 10px;
     text-decoration: none;
     font-family: sans-serif;
+    color: #000000;
 
 }
 
@@ -73,9 +74,26 @@ footer li {
     
 }
 
+#divisionNumber {
+   
+    top: 0;
+    right: 0;
+    position: absolute;
+    margin-top: 5px;
+    
+}
+
 #addItemButton {
     
     top: 0;
     position: absolute;
     margin-top: 5px;
+}
+
+#nexusuiBanner {
+    top: 0;
+    right: 0;
+    position: absolute;
+    margin-top: 5px;
+    
 }
