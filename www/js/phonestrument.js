@@ -87,6 +87,10 @@ Phonestrument.prototype.stopPlaying = function(){
     Tone.Transport.stop();
 }
 
+Phonestrument.prototype.pausePlaying = function(){
+    Tone.Transport.pause();
+}
+
 Phonestrument.prototype.createNewPlayer = function(){
 
     var newPlayer = new Player();

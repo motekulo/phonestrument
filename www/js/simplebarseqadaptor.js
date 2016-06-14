@@ -76,7 +76,7 @@ SimpleBarSequencerAdaptor.prototype.setScale = function(key){
  *
  **/
 
-SimpleBarSequencerAdaptor.prototype.convertData = function(pos, data) {
+SimpleBarSequencerAdaptor.prototype.convertData = function(pos, data, division) {
     
     var row = data.row;
     var col = data.col;
@@ -84,7 +84,7 @@ SimpleBarSequencerAdaptor.prototype.convertData = function(pos, data) {
     var note = "";
 
     //var index = row;
-    var time = pos + " + (" + col + " * 16n)";
+    var time = pos + " + (" + col + " * " + division + "n)";
 
     //console.log("Time is " + time);
     note = this.scale[row] + this.octave;
@@ -142,11 +142,10 @@ SimpleBarSequencerAdaptor.prototype.getBarArray = function(part, bar, division){
         for (j = 0; j < this.scale.length; j++) {
             bararray[i][j] = 0;
         }
-
     }
+    
     var note;
     var time;
-
     for (i=0; i < division; i++){
         time = bar + "m" + " + (" + i + " * " + division + "n)";
         note = part.at(time);

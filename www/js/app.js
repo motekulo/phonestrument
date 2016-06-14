@@ -1,5 +1,7 @@
 var phonestrument = new Phonestrument(116, 4, "E", 2);
 var currentBar = "";
+var sequencerDivision = 16;
+
 phonestrument.schedulePing(function(pos){
 
     var partState = phonestrument.currentPlayer.part.state;
@@ -7,23 +9,23 @@ phonestrument.schedulePing(function(pos){
     console.log(pos + "  and part is " + partState + " and progress " + partProgress);
     currentBar = pos;
     var bar = currentBar.split(':')[0];
-    var barMatrix = phonestrument.currentPlayer.getCurrentBarDataToDisplay(bar, 16);
+    var barMatrix = phonestrument.currentPlayer.getCurrentBarDataToDisplay(bar, sequencerDivision);
     seqMatrix.matrix = barMatrix;
     //seqMatrix.matrix[4][1] = 1;
     seqMatrix.draw();
 }, "1m");
 
-        $(document).ready(function() {
-            $('#instWaveSelect').change(function() {
-                var waveType = ( $(this).find(":selected").val() );
-                phonestrument.currentPlayer.instrument.set({
-                        "oscillator" : {
-                            "type" : waveType
-                        }
-                    });
-                
-            });
+    $(document).ready(function() {
+        $('#instWaveSelect').change(function() {
+            var waveType = ( $(this).find(":selected").val() );
+            phonestrument.currentPlayer.instrument.set({
+                    "oscillator" : {
+                        "type" : waveType
+                    }
+                });
+
         });
+    });
 
 nx.onload = function(){
     console.log("nexusUI loaded from phonestrument");
@@ -39,12 +41,25 @@ nx.onload = function(){
     })
     tempoText.min = 1;
     tempoText.max = 360;
-    tempoText.decimalPlaces = 0;
-    
+    tempoText.decimalPlaces = 0;   
     tempoText.on('*', function(data){
         //console.log(data);
         phonestrument.changeTempo(data.value);
     })
+    
+    divisionNumber.set({
+        value: sequencerDivision
+    })
+    divisionNumber.min = 4;
+    divisionNumber.max = 16;
+    divisionNumber.decimalPlaces = 0;
+    divisionNumber.on('*', function(data){
+        //console.log(data);
+        sequencerDivision = data.value;
+        seqMatrix.col = sequencerDivision;
+        seqMatrix.draw();
+    })
+    
     
     addItemButton.on('*', function(data) {
         if (data.press == 1) {
@@ -64,13 +79,13 @@ nx.onload = function(){
         if (data.state == "release"){
             phonestrument.currentPlayer = phonestrument.player[data.item];
             if (data.onstage && phonestrument.currentPlayer.part.state == "stopped") {
-                var nextBar = currentBar + " + 1m";
-                console.log("starting part at " + nextBar);               
+                //var nextBar = currentBar + " + 1m";
+                //console.log("starting part at " + nextBar);               
                 phonestrument.currentPlayer.part.start("0:0:0"); // doesn't work as expected; starts immediately
                  
             } else if (!data.onstage && phonestrument.currentPlayer.part.state == "started") {
-                var nextBar = currentBar + " + 1m";
-                console.log("stopping part at " + nextBar);               
+                //var nextBar = currentBar + " + 1m";
+                //console.log("stopping part at " + nextBar);               
                 phonestrument.currentPlayer.part.stop("0:0:0"); // doesn't work as expected; stops immediately
                 
             }
@@ -78,14 +93,13 @@ nx.onload = function(){
     })
 
     seqMatrix.row = 7;
-    seqMatrix.col = 16;
+    seqMatrix.col = sequencerDivision;
     seqMatrix.init();
     seqMatrix.draw();
 
     seqMatrix.on('*', function(data) {
-        //console.log(data);
-        
-        phonestrument.currentPlayer.updatePart(currentBar, data);
+        //console.log(data);        
+        phonestrument.currentPlayer.updatePart(currentBar, data, sequencerDivision);
 
     })
     var playing = false;
@@ -98,7 +112,7 @@ nx.onload = function(){
                 playing = true;
             } else if (playing) {
                // console.log("Stopping transport");
-                phonestrument.stopPlaying();
+                phonestrument.pausePlaying();
                 playing = false;
             }
         }

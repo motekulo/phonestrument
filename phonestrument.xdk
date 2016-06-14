@@ -5,7 +5,7 @@
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "jsapp/template-tab-view-js/sample.zip",
       "projectGuid": "743f3d61-dd85-475d-8766-02b29631fc1b",
-      "lastModifiedDate": 1465190983388,
+      "lastModifiedDate": 1465556853575,
       "creationDate": 1465190971372
     },
     "sourceDirectory": "www",
@@ -94,7 +94,8 @@
           "android-minSdkVersion": "14",
           "android-targetSdkVersion": "21",
           "android-installLocation": "auto",
-          "android-signed": true
+          "android-signed": true,
+          "Orientation": "landscape"
         },
         "isActive_": true,
         "appName_": "phonestrument",
@@ -113,13 +114,14 @@
             "geo:*",
             "market:*"
           ],
-          "navigation": []
+          "navigation": [],
+          "properties": {}
         },
         "icons_": [],
         "splashes_": [],
         "addlPermissions_": "",
         "excludedLibraries_": "",
-        "certificateId_": "",
+        "certificateId_": "lpp_fCvkAECrHZ6x4K--vg2",
         "cordovaCLIVersion_": "5.4.1",
         "appVersion_": "0.0.1",
         "appVersionCode_": "1",
@@ -205,7 +207,7 @@
         "runtime_": "W3C",
         "name_": "WebApp",
         "preferences_": {},
-        "isActive_": false,
+        "isActive_": true,
         "appName_": "phonestrument",
         "appID_": "not.yet.specified",
         "appAccess_": {

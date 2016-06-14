@@ -72,9 +72,9 @@ Player.prototype.changeInstrument = function(instrument){
 
 }
 
-Player.prototype.updatePart = function(pos, data){
+Player.prototype.updatePart = function(pos, data, division){
     //console.log("Updating data");
-    var convertedData = this.adaptor.convertData(pos, data);
+    var convertedData = this.adaptor.convertData(pos, data, division);
     this.part.at(convertedData[0],convertedData[1]);
 
 }
