@@ -1,92 +1,58 @@
 <!DOCTYPE html>
-<!--HTML5 doctype-->
 <html>
-
+<!--
+  * Please see the included README.md file for license terms and conditions.
+  -->
 <head>
-
-<title>Tab View Template</title>
-<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, minimal-ui">
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta http-equiv="Content-Security-Policy" content="
+    <title>Blank Cordova Mobile App Project Template (Lite)</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Security-Policy" content="
     default-src *;
     child-src blob: ;
     media-src 'self' blob: ;
     style-src 'self' 'unsafe-inline' http://fonts.googleapis.com/;
     script-src 'self' 'unsafe-inline' 'unsafe-eval'">
 
-<link rel="stylesheet" type="text/css" href="lib/appframework/icons.css" />
-<link rel="stylesheet" type="text/css" href="lib/appframework/af.ui.css" />
+    <!-- see http://webdesign.tutsplus.com/tutorials/htmlcss-tutorials/quick-tip-dont-forget-the-viewport-meta-tag -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <style>
+        /* following two viewport lines are equivalent to the meta viewport statement above, needed for Windows */
+        /* see http://www.quirksmode.org/blog/archives/2014/05/html5_dev_conf.html and http://dev.w3.org/csswg/css-device-adapt/ */
+        @-ms-viewport { width: 100vw ; zoom: 100% ; }  @viewport { width: 100vw ; zoom: 100% ; }
+        @-ms-viewport { user-zoom: fixed ; }           @viewport { user-zoom: fixed ; }
+    </style>
+    <link rel="stylesheet" type="text/css" href="lib/app.css" />
+    <script src="cordova.js"></script>          <!-- phantom library, needed for Cordova api calls, added during build -->
+    <script src="js/app.js"></script>           <!-- recommended location of your JavaScript code relative to other JS files -->
+    <script src="xdk/init-dev.js"></script>     <!-- normalizes device and document ready events, see README for details -->
     
-<!--<script src='cordova.js'></script> -->
-<script type="text/javascript" charset="utf-8" src="lib/jquery.min.js"></script>
-<script type="text/javascript" charset="utf-8" src="lib/fastclick.min.js"></script>
-<script type="text/javascript" charset="utf-8" src="lib/appframework/appframework.ui.min.js"></script>  
-<script type="text/javascript" src="lib/nexusUI.js"></script>
-<script type="text/javascript" src="lib/Tone.js"></script>
-
-
-<script type="text/javascript" src="js/simplebarseqadaptor.js"></script>
-<script type="text/javascript" src="js/phonestrument.js"></script>
-<script type="text/javascript" src="js/player.js"></script>
-<script type="text/javascript" src="js/app.js"></script>
-
-
+    <script type="text/javascript" src="lib/nexusUI.js"></script>
+    
 </head>
 
 <body>
-
-<div id="splashscreen" class='ui-loader heavy'>
-    App Framework - Tab View
-    <br>
-    <br>
-    <span class='ui-icon ui-icon-loading spin'></span>
-    <h1>Starting app</h1>
-</div>
-
-<div class="view">
-    <div class="pages">
-        <!--Tab View Pages-->
-        <div class="panel" data-title="Home" id="tab1" data-selected="true">
-            <canvas nx="stage" id="mainStage" style="width:400px;height:200px"></canvas>
-             <canvas  nx="button" id="addItemButton" label="Add" style="width:80px;height:80px"></canvas>
-        </div>
-        <div class="panel" data-title="Sequencer" id="tab2">
-             <canvas nx="matrix" id="seqMatrix" style="width:440px;height:220px"></canvas>
-            <canvas  nx="number" id="divisionNumber" label="Division" style="width:40px;height:60px"></canvas>
-        </div>
-        <div class="panel" data-title="Instrument" id="tab3">
-            <canvas nx="slider" id="instSlider1" style="width:80px;height:180px"></canvas>
-        <select name="select" id="instWaveSelect">
-            <option value="square">square</option> 
-            <option value="sine" selected>sine</option>
-            <option value="triangle">triangle</option>
-        </select>
-        </div>
-        <div class="panel" data-title="Transport" id="tab4">        
-            <canvas  nx="button" id="playButton" label="Play" style="width:120px;height:120px"></canvas>
-            <canvas  nx="number" id="tempoText" label="Tempo" style="width:160px;height:80px"></canvas>
-        </div>
+<div id="content" class="gui">
+    
+    <div class="panel" paneltitle="Home" id="stage">
+        <canvas nx="stage" id="mainStage" style="width:400px;height:200px"></canvas>
+        <canvas  nx="button" id="addItemButton" label="Add" style="width:80px;height:80px"></canvas>
     </div>
-    <footer>
-        <a href="#tab1" onclick="$.afui.clearHistory()">Home</a>
-        <a href="#tab2" onclick="$.afui.clearHistory()">Sequencer</a>
-        <a href="#tab3" onclick="$.afui.clearHistory()">Instrument</a>
-        <a href="#tab4" onclick="$.afui.clearHistory()">Transport</a>
-
-       <!-- <a href="#tab1" class="icon home" onclick="$.afui.clearHistory()">Home</a>
-        <a href="#tab2" class="icon heart" onclick="$.afui.clearHistory()">Sequencer</a>
-        <a href="#tab3" class="icon message" onclick="$.afui.clearHistory()">Instrument</a>
-        <a href="#tab4" class="icon user" onclick="$.afui.clearHistory()">Settings</a> -->
-
-    </footer>
+    <div class="panel" paneltitle="Sequencer" id="sequencer">
+        <canvas nx="matrix" id="seqMatrix" style="width:440px;height:220px"></canvas>
+        <canvas  nx="number" id="divisionNumber" label="Division" style="width:40px;height:60px"></canvas>
+    </div>
+</div>
+  <footer>
+    <nav>
+        <ul>
+            <li><a href="#stage">Stage</a></li>
+            <li><a href="#sequencer">Sequencer</a></li>
+            <li><a href="#instrument">Instrument</a></li>
+            <li><a href="#settings">Settings</a></li>
+        </ul>
+    </nav>
+    </footer>  
     
 
-</div>
-
-
 </body>
-
 </html>

@@ -1,122 +1,50 @@
-var phonestrument = new Phonestrument(116, 4, "E", 2);
-var currentBar = "";
-var sequencerDivision = 16;
+/*
+ * Please see the included README.md file for license terms and conditions.
+ */
 
-phonestrument.schedulePing(function(pos){
 
-    var partState = phonestrument.currentPlayer.part.state;
-    var partProgress = phonestrument.currentPlayer.part.progress;
-    console.log(pos + "  and part is " + partState + " and progress " + partProgress);
-    currentBar = pos;
-    var bar = currentBar.split(':')[0];
-    var barMatrix = phonestrument.currentPlayer.getCurrentBarDataToDisplay(bar, sequencerDivision);
-    seqMatrix.matrix = barMatrix;
-    //seqMatrix.matrix[4][1] = 1;
-    seqMatrix.draw();
-}, "1m");
+// This file is a suggested starting place for your code.
+// It is completely optional and not required.
+// Note the reference that includes it in the index.html file.
 
-    $(document).ready(function() {
-        $('#instWaveSelect').change(function() {
-            var waveType = ( $(this).find(":selected").val() );
-            phonestrument.currentPlayer.instrument.set({
-                    "oscillator" : {
-                        "type" : waveType
-                    }
-                });
 
-        });
-    });
+/*jslint browser:true, devel:true, white:true, vars:true */
+/*global $:false, intel:false app:false, dev:false, cordova:false */
 
-nx.onload = function(){
-    console.log("nexusUI loaded from phonestrument");
-    nx.colorize("#00CCFF"); // sets accent (default)
-    nx.colorize("border", "#222222");
-    nx.colorize("fill", "#222222");
-    playButton.mode = "toggle";
-    addItemButton.mode = "toggle";
-//    rewindButton1.getOffset();
 
-    tempoText.set({
-        value: 116
-    })
-    tempoText.min = 1;
-    tempoText.max = 360;
-    tempoText.decimalPlaces = 0;   
-    tempoText.on('*', function(data){
-        //console.log(data);
-        phonestrument.changeTempo(data.value);
-    })
-    
-    divisionNumber.set({
-        value: sequencerDivision
-    })
-    divisionNumber.min = 4;
-    divisionNumber.max = 16;
-    divisionNumber.decimalPlaces = 0;
-    divisionNumber.on('*', function(data){
-        //console.log(data);
-        sequencerDivision = data.value;
-        seqMatrix.col = sequencerDivision;
-        seqMatrix.draw();
-    })
-    
-    
-    addItemButton.on('*', function(data) {
-        if (data.press == 1) {
-            mainStage.addItem();
-            
-            phonestrument.createNewPlayer();
-         
-        }
-    })
-    
-    
-    mainStage.on('*', function(data) {
-       //console.log(data.x);
-        
-        phonestrument.currentPlayer.panVol.pan.value = data.x;
-        phonestrument.currentPlayer.panVol.volume.value = data.y * -24;
-        if (data.state == "release"){
-            phonestrument.currentPlayer = phonestrument.player[data.item];
-            if (data.onstage && phonestrument.currentPlayer.part.state == "stopped") {
-                //var nextBar = currentBar + " + 1m";
-                //console.log("starting part at " + nextBar);               
-                phonestrument.currentPlayer.part.start("0:0:0"); // doesn't work as expected; starts immediately
-                 
-            } else if (!data.onstage && phonestrument.currentPlayer.part.state == "started") {
-                //var nextBar = currentBar + " + 1m";
-                //console.log("stopping part at " + nextBar);               
-                phonestrument.currentPlayer.part.stop("0:0:0"); // doesn't work as expected; stops immediately
-                
-            }
-        }
-    })
+// For improved debugging and maintenance of your app, it is highly
+// recommended that you separate your JavaScript from your HTML files.
+// Use the addEventListener() method to associate events with DOM elements.
 
-    seqMatrix.row = 7;
-    seqMatrix.col = sequencerDivision;
-    seqMatrix.init();
-    seqMatrix.draw();
+// For example:
 
-    seqMatrix.on('*', function(data) {
-        //console.log(data);        
-        phonestrument.currentPlayer.updatePart(currentBar, data, sequencerDivision);
+// var el ;
+// el = document.getElementById("id_myButton") ;
+// el.addEventListener("click", myEventHandler, false) ;
 
-    })
-    var playing = false;
-    playButton.on('press', function(data) {
-        //console.log(data);
-        if (data == 1){
-            if (!playing) {
-                //console.log("Starting transport");
-                phonestrument.startPlaying();
-                playing = true;
-            } else if (playing) {
-               // console.log("Stopping transport");
-                phonestrument.pausePlaying();
-                playing = false;
-            }
-        }
-    })
 
+
+// The function below is an example of the best way to "start" your app.
+// This example is calling the standard Cordova "hide splashscreen" function.
+// You can add other code to it or add additional functions that are triggered
+// by the same event or other events.
+
+function onAppReady() {
+    if( navigator.splashscreen && navigator.splashscreen.hide ) {   // Cordova API detected
+        navigator.splashscreen.hide() ;
+    }
 }
+document.addEventListener("app.Ready", onAppReady, false) ;
+// document.addEventListener("deviceready", onAppReady, false) ;
+// document.addEventListener("onload", onAppReady, false) ;
 
+// The app.Ready event shown above is generated by the init-dev.js file; it
+// unifies a variety of common "ready" events. See the init-dev.js file for
+// more details. You can use a different event to start your app, instead of
+// this event. A few examples are shown in the sample code above. If you are
+// using Cordova plugins you need to either use this app.Ready event or the
+// standard Crordova deviceready event. Others will either not work or will
+// work poorly.
+
+// NOTE: change "dev.LOG" in "init-dev.js" to "true" to enable some console.log
+// messages that can help you debug Cordova app initialization issues.
