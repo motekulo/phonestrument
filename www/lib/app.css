@@ -1,0 +1,55 @@
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav li {
+    display: inline;
+    border: solid;    
+    border-width: 1px 1px 0 1px;
+    margin: 0 5px 0 0;
+}
+
+nav li a {
+    padding: 0 10px;
+    text-decoration: none;
+}
+
+#content {
+    clear: both;
+}
+
+#selected {
+    padding-bottom: 1px; 
+    background: white;
+}
+
+div.panel {
+    display: none;
+}
+
+div.panel:target {
+    display: block;
+}
+
+footer {
+    bottom : 0;
+    position:fixed;
+}
+
+footer li {
+    float: left;
+    border: 1px solid;
+    border-bottom-width: 0;
+    margin: 0 5px 0 0;
+}
+
+#selected {
+    position: relative;
+    top: 1px;
+    background: white;
+}
+
+

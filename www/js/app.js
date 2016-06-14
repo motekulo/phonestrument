@@ -29,10 +29,43 @@
 // You can add other code to it or add additional functions that are triggered
 // by the same event or other events.
 
+var phonestrument = new Phonestrument(116, 4, "E", 2);
+var currentBar = "";
+var sequencerDivision = 16;
+
 function onAppReady() {
     if( navigator.splashscreen && navigator.splashscreen.hide ) {   // Cordova API detected
         navigator.splashscreen.hide() ;
     }
+    console.log("App ready - app.js");
+    
+    phonestrument.schedulePing(function(pos){
+
+    var partState = phonestrument.currentPlayer.part.state;
+    var partProgress = phonestrument.currentPlayer.part.progress;
+    console.log(pos + "  and part is " + partState + " and progress " + partProgress);
+    currentBar = pos;
+    var bar = currentBar.split(':')[0];
+    var barMatrix = phonestrument.currentPlayer.getCurrentBarDataToDisplay(bar, sequencerDivision);
+    seqMatrix.matrix = barMatrix;
+    //seqMatrix.matrix[4][1] = 1;
+    seqMatrix.draw();
+}, "1m");
+    
+        $(document).ready(function() {
+        $('#instWaveSelect').change(function() {
+            var waveType = ( $(this).find(":selected").val() );
+            phonestrument.currentPlayer.instrument.set({
+                    "oscillator" : {
+                        "type" : waveType
+                    }
+                });
+
+        });
+    });
+
+    
+    
 }
 document.addEventListener("app.Ready", onAppReady, false) ;
 // document.addEventListener("deviceready", onAppReady, false) ;
@@ -48,3 +81,95 @@ document.addEventListener("app.Ready", onAppReady, false) ;
 
 // NOTE: change "dev.LOG" in "init-dev.js" to "true" to enable some console.log
 // messages that can help you debug Cordova app initialization issues.
+nx.onload = function(){
+ console.log("nexusUI loaded from app.js");
+    nx.colorize("#00CCFF"); // sets accent (default)
+    nx.colorize("border", "#222222");
+    nx.colorize("fill", "#222222");
+  //  playButton.mode = "toggle";
+   // addItemButton.mode = "toggle";
+//    rewindButton1.getOffset();
+
+    tempoText.set({
+        value: 116
+    })
+    tempoText.min = 1;
+    tempoText.max = 360;
+    tempoText.decimalPlaces = 0;   
+    tempoText.on('*', function(data){
+        //console.log(data);
+        phonestrument.changeTempo(data.value);
+    })
+    
+    divisionNumber.set({
+        value: sequencerDivision
+    })
+    divisionNumber.min = 4;
+    divisionNumber.max = 16;
+    divisionNumber.decimalPlaces = 0;
+    divisionNumber.on('*', function(data){
+        //console.log(data);
+        sequencerDivision = data.value;
+        seqMatrix.col = sequencerDivision;
+        seqMatrix.draw();
+    })
+    
+    
+    addItemButton.on('*', function(data) {
+        console.log(data);
+        if (data.press == 0) {  // seems odd but that's how it's working?
+            mainStage.addItem();
+            
+            phonestrument.createNewPlayer();
+         
+        }
+    })
+    
+    
+    mainStage.on('*', function(data) {
+       //console.log(data.x);
+        
+        phonestrument.currentPlayer.panVol.pan.value = data.x;
+        phonestrument.currentPlayer.panVol.volume.value = data.y * -24;
+        if (data.state == "release"){
+            phonestrument.currentPlayer = phonestrument.player[data.item];
+            if (data.onstage && phonestrument.currentPlayer.part.state == "stopped") {
+                //var nextBar = currentBar + " + 1m";
+                //console.log("starting part at " + nextBar);               
+                phonestrument.currentPlayer.part.start("0:0:0"); // doesn't work as expected; starts immediately
+                 
+            } else if (!data.onstage && phonestrument.currentPlayer.part.state == "started") {
+                //var nextBar = currentBar + " + 1m";
+                //console.log("stopping part at " + nextBar);               
+                phonestrument.currentPlayer.part.stop("0:0:0"); // doesn't work as expected; stops immediately
+                
+            }
+        }
+    })
+
+    seqMatrix.row = 7;
+    seqMatrix.col = sequencerDivision;
+    seqMatrix.init();
+    seqMatrix.draw();
+
+    seqMatrix.on('*', function(data) {
+        //console.log(data);        
+        phonestrument.currentPlayer.updatePart(currentBar, data, sequencerDivision);
+
+    })
+    var playing = false;
+    playButton.on('press', function(data) {
+        //console.log(data);
+        if (data == 1){
+            if (!playing) {
+                //console.log("Starting transport");
+                phonestrument.startPlaying();
+                playing = true;
+            } else if (playing) {
+               // console.log("Stopping transport");
+                phonestrument.pausePlaying();
+                playing = false;
+            }
+        }
+    })
+}
