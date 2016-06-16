@@ -90,6 +90,12 @@ SimpleBarSequencerAdaptor.prototype.convertData = function(pos, data, division) 
     note = this.scale[row] + this.octave;
 
     var converteddata = [time, note];
+    
+   /* var converteddata = {
+        "time": time,
+        "note": note;
+    };*/
+    
     return converteddata;
 }
 
@@ -101,12 +107,12 @@ SimpleBarSequencerAdaptor.prototype.convertData = function(pos, data, division) 
  * @params {array} - converted data
  *
  **/
-SimpleBarSequencerAdaptor.prototype.sendConvertedDataToPart = function(data) {
+/*SimpleBarSequencerAdaptor.prototype.sendConvertedDataToPart = function(data) {
     var time = data[0];
     var notes = data[1];
     //this.part.setNoteArray(index, time, note);
     this.part.tonepart.at(time, notes);
-}
+} */
 
 /** 
  * Queries associated part for note data for a particular bar,

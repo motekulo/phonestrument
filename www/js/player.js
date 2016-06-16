@@ -27,9 +27,8 @@
 
 function Player(){
 
-    //_this = this;
-    //this.instrument = new Tone.SimpleSynth().toMaster();
-    this.instrument = new Tone.SimpleSynth()
+    //this.instrument = new Tone.SimpleSynth();
+    this.instrument = new Tone.PolySynth(3, Tone.SimpleSynth);
     this.panVol = new Tone.PanVol(0.25, -12);
     this.connectToMaster();
     //this.isConnected = true;
@@ -75,7 +74,8 @@ Player.prototype.changeInstrument = function(instrument){
 Player.prototype.updatePart = function(pos, data, division){
     //console.log("Updating data");
     var convertedData = this.adaptor.convertData(pos, data, division);
-    this.part.at(convertedData[0],convertedData[1]);
+    this.part.add(convertedData[0],convertedData[1]);  // FIXME better if indexed collection
+    //this.part.at(convertedData.time,convertedData.note);
 
 }
 
