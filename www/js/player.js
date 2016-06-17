@@ -74,7 +74,7 @@ Player.prototype.changeInstrument = function(instrument){
 Player.prototype.updatePart = function(pos, data, division){
     //console.log("Updating data");
     var convertedData = this.adaptor.convertData(pos, data, division);
-    this.part.add(convertedData[0],convertedData[1]);  // FIXME better if indexed collection
+    this.part.add(convertedData.time,convertedData.note);  // FIXME better if indexed collection
     //this.part.at(convertedData.time,convertedData.note);
 
 }

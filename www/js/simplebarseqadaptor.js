@@ -89,12 +89,12 @@ SimpleBarSequencerAdaptor.prototype.convertData = function(pos, data, division) 
     //console.log("Time is " + time);
     note = this.scale[row] + this.octave;
 
-    var converteddata = [time, note];
+    //var converteddata = [time, note];
     
-   /* var converteddata = {
+    var converteddata = {
         "time": time,
-        "note": note;
-    };*/
+        "note": note
+    };
     
     return converteddata;
 }
@@ -150,31 +150,25 @@ SimpleBarSequencerAdaptor.prototype.getBarArray = function(part, bar, division){
         }
     }
     
-    var note;
+    var notes;
     var time;
     for (i=0; i < division; i++){
         time = bar + "m" + " + (" + i + " * " + division + "n)";
-        note = part.at(time);
+        notes = part.allAt(time);  // array of note events
         //console.log("Note is " + note);
-        if (note != null && note.value != null) {
-            notestoprocess = [];
-            if (Array.isArray(note.value)) {
-                notestoprocess = note.value;
-            } else {
-                notestoprocess.push(note.value);
-            }
-            for (j = 0; j < notestoprocess.length; j++) {
+       
+            for (j = 0; j < notes.length; j++) {
 
                 // row value will be determined by place in scale -
                 // so index of scale array
-                var octavestripped = notestoprocess[j].slice(0, -1);
+                var octavestripped = notes[j].value.slice(0, -1);
                 var row = this.scale.indexOf(octavestripped); // strip off octave 
                 bararray[i][row] = 1;
             }
 
         }
 
-    }
+    
     return bararray;
 }
 
