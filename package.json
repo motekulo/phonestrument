@@ -2,7 +2,7 @@
   "name": "phonestrument",
   "version": "0.0.1",
   "description": "Music production for all",
-  "main": "www/js/index.js",
+  "main": "www/js/app.js",
   "directories": {
     "doc": "doc",
     "test": "test"
@@ -27,6 +27,7 @@
     "jasmine": "^2.4.1",
     "karma-chrome-launcher": "^1.0.1",
     "karma-jasmine": "^1.0.2",
-    "karma-jasmine-html-reporter": "^0.2.0"
+    "karma-jasmine-html-reporter": "^0.2.0",
+    "mocha-jsdom": "^1.1.0"
   }
 }

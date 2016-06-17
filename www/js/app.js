@@ -1,3 +1,4 @@
+//var Phonestrument = require('./phonestrument').Phonestrument;
 /*
  * Please see the included README.md file for license terms and conditions.
  */
@@ -37,8 +38,7 @@ function onAppReady() {
     if( navigator.splashscreen && navigator.splashscreen.hide ) {   // Cordova API detected
         navigator.splashscreen.hide() ;
     }
-    console.log("App ready - app.js");
-    
+    console.log("App ready - app.js");    
     phonestrument.schedulePing(function(pos){
 
     var partState = phonestrument.currentPlayer.part.state;
@@ -173,3 +173,4 @@ nx.onload = function(){
         }
     })
 }
+

@@ -13,12 +13,5 @@ describe("app", function() {
 
     });
 
-    it("can create a new player", function() {
-        expect(phonestrument.player[0].part).toBe("new part");
-        expect(phonestrument.player[0].instrument).toBe("new instrument");
-
-    });
-
-
 });
 

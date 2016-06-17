@@ -26,7 +26,7 @@
  * The adaptor sits in between
  **/
 function SimpleBarSequencerAdaptor() {
-    this.notesinscale = 4;
+    this.notesinscale = 4; //FIXME Redundant?
     this.scalestructure = [2,2,1,2,2,2,1];
     this.key = "C";
     this.scale = this.setScale(this.key);
@@ -40,7 +40,7 @@ SimpleBarSequencerAdaptor.prototype.setScale = function(key){
     var start = pitch.indexOf(key);
     scale.push(pitch[start]);
     var prevnoteindex = start;
-    for (i = 0; i < this.scalestructure.length; i++) {
+    for (i = 0; i < this.scalestructure.length - 1; i++) {
         nextnoteindex = prevnoteindex + this.scalestructure[i];
         if (nextnoteindex >= pitch.length) {
             nextnoteindex = nextnoteindex - pitch.length; // wrap

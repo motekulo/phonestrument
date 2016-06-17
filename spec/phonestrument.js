@@ -14,8 +14,8 @@ describe("phonestrument", function() {
     });
 
     it("can create a new player", function() {
-        expect(phonestrument.player[0].part).toBe("new part");
-        expect(phonestrument.player[0].instrument).toBe("new instrument");
+        expect(phonestrument.player[0].part).toEqual(jasmine.any(Tone.Part));
+        expect(phonestrument.player[0].instrument).toEqual(jasmine.any(Tone.PolySynth));
 
     });
 
