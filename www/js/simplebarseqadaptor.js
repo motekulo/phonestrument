@@ -87,10 +87,11 @@ SimpleBarSequencerAdaptor.prototype.convertData = function(pos, data, division) 
     var time = pos + " + (" + col + " * " + division + "n)";
 
     //console.log("Time is " + time);
-    note = this.scale[row] + this.octave;
-
-    //var converteddata = [time, note];
     
+    note = this.scale[row] + this.octave;
+    
+    //var converteddata = [time, note];
+
     var converteddata = {
         "time": time,
         "note": note
@@ -159,11 +160,13 @@ SimpleBarSequencerAdaptor.prototype.getBarArray = function(part, bar, division){
        
             for (j = 0; j < notes.length; j++) {
 
-                // row value will be determined by place in scale -
-                // so index of scale array
+                if (notes[j].value !=null) {
                 var octavestripped = notes[j].value.slice(0, -1);
                 var row = this.scale.indexOf(octavestripped); // strip off octave 
                 bararray[i][row] = 1;
+                } else {
+                    bararray[i][row] = 0;
+                }
             }
 
         }
