@@ -18,38 +18,34 @@
  */
 
 
-/** 
+/**
  * Constructor of a new Player for the Phonestrument
- * 
+ *
  * @param {}
  *
  **/
 
 function Player(){
-
-    //this.instrument = new Tone.SimpleSynth();
-    this.instrument = new Tone.PolySynth(3, Tone.SimpleSynth);
     this.panVol = new Tone.PanVol(0.25, -12);
-    this.connectToMaster();
-    //this.isConnected = true;
-    //instrument.connect(Tone.Master);
+    this.instrument = this.setSoloInstrument();
+    this.poly = false;  // Whether player is polyphonic
     
-    var notes = [];
+    
+     var notes = [];
     this.part = new Tone.Part((function(time, note) {
         this.instrument.triggerAttackRelease(note, "16n");
     }).bind(this), notes);
-    //this.part.at("0", "C5");
-    //this.part.at("3:0:0", "G5"); // dummy values to set length of part initially
     this.part.loop = true;
     this.part.loopEnd = "4m";
     this.part.start(0);
-    this.adaptor = new SimpleBarSequencerAdaptor();
+   
 
+    
+    this.adaptor = new SimpleBarSequencerAdaptor();
 }
 
 Player.prototype.connectToMaster = function(){
-    
-    //this.instrument.connect(Tone.Master);
+
     this.instrument.connect(this.panVol);
     this.panVol.connect(Tone.Master);
     this.isConnected = true;
@@ -72,20 +68,44 @@ Player.prototype.changeInstrument = function(instrument){
 }
 
 Player.prototype.updatePart = function(pos, data, division){
-    //console.log("Updating data");
     var convertedData = this.adaptor.convertData(pos, data, division);
     if (data.level == 1) {
-        this.part.add(convertedData.time,convertedData.note); 
+        // If monophonic instrument, remove old notes
+        if (this.poly == false) {
+            var notesToRemove = this.part.allAt(convertedData.time);
+            for (i = 0; i< notesToRemove.length; i++) {
+                this.part.remove(convertedData.time);
+            }
+        }
+
+        this.part.add(convertedData.time,convertedData.note);
+
+
     } else if (data.level == 0) {
         this.part.remove(convertedData.time,convertedData.note);
     }
-    //this.part.at(convertedData.time,convertedData.note);
 
+}
+
+Player.prototype.setChordInstrument = function(){
+    this.instrument = new Tone.PolySynth(3, Tone.SimpleSynth);
+   
+    this.connectToMaster();
+    this.poly = true;
+    return this.instrument;
+    // FIXME What happens if an instrument is changed to a mono
+    // instrument after being poly?
+
+}
+
+Player.prototype.setSoloInstrument = function(){
+    this.instrument = new Tone.SimpleSynth();
+    
+    this.poly = false;
+    this.connectToMaster();
+    return this.instrument;
 }
 
 Player.prototype.getCurrentBarDataToDisplay = function(currentBar, barDiv) {
     return this.adaptor.getBarArray(this.part, currentBar, barDiv);
 }
-
-
-

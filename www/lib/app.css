@@ -68,10 +68,12 @@ footer li {
 
 #mainStage {
    
+/*
     top: 0;
     position: relative;
     margin-top: 5px;
     
+*/
 }
 
 #divisionNumber {
@@ -85,9 +87,11 @@ footer li {
 
 #addItemButton {
     
+/*
     top: 0;
     position: absolute;
     margin-top: 5px;
+*/
 }
 
 #nexusuiBanner {
@@ -95,5 +99,19 @@ footer li {
     right: 0;
     position: absolute;
     margin-top: 5px;
+    
+}
+
+.octaveButtons {
+    position:absolute;
+    width:100px;
+    top: 30px;
+    right:0px;
+    
+    
+}
+
+.rightRow {
+    
     
 }

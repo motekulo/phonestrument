@@ -5,7 +5,7 @@
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "jsapp/template-blank-cordova-project-lite/sample.zip",
       "projectGuid": "e9d34a38-bb71-41ad-833a-4423f2d81668",
-      "lastModifiedDate": 1465866177629,
+      "lastModifiedDate": 1466209582618,
       "creationDate": 1465866161444
     },
     "XDK-app-designer": "false",
@@ -87,7 +87,8 @@
           "android-minSdkVersion": "14",
           "android-targetSdkVersion": "21",
           "android-installLocation": "auto",
-          "android-signed": true
+          "android-signed": true,
+          "Orientation": "landscape"
         },
         "isActive_": true,
         "appName_": "phonestrument",

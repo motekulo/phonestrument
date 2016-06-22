@@ -160,7 +160,7 @@ SimpleBarSequencerAdaptor.prototype.getBarArray = function(part, bar, division){
        
             for (j = 0; j < notes.length; j++) {
 
-                if (notes[j].value !=null) {
+                if (notes[j].value !=null || notes[j].value != NaN) {
                 var octavestripped = notes[j].value.slice(0, -1);
                 var row = this.scale.indexOf(octavestripped); // strip off octave 
                 bararray[i][row] = 1;

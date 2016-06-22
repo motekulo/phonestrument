@@ -1,6 +1,6 @@
 /*
- * Please see the included README.md file for license terms and conditions.
- */
+* Please see the included README.md file for license terms and conditions.
+*/
 
 
 // This file is a suggested starting place for your code.
@@ -37,34 +37,50 @@ function onAppReady() {
     if( navigator.splashscreen && navigator.splashscreen.hide ) {   // Cordova API detected
         navigator.splashscreen.hide() ;
     }
-    console.log("App ready - app.js");    
+    console.log("App ready - app.js");
     phonestrument.schedulePing(function(pos){
 
-    var partState = phonestrument.currentPlayer.part.state;
-    var partProgress = phonestrument.currentPlayer.part.progress;
-    console.log(pos + "  and part is " + partState + " and progress " + partProgress);
-    currentBar = pos;
-    var bar = currentBar.split(':')[0];
-    var barMatrix = phonestrument.currentPlayer.getCurrentBarDataToDisplay(bar, sequencerDivision);
-    seqMatrix.matrix = barMatrix;
-    //seqMatrix.matrix[4][1] = 1;
-    seqMatrix.draw();
-}, "1m");
-    
-        $(document).ready(function() {
+        var partState = phonestrument.currentPlayer.part.state;
+        var partProgress = phonestrument.currentPlayer.part.progress;
+        console.log(pos + "  and part is " + partState + " and progress " + partProgress);
+        currentBar = pos;
+        var bar = currentBar.split(':')[0];
+        var barMatrix = phonestrument.currentPlayer.getCurrentBarDataToDisplay(bar, sequencerDivision);
+        seqMatrix.matrix = barMatrix;
+        //seqMatrix.matrix[4][1] = 1;
+        seqMatrix.draw();
+    }, "1m");
+
+    $(document).ready(function() {
         $('#instWaveSelect').change(function() {
             var waveType = ( $(this).find(":selected").val() );
             phonestrument.currentPlayer.instrument.set({
-                    "oscillator" : {
-                        "type" : waveType
-                    }
-                });
+                "oscillator" : {
+                    "type" : waveType
+                }
+            });
 
         });
+
+        $('#instTypeSelect').change(function() {
+            var instType = ( $(this).find(":selected").val() );
+            console.log("Changing instrument type to " + instType);
+            switch (instType) {
+                case "mono":
+                    phonestrument.currentPlayer.setSoloInstrument();
+                    break;
+
+                case "poly":
+                    phonestrument.currentPlayer.setChordInstrument();
+                    break;
+            }
+
+        });
+
     });
 
-    
-    
+
+
 }
 document.addEventListener("app.Ready", onAppReady, false) ;
 // document.addEventListener("deviceready", onAppReady, false) ;
@@ -81,25 +97,27 @@ document.addEventListener("app.Ready", onAppReady, false) ;
 // NOTE: change "dev.LOG" in "init-dev.js" to "true" to enable some console.log
 // messages that can help you debug Cordova app initialization issues.
 nx.onload = function(){
- console.log("nexusUI loaded from app.js");
+    console.log("nexusUI loaded from app.js");
     nx.colorize("#00CCFF"); // sets accent (default)
     nx.colorize("border", "#222222");
-    nx.colorize("fill", "#222222");
-  //  playButton.mode = "toggle";
-   // addItemButton.mode = "toggle";
-//    rewindButton1.getOffset();
+    nx.colorize("fill", "#8E8E8E");
+    //  playButton.mode = "toggle";
+    // addItemButton.mode = "toggle";
+    //    rewindButton1.getOffset();
 
+    octaveComment.val.text="4";
+    
     tempoText.set({
         value: 116
     })
     tempoText.min = 1;
     tempoText.max = 360;
-    tempoText.decimalPlaces = 0;   
+    tempoText.decimalPlaces = 0;
     tempoText.on('*', function(data){
         //console.log(data);
         phonestrument.changeTempo(data.value);
     })
-    
+
     divisionNumber.set({
         value: sequencerDivision
     })
@@ -112,64 +130,92 @@ nx.onload = function(){
         seqMatrix.col = sequencerDivision;
         seqMatrix.draw();
     })
-    
-    
+
     addItemButton.on('*', function(data) {
         console.log(data);
         if (data.press == 0) {  // seems odd but that's how it's working?
-            mainStage.addItem();
-            
-            phonestrument.createNewPlayer();
-         
+        mainStage.addItem();
+        phonestrument.createNewPlayer();
+
+    }
+})
+
+mainStage.draw();
+mainStage.on('*', function(data) {
+    //console.log(data.x);
+
+    phonestrument.currentPlayer.panVol.pan.value = data.x;
+    phonestrument.currentPlayer.panVol.volume.value = data.y * -24;
+    if (data.state == "release"){
+        phonestrument.currentPlayer = phonestrument.player[data.item];
+        if (data.onstage && phonestrument.currentPlayer.part.state == "stopped") {
+            //var nextBar = currentBar + " + 1m";
+            //console.log("starting part at " + nextBar);
+            phonestrument.currentPlayer.part.start("0:0:0"); // doesn't work as expected; starts immediately
+
+        } else if (!data.onstage && phonestrument.currentPlayer.part.state == "started") {
+            //var nextBar = currentBar + " + 1m";
+            //console.log("stopping part at " + nextBar);
+            phonestrument.currentPlayer.part.stop("0:0:0"); // doesn't work as expected; stops immediately
         }
-    })
-    
-    
-    mainStage.on('*', function(data) {
-       //console.log(data.x);
-        
-        phonestrument.currentPlayer.panVol.pan.value = data.x;
-        phonestrument.currentPlayer.panVol.volume.value = data.y * -24;
-        if (data.state == "release"){
-            phonestrument.currentPlayer = phonestrument.player[data.item];
-            if (data.onstage && phonestrument.currentPlayer.part.state == "stopped") {
-                //var nextBar = currentBar + " + 1m";
-                //console.log("starting part at " + nextBar);               
-                phonestrument.currentPlayer.part.start("0:0:0"); // doesn't work as expected; starts immediately
-                 
-            } else if (!data.onstage && phonestrument.currentPlayer.part.state == "started") {
-                //var nextBar = currentBar + " + 1m";
-                //console.log("stopping part at " + nextBar);               
-                phonestrument.currentPlayer.part.stop("0:0:0"); // doesn't work as expected; stops immediately
-                
+    }
+})
+
+seqMatrix.row = 7;
+seqMatrix.col = sequencerDivision;
+seqMatrix.init();
+seqMatrix.draw();
+
+seqMatrix.on('*', function(data) {
+    //console.log(data);
+    phonestrument.currentPlayer.updatePart(currentBar, data, sequencerDivision);
+    // if a mono instrument, then toggle others in column to 0
+    if (phonestrument.currentPlayer.poly == false) {
+        for (i=0; i < seqMatrix.row; i++) {
+            if (i != data.row) {
+                seqMatrix.matrix[data.col][i] = 0;
             }
         }
-    })
+        seqMatrix.draw();
+    }
+})
 
-    seqMatrix.row = 7;
-    seqMatrix.col = sequencerDivision;
-    seqMatrix.init();
-    seqMatrix.draw();
+octaveUpButton.on('*', function(data) {
+    console.log(data);
+    if (data.press == 0) {
+        phonestrument.currentPlayer.adaptor.octave++;
+        var currentOctave = parseInt(octaveComment.val.text, 10);
+        octaveComment.val.text = (currentOctave + 1).toString();
+        octaveComment.draw();
+    }
+})
 
-    seqMatrix.on('*', function(data) {
-        //console.log(data);        
-        phonestrument.currentPlayer.updatePart(currentBar, data, sequencerDivision);
+octaveDownButton.on('*', function(data) {
+    console.log(data);
+    if (data.press == 0) {
+        phonestrument.currentPlayer.adaptor.octave--;
+        var currentOctave = parseInt(octaveComment.val.text, 10);
+        octaveComment.val.text = (currentOctave - 1).toString();
+        octaveComment.draw();
+    }
+})
 
-    })
-    var playing = false;
-    playButton.on('press', function(data) {
-        //console.log(data);
-        if (data == 1){
-            if (!playing) {
-                //console.log("Starting transport");
-                phonestrument.startPlaying();
-                playing = true;
-            } else if (playing) {
-               // console.log("Stopping transport");
-                phonestrument.pausePlaying();
-                playing = false;
-            }
+
+var playing = false;
+playButton.on('press', function(data) {
+    //console.log(data);
+    if (data == 1){
+        if (!playing) {
+            //console.log("Starting transport");
+            phonestrument.startPlaying();
+            playing = true;
+        } else if (playing) {
+            // console.log("Stopping transport");
+            phonestrument.pausePlaying();
+            playing = false;
         }
-    })
+    }
+})
+
+
 }
-
