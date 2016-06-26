@@ -9,7 +9,7 @@ nav li {
     display: inline;
     border: solid;    
     border-width: 1px 1px 0 1px;
-    margin: 0 5px 0 0;
+    
 }
 
 nav li a {
@@ -24,10 +24,10 @@ nav li a {
     clear: both;
 }
 
-#selected {
+/*#selected {
     padding-bottom: 1px; 
     background: white;
-}
+}*/
 
 div.panel {
     display: none;
@@ -37,11 +37,12 @@ div.panel:target {
     display: block;
 }
 
-footer {
+/*footer {
     bottom : 0;
     position:fixed;
-}
+}*/
 
+/*
 footer li {
     float: left;
     border: 1px solid;
@@ -54,10 +55,11 @@ footer li {
     top: 1px;
     background: white;
 }
+*/
 
 
 /* nexusUI GUI elements */
-
+/*
 #playButton {
     float:right;
     bottom: 0;
@@ -68,12 +70,12 @@ footer li {
 
 #mainStage {
    
-/*
-    top: 0;
-    position: relative;
-    margin-top: 5px;
+
+   // top: 0;
+   // position: relative;
+   // margin-top: 5px;
     
-*/
+
 }
 
 #divisionNumber {
@@ -87,11 +89,11 @@ footer li {
 
 #addItemButton {
     
-/*
-    top: 0;
-    position: absolute;
-    margin-top: 5px;
-*/
+
+    //top: 0;
+//position: absolute;
+   // margin-top: 5px;
+
 }
 
 #nexusuiBanner {
@@ -106,7 +108,7 @@ footer li {
     position:absolute;
     width:100px;
     top: 30px;
-    right:0px;
+    right:0;
     
     
 }
@@ -114,4 +116,5 @@ footer li {
 .rightRow {
     
     
-}
+} 
+*/
