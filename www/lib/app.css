@@ -1,120 +1,53 @@
-
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+/* Tabbed example */
+div.tabs {
+      min-height: 300px;		/* No height: can grow if :target doesn't work */
+      position: relative;		/* Establish a containing block */
+      line-height: 1;		/* Easier to calculate with */
+      z-index: 0;			/* So that we can put other things behind */
 }
 
-nav li {
-    display: inline;
-    border: solid;    
-    border-width: 1px 1px 0 1px;
-    
+div.tabs > div {
+      display: inline;		/* We want the buttons all on one line */
 }
 
-nav li a {
-    padding: 0 10px;
-    text-decoration: none;
-    font-family: sans-serif;
-    color: #000000;
-
+div.tabs > div > a {
+  color: black;			/* Looks more like a button than a link */
+  background: #CCC;		/* Active tabs are light gray */
+  padding: 0.2em;		/* Some breathing space */
+  border: 0.1em outset #BBB;	/* Make it look like a button */
+  border-bottom: 0.1em solid #CCC; /* Visually connect tab and tab body */
 }
 
-#content {
-    clear: both;
+div.tabs > div:not(:target) > a {
+  border-bottom: none;		/* Make the bottom border disappear */
+  background: #999;		/* Inactive tabs are dark gray */
 }
 
-/*#selected {
-    padding-bottom: 1px; 
-    background: white;
-}*/
-
-div.panel {
-    display: none;
+div.tabs > div:target > a,	/* Apply to the targeted item or... */
+:target #tab1 > a {		/* ... to the default item */
+  border-bottom: 0.1em solid #CCC; /* Visually connect tab and tab body */
+  background: #CCC;		/* Active tab is light gray */
 }
 
-div.panel:target {
-    display: block;
+div.tabs > div > div {
+      background: #CCC;		/* Light gray */
+      z-index: -2;			/* Behind, because the borders overlap */
+      left: 0; top: 1.3em;		/* The top needs some calculation... */
+      bottom: 0; right: 0;		/* Other sides flush with containing block */
+      overflow: auto;		/* Scroll bar if needed */
+      padding: 0.3em;		/* Looks better */
+      border: 0.1em outset #BBB;	/* 3D look */
 }
 
-/*footer {
-    bottom : 0;
-    position:fixed;
-}*/
-
-/*
-footer li {
-    float: left;
-    border: 1px solid;
-    border-bottom-width: 0;
-    margin: 0 5px 0 0;
+div.tabs > div:not(:target) > div { /* Protect CSS1 & CSS2 browsers */
+  position: absolute;		/* All these DIVs overlap */
 }
 
-#selected {
-    position: relative;
-    top: 1px;
-    background: white;
-}
-*/
-
-
-/* nexusUI GUI elements */
-/*
-#playButton {
-    float:right;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    
+div.tabs > div:target > div, :target #default2 > div {
+  position: absolute;		/* All these DIVs overlap */
+  z-index: -1;			/* Raise it above the others */
 }
 
-#mainStage {
-   
-
-   // top: 0;
-   // position: relative;
-   // margin-top: 5px;
-    
-
-}
-
-#divisionNumber {
-   
-    top: 0;
-    right: 0;
-    position: absolute;
-    margin-top: 5px;
-    
-}
-
-#addItemButton {
-    
-
-    //top: 0;
-//position: absolute;
-   // margin-top: 5px;
-
-}
-
-#nexusuiBanner {
-    top: 0;
-    right: 0;
-    position: absolute;
-    margin-top: 5px;
-    
-}
-
-.octaveButtons {
-    position:absolute;
-    width:100px;
-    top: 30px;
-    right:0;
-    
-    
-}
-
-.rightRow {
-    
-    
-} 
-*/
+div.tabs :target {
+  outline: none;
+ }
