@@ -44,33 +44,34 @@ fixed ; }</style>
         <div class="tabs">
             <div id="tab1"><a href="#tab1">Home</a>
                 <div>
-                    <canvas nx="stage" id="mainStage" style="width:400px;height:200px"></canvas>
-                    <canvas  nx="button" id="addItemButton" 
-                                         label="Add" style="width:80px;height:80px">
+                    <canvas nx="stage" id="mainStage" 
+                                       class="mainWidget">
+                    </canvas>
+                    <canvas  nx="button" class="nxButton" id="addItemButton" 
+                                         label="Add">
                     </canvas>
                 </div>
             </div>
             <div id="tab2"><a href="#tab2">Sequencer</a>
                 <div>
                     <canvas nx="matrix" id="seqMatrix" 
-                                        style="width:440px;height:220px">
+                                        class="mainWidget">
                     </canvas>
 
-                    <canvas  nx="number" id="divisionNumber" label="Division" 
-                                                             i                style="width:40px;height:60px">
+                    <canvas  nx="number" id="divisionNumber" style="width:40px;height:20px">
                     </canvas>
 
-                    <div class="octaveButtons" >
-                        <canvas  nx="button" class="rightRow" id="octaveUpButton"
-                                                              label="Up" style="width:60px;height:60px">
-                        </canvas>
-                        <canvas nx="comment" class="rightRow" id="octaveComment" 
-                                                              style="width:40px;height:40px">
-                        </canvas>
-                        <canvas  nx="button" class="rightRow" id="octaveDownButton" 
-                                                              label="Down" style="width:60px;height:60px">
-                        </canvas>
-                    </div>
+                    <!--<div class="octaveButtons" >-->
+                    <canvas  nx="button" class="nxButton hardRight" id="octaveUpButton"
+                                                                    label="Up">
+                    </canvas>
+                    <canvas nx="comment" class="comment hardRight"
+                                         id="octaveComment"> 
+                    </canvas>
+                    <canvas  nx="button" class="nxButton" id="octaveDownButton" 
+                                                          label="Down">
+                    </canvas>
+                    <!--</div>-->
 
                 </div>
             </div>
@@ -106,8 +107,10 @@ fixed ; }</style>
 
                 </div>
             </div>
+
             <canvas  nx="button" id="playButton" label="Play" 
-                                                 style="width:80px;height:80px"></canvas>
+                                                 class="transport">
+            </canvas>
 
 
         </div>

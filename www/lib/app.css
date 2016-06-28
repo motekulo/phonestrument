@@ -21,12 +21,16 @@ div.tabs > div > a {
 div.tabs > div:not(:target) > a {
   border-bottom: none;		/* Make the bottom border disappear */
   background: #999;		/* Inactive tabs are dark gray */
+  font-family: sans-serif;
+  text-decoration: none;
 }
 
 div.tabs > div:target > a,	/* Apply to the targeted item or... */
 :target #tab1 > a {		/* ... to the default item */
   border-bottom: 0.1em solid #CCC; /* Visually connect tab and tab body */
   background: #CCC;		/* Active tab is light gray */
+  font-family: sans-serif;
+  text-decoration: none;
 }
 
 div.tabs > div > div {
@@ -51,3 +55,45 @@ div.tabs > div:target > div, :target #default2 > div {
 div.tabs :target {
   outline: none;
  }
+
+ /**************************
+  * GUI Widgets
+ ***************************/
+  
+.mainWidget {
+    width: 85%;
+    height: 100%;
+    float: left;
+}
+
+.transport {
+    width: 80px;
+    height: 80px;
+    position:absolute;
+    right:0;
+    bottom:0;
+    padding: 2%;
+}
+
+
+.octaveButtons {
+    right:0;
+    padding: 2%;
+
+}
+
+.nxButton {
+    height: 60px;
+    width: 60px;
+
+}
+
+.comment {
+    height: 20px;
+    width: 40px;
+
+}
+
+.hardRight {
+    right: 0;
+}
