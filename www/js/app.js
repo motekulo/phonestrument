@@ -202,19 +202,23 @@ octaveDownButton.on('*', function(data) {
 
 
 var playing = false;
-playButton.on('press', function(data) {
-    //console.log(data);
-    if (data == 1){
+playButton.on('*', function(data) {
+    console.log(data);
+    if (data.value == 1){
         if (!playing) {
             //console.log("Starting transport");
             phonestrument.startPlaying();
             playing = true;
-        } else if (playing) {
+        }
+    } 
+    if (data.value == 0) {
+        if (playing) {
             // console.log("Stopping transport");
             phonestrument.pausePlaying();
             playing = false;
         }
     }
+
 })
 
 

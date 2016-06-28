@@ -2,7 +2,7 @@
 div.tabs {
       min-height: 300px;		/* No height: can grow if :target doesn't work */
       position: relative;		/* Establish a containing block */
-      line-height: 1;		/* Easier to calculate with */
+      line-height: 1;		/* Easier to calculate with */ 
       z-index: 0;			/* So that we can put other things behind */
 }
 
@@ -67,12 +67,11 @@ div.tabs :target {
 }
 
 .transport {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     position:absolute;
     right:0;
-    bottom:0;
-    padding: 2%;
+    top:0;
 }
 
 
