@@ -10,6 +10,7 @@ body
 div.tabs {
       min-height: 300px;		/* No height: can grow if :target doesn't work */
       height: 100vh;
+      overflow: hidden;
       position: relative;		/* Establish a containing block */
       line-height: 1;		/* Easier to calculate with */ 
       z-index: 0;			/* So that we can put other things behind */
@@ -71,7 +72,7 @@ div.tabs :target {
   
 .mainWidget {
     width: 85%;
-    height: 100%;
+    height: 90%;
     float: left;
 }
 
