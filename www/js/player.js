@@ -88,19 +88,20 @@ Player.prototype.updatePart = function(pos, data, division){
 }
 
 Player.prototype.setSamplerInstrument = function() {
-    this.instrument2 = new Tone.Sampler({
-        A : {
-            1 : "./samples/snare_mix_1.wav"
-        }
-    });
+
     url = {
         A : {
-            1 : "./samples/snare_mix_1.wav"
+            1: "./samples/kick_mix_1.wav",
+            2: "./samples/snare_mix_1.wav",
+            3: "./samples/ohh_mixed_1.wav",
+            4: "./samples/chh_mixed_1.wav"
         }
-    };
-    this.instrument = new Tone.PolySynth(4, Tone.Sampler);
-    this.instrument.voices[0]._loadBuffers(url);
+    }
 
+    this.instrument = new Tone.PolySynth(4, Tone.Sampler);
+    for (var i=0; i < 4; i++) {
+        this.instrument.voices[i]._loadBuffers(url);
+    }
 
     this.connectToMaster();
     this.poly = true;
