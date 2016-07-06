@@ -72,6 +72,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 case "poly":
                     phonestrument.currentPlayer.setChordInstrument();
                     break;
+
+                case "samples":
+                    phonestrument.currentPlayer.setSamplerInstrument();
+                    break;
             }
 
         });

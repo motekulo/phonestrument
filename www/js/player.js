@@ -29,8 +29,8 @@ function Player(){
     this.panVol = new Tone.PanVol(0.25, -12);
     this.instrument = this.setSoloInstrument();
     this.poly = false;  // Whether player is polyphonic
-    
-    
+
+
      var notes = [];
     this.part = new Tone.Part((function(time, note) {
         this.instrument.triggerAttackRelease(note, "16n");
@@ -38,9 +38,9 @@ function Player(){
     this.part.loop = true;
     this.part.loopEnd = "4m";
     this.part.start(0);
-   
 
-    
+
+
     this.adaptor = new SimpleBarSequencerAdaptor();
 }
 
@@ -87,9 +87,29 @@ Player.prototype.updatePart = function(pos, data, division){
 
 }
 
+Player.prototype.setSamplerInstrument = function() {
+    this.instrument2 = new Tone.Sampler({
+        A : {
+            1 : "./samples/snare_mix_1.wav"
+        }
+    });
+    url = {
+        A : {
+            1 : "./samples/snare_mix_1.wav"
+        }
+    };
+    this.instrument = new Tone.PolySynth(4, Tone.Sampler);
+    this.instrument.voices[0]._loadBuffers(url);
+
+
+    this.connectToMaster();
+    this.poly = true;
+    return this.instrument;
+}
+
 Player.prototype.setChordInstrument = function(){
     this.instrument = new Tone.PolySynth(3, Tone.SimpleSynth);
-   
+
     this.connectToMaster();
     this.poly = true;
     return this.instrument;
@@ -100,7 +120,7 @@ Player.prototype.setChordInstrument = function(){
 
 Player.prototype.setSoloInstrument = function(){
     this.instrument = new Tone.SimpleSynth();
-    
+
     this.poly = false;
     this.connectToMaster();
     return this.instrument;
