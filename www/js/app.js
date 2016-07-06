@@ -33,10 +33,9 @@ var phonestrument = new Phonestrument(116, 4, "E", 2);
 var currentBar = "";
 var sequencerDivision = 16;
 
-function onAppReady() {
-    if( navigator.splashscreen && navigator.splashscreen.hide ) {   // Cordova API detected
-        navigator.splashscreen.hide() ;
-    }
+document.addEventListener('DOMContentLoaded', function () {
+
+
     console.log("App ready - app.js");
     phonestrument.schedulePing(function(pos){
 
@@ -81,8 +80,8 @@ function onAppReady() {
 
 
 
-}
-document.addEventListener("app.Ready", onAppReady, false) ;
+})
+
 // document.addEventListener("deviceready", onAppReady, false) ;
 // document.addEventListener("onload", onAppReady, false) ;
 
@@ -106,7 +105,7 @@ nx.onload = function(){
     //    rewindButton1.getOffset();
 
     octaveComment.val.text="4";
-    
+
     tempoText.set({
         value: 116
     })
@@ -210,7 +209,7 @@ playButton.on('*', function(data) {
             phonestrument.startPlaying();
             playing = true;
         }
-    } 
+    }
     if (data.value == 0) {
         if (playing) {
             // console.log("Stopping transport");

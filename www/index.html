@@ -23,7 +23,7 @@ fixed ; }</style>
         <script charset="utf-8"
                 src="lib/jquery.min.js"
                 type="text/javascript"></script>
-        <script src="cordova.js"></script>
+        <!-- <script src="cordova.js"></script> -->
         <!-- phantom library, needed for Cordova api calls, added during build -->
         <script src="lib/nexusUI.js"
                 type="text/javascript"></script>
@@ -37,24 +37,24 @@ fixed ; }</style>
                 type="text/javascript"></script>
         <script src="js/app.js"></script>
         <!-- recommended location of your JavaScript code relative to other JS files -->
-        <script src="xdk/init-dev.js"></script>
+        <!-- <script src="xdk/init-dev.js"></script> -->
         <!-- normalizes device and document ready events, see README for details -->
     </head>
     <body>
         <div class="tabs">
             <div id="tab1"><a href="#tab1">Home</a>
                 <div>
-                    <canvas nx="stage" id="mainStage" 
+                    <canvas nx="stage" id="mainStage"
                                        class="mainWidget">
                     </canvas>
-                    <canvas  nx="button" class="nxButton" id="addItemButton" 
+                    <canvas  nx="button" class="nxButton" id="addItemButton"
                                          label="Add">
                     </canvas>
                 </div>
             </div>
             <div id="tab2"><a href="#tab2">Sequencer</a>
                 <div>
-                    <canvas nx="matrix" id="seqMatrix" 
+                    <canvas nx="matrix" id="seqMatrix"
                                         class="mainWidget">
                     </canvas>
 
@@ -66,9 +66,9 @@ fixed ; }</style>
                                                                     label="Up">
                     </canvas>
                     <canvas nx="comment" class="comment hardRight"
-                                         id="octaveComment"> 
+                                         id="octaveComment">
                     </canvas>
-                    <canvas  nx="button" class="nxButton" id="octaveDownButton" 
+                    <canvas  nx="button" class="nxButton" id="octaveDownButton"
                                                           label="Down">
                     </canvas>
                     <!--</div>-->
@@ -77,7 +77,7 @@ fixed ; }</style>
             </div>
             <div id="tab3"><a href="#tab3">Instrument</a>
                 <div>
-                    <canvas nx="slider" id="instSlider1" 
+                    <canvas nx="slider" id="instSlider1"
                                         style="width:80px;height:180px">
                     </canvas>
 
@@ -98,17 +98,17 @@ fixed ; }</style>
             <div id="default2"><a href="#default2">Settings</a>
                 <div>
 
-                    <canvas  nx="number" id="tempoText" 
+                    <canvas  nx="number" id="tempoText"
                                          label="Tempo" style="width:160px;height:80px">
                     </canvas>
-                    <canvas nx="banner" id="nexusuiBanner" 
+                    <canvas nx="banner" id="nexusuiBanner"
                                         style="width:160px;height:80px">
                     </canvas>
 
                 </div>
             </div>
 
-            <canvas  nx="toggle" id="playButton" label="Play" 
+            <canvas  nx="toggle" id="playButton" label="Play"
                                                  class="transport">
             </canvas>
 
