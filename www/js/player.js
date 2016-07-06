@@ -30,16 +30,23 @@ function Player(){
     this.instrument = this.setSoloInstrument();
     this.poly = false;  // Whether player is polyphonic
 
-
-     var notes = [];
+    notes = [];
     this.part = new Tone.Part((function(time, note) {
-        this.instrument.triggerAttackRelease(note, "16n");
+
+         if (this.isSampler) {
+             console.log("We are a sampler; note is " + note);
+             if (note == "C4") note = "A.1";
+             if (note == "D4") note = "A.2";
+             if (note == "E4") note = "A.3";
+             if (note == "F4") note = "A.4";
+             this.instrument.triggerAttackRelease(note, "16n");
+         } else{
+             this.instrument.triggerAttackRelease(note, "16n");
+         }
     }).bind(this), notes);
     this.part.loop = true;
     this.part.loopEnd = "4m";
     this.part.start(0);
-
-
 
     this.adaptor = new SimpleBarSequencerAdaptor();
 }
@@ -105,6 +112,7 @@ Player.prototype.setSamplerInstrument = function() {
 
     this.connectToMaster();
     this.poly = true;
+    this.isSampler = true;
     return this.instrument;
 }
 
@@ -113,6 +121,7 @@ Player.prototype.setChordInstrument = function(){
 
     this.connectToMaster();
     this.poly = true;
+    this.isSampler = false;
     return this.instrument;
     // FIXME What happens if an instrument is changed to a mono
     // instrument after being poly?
@@ -123,6 +132,7 @@ Player.prototype.setSoloInstrument = function(){
     this.instrument = new Tone.SimpleSynth();
 
     this.poly = false;
+    this.isSampler = false;
     this.connectToMaster();
     return this.instrument;
 }
