@@ -41,13 +41,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var partState = phonestrument.currentPlayer.part.state;
         var partProgress = phonestrument.currentPlayer.part.progress;
-        console.log(pos + "  and part is " + partState + " and progress " + partProgress);
+        //console.log(pos + "  and part is " + partState + " and progress " + partProgress);
         currentBar = pos;
         var bar = currentBar.split(':')[0];
-        var barMatrix = phonestrument.currentPlayer.getCurrentBarDataToDisplay(bar, sequencerDivision);
-        seqMatrix.matrix = barMatrix;
+        //var barMatrix = phonestrument.currentPlayer.getCurrentBarDataToDisplay(bar, sequencerDivision);
+        //seqMatrix.matrix = barMatrix;
         //seqMatrix.matrix[4][1] = 1;
-        seqMatrix.draw();
+        //seqMatrix.draw();
     }, "1m");
 
     $(document).ready(function() {

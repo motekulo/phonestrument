@@ -34,12 +34,12 @@ function Player(){
     this.part = new Tone.Part((function(time, note) {
 
          if (this.isSampler) {
-             console.log("We are a sampler; note is " + note);
+             //console.log("We are a sampler; note is " + note);
              if (note == "C4") note = "A.1";
              if (note == "D4") note = "A.2";
              if (note == "E4") note = "A.3";
              if (note == "F4") note = "A.4";
-             this.instrument.triggerAttackRelease(note, "16n");
+             //this.instrument.triggerAttackRelease(note, "16n");
          } else{
              this.instrument.triggerAttackRelease(note, "16n");
          }

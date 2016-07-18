@@ -6,7 +6,7 @@
   "orientation": "landscape",
   "start_url": "index.html",
   "xwalk_app_version": "0.1",
-  "xwalk_command_line": "",
+  "xwalk_command_line": "--ignore-gpu-blacklist",
   "xwalk_package_id": "net.motekulo.phonestrument",
   "xwalk_target_platforms": [
     "android"

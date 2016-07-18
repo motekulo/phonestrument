@@ -4,27 +4,49 @@
         * Please see the included README.md file for license terms and conditions.
     -->
     <head>
-        <title>Blank Cordova Mobile App Project Template (Lite)</title>
-        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <title>Phonestrument</title>
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <meta http-equiv="Content-Security-Policy" content=
+            "default-src 'self' ws: data: gap: https://ssl.gstatic.com 'unsafe-eval' 'unsafe-inline';
+            style-src 'self' 'unsafe-inline' http://fonts.googleapis.com/;
+            font-src http://fonts.gstatic.com;
+            media-src *">
+
+        <!-- old security policy
+
         <meta http-equiv="Content-Security-Policy" content="
-        default-src *;
-        child-src blob: ;
-        media-src 'self' blob: ;
-        style-src 'self' 'unsafe-inline' http://fonts.googleapis.com/;
-        script-src 'self' 'unsafe-inline' 'unsafe-eval'">
-        <!-- see http://webdesign.tutsplus.com/tutorials/htmlcss-tutorials/quick-tip-dont-forget-the-viewport-meta-tag -->
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-        <style>/* following two viewport lines are equivalent to the meta viewport statement above, needed for Windows */ /* see http://www.quirksmode.org/blog/archives/2014/05/html5_dev_conf.html and
-http://dev.w3.org/csswg/css-device-adapt/ */ @-ms-viewport { width: 100vw ; zoom: 100% ; } @viewport { width: 100vw ; zoom: 100% ; } @-ms-viewport { user-zoom: fixed ; } @viewport { user-zoom:
-fixed ; }</style>
-        <link href="lib/app.css"
+            default-src *;
+            child-src blob: ;
+            media-src 'self' blob: ;
+            style-src 'self' 'unsafe-inline' http://fonts.googleapis.com/;
+            script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+
+         -->
+
+
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+
+
+        <link href="css/app.css"
               rel="stylesheet"
               type="text/css" />
+
         <script charset="utf-8"
                 src="lib/jquery.min.js"
                 type="text/javascript"></script>
-        <!-- <script src="cordova.js"></script> -->
-        <!-- phantom library, needed for Cordova api calls, added during build -->
+
+        <script type="text/javascript" src="cordova.js"></script>
+
         <script src="lib/nexusUI.js"
                 type="text/javascript"></script>
         <script src="lib/Tone.js"
