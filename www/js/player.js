@@ -27,18 +27,20 @@
 
 function Player(){
     this.panVol = new Tone.PanVol(0.25, -12);
-    this.instrument = this.setSoloInstrument();
+    this.instrument = this.setSoloInstrument();  // the default instrument
+    this.sampler = [];
+    this.samplesLoaded = false;
     this.poly = false;  // Whether player is polyphonic
 
     notes = [];
     this.part = new Tone.Part((function(time, note) {
 
-         if (this.isSampler) {
-             //console.log("We are a sampler; note is " + note);
-             if (note == "C4") note = "A.1";
-             if (note == "D4") note = "A.2";
-             if (note == "E4") note = "A.3";
-             if (note == "F4") note = "A.4";
+         if (this.isSampler && this.samplesLoaded) {
+             console.log("We are a sampler; note is " + note);
+             if (note == "C4") this.sampler[0].start();
+             if (note == "D4") this.sampler[1].start();
+             if (note == "E4") this.sampler[2].start();
+             if (note == "F4") this.sampler[3].start();
              //this.instrument.triggerAttackRelease(note, "16n");
          } else{
              this.instrument.triggerAttackRelease(note, "16n");
@@ -51,9 +53,9 @@ function Player(){
     this.adaptor = new SimpleBarSequencerAdaptor();
 }
 
-Player.prototype.connectToMaster = function(){
-
-    this.instrument.connect(this.panVol);
+Player.prototype.connectToMaster = function(instrument){
+    instrument.connect(this.panVol);
+    //this.instrument.connect(this.panVol);
     this.panVol.connect(Tone.Master);
     this.isConnected = true;
 }
@@ -79,10 +81,12 @@ Player.prototype.updatePart = function(pos, data, division){
     if (data.level == 1) {
         // If monophonic instrument, remove old notes
         if (this.poly == false) {
-            var notesToRemove = this.part.allAt(convertedData.time);
+            var notesToRemove = this.part.at(convertedData.time);
+            if (notesToRemove != null) {
             for (i = 0; i< notesToRemove.length; i++) {
                 this.part.remove(convertedData.time);
             }
+        }
         }
 
         this.part.add(convertedData.time,convertedData.note);
@@ -95,31 +99,39 @@ Player.prototype.updatePart = function(pos, data, division){
 }
 
 Player.prototype.setSamplerInstrument = function() {
-
-    url = {
-        A : {
-            1: "./samples/kick_mix_1.wav",
-            2: "./samples/snare_mix_1.wav",
-            3: "./samples/ohh_mixed_1.wav",
-            4: "./samples/chh_mixed_1.wav"
+    // callback for when samples are loaded
+    var loaded = (function(){
+        numSamplesLoaded++;
+        console.log("Loaded number + " + numSamplesLoaded);
+        if (numSamplesLoaded == 4) {
+            this.samplesLoaded = true;
         }
-    }
 
-    this.instrument = new Tone.PolySynth(4, Tone.Sampler);
+    }).bind(this);
+             url = ["./samples/kick_mix_1.wav",
+             "./samples/snare_mix_1.wav",
+             "./samples/ohh_mixed_1.wav",
+            "./samples/chh_mixed_1.wav"];
+
+    //this.instrument = new Tone.PolySynth(4, Tone.Sampler);
+    numSamplesLoaded = 0;
     for (var i=0; i < 4; i++) {
-        this.instrument.voices[i]._loadBuffers(url);
+        this.sampler[i] = new Tone.Player(url[i], loaded);
+        this.connectToMaster(this.sampler[i]);
+        //this.sampler[i].toMaster();
+        this.sampler[i].retrigger = true;
     }
 
-    this.connectToMaster();
+
     this.poly = true;
     this.isSampler = true;
-    return this.instrument;
+    //return this.instrument;
 }
 
 Player.prototype.setChordInstrument = function(){
     this.instrument = new Tone.PolySynth(3, Tone.SimpleSynth);
 
-    this.connectToMaster();
+    this.connectToMaster(this.instrument);
     this.poly = true;
     this.isSampler = false;
     return this.instrument;
@@ -133,7 +145,7 @@ Player.prototype.setSoloInstrument = function(){
 
     this.poly = false;
     this.isSampler = false;
-    this.connectToMaster();
+    this.connectToMaster(this.instrument);
     return this.instrument;
 }
 
