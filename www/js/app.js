@@ -48,6 +48,8 @@ document.addEventListener('DOMContentLoaded', function () {
         seqMatrix.matrix = barMatrix;
         //seqMatrix.matrix[4][1] = 1;
         seqMatrix.draw();
+        barnumberComment.val.text=pos;
+        barnumberComment.draw();
     }, "1m");
 
     $(document).ready(function() {
@@ -109,6 +111,7 @@ nx.onload = function(){
     //    rewindButton1.getOffset();
 
     octaveComment.val.text="4";
+    barnumberComment.val.text="0";
 
     tempoText.set({
         value: 116
