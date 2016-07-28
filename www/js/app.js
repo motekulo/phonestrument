@@ -30,11 +30,11 @@
 // by the same event or other events.
 
 var phonestrument = new Phonestrument(116, 4, "E", 2);
-var currentBar = "";
+var currentBar = "";  //Tone.js representation of current bar (eg "1:0:0")
+var barNum = 0; // Bar number
 var sequencerDivision = 16;
 
 document.addEventListener('DOMContentLoaded', function () {
-
 
     console.log("App ready - app.js");
     phonestrument.schedulePing(function(pos){
@@ -43,11 +43,11 @@ document.addEventListener('DOMContentLoaded', function () {
         var partProgress = phonestrument.currentPlayer.part.progress;
         //console.log(pos + "  and part is " + partState + " and progress " + partProgress);
         currentBar = pos;
-        var bar = currentBar.split(':')[0];
-        //var barMatrix = phonestrument.currentPlayer.getCurrentBarDataToDisplay(bar, sequencerDivision);
-        //seqMatrix.matrix = barMatrix;
+        barNum = parseInt(currentBar.split(':')[0], 10);
+        var barMatrix = phonestrument.currentPlayer.getCurrentBarDataToDisplay(barNum, sequencerDivision);
+        seqMatrix.matrix = barMatrix;
         //seqMatrix.matrix[4][1] = 1;
-        //seqMatrix.draw();
+        seqMatrix.draw();
     }, "1m");
 
     $(document).ready(function() {
@@ -181,6 +181,7 @@ seqMatrix.on('*', function(data) {
         }
         seqMatrix.draw();
     }
+    phonestrument.currentPlayer.updatePartView(barNum, seqMatrix.matrix, sequencerDivision);
 })
 
 octaveUpButton.on('*', function(data) {

@@ -23,9 +23,9 @@
  * of the action takes place in the callbacks from the Interface widgets.
  *
  **/
-/** 
+/**
  * Constructor of a new Phonestrument
- * 
+ *
  * @param {tempo}
  * @param {timesig}
  * @param {key}
@@ -50,18 +50,18 @@ function Phonestrument(tempo, timesig, key, numparts){
      Tone.Transport.scheduleRepeat(function(time){
             this.currentBar = Tone.Transport.position;
             //console.log("Bar: " + this.currentBar);
-            
+
         }, "1m");
-    
+
     /** Schedule a regular start of bar notification to a bar
      * sequencer, so that it can draw itself
      *
      **/
-   
-    
+
+
     Tone.Transport.loop = true;
     Tone.Transport.loopStart = 0;
-    Tone.Transport.loopEnd = "1m";
+    Tone.Transport.loopEnd = "4m";
     Tone.Transport.bpm.value = 116;
 
     console.log("New phonestrument ready");
@@ -76,7 +76,7 @@ Phonestrument.prototype.getCurrentBar = function(){
 Phonestrument.prototype.schedulePing = function(callback, interval){
     Tone.Transport.scheduleRepeat(function(time){
         callback(Tone.Transport.position);
-    }, "1m");
+    }, "1m");   // FIXME shouldn't this be the interval passed in, not "1m"?
 }
 
 Phonestrument.prototype.startPlaying = function(){
@@ -106,10 +106,3 @@ Phonestrument.prototype.beepToTest = function(){
     var synth = new Tone.MonoSynth().ToMaster();
     synth.triggerAttackRelease("G4", "8n");
 }
-
-
-
-
-
-
-
