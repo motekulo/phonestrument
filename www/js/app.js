@@ -33,6 +33,8 @@ var phonestrument = new Phonestrument(116, 4, "E", 2);
 var currentBar = "";  //Tone.js representation of current bar (eg "1:0:0")
 var barNum = 0; // Bar number
 var sequencerDivision = 16;
+var panOnDrag = true;
+var volOnDrag = true;
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -68,16 +70,16 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log("Changing instrument type to " + instType);
             switch (instType) {
                 case "mono":
-                    phonestrument.currentPlayer.setSoloInstrument();
-                    break;
+                phonestrument.currentPlayer.setSoloInstrument();
+                break;
 
                 case "poly":
-                    phonestrument.currentPlayer.setChordInstrument();
-                    break;
+                phonestrument.currentPlayer.setChordInstrument();
+                break;
 
                 case "samples":
-                    phonestrument.currentPlayer.setSamplerInstrument();
-                    break;
+                phonestrument.currentPlayer.setSamplerInstrument();
+                break;
             }
 
         });
@@ -112,6 +114,8 @@ nx.onload = function(){
 
     octaveComment.val.text="4";
     barnumberComment.val.text="0";
+    togglePanVol.val.value = 1;
+    togglePanVol.draw();
 
     tempoText.set({
         value: 116
@@ -149,9 +153,15 @@ nx.onload = function(){
 mainStage.draw();
 mainStage.on('*', function(data) {
     //console.log(data.x);
+    if (panOnDrag) {
+        phonestrument.currentPlayer = phonestrument.player[data.item];
+        phonestrument.currentPlayer.panVol.pan.value = data.x;
+    }
+    if (volOnDrag) {
+        phonestrument.currentPlayer = phonestrument.player[data.item];
+        phonestrument.currentPlayer.panVol.volume.value = data.y * -24;
+    }
 
-    phonestrument.currentPlayer.panVol.pan.value = data.x;
-    phonestrument.currentPlayer.panVol.volume.value = data.y * -24;
     if (data.state == "release"){
         phonestrument.currentPlayer = phonestrument.player[data.item];
         if (data.onstage && phonestrument.currentPlayer.part.state == "stopped") {
@@ -227,6 +237,16 @@ playButton.on('*', function(data) {
     }
 
 })
+
+togglePanVol.on('*', function(data) {
+    if (data.value == 1) {
+        panOnDrag = true;
+        volOnDrag = true;
+    } else {
+        panOnDrag = false;
+        volOnDrag = false;
+    }
+});
 
 
 }
