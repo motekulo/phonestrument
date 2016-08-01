@@ -49,7 +49,8 @@ function Player(){
     }).bind(this), notes);
     this.part.loop = true;
     this.length = 4; //length in bars
-    this.part.loopEnd = "4m";
+    this.part.loopEnd = this.length + "m";
+    //this.part.loopEnd = "4m";
     this.part.start(0);
 
     // Adaptor knows how to display data, and how to provide the part with data

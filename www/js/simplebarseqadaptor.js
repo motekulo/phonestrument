@@ -35,11 +35,9 @@ function SimpleBarSequencerAdaptor() {
     // initialize arrays to represent the sequencer view at various
     // divisions (from 2 to 16 are actually used)
     var bars = 4;
-    this.sequencerViewData = new Array(17);
+    this.sequencerViewData = new Array(17); // need to refer to a division of 16
     for (i=0; i < 17; i++) {    //bar division (basically serves as an index to the correct division view)
-
         var bar = new Array(bars);
-
         for (b=0; b < bars; b++) {
            var matrix = new Array(i);
            for (j=0; j < i; j++) {  // barmatric.matrix is weird - has columns, rows; this is columns
@@ -51,10 +49,8 @@ function SimpleBarSequencerAdaptor() {
            }
            bar[b] = matrix
         }
-
         this.sequencerViewData[i] = bar;
     }
-
 
     /* That holds a single bar of data for each division; we need x bars of data
      * for each division...
@@ -63,7 +59,21 @@ function SimpleBarSequencerAdaptor() {
      *
     */
 
+}
 
+SimpleBarSequencerAdaptor.prototype.adjustViewArray = function(adj) {
+
+    if (adj < 0) {
+        for (i=0; i < 17; i++) {   // go through all bar divisions
+            for (j = 0; j < Math.abs(adj); j++) {
+                this.sequencerViewData[i].pop();
+            }
+        }
+    } else {
+        for (j = 0; j < adj; j++) {
+            this.sequencerViewData.push();
+        }
+    }
 
 }
 
