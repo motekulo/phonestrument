@@ -72,17 +72,17 @@ SimpleBarSequencerAdaptor.prototype.adjustViewArray = function(adj) {
     } else {
 
         // cycle through all of the divisions
-        for (i = 0; i < 16; i++) {
-            console.log("i: " + i);
+        for (i = 0; i < 17; i++) {   // we need a [16] as that's how we reference the data
+            //console.log("i: " + i);
             var currentLength = this.sequencerViewData[i].length; // number of bars
             //make an array of the number of divisions  - so 16
             for (j = currentLength; j < (currentLength + adj); j++) {
-                console.log("j: " + j);
+                //console.log("j: " + j);
                 this.sequencerViewData[i].push([]); // add a bar
                 var col = new Array(i);  // add array of div length
                 this.sequencerViewData[i][j].push(col);
                 for (k = 0; k < i; k++) {
-                    console.log("k: " + k);
+                    //console.log("k: " + k);
                     var row = [0,0,0,0,0,0,0];
                     this.sequencerViewData[i][j][k] = row;
                 }

@@ -165,3 +165,12 @@ Player.prototype.getCurrentBarDataToDisplay = function(currentBar, barDiv) {
     return this.adaptor.getBarArray(currentBar, barDiv);
 
 }
+
+Player.prototype.adjustPartLength = function(newLength) {
+
+    var adj = newLength - this.length;
+    this.adaptor.adjustViewArray(adj);
+    this.length = newLength; //length in bars
+    this.part.loopEnd = this.length + "m";
+
+}

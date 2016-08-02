@@ -31,7 +31,8 @@
 
 var phonestrument = new Phonestrument(116, 4, "E", 2);
 var currentBar = "";  //Tone.js representation of current bar (eg "1:0:0")
-var barNum = 0; // Bar number
+var barNum = 0; // Bar number as integer
+var partBar = 0; // At which point in bars the current displayed part is at
 var sequencerDivision = 16;
 var panOnDrag = true;
 var volOnDrag = true;
@@ -43,14 +44,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var partState = phonestrument.currentPlayer.part.state;
         var partProgress = phonestrument.currentPlayer.part.progress;
-        //console.log(pos + "  and part is " + partState + " and progress " + partProgress);
+        partBar = Math.round(partProgress * phonestrument.currentPlayer.length);
+        console.log(pos + "  and part is " + partState + " and progress " + partProgress);
+        console.log("Bar number in current part: " + partBar);
         currentBar = pos;
         barNum = parseInt(currentBar.split(':')[0], 10);
-        var barMatrix = phonestrument.currentPlayer.getCurrentBarDataToDisplay(barNum, sequencerDivision);
+        var barMatrix = phonestrument.currentPlayer.getCurrentBarDataToDisplay(partBar, sequencerDivision);
+        console.log("barMatrix: " + barMatrix);
         seqMatrix.matrix = barMatrix;
         //seqMatrix.matrix[4][1] = 1;
         seqMatrix.draw();
-        barnumberComment.val.text=pos;
+        barnumberComment.val.text = pos;
         barnumberComment.draw();
     }, "1m");
 
@@ -120,12 +124,22 @@ nx.onload = function(){
     tempoText.set({
         value: 116
     })
+
+
     tempoText.min = 1;
     tempoText.max = 360;
     tempoText.decimalPlaces = 0;
     tempoText.on('*', function(data){
         //console.log(data);
         phonestrument.changeTempo(data.value);
+    })
+
+    partLength.set({
+        value: 4
+    })
+    partLength.on('*', function(data){
+        phonestrument.currentPlayer.adjustPartLength(data.value);
+        console.log("Lengthened by " + data);
     })
 
     divisionNumber.set({
@@ -184,7 +198,8 @@ seqMatrix.draw();
 
 seqMatrix.on('*', function(data) {
     //console.log(data);
-    phonestrument.currentPlayer.updatePart(currentBar, data, sequencerDivision);
+    var partBarForTone = partBar + ":0:0";
+    phonestrument.currentPlayer.updatePart(partBarForTone, data, sequencerDivision);
     // if a mono instrument, then toggle others in column to 0
     if (phonestrument.currentPlayer.poly == false) {
         for (i=0; i < seqMatrix.row; i++) {
@@ -194,7 +209,7 @@ seqMatrix.on('*', function(data) {
         }
         seqMatrix.draw();
     }
-    phonestrument.currentPlayer.updatePartView(barNum, seqMatrix.matrix, sequencerDivision);
+    phonestrument.currentPlayer.updatePartView(partBar, seqMatrix.matrix, sequencerDivision);
 })
 
 octaveUpButton.on('*', function(data) {
