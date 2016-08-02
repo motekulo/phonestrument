@@ -39,24 +39,24 @@ function SimpleBarSequencerAdaptor() {
     for (i=0; i < 17; i++) {    //bar division (basically serves as an index to the correct division view)
         var bar = new Array(bars);
         for (b=0; b < bars; b++) {
-           var matrix = new Array(i);
-           for (j=0; j < i; j++) {  // barmatric.matrix is weird - has columns, rows; this is columns
-               var matrixcolumn = new Array();
-               for (k=0; k < 7; k++) {  //k is number of rows in array; again due to nexusUI matrix oddness
-                   matrixcolumn[k] = 0;
-               }
-               matrix[j] = matrixcolumn;
-           }
-           bar[b] = matrix
+            var matrix = new Array(i);
+            for (j=0; j < i; j++) {  // barmatric.matrix is weird - has columns, rows; this is columns
+                var matrixcolumn = new Array();
+                for (k=0; k < 7; k++) {  //k is number of rows in array; again due to nexusUI matrix oddness
+                    matrixcolumn[k] = 0;
+                }
+                matrix[j] = matrixcolumn;
+            }
+            bar[b] = matrix
         }
         this.sequencerViewData[i] = bar;
     }
 
     /* That holds a single bar of data for each division; we need x bars of data
-     * for each division...
-     * So division[div][bar][row][col];
-     * Actually sequencerViewData[div][bar][coumn][row]
-     *
+    * for each division...
+    * So division[div][bar][row][col];
+    * Actually sequencerViewData[div][bar][coumn][row]
+    *
     */
 
 }
@@ -70,11 +70,26 @@ SimpleBarSequencerAdaptor.prototype.adjustViewArray = function(adj) {
             }
         }
     } else {
-        for (j = 0; j < adj; j++) {
-            this.sequencerViewData.push();
+
+        // cycle through all of the divisions
+        for (i = 0; i < 16; i++) {
+            console.log("i: " + i);
+            var currentLength = this.sequencerViewData[i].length; // number of bars
+            //make an array of the number of divisions  - so 16
+            for (j = currentLength; j < (currentLength + adj); j++) {
+                console.log("j: " + j);
+                this.sequencerViewData[i].push([]); // add a bar
+                var col = new Array(i);  // add array of div length
+                this.sequencerViewData[i][j].push(col);
+                for (k = 0; k < i; k++) {
+                    console.log("k: " + k);
+                    var row = [0,0,0,0,0,0,0];
+                    this.sequencerViewData[i][j][k] = row;
+                }
+                //this.sequencerViewData[i]
+            }
         }
     }
-
 }
 
 SimpleBarSequencerAdaptor.prototype.setScale = function(key){
@@ -190,9 +205,17 @@ SimpleBarSequencerAdaptor.prototype.getBarArray = function(bar, division){
     return this.sequencerViewData[division][bar];
 }
 
+/**
+* Updates the array that holds the visual representation of the sequencer data
+*
+* @param {int] bar - The bar number to update
+* @param {int] division - The number of divisions of the bar (so 16 for 16th notes)
+* @param {Array] matrix - An array - [col][ros] - representing [divison pos][note]
+*
+**/
 
-SimpleBarSequencerAdaptor.prototype.updateViewData = function (bar, division, data) {
+SimpleBarSequencerAdaptor.prototype.updateViewData = function (bar, division, matrix) {
 
-    this.sequencerViewData[division][bar] = data;
+    this.sequencerViewData[division][bar] = matrix;
 
 };

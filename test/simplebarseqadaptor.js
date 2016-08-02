@@ -70,8 +70,32 @@ describe("Simple bar sequencer adaptor", function() {
 
 
     });
-
-
     
+    it("creates a multidimensional array that can hold a visual representation", function() {
+        expect(adaptor.sequencerViewData[4][1][3].length).toBe(7); // division, bar, column, row
+        expect (adaptor.sequencerViewData[16][3].length).toBe(16);
+    });
+
+    it("can update and retrieve visual representation of sequencer", function() {
+        /* The nexusUI matrix represents sequencer data in the form of columss, rows
+        * so recreate that here for thee test. Note that the widget has its XY data
+        * set up strangely, with columns as the first array index
+        */
+        var matrix = new Array(16);  // representing bar divisions -
+        matrix[15] = new Array(7);  // 7 being the number of rows (different note values)
+        matrix[15][4] = 1;    // last 16th note in bar, note number 5 in scale
+        adaptor.updateViewData(2, 16, matrix);    // bar, division, data
+        expect(adaptor.sequencerViewData[16][2][15][4]).toBe(1);     // div, bar, col, row
+    });
+
+    it("can remove and add bars from the sequencer view data", function() {
+        expect(adaptor.sequencerViewData[4].length).toBe(4);
+        adaptor.adjustViewArray(-2);
+        expect(adaptor.sequencerViewData[4].length).toBe(2);
+        adaptor.adjustViewArray(4);
+        expect(adaptor.sequencerViewData[4].length).toBe(6);
+
+    });
+
 
 });
