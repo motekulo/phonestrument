@@ -28,7 +28,7 @@
 
 div.tabs {
       min-height: 300px;		/* No height: can grow if :target doesn't work */
-      height: 100vh;
+      height: 96vh;
       overflow: hidden;
       position: relative;		/* Establish a containing block */
       line-height: 1;		/* Easier to calculate with */
