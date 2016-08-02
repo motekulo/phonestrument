@@ -70,7 +70,7 @@ describe("Simple bar sequencer adaptor", function() {
 
 
     });
-    
+
     it("creates a multidimensional array that can hold a visual representation", function() {
         expect(adaptor.sequencerViewData[4][1][3].length).toBe(7); // division, bar, column, row
         expect (adaptor.sequencerViewData[16][3].length).toBe(16);
