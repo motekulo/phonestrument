@@ -68,8 +68,8 @@
         <div class="row">
         <div class="col s12">
         <ul class="tabs">
-        <li class="tab col s3"><a href="#test1">Stage</a></li>
-        <li class="tab col s3"><a class="active" href="#test2">Sequencer</a></li>
+        <li class="tab col s3"><a class="active" href="#test1">Stage</a></li>
+        <li class="tab col s3"><a href="#test2">Sequencer</a></li>
         <li class="tab col s3"><a href="#test3">Instrument</a></li>
         <li class="tab col s3"><a href="#test4">Settings</a></li>
         </ul>
@@ -79,11 +79,12 @@
                                class="mainWidget">
             </canvas>
             <canvas  nx="button" class="nxButton" id="addItemButton"
-                                 label="Add">
+                                 style="width:60px;height:60px" label="Add">
             </canvas>
             <canvas  nx="toggle" class="nxToggle" id="togglePanVol"
-                                 label="pan/vol on drag">
+                                 style="width:60px;height:60px" label="pan/vol on drag">
             </canvas>
+
 
         </div>
         <div id="test2" class="col s12">
@@ -95,24 +96,26 @@
             </canvas>
 
 
-            <canvas  nx="button" class="nxButton hardRight" id="octaveUpButton"
+            <canvas  nx="button" class="nxButton" id="octaveUpButton"
                                                             label="Up">
             </canvas>
-            <canvas nx="comment" class="comment hardRight"
+            <canvas nx="comment" class="comment"
                                  id="octaveComment">
             </canvas>
             <canvas  nx="button" class="nxButton" id="octaveDownButton"
                                                   label="Down">
             </canvas>
 
-            <canvas nx="comment" class="comment hardRight"
+            <canvas nx="comment" class="comment"
                                  id="barnumberComment">
             </canvas>
 
             <canvas  nx="number" id="partLength"
                                  style="width:60px;height:40px">
             </canvas>
-
+            <canvas  nx="toggle" id="playButton" label="Play"
+                                                 class="transport">
+            </canvas>
 
 
         </div>
@@ -121,7 +124,7 @@
                                 style="width:80px;height:180px">
             </canvas>
 
-            <select name="select" id="instTypeSelect">
+            <select name="select" id="instTypeSelect" style="width:80px;height:40px">
                 <option value="mono">mono</option>
                 <option value="poly">poly</option>
                 <option value="samples">samples</option>
@@ -143,9 +146,7 @@
         </canvas>
     </div>
         </div>
-        <canvas  nx="toggle" id="playButton" label="Play"
-                                             class="transport">
-        </canvas>
+
         <!-- <div class="tabs">
 
             <div id="tab2"><a href="#tab2">Sequencer</a>

@@ -88,6 +88,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         });
 
+        $('.carousel.carousel-slider').carousel({full_width: true})
+        $('ul.tabs').tabs({onShow: function(tabId){
+                console.log("Tab selected " + tabId.selector);
+
+            }
+        });
+
     });
 
 
