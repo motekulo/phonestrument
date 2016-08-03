@@ -94,6 +94,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (selectedTab.selector == "#sequencer") {
                     console.log("sequencer");
                     seqMatrix.getOffset();
+                    seqMatrix.init();
+                    seqMatrix.draw();
+                    //seqMatrix.draw();
                 }
                 if (selectedTab.selector == "#instrument") {
                     console.log("instrument");
