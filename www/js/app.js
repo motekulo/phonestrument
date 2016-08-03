@@ -88,9 +88,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
         });
 
-        $('.carousel.carousel-slider').carousel({full_width: true})
-        $('ul.tabs').tabs({onShow: function(tabId){
-                console.log("Tab selected " + tabId.selector);
+
+        $('ul.tabs').tabs({onShow: function(selectedTab){
+                console.log("Tab selected " + selectedTab.selector);
+                if (selectedTab.selector == "#sequencer") {
+                    console.log("sequencer");
+                    seqMatrix.getOffset();
+                }
+                if (selectedTab.selector == "#instrument") {
+                    console.log("instrument");
+                    instSlider1.getOffset();
+                }
 
             }
         });
