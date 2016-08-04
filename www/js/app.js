@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }, "1m");
 
     $(document).ready(function() {
+        $('select').material_select();  // materialize select init
         $('#instWaveSelect').change(function() {
             var waveType = ( $(this).find(":selected").val() );
             phonestrument.currentPlayer.instrument.set({
@@ -94,8 +95,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (selectedTab.selector == "#sequencer") {
                     console.log("sequencer");
                     seqMatrix.getOffset();
-                    seqMatrix.init();
-                    seqMatrix.draw();
+                    //seqMatrix.init();
+                    //seqMatrix.draw();
                     //seqMatrix.draw();
                 }
                 if (selectedTab.selector == "#instrument") {
