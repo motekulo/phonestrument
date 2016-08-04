@@ -97,6 +97,9 @@ document.addEventListener('DOMContentLoaded', function () {
             if (selectedTab.selector == "#sequencer") {
                 console.log("sequencer");
                 seqMatrix.getOffset();
+                partLength.set({
+                    value: phonestrument.currentPlayer.length
+                });
                 //seqMatrix.init();
                 //seqMatrix.draw();
                 //seqMatrix.draw();
@@ -158,9 +161,11 @@ nx.onload = function(){
     partLength.set({
         value: 4
     })
+
     partLength.on('*', function(data){
         phonestrument.currentPlayer.adjustPartLength(data.value);
-        console.log("Lengthened by " + data);
+        //console.log("Lengthened by " + data);
+
     })
 
     divisionNumber.set({
@@ -298,6 +303,8 @@ nx.onload = function(){
 
 }
 
+// Utilities
+//
 // thanks stackoverflow: http://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
 function rgb2hex(red, green, blue) {
         var rgb = blue | (green << 8) | (red << 16);
