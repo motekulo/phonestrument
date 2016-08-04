@@ -36,6 +36,8 @@ var partBar = 0; // At which point in bars the current displayed part is at
 var sequencerDivision = 16;
 var panOnDrag = true;
 var volOnDrag = true;
+var currentStagePlayerIndex = 0;
+var currentStagePlayerColor = "#ffffff";
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -91,23 +93,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         $('ul.tabs').tabs({onShow: function(selectedTab){
-                console.log("Tab selected " + selectedTab.selector);
-                if (selectedTab.selector == "#sequencer") {
-                    console.log("sequencer");
-                    seqMatrix.getOffset();
-                    //seqMatrix.init();
-                    //seqMatrix.draw();
-                    //seqMatrix.draw();
-                }
-                if (selectedTab.selector == "#instrument") {
-                    console.log("instrument");
-                    instSlider1.getOffset();
-                }
-
+            console.log("Tab selected " + selectedTab.selector);
+            if (selectedTab.selector == "#sequencer") {
+                console.log("sequencer");
+                seqMatrix.getOffset();
+                //seqMatrix.init();
+                //seqMatrix.draw();
+                //seqMatrix.draw();
             }
-        });
+            if (selectedTab.selector == "#instrument") {
+                console.log("instrument");
+                instSlider1.getOffset();
+            }
 
+        }
     });
+
+});
 
 
 
@@ -177,110 +179,127 @@ nx.onload = function(){
     addItemButton.on('*', function(data) {
         console.log(data);
         if (data.press == 0) {  // seems odd but that's how it's working?
-        mainStage.addItem();
-        phonestrument.createNewPlayer();
+            mainStage.addItem();
 
-    }
-})
+            phonestrument.createNewPlayer();
 
-mainStage.draw();
-mainStage.on('*', function(data) {
-    //console.log(data.x);
-    if (panOnDrag) {
-        phonestrument.currentPlayer = phonestrument.player[data.item];
-        phonestrument.currentPlayer.panVol.pan.value = data.x;
-    }
-    if (volOnDrag) {
-        phonestrument.currentPlayer = phonestrument.player[data.item];
-        phonestrument.currentPlayer.panVol.volume.value = data.y * -24;
-    }
-
-    if (data.state == "release"){
-        phonestrument.currentPlayer = phonestrument.player[data.item];
-        if (data.onstage && phonestrument.currentPlayer.part.state == "stopped") {
-            //var nextBar = currentBar + " + 1m";
-            //console.log("starting part at " + nextBar);
-            phonestrument.currentPlayer.part.start("0:0:0"); // doesn't work as expected; starts immediately
-
-        } else if (!data.onstage && phonestrument.currentPlayer.part.state == "started") {
-            //var nextBar = currentBar + " + 1m";
-            //console.log("stopping part at " + nextBar);
-            phonestrument.currentPlayer.part.stop("0:0:0"); // doesn't work as expected; stops immediately
         }
-    }
-})
+    })
 
-seqMatrix.row = 7;
-seqMatrix.col = sequencerDivision;
-seqMatrix.init();
-seqMatrix.draw();
+    playerColor.on('*', function(data) {
 
-seqMatrix.on('*', function(data) {
-    //console.log(data);
-    var partBarForTone = partBar + ":0:0";
-    phonestrument.currentPlayer.updatePart(partBarForTone, data, sequencerDivision);
-    // if a mono instrument, then toggle others in column to 0
-    if (phonestrument.currentPlayer.poly == false) {
-        for (i=0; i < seqMatrix.row; i++) {
-            if (i != data.row) {
-                seqMatrix.matrix[data.col][i] = 0;
+        var hex = rgb2hex(data.r, data.g, data.b);
+        //console.log("Color data: " + hex);
+        currentStagePlayerColor = hex;
+        mainStage.changeColor(currentStagePlayerIndex, currentStagePlayerColor);
+        mainStage.draw();
+
+    });
+
+    mainStage.draw();
+    mainStage.on('*', function(data) {
+        currentStagePlayerIndex = data.item;
+        //console.log(data.x);
+        if (panOnDrag) {
+            phonestrument.currentPlayer = phonestrument.player[data.item];
+            phonestrument.currentPlayer.panVol.pan.value = data.x;
+        }
+        if (volOnDrag) {
+            phonestrument.currentPlayer = phonestrument.player[data.item];
+            phonestrument.currentPlayer.panVol.volume.value = data.y * -24;
+        }
+
+        if (data.state == "release"){
+            phonestrument.currentPlayer = phonestrument.player[data.item];
+            if (data.onstage && phonestrument.currentPlayer.part.state == "stopped") {
+                //var nextBar = currentBar + " + 1m";
+                //console.log("starting part at " + nextBar);
+                phonestrument.currentPlayer.part.start("0:0:0"); // doesn't work as expected; starts immediately
+
+            } else if (!data.onstage && phonestrument.currentPlayer.part.state == "started") {
+                //var nextBar = currentBar + " + 1m";
+                //console.log("stopping part at " + nextBar);
+                phonestrument.currentPlayer.part.stop("0:0:0"); // doesn't work as expected; stops immediately
             }
         }
-        seqMatrix.draw();
-    }
-    phonestrument.currentPlayer.updatePartView(partBar, seqMatrix.matrix, sequencerDivision);
-})
+    })
 
-octaveUpButton.on('*', function(data) {
-    console.log(data);
-    if (data.press == 0) {
-        phonestrument.currentPlayer.adaptor.octave++;
-        var currentOctave = parseInt(octaveComment.val.text, 10);
-        octaveComment.val.text = (currentOctave + 1).toString();
-        octaveComment.draw();
-    }
-})
+    seqMatrix.row = 7;
+    seqMatrix.col = sequencerDivision;
+    seqMatrix.init();
+    seqMatrix.draw();
 
-octaveDownButton.on('*', function(data) {
-    console.log(data);
-    if (data.press == 0) {
-        phonestrument.currentPlayer.adaptor.octave--;
-        var currentOctave = parseInt(octaveComment.val.text, 10);
-        octaveComment.val.text = (currentOctave - 1).toString();
-        octaveComment.draw();
-    }
-})
-
-
-var playing = false;
-playButton.on('*', function(data) {
-    console.log(data);
-    if (data.value == 1){
-        if (!playing) {
-            //console.log("Starting transport");
-            phonestrument.startPlaying();
-            playing = true;
+    seqMatrix.on('*', function(data) {
+        //console.log(data);
+        var partBarForTone = partBar + ":0:0";
+        phonestrument.currentPlayer.updatePart(partBarForTone, data, sequencerDivision);
+        // if a mono instrument, then toggle others in column to 0
+        if (phonestrument.currentPlayer.poly == false) {
+            for (i=0; i < seqMatrix.row; i++) {
+                if (i != data.row) {
+                    seqMatrix.matrix[data.col][i] = 0;
+                }
+            }
+            seqMatrix.draw();
         }
-    }
-    if (data.value == 0) {
-        if (playing) {
-            // console.log("Stopping transport");
-            phonestrument.pausePlaying();
-            playing = false;
+        phonestrument.currentPlayer.updatePartView(partBar, seqMatrix.matrix, sequencerDivision);
+    })
+
+    octaveUpButton.on('*', function(data) {
+        console.log(data);
+        if (data.press == 0) {
+            phonestrument.currentPlayer.adaptor.octave++;
+            var currentOctave = parseInt(octaveComment.val.text, 10);
+            octaveComment.val.text = (currentOctave + 1).toString();
+            octaveComment.draw();
         }
-    }
+    })
 
-})
+    octaveDownButton.on('*', function(data) {
+        console.log(data);
+        if (data.press == 0) {
+            phonestrument.currentPlayer.adaptor.octave--;
+            var currentOctave = parseInt(octaveComment.val.text, 10);
+            octaveComment.val.text = (currentOctave - 1).toString();
+            octaveComment.draw();
+        }
+    })
 
-togglePanVol.on('*', function(data) {
-    if (data.value == 1) {
-        panOnDrag = true;
-        volOnDrag = true;
-    } else {
-        panOnDrag = false;
-        volOnDrag = false;
-    }
-});
 
+    var playing = false;
+    playButton.on('*', function(data) {
+        console.log(data);
+        if (data.value == 1){
+            if (!playing) {
+                //console.log("Starting transport");
+                phonestrument.startPlaying();
+                playing = true;
+            }
+        }
+        if (data.value == 0) {
+            if (playing) {
+                // console.log("Stopping transport");
+                phonestrument.pausePlaying();
+                playing = false;
+            }
+        }
+
+    })
+
+    togglePanVol.on('*', function(data) {
+        if (data.value == 1) {
+            panOnDrag = true;
+            volOnDrag = true;
+        } else {
+            panOnDrag = false;
+            volOnDrag = false;
+        }
+    });
 
 }
+
+// thanks stackoverflow: http://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
+function rgb2hex(red, green, blue) {
+        var rgb = blue | (green << 8) | (red << 16);
+        return '#' + (0x1000000 + rgb).toString(16).slice(1)
+  }
