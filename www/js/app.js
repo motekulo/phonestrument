@@ -100,9 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 partLength.set({
                     value: phonestrument.currentPlayer.length
                 });
-                //seqMatrix.init();
-                //seqMatrix.draw();
-                //seqMatrix.draw();
+
             }
             if (selectedTab.selector == "#instrument") {
                 console.log("instrument");
@@ -111,11 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         }
     });
-
 });
-
-
-
 })
 
 // document.addEventListener("deviceready", onAppReady, false) ;
@@ -185,37 +179,33 @@ nx.onload = function(){
         console.log(data);
         if (data.press == 0) {  // seems odd but that's how it's working?
             mainStage.addItem();
-
             phonestrument.createNewPlayer();
-
         }
     })
 
     playerColor.on('*', function(data) {
-
         var hex = rgb2hex(data.r, data.g, data.b);
         //console.log("Color data: " + hex);
         currentStagePlayerColor = hex;
         mainStage.changeColor(currentStagePlayerIndex, currentStagePlayerColor);
         mainStage.draw();
-
     });
 
     mainStage.draw();
     mainStage.on('*', function(data) {
-        currentStagePlayerIndex = data.item;
-        //console.log(data.x);
+
         if (panOnDrag) {
-            phonestrument.currentPlayer = phonestrument.player[data.item];
+            phonestrument.currentPlayer = phonestrument.player[currentStagePlayerIndex];
             phonestrument.currentPlayer.panVol.pan.value = data.x;
         }
         if (volOnDrag) {
-            phonestrument.currentPlayer = phonestrument.player[data.item];
+            phonestrument.currentPlayer = phonestrument.player[currentStagePlayerIndex];
             phonestrument.currentPlayer.panVol.volume.value = data.y * -24;
         }
 
         if (data.state == "release"){
-            phonestrument.currentPlayer = phonestrument.player[data.item];
+            currentStagePlayerIndex = data.item;
+            phonestrument.currentPlayer = phonestrument.player[currentStagePlayerIndex];
             if (data.onstage && phonestrument.currentPlayer.part.state == "stopped") {
                 //var nextBar = currentBar + " + 1m";
                 //console.log("starting part at " + nextBar);

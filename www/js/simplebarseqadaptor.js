@@ -158,8 +158,6 @@ SimpleBarSequencerAdaptor.prototype.convertData = function(pos, data, division) 
     return converteddata;
 }
 
-
-
 /**
 * Send converted data to a part.
 *
@@ -201,7 +199,6 @@ this.part.tonepart.at(time, notes);
 */
 
 SimpleBarSequencerAdaptor.prototype.getBarArray = function(bar, division){
-
     return this.sequencerViewData[division][bar];
 }
 
@@ -215,7 +212,5 @@ SimpleBarSequencerAdaptor.prototype.getBarArray = function(bar, division){
 **/
 
 SimpleBarSequencerAdaptor.prototype.updateViewData = function (bar, division, matrix) {
-
     this.sequencerViewData[division][bar] = matrix;
-
 };

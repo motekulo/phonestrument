@@ -99,15 +99,12 @@ Player.prototype.updatePart = function(pos, data, division){
         this.part.remove(convertedData.time,convertedData.note);
     }
 
-
 }
 
 Player.prototype.updatePartView = function(bar, matrix, division){
-    // FIXME Should this be in the adaptor, given that a matrix (so something
-    // quite specific to a particular view of the data is being passed in?)
-
+    // FIXME Should this be in the adaptor, given that a matrix - so something
+    // quite specific to a particular view of the data is being passed in?
     this.adaptor.updateViewData(bar, division, matrix);
-
 }
 
 Player.prototype.setSamplerInstrument = function() {
