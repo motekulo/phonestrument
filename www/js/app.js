@@ -100,7 +100,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 partLength.set({
                     value: phonestrument.currentPlayer.length
                 });
-
+                seqMatrix.col = phonestrument.currentPlayer.adaptor.currentViewDivision;
+                seqMatrix.draw();
+                divisionNumber.set({
+                    value: phonestrument.currentPlayer.adaptor.currentViewDivision
+                });
             }
             if (selectedTab.selector == "#instrument") {
                 console.log("instrument");
@@ -173,6 +177,8 @@ nx.onload = function(){
         sequencerDivision = data.value;
         seqMatrix.col = sequencerDivision;
         seqMatrix.draw();
+
+        phonestrument.currentPlayer.adaptor.currentViewDivision = sequencerDivision;
     })
 
     addItemButton.on('*', function(data) {

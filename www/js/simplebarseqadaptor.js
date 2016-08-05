@@ -31,6 +31,7 @@ function SimpleBarSequencerAdaptor() {
     this.key = "C";
     this.scale = this.setScale(this.key);
     this.octave = 4; // fudge for now
+    this.currentViewDivision = 16;
 
     // initialize arrays to represent the sequencer view at various
     // divisions (from 2 to 16 are actually used)
@@ -213,4 +214,13 @@ SimpleBarSequencerAdaptor.prototype.getBarArray = function(bar, division){
 
 SimpleBarSequencerAdaptor.prototype.updateViewData = function (bar, division, matrix) {
     this.sequencerViewData[division][bar] = matrix;
+
+    // Now update other relevant bar subdivision elements; if a quarter note has been changed
+    // at the divison of 4, will need to update some of the 2, the 8, some of the 12,
+    // and the 16 accordingly
+
+
+    // Store the current division display info for this view and part
+    this.currentViewDivision = division;
+    
 };
