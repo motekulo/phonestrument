@@ -212,15 +212,34 @@ SimpleBarSequencerAdaptor.prototype.getBarArray = function(bar, division){
 *
 **/
 
-SimpleBarSequencerAdaptor.prototype.updateViewData = function (bar, division, matrix) {
+SimpleBarSequencerAdaptor.prototype.updateViewData = function (bar, col, matrix, division) {
     this.sequencerViewData[division][bar] = matrix;
 
     // Now update other relevant bar subdivision elements; if a quarter note has been changed
     // at the divison of 4, will need to update some of the 2, the 8, some of the 12,
     // and the 16 accordingly
 
+    /*
+    * This function doesn't know exactly which matrix intersection has been pressed.
+    * All we know is the bar number, and the particular division, so all of those values
+    * need to be examined and translated. Maybe that's a bit slow and silly - why not just
+    * modify this function to take specific row and column data?
+    */
+    var noteToTest = col/division; // distance in bar of point to test
+    for (i = 2; i < 17; i++) {    // cycle through bar divisions
+        console.log("Division: " + i);
+        for (j = 0; j < 7; j++) {
+            if (matrix[col][j] == 1) {
+                var test = (noteToTest * i) % 1;
+                if (test == 0) {
+                    var newIndex = noteToTest * i;
+                    this.sequencerViewData[i][bar][newIndex][j] = 1; // the matrix row to change (nexusUI matrix reversed)
+                }
+            }
+        }
+    }
 
     // Store the current division display info for this view and part
     this.currentViewDivision = division;
-    
+
 };

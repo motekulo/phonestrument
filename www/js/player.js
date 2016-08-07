@@ -101,10 +101,10 @@ Player.prototype.updatePart = function(pos, data, division){
 
 }
 
-Player.prototype.updatePartView = function(bar, matrix, division){
+Player.prototype.updatePartView = function(bar, col, matrix, division){
     // FIXME Should this be in the adaptor, given that a matrix - so something
     // quite specific to a particular view of the data is being passed in?
-    this.adaptor.updateViewData(bar, division, matrix);
+    this.adaptor.updateViewData(bar, col, matrix, division);
 }
 
 Player.prototype.setSamplerInstrument = function() {

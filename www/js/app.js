@@ -243,7 +243,8 @@ nx.onload = function(){
             }
             seqMatrix.draw();
         }
-        phonestrument.currentPlayer.updatePartView(partBar, seqMatrix.matrix, sequencerDivision);
+        // change the below to the column and row? More efficient than sending whole matrix
+        phonestrument.currentPlayer.updatePartView(partBar, data.col, seqMatrix.matrix, sequencerDivision);
     })
 
     octaveUpButton.on('*', function(data) {
