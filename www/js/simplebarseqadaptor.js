@@ -226,8 +226,7 @@ SimpleBarSequencerAdaptor.prototype.updateViewData = function (bar, col, matrix,
     * modify this function to take specific row and column data?
     */
     var noteToTest = col/division; // distance in bar of point to test
-    for (i = 2; i < 17; i++) {    // cycle through bar divisions
-        console.log("Division: " + i);
+    for (i = 4; i < 17; i++) {    // cycle through bar divisions #FIXME only need to go from 4?
         for (j = 0; j < 7; j++) {
             if (matrix[col][j] == 1) {
                 var test = (noteToTest * i) % 1;
