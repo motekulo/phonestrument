@@ -50,6 +50,26 @@ PieceFileOps.prototype.saveCurrentPiece = function(){
     this.writeToFile('example.json', { foo: 'bar' });
 }
 
+PieceFileOps.prototype.encodePart = function(player) {
+    // get a part
+    var partToEncode = player.part;
+    var partEvents = [];
+    for (i = 0; i < partToEncode._events.length; i++) {
+
+        var value = partToEncode._events[i].value;
+        console.log("Event value " + value);
+
+        var offset = partToEncode._events[i].startOffset;
+        console.log("startOffset " + offset);
+
+        var event = {
+            "note": value,
+            "offset": offset
+        }
+        partEvents.push(event);
+    }
+}
+
 var errorHandler = function (fileName, e) {
     var msg = '';
 

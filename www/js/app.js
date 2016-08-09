@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
         currentBar = pos;
         barNum = parseInt(currentBar.split(':')[0], 10);
         var barMatrix = phonestrument.currentPlayer.getCurrentBarDataToDisplay(partBar, sequencerDivision);
-        
+
         seqMatrix.matrix = barMatrix;
         //seqMatrix.matrix[4][1] = 1;
         seqMatrix.draw();
@@ -119,8 +119,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         $('#saveButton').click(function(){
 
-            console.log("Saving...");
-            phonestrument.fileOps.saveCurrentPiece();
+            console.log("Encoding:...");
+            phonestrument.fileOps.encodePart(phonestrument.currentPlayer);
+            //phonestrument.fileOps.saveCurrentPiece();
         });
 
     });
