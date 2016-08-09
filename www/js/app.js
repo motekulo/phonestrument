@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
         currentBar = pos;
         barNum = parseInt(currentBar.split(':')[0], 10);
         var barMatrix = phonestrument.currentPlayer.getCurrentBarDataToDisplay(partBar, sequencerDivision);
-        console.log("barMatrix: " + barMatrix);
+        
         seqMatrix.matrix = barMatrix;
         //seqMatrix.matrix[4][1] = 1;
         seqMatrix.draw();
@@ -115,9 +115,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 instSlider1.getOffset();
             }
 
-        }
+        }});
+
+        $('#saveButton').click(function(){
+
+            console.log("Saving...");
+            phonestrument.fileOps.saveCurrentPiece();
+        });
+
     });
-});
 })
 
 // document.addEventListener("deviceready", onAppReady, false) ;
@@ -188,119 +194,119 @@ nx.onload = function(){
     addItemButton.on('*', function(data) {
         console.log(data);
         if (data.press == 0) {  // seems odd but that's how it's working?
-            mainStage.addItem();
-            phonestrument.createNewPlayer();
-        }
-    })
+        mainStage.addItem();
+        phonestrument.createNewPlayer();
+    }
+})
 
-    playerColor.on('*', function(data) {
-        var hex = rgb2hex(data.r, data.g, data.b);
-        //console.log("Color data: " + hex);
-        currentStagePlayerColor = hex;
-        mainStage.changeColor(currentStagePlayerIndex, currentStagePlayerColor);
-        mainStage.draw();
-    });
-
+playerColor.on('*', function(data) {
+    var hex = rgb2hex(data.r, data.g, data.b);
+    //console.log("Color data: " + hex);
+    currentStagePlayerColor = hex;
+    mainStage.changeColor(currentStagePlayerIndex, currentStagePlayerColor);
     mainStage.draw();
-    mainStage.on('*', function(data) {
+});
 
-        if (panOnDrag) {
-            phonestrument.currentPlayer = phonestrument.player[currentStagePlayerIndex];
-            phonestrument.currentPlayer.panVol.pan.value = data.x;
+mainStage.draw();
+mainStage.on('*', function(data) {
+
+    if (panOnDrag) {
+        phonestrument.currentPlayer = phonestrument.player[currentStagePlayerIndex];
+        phonestrument.currentPlayer.panVol.pan.value = data.x;
+    }
+    if (volOnDrag) {
+        phonestrument.currentPlayer = phonestrument.player[currentStagePlayerIndex];
+        phonestrument.currentPlayer.panVol.volume.value = data.y * -24;
+    }
+
+    if (data.state == "release"){
+        currentStagePlayerIndex = data.item;
+        phonestrument.currentPlayer = phonestrument.player[currentStagePlayerIndex];
+        if (data.onstage && phonestrument.currentPlayer.part.state == "stopped") {
+            //var nextBar = currentBar + " + 1m";
+            //console.log("starting part at " + nextBar);
+            phonestrument.currentPlayer.part.start("0:0:0"); // doesn't work as expected; starts immediately
+
+        } else if (!data.onstage && phonestrument.currentPlayer.part.state == "started") {
+            //var nextBar = currentBar + " + 1m";
+            //console.log("stopping part at " + nextBar);
+            phonestrument.currentPlayer.part.stop("0:0:0"); // doesn't work as expected; stops immediately
         }
-        if (volOnDrag) {
-            phonestrument.currentPlayer = phonestrument.player[currentStagePlayerIndex];
-            phonestrument.currentPlayer.panVol.volume.value = data.y * -24;
-        }
+    }
+})
 
-        if (data.state == "release"){
-            currentStagePlayerIndex = data.item;
-            phonestrument.currentPlayer = phonestrument.player[currentStagePlayerIndex];
-            if (data.onstage && phonestrument.currentPlayer.part.state == "stopped") {
-                //var nextBar = currentBar + " + 1m";
-                //console.log("starting part at " + nextBar);
-                phonestrument.currentPlayer.part.start("0:0:0"); // doesn't work as expected; starts immediately
+seqMatrix.row = 7;
+seqMatrix.col = sequencerDivision;
+seqMatrix.init();
+seqMatrix.draw();
 
-            } else if (!data.onstage && phonestrument.currentPlayer.part.state == "started") {
-                //var nextBar = currentBar + " + 1m";
-                //console.log("stopping part at " + nextBar);
-                phonestrument.currentPlayer.part.stop("0:0:0"); // doesn't work as expected; stops immediately
+seqMatrix.on('*', function(data) {
+    //console.log(data);
+    var partBarForTone = partBar + ":0:0";
+    phonestrument.currentPlayer.updatePart(partBarForTone, data, sequencerDivision);
+    // if a mono instrument, then toggle others in column to 0
+    if (phonestrument.currentPlayer.poly == false) {
+        for (i=0; i < seqMatrix.row; i++) {
+            if (i != data.row) {
+                seqMatrix.matrix[data.col][i] = 0;
             }
         }
-    })
+        seqMatrix.draw();
+    }
+    // change the below to the column and row? More efficient than sending whole matrix
+    phonestrument.currentPlayer.updatePartView(partBar, data.col, seqMatrix.matrix, sequencerDivision);
+})
 
-    seqMatrix.row = 7;
-    seqMatrix.col = sequencerDivision;
-    seqMatrix.init();
-    seqMatrix.draw();
+octaveUpButton.on('*', function(data) {
+    console.log(data);
+    if (data.press == 0) {
+        phonestrument.currentPlayer.adaptor.octave++;
+        var currentOctave = parseInt(octaveComment.val.text, 10);
+        octaveComment.val.text = (currentOctave + 1).toString();
+        octaveComment.draw();
+    }
+})
 
-    seqMatrix.on('*', function(data) {
-        //console.log(data);
-        var partBarForTone = partBar + ":0:0";
-        phonestrument.currentPlayer.updatePart(partBarForTone, data, sequencerDivision);
-        // if a mono instrument, then toggle others in column to 0
-        if (phonestrument.currentPlayer.poly == false) {
-            for (i=0; i < seqMatrix.row; i++) {
-                if (i != data.row) {
-                    seqMatrix.matrix[data.col][i] = 0;
-                }
-            }
-            seqMatrix.draw();
+octaveDownButton.on('*', function(data) {
+    console.log(data);
+    if (data.press == 0) {
+        phonestrument.currentPlayer.adaptor.octave--;
+        var currentOctave = parseInt(octaveComment.val.text, 10);
+        octaveComment.val.text = (currentOctave - 1).toString();
+        octaveComment.draw();
+    }
+})
+
+
+var playing = false;
+playButton.on('*', function(data) {
+    console.log(data);
+    if (data.value == 1){
+        if (!playing) {
+            //console.log("Starting transport");
+            phonestrument.startPlaying();
+            playing = true;
         }
-        // change the below to the column and row? More efficient than sending whole matrix
-        phonestrument.currentPlayer.updatePartView(partBar, data.col, seqMatrix.matrix, sequencerDivision);
-    })
-
-    octaveUpButton.on('*', function(data) {
-        console.log(data);
-        if (data.press == 0) {
-            phonestrument.currentPlayer.adaptor.octave++;
-            var currentOctave = parseInt(octaveComment.val.text, 10);
-            octaveComment.val.text = (currentOctave + 1).toString();
-            octaveComment.draw();
+    }
+    if (data.value == 0) {
+        if (playing) {
+            // console.log("Stopping transport");
+            phonestrument.pausePlaying();
+            playing = false;
         }
-    })
+    }
 
-    octaveDownButton.on('*', function(data) {
-        console.log(data);
-        if (data.press == 0) {
-            phonestrument.currentPlayer.adaptor.octave--;
-            var currentOctave = parseInt(octaveComment.val.text, 10);
-            octaveComment.val.text = (currentOctave - 1).toString();
-            octaveComment.draw();
-        }
-    })
+})
 
-
-    var playing = false;
-    playButton.on('*', function(data) {
-        console.log(data);
-        if (data.value == 1){
-            if (!playing) {
-                //console.log("Starting transport");
-                phonestrument.startPlaying();
-                playing = true;
-            }
-        }
-        if (data.value == 0) {
-            if (playing) {
-                // console.log("Stopping transport");
-                phonestrument.pausePlaying();
-                playing = false;
-            }
-        }
-
-    })
-
-    togglePanVol.on('*', function(data) {
-        if (data.value == 1) {
-            panOnDrag = true;
-            volOnDrag = true;
-        } else {
-            panOnDrag = false;
-            volOnDrag = false;
-        }
-    });
+togglePanVol.on('*', function(data) {
+    if (data.value == 1) {
+        panOnDrag = true;
+        volOnDrag = true;
+    } else {
+        panOnDrag = false;
+        volOnDrag = false;
+    }
+});
 
 }
 
@@ -308,6 +314,6 @@ nx.onload = function(){
 //
 // thanks stackoverflow: http://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
 function rgb2hex(red, green, blue) {
-        var rgb = blue | (green << 8) | (red << 16);
-        return '#' + (0x1000000 + rgb).toString(16).slice(1)
-  }
+    var rgb = blue | (green << 8) | (red << 16);
+    return '#' + (0x1000000 + rgb).toString(16).slice(1)
+}
