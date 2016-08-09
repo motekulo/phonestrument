@@ -233,6 +233,10 @@ mainStage.on('*', function(data) {
             //console.log("stopping part at " + nextBar);
             phonestrument.currentPlayer.part.stop("0:0:0"); // doesn't work as expected; stops immediately
         }
+        // update info the player holds about stage position
+        phonestrument.currentPlayer.interfaceInfo.stage.xpos = data.x;
+        phonestrument.currentPlayer.interfaceInfo.stage.ypos = data.y;
+        
     }
 })
 

@@ -33,6 +33,12 @@ function Player(){
     this.pitchedSampleLoaded = false;
     this.poly = false;  // Whether player is polyphonic
     this.maxDivisionResolution = 16; // The highest resolution in beats of the part
+    this.interfaceInfo = {"stage": {
+                                    "xpos": 0,
+                                    "ypos": 0
+                                    }
+
+                        };
 
     notes = [];
     this.part = new Tone.Part((function(time, note) {
