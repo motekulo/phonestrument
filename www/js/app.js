@@ -84,8 +84,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 phonestrument.currentPlayer.setChordInstrument();
                 break;
 
-                case "samples":
+                case "drums":
                 phonestrument.currentPlayer.setSamplerInstrument();
+                break;
+
+                case "sampler":
+                phonestrument.currentPlayer.setPitchedSamplerInstrument();
                 break;
             }
 

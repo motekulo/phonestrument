@@ -30,12 +30,19 @@ function Player(){
     this.instrument = this.setSoloInstrument();  // the default instrument
     this.sampler = [];
     this.samplesLoaded = false;
+    this.pitchedSampleLoaded = false;
     this.poly = false;  // Whether player is polyphonic
     this.maxDivisionResolution = 16; // The highest resolution in beats of the part
 
     notes = [];
     this.part = new Tone.Part((function(time, note) {
-
+        if (this.isPitchedSampler && this.pitchedSampleLoaded) {
+            console.log("Pitched sampler happening");
+            var sampleBase = Tone.Frequency("C4").toMidi();
+            var currentNote = Tone.Frequency(note).toMidi();
+            var interval = currentNote - sampleBase;
+            this.instrument.triggerAttack(interval);
+        };
         if (this.isSampler && this.samplesLoaded) {
             console.log("We are a sampler; note is " + note);
             if (note == "C4") this.sampler[0].start();
@@ -43,9 +50,12 @@ function Player(){
             if (note == "E4") this.sampler[2].start();
             if (note == "F4") this.sampler[3].start();
             //this.instrument.triggerAttackRelease(note, "16n");
-        } else{
+        };
+
+        if (!this.isSampler && !this.isPitchedSampler) {
             this.instrument.triggerAttackRelease(note, "16n");
-        }
+        };
+
     }).bind(this), notes);
     this.part.loop = true;
     this.length = 4; //length in bars
@@ -107,6 +117,20 @@ Player.prototype.updatePartView = function(bar, col, matrix, division){
     this.adaptor.updateViewData(bar, col, matrix, division);
 }
 
+Player.prototype.setPitchedSamplerInstrument = function () {
+    var loaded = (function(){
+
+        console.log("Loaded pitched sample");
+        this.pitchedSampleLoaded = true;
+
+    }).bind(this);
+    var url = ["./samples/bass.wav"];
+    this.instrument = new Tone.Sampler(url[0], loaded);
+    this.connectToMaster(this.instrument);
+    this.isPitchedSampler = true;
+    this.isSampler = false;  //FIXME sort out better logic for this
+}
+
 Player.prototype.setSamplerInstrument = function() {
     // callback for when samples are loaded
     var loaded = (function(){
@@ -117,7 +141,7 @@ Player.prototype.setSamplerInstrument = function() {
         }
 
     }).bind(this);
-    url = ["./samples/kick_mix_1.wav",
+    var url = ["./samples/kick_mix_1.wav",
     "./samples/snare_mix_1.wav",
     "./samples/ohh_mixed_1.wav",
     "./samples/chh_mixed_1.wav"];
@@ -134,6 +158,8 @@ Player.prototype.setSamplerInstrument = function() {
 
     this.poly = true;
     this.isSampler = true;
+    this.isPitchedSampler = false;
+
     //return this.instrument;
 }
 
@@ -143,6 +169,7 @@ Player.prototype.setChordInstrument = function(){
     this.connectToMaster(this.instrument);
     this.poly = true;
     this.isSampler = false;
+    this.isPitchedSampler = false;
     return this.instrument;
     // FIXME What happens if an instrument is changed to a mono
     // instrument after being poly?
@@ -154,6 +181,7 @@ Player.prototype.setSoloInstrument = function(){
 
     this.poly = false;
     this.isSampler = false;
+    this.isPitchedSampler = false;
     this.connectToMaster(this.instrument);
     return this.instrument;
 }
