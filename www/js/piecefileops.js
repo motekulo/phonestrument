@@ -21,6 +21,7 @@ PieceFileOps = function(){
     this.autoSave = 120;  //seconds
 
     this.pieceData = {
+        "name": "",
         "tempo": 116,
         "key": "C",
         "players":[]
@@ -56,16 +57,19 @@ PieceFileOps.prototype.writeToFile = function(fileName, data) {
 PieceFileOps.prototype.saveCurrentPiece = function(phonestrument){
 
     // Encode phonestrument level data - tempo, key
+    this.pieceData.name = phonestrument.name;
     this.pieceData.tempo = phonestrument.tempo;
     this.pieceData.key = phonestrument.key;
 
     // Loop through players and Encode
     // currentPlayer.interfaceInfo.stage.xpos;
+    this.pieceData.players = [];
     for (var i=0; i < phonestrument.player.length; i++) {
         var player = this._encodePlayer(phonestrument.player[i]);
         this.pieceData.players.push(player);
     }
-    this.writeToFile('example.json', this.pieceData);
+    var fileName = phonestrument.name + ".json";
+    this.writeToFile(fileName, this.pieceData);
 
 }
 

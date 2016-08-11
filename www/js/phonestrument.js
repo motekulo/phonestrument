@@ -39,6 +39,7 @@ function Phonestrument(tempo, timesig, key, numparts){
     this.timesig = timesig;
     this.key = key;
     this.player = [];
+    this.name = "newsong";
     this.fileOps = new PieceFileOps();
 
     for (var i = 0; i < numparts; i++) {

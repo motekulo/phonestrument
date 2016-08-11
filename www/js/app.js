@@ -62,6 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     $(document).ready(function() {
         $('select').material_select();  // materialize select init
+        Materialize.updateTextFields();
         $('#instWaveSelect').change(function() {
             var waveType = ( $(this).find(":selected").val() );
             phonestrument.currentPlayer.instrument.set({
@@ -70,6 +71,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
 
+        });
+
+        $('#songName').change(function() {
+            console.log("Name entered is " + $(this).val());
+            phonestrument.name = $(this).val();
         });
 
         $('#instTypeSelect').change(function() {
