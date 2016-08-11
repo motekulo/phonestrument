@@ -119,8 +119,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         $('#saveButton').click(function(){
 
-            console.log("Encoding:...");
-            phonestrument.fileOps.encodePart(phonestrument.currentPlayer);
+            console.log("Saving:...");
+            phonestrument.fileOps.saveCurrentPiece(phonestrument);
             //phonestrument.fileOps.saveCurrentPiece();
         });
 
@@ -205,6 +205,7 @@ playerColor.on('*', function(data) {
     //console.log("Color data: " + hex);
     currentStagePlayerColor = hex;
     mainStage.changeColor(currentStagePlayerIndex, currentStagePlayerColor);
+    phonestrument.currentPlayer.interfaceInfo.stage.color = currentStagePlayerColor;
     mainStage.draw();
 });
 
@@ -236,7 +237,7 @@ mainStage.on('*', function(data) {
         // update info the player holds about stage position
         phonestrument.currentPlayer.interfaceInfo.stage.xpos = data.x;
         phonestrument.currentPlayer.interfaceInfo.stage.ypos = data.y;
-        
+
     }
 })
 

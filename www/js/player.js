@@ -35,9 +35,9 @@ function Player(){
     this.maxDivisionResolution = 16; // The highest resolution in beats of the part
     this.interfaceInfo = {"stage": {
                                     "xpos": 0,
-                                    "ypos": 0
+                                    "ypos": 0,
+                                    "color": ""
                                     }
-
                         };
 
     notes = [];

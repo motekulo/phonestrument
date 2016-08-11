@@ -23,7 +23,7 @@ PieceFileOps = function(){
     this.pieceData = {
         "tempo": 116,
         "key": "C",
-        players:[]
+        "players":[]
     }
 
 }
@@ -54,22 +54,37 @@ PieceFileOps.prototype.writeToFile = function(fileName, data) {
 }
 
 PieceFileOps.prototype.saveCurrentPiece = function(phonestrument){
-    //this.writeToFile('example.json', { foo: 'bar' });
+
     // Encode phonestrument level data - tempo, key
     this.pieceData.tempo = phonestrument.tempo;
     this.pieceData.key = phonestrument.key;
+
     // Loop through players and Encode
-
-
-    //return phonestrument;
+    // currentPlayer.interfaceInfo.stage.xpos;
+    for (var i=0; i < phonestrument.player.length; i++) {
+        var player = this._encodePlayer(phonestrument.player[i]);
+        this.pieceData.players.push(player);
+    }
+    this.writeToFile('example.json', this.pieceData);
 
 }
 
 PieceFileOps.prototype._encodePlayer = function(player) {
     // A player has only one part
+    var playerData = {
+        "xpos": player.interfaceInfo.stage.xpos,
+        "ypos": player.interfaceInfo.stage.ypos,
+        "color": player.interfaceInfo.stage.color,
+        "instrument": {
+            "type": "mono",
+            "wave": "triangle",
+            "samples": []
+        },
+        "events": []
+    }
     var partToEncode = player.part;
     var partEvents = [];
-    for (i = 0; i < partToEncode._events.length; i++) {
+    for (var i = 0; i < partToEncode._events.length; i++) {
 
         var value = partToEncode._events[i].value;
         console.log("Event value " + value);
@@ -83,6 +98,8 @@ PieceFileOps.prototype._encodePlayer = function(player) {
         }
         partEvents.push(event);
     }
+    playerData.events = partEvents;
+    return playerData;
 }
 
 var errorHandler = function (fileName, e) {
