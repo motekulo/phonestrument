@@ -66,9 +66,15 @@ function Phonestrument(tempo, timesig, key, numparts){
     //Tone.Transport.loopEnd = "4m";
     Tone.Transport.bpm.value = 116;
 
+    this.recorder = new Recorder(Tone.Master, {
+                  numChannels: 2
+                });
+
     console.log("New phonestrument ready");
 
 }
+
+
 
 Phonestrument.prototype.getCurrentBar = function(){
     var bar = this.currentBar;
