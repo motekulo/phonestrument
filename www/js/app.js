@@ -310,6 +310,25 @@ playButton.on('*', function(data) {
 
 })
 
+var recording = false;
+recordButton.on('*', function(data) {
+    console.log("Recording " + data);
+    if (data.value == 1){
+        if (!recording) {
+            //console.log("Starting transport");
+            phonestrument.startRecording();
+            recording = true;
+        }
+    }
+    if (data.value == 0) {
+        if (recording) {
+            // console.log("Stopping transport");
+            phonestrument.stopRecording();
+            recording = false;
+        }
+    }
+})
+
 togglePanVol.on('*', function(data) {
     if (data.value == 1) {
         panOnDrag = true;

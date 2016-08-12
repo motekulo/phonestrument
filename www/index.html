@@ -16,10 +16,10 @@
 -->
 <meta http-equiv="Content-Security-Policy" content=
 "default-src 'self' ws: data: gap: https://ssl.gstatic.com 'unsafe-eval' 'unsafe-inline';
-child-src blob: ;
+child-src 'self' blob: * ;
 style-src 'self' 'unsafe-inline' http://fonts.googleapis.com/;
 font-src *;
-media-src *">
+media-src 'self' blob: data: ">
 
 <!-- old security policy
 
@@ -152,6 +152,9 @@ type="text/javascript"></script>
                     style="width:160px;height:80px">
             </canvas>
             <a class="waves-effect waves-light btn" id="saveButton">Save</a>
+            <div id="recordingslist"></div>
+            <h2>Log</h2>
+            <pre id="log"></pre>
 
 
 
@@ -161,6 +164,10 @@ type="text/javascript"></script>
     <canvas  nx="toggle" id="playButton" label="Play"
              class="col s12"
              style="width:80px;height:80px;position:absolute;right:0">
+    </canvas>
+    <canvas  nx="toggle" id="recordButton" label="Record"
+             class="col s12"
+             >
     </canvas>
 
 </body>

@@ -67,7 +67,7 @@ function Phonestrument(tempo, timesig, key, numparts){
     Tone.Transport.bpm.value = 116;
 
     this.recorder = new Recorder(Tone.Master, {
-                  numChannels: 2
+                  numChannels: 1
                 });
 
     console.log("New phonestrument ready");
@@ -97,6 +97,31 @@ Phonestrument.prototype.stopPlaying = function(){
 
 Phonestrument.prototype.pausePlaying = function(){
     Tone.Transport.pause();
+}
+
+Phonestrument.prototype.startRecording = function(){
+    console.log("Recording started");
+    this.recorder && this.recorder.record();
+}
+
+Phonestrument.prototype.stopRecording = function(){
+    console.log("Recording stopped");
+    this.recorder && this.recorder.stop();
+    this.recorder && this.recorder.exportWAV(function(blob) {
+      /*var url = URL.createObjectURL(blob);
+      var li = document.createElement('li');
+      var au = document.createElement('audio');
+      var hf = document.createElement('a');
+
+      au.controls = true;
+      au.src = url;
+      hf.href = url;
+      hf.download = new Date().toISOString() + '.wav';
+      hf.innerHTML = hf.download;
+      li.appendChild(au);
+      li.appendChild(hf);
+      recordingslist.appendChild(li);*/
+    });
 }
 
 Phonestrument.prototype.createNewPlayer = function(){
