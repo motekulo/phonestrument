@@ -311,6 +311,8 @@ playButton.on('*', function(data) {
 })
 
 var recording = false;
+recordButton.colors.accent = "#d32f2f";
+recordButton.lineWidth = 10;
 recordButton.on('*', function(data) {
     console.log("Recording " + data);
     if (data.value == 1){
