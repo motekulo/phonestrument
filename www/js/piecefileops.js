@@ -17,6 +17,17 @@
 * under the License.
 */
 
+// hacks to get through demo to research group
+var demoPieceData = {
+    "name": "",
+    "tempo": 150,
+    "key": "C",
+    "players":[]
+};
+
+var demoDataRead = false;
+var readError = false;
+
 PieceFileOps = function(){
     this.autoSave = 120;  //seconds
 
@@ -75,35 +86,75 @@ PieceFileOps.prototype.saveCurrentPiece = function(phonestrument){
 
 PieceFileOps.prototype.readPiece = function(phonestrument) {
     var entries = [];
-    entries = this._listDir(cordova.file.externalDataDirectory);
-    console.log(entries);
-    var fileData;
-    this._readFromFile(entries[0], function (data) {
-        fileData = data;
-    });
-    console.log("fileData: " + fileData);
+    console.log("in readPiece with data: " + demoPieceData.tempo);
+    this._listDir(cordova.file.externalDataDirectory);
+
+    var evilDemoHack = setInterval(function(){
+        console.log("waiting on read...");
+        if (demoDataRead == true || readError == true) {
+            clearInterval(evilDemoHack);
+            console.log("and after reading with data: " + demoPieceData.tempo);
+        }
+    }, 100);
+
+    // var fileData;
+    // this._readFromFile(entries[0], function (data) {
+    //     fileData = data;
+    // });
+    // console.log("fileData: " + fileData);
 }
 
 // thanks Stackoverflow: http://stackoverflow.com/questions/26282357/cordova-file-plugin-read-from-www-folder
 PieceFileOps.prototype._listDir = function(path){
     var fileEntries = [];
-  window.resolveLocalFileSystemURL(path,
-    function (fileSystem) {
+    var this1 = this;
+    window.resolveLocalFileSystemURL(path,
+    (function (fileSystem) {
       var reader = fileSystem.createReader();
+      var this2 = this;
       reader.readEntries(
-        function (entries) {
+        (function (entries) {
           console.log(entries);
-          fileEntries = entries;
-        },
+          var this3 = this;
+          // loop through entrues; find demo and read it
+          for (var i = 0; i < entries.length; i++){
+            if (entries[i].name == "demo.json") {
+                console.log("Gotcha demo...");
+                var fileEntry = entries[i];
+                fileEntry.file(function (file) {
+                    var reader = new FileReader();
+
+                    reader.onloadend = function (e) {
+                        //cb(JSON.parse(this.result));
+                        console.log("Got demo data: " + this.result);
+                        demoPieceData = JSON.parse(this.result);
+                        demoDataRead = true;
+                    };
+
+                    reader.readAsText(file);
+                }, errorHandler.bind(null, fileEntry.name));
+
+
+                // this._readFromFile(entries[i], function (data) {
+                //     this.demoPieceData = data;
+                //     console.log("Got demo data: " + data);
+                // });
+            }
+          }
+          //fileEntries = entries;
+      }).bind(PieceFileOps),
         function (err) {
           console.log(err);
+          readError = true;
         }
       );
-    }, function (err) {
+  }).bind(PieceFileOps), function (err) {
       console.log(err);
+      readError = true;
     }
-  );
-  return fileEntries;
+);
+
+
 }
 
 // thanks to Frank Reding - https://www.neontribe.co.uk/cordova-file-plugin-examples/
