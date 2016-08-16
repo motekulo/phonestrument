@@ -124,7 +124,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }});
 
         $('#saveButton').click(function(){
-
             console.log("Saving:...");
             phonestrument.fileOps.saveCurrentPiece(phonestrument);  // sending it itself? Seems odd (so just do from phonestrumet and let it send itself)
             //phonestrument.fileOps.saveCurrentPiece();
@@ -132,10 +131,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
         $('#readButton').click(function(){
 
-            console.log("Reading:...");
             phonestrument.readPiece();
-            //phonestrument.fileOps.saveCurrentPiece();
+            console.log("Reading:...");
+            
         });
+
+        $('#setDemo').click(function(){
+            phonestrument.setDemo();
+            console.log("Setting demo:...");
+        });
+
 
     });
 })

@@ -84,18 +84,22 @@ PieceFileOps.prototype.saveCurrentPiece = function(phonestrument){
 
 }
 
-PieceFileOps.prototype.readPiece = function(phonestrument) {
+PieceFileOps.prototype.readPiece = function() {  // do we need to pass in the phonestrument at all?
     var entries = [];
     console.log("in readPiece with data: " + demoPieceData.tempo);
     this._listDir(cordova.file.externalDataDirectory);
 
-    var evilDemoHack = setInterval(function(){
+    var evilDemoHack = setInterval((function(){
         console.log("waiting on read...");
         if (demoDataRead == true || readError == true) {
             clearInterval(evilDemoHack);
             console.log("and after reading with data: " + demoPieceData.tempo);
+            //phonestrument.tempo = demoPieceData.tempo;
+            this.pieceData = demoPieceData;
+            console.log("and after reading with data: " + this.pieceData.tempo);
+            //return phonestrument;
         }
-    }, 100);
+    }).bind(this), 100);
 
     // var fileData;
     // this._readFromFile(entries[0], function (data) {

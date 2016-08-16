@@ -75,7 +75,23 @@ function Phonestrument(tempo, timesig, key, numparts){
 }
 
 Phonestrument.prototype.readPiece = function() {
-    this.fileOps.readPiece(this);
+    this.fileOps.readPiece();  // modify ourself...
+
+}
+
+Phonestrument.prototype.setDemo = function() {
+    this.changeTempo(this.fileOps.pieceData.tempo);
+    //this.changeTempo(this.tempo);
+    this.player = [];
+    for (var i = 0; i < this.fileOps.pieceData.players.length; i++) {
+        var jsonPlayer = this.fileOps.pieceData.players[i];
+        this.createNewPlayer();
+        for (var j = 0; j < jsonPlayer.events.length; j++) {
+            var jsonEvent = jsonPlayer.events[j];
+            this.player[i].part.at(jsonEvent.offset + "i", jsonEvent.note);
+        }
+    }
+
 }
 
 Phonestrument.prototype.getCurrentBar = function(){
@@ -135,6 +151,7 @@ Phonestrument.prototype.createNewPlayer = function(){
 
 Phonestrument.prototype.changeTempo = function(tempo){
     Tone.Transport.bpm.value = tempo;
+    this.tempo = tempo;
 }
 
 Phonestrument.prototype.beepToTest = function(){
