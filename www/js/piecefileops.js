@@ -73,6 +73,52 @@ PieceFileOps.prototype.saveCurrentPiece = function(phonestrument){
 
 }
 
+PieceFileOps.prototype.readPiece = function(phonestrument) {
+    var entries = [];
+    entries = this._listDir(cordova.file.externalDataDirectory);
+    console.log(entries);
+    var fileData;
+    this._readFromFile(entries[0], function (data) {
+        fileData = data;
+    });
+    console.log("fileData: " + fileData);
+}
+
+// thanks Stackoverflow: http://stackoverflow.com/questions/26282357/cordova-file-plugin-read-from-www-folder
+PieceFileOps.prototype._listDir = function(path){
+    var fileEntries = [];
+  window.resolveLocalFileSystemURL(path,
+    function (fileSystem) {
+      var reader = fileSystem.createReader();
+      reader.readEntries(
+        function (entries) {
+          console.log(entries);
+          fileEntries = entries;
+        },
+        function (err) {
+          console.log(err);
+        }
+      );
+    }, function (err) {
+      console.log(err);
+    }
+  );
+  return fileEntries;
+}
+
+// thanks to Frank Reding - https://www.neontribe.co.uk/cordova-file-plugin-examples/
+PieceFileOps.prototype._readFromFile = function(fileEntry, cb) {
+    fileEntry.file(function (file) {
+        var reader = new FileReader();
+
+        reader.onloadend = function (e) {
+            cb(JSON.parse(this.result));
+        };
+
+        reader.readAsText(file);
+    }, errorHandler.bind(null, fileEntry.name));
+}
+
 PieceFileOps.prototype._encodePlayer = function(player) {
     // A player has only one part
     var playerData = {
