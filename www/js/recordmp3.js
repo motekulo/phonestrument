@@ -108,7 +108,7 @@
 				//console.log ("The Mp3 data " + e.data.buf);
 
 				var mp3Blob = new Blob([new Uint8Array(e.data.buf)], {type: 'audio/mp3'});
-				uploadAudio(mp3Blob);
+				//uploadAudio(mp3Blob);
 
 				var url = 'data:audio/mp3;base64,'+encode64(e.data.buf);
 				var li = document.createElement('li');
@@ -123,6 +123,20 @@
 				li.appendChild(au);
 				li.appendChild(hf);
 				recordingslist.appendChild(li);
+
+                window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function(dir) {
+                 //            console.log("dir is ",dir);
+                 console.log("Blob size is " + mp3Blob.size);
+                 dir.getFile("demo.mp3", {create:true}, function(file) {
+                     console.log("file url will be " + file.nativeURL);
+                     url = file.nativeURL;
+                     file.createWriter(function(fileWriter) {
+                         fileWriter.seek(fileWriter.length);
+                         fileWriter.write(mp3Blob);
+                         console.log("File written to storage");
+                      });
+                   });
+                });
 
             }
         };
