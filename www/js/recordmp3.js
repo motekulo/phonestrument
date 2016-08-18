@@ -129,18 +129,17 @@
                     console.log("Blob size is " + mp3Blob.size);
                     dir.getFile("demo.mp3", {create:true}, function(file) {
                      console.log("file url will be " + file.nativeURL);
-                     //url = file.nativeURL;
-                     var objectUrl = URL.createObjectURL(mp3Blob);
+                     fileUrl = file.nativeURL;
+                     //var objectUrl = URL.createObjectURL(mp3Blob);
                      file.createWriter(function(fileWriter) {
                          fileWriter.seek(fileWriter.length);
                          fileWriter.write(mp3Blob);
                          console.log("File written to storage");
-                         var extras = {};
-                         extras[WebIntent.EXTRA_STREAM] = objectUrl;
+                         //var extras = {};
+                         //extras[WebIntent.EXTRA_STREAM] = objectUrl;
                          window.plugins.webintent.startActivity({
-                               action: window.plugins.webintent.ACTION_SEND,
-                               url: objectUrl,
-                               extras: extras,
+                               action: window.plugins.webintent.ACTION_VIEW,
+                               url: fileUrl,
                                type: 'audio/mp3'
                              },
                              function() {},
