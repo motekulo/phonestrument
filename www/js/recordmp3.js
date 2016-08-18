@@ -126,14 +126,30 @@
 
                 window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function(dir) {
                  //            console.log("dir is ",dir);
-                 console.log("Blob size is " + mp3Blob.size);
-                 dir.getFile("demo.mp3", {create:true}, function(file) {
+                    console.log("Blob size is " + mp3Blob.size);
+                    dir.getFile("demo.mp3", {create:true}, function(file) {
                      console.log("file url will be " + file.nativeURL);
-                     url = file.nativeURL;
+                     //url = file.nativeURL;
+                     var objectUrl = URL.createObjectURL(mp3Blob);
                      file.createWriter(function(fileWriter) {
                          fileWriter.seek(fileWriter.length);
                          fileWriter.write(mp3Blob);
                          console.log("File written to storage");
+                         var extras = {};
+                         extras[WebIntent.EXTRA_STREAM] = objectUrl;
+                         window.plugins.webintent.startActivity({
+                               action: window.plugins.webintent.ACTION_SEND,
+                               url: objectUrl,
+                               extras: extras,
+                               type: 'audio/mp3'
+                             },
+                             function() {},
+                             function() {
+                               alert('Failed to open URL via Android Intent.');
+                               console.log("Failed to open URL via Android Intent. URL: " + url);
+                             }
+                         );
+
                       });
                    });
                 });
