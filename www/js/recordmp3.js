@@ -88,7 +88,7 @@
 
         encoderWorker.postMessage({ cmd: 'init', config:{
             mode : 3,
-			channels:1,
+			channels:2,
 			samplerate: data.sampleRate,
 			bitrate: data.bitsPerSample
         }});
