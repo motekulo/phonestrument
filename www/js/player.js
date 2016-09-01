@@ -132,6 +132,7 @@ Player.prototype.setPitchedSamplerInstrument = function () {
     }).bind(this);
     var url = ["./samples/bass.wav"];
     this.instrument = new Tone.Sampler(url[0], loaded);
+    this.instrument.envelope.sustain = 0.4;
     this.connectToMaster(this.instrument);
     this.isPitchedSampler = true;
     this.isSampler = false;  //FIXME sort out better logic for this
