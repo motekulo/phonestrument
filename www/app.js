@@ -23,6 +23,7 @@ document.addEventListener(startEvent,function() {
             var kidX = leftEmitter.children[i].x;
             console.log("Child " + i + " x: " + kidX);
         }
+        leftEmitter.y = leftEmitter.y - 5;
 
     }, "1m");
 
