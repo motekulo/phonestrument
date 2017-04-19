@@ -7,11 +7,20 @@ document.addEventListener(startEvent,function() {
 
     //var plucky = new Tone.PluckSynth().toMaster();
     var plucky = new Tone.PolySynth(24, Tone.MembraneSynth).toMaster();
+    var kick = new Tone.Player("assets/kick_mix_1.wav", kickLoaded).toMaster();
+    kick.retrigger = true;
+
     var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, '', {
         preload: preload,
         create: create,
         update: update
     });
+    var samplesLoaded;
+
+    function kickLoaded() {
+        console.log("Kick loaded");
+        samplesLoaded = true;
+    }
 
     var leftEmitter;
     var rightEmitter;
@@ -104,7 +113,8 @@ document.addEventListener(startEvent,function() {
     }
 
     function shipHitLeft(sprite, leftParticle) {
-        console.log("Sprite " + sprite + " hit " + leftParticle);
+        //console.log("Sprite " + sprite + " hit " + leftParticle);
+        kick.start();
     }
 
     function shipHitRight(sprite, rightParticle) {
