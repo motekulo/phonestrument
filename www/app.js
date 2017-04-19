@@ -15,6 +15,9 @@ document.addEventListener(startEvent,function() {
 
     var leftEmitter;
     var rightEmitter;
+    var ship;
+    var cursors;
+
     Tone.Transport.loop = false;
     Tone.Transport.bpm.value = 116;
     Tone.Transport.scheduleRepeat(function(time){
@@ -33,8 +36,10 @@ document.addEventListener(startEvent,function() {
         game.load.spritesheet('rain', 'assets/rain.png', 17, 17);
         game.load.spritesheet('balls', 'assets/balls.png', 17, 17);
 
+        game.load.image('ship', 'assets/ship.png');
 
-        plucky.triggerAttack("C4");
+
+        //plucky.triggerAttack("C4");   // Test sound from Tone.js
     }
 
     function create () {
@@ -60,12 +65,32 @@ document.addEventListener(startEvent,function() {
         leftEmitter.start(false, 12000, 40);
         rightEmitter.start(false, 12000, 40);
 
+        ship = game.add.sprite(400, 400, 'ship');
+        game.physics.enable(ship, Phaser.Physics.ARCADE);
+        ship.body.collideWorldBounds = true;
+        ship.body.bounce.set(1);
+
+        cursors = game.input.keyboard.createCursorKeys();
+
         Tone.Transport.start();
 
     }
     function update() {
 
         game.physics.arcade.collide(leftEmitter, rightEmitter, change, null, this);
+
+        game.physics.arcade.collide(ship, leftEmitter, shipHitLeft, null, this);
+        game.physics.arcade.collide(ship, rightEmitter, shipHitRight, null, this);
+
+        if (cursors.left.isDown) {
+            ship.body.velocity.x -= 4;
+        } else if (cursors.right.isDown) {
+            ship.body.velocity.x += 4;
+        } else if (cursors.up.isDown) {
+            ship.body.velocity.y -= 4;
+        } else if (cursors.down.isDown) {
+            ship.body.velocity.y += 4;
+        }
 
     }
 
@@ -76,5 +101,13 @@ document.addEventListener(startEvent,function() {
         plucky.triggerAttack(a.position.y);
 
 
+    }
+
+    function shipHitLeft(sprite, leftParticle) {
+        console.log("Sprite " + sprite + " hit " + leftParticle);
+    }
+
+    function shipHitRight(sprite, rightParticle) {
+        console.log("Sprite " + sprite + " hit " + rightParticle);
     }
 });
