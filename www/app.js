@@ -12,6 +12,26 @@ document.addEventListener(startEvent,function() {
     var snare = new Tone.Player("assets/snare_mix_1.wav", sampleLoaded).toMaster();
     snare.retrigger = true;
 
+    var notes = [];
+    var kickPart = new Tone.Part(function(time, note) {
+        kick.start();
+    }, notes);
+
+    kickPart.loop = true;
+    kickPart.length = 1;
+    kickPart.loopEnd = "1m";
+    kickPart.start(0);
+
+    var snarePart = new Tone.Part(function(time, note) {
+        snare.start();
+    }, notes);
+
+    snarePart.loop = true;
+    snarePart.length = 1;
+    snarePart.loopEnd = "1m";
+    snarePart.start(0);
+
+
     var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, '', {
         preload: preload,
         create: create,
@@ -110,20 +130,24 @@ document.addEventListener(startEvent,function() {
 
     function change(a, b) {
 
-        //a.frame = 3;
-        //b.frame = 3;
         plucky.triggerAttack(a.position.y);
-
 
     }
 
     function shipHitLeft(sprite, leftParticle) {
         //console.log("Sprite " + sprite + " hit " + leftParticle);
-        kick.start();
+        //kick.start();
+        // Use x coordinate to sort out where in the bar it will be placed
+        var beat = Math.round(leftParticle.x/window.innerWidth * 16);
+        console.log("left collision x: " + leftParticle.x + " and beat is " + beat);
+        kickPart.at(beat + "n", "C2");
     }
 
     function shipHitRight(sprite, rightParticle) {
-        console.log("Sprite " + sprite + " hit " + rightParticle);
-        snare.start();
+        //console.log("Sprite " + sprite + " hit " + rightParticle);
+        //snare.start();
+        var beat = Math.round(rightParticle.x/window.innerWidth * 16);
+        console.log("right collision x: " + rightParticle.x + " and beat is " + beat);
+        snarePart.at(beat + "n", "C2");
     }
 });
