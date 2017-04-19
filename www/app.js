@@ -7,19 +7,24 @@ document.addEventListener(startEvent,function() {
 
     //var plucky = new Tone.PluckSynth().toMaster();
     var plucky = new Tone.PolySynth(24, Tone.MembraneSynth).toMaster();
-    var kick = new Tone.Player("assets/kick_mix_1.wav", kickLoaded).toMaster();
+    var kick = new Tone.Player("assets/kick_mix_1.wav",                 sampleLoaded).toMaster();
     kick.retrigger = true;
+    var snare = new Tone.Player("assets/snare_mix_1.wav", sampleLoaded).toMaster();
+    snare.retrigger = true;
 
     var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, '', {
         preload: preload,
         create: create,
         update: update
     });
-    var samplesLoaded;
-
-    function kickLoaded() {
-        console.log("Kick loaded");
-        samplesLoaded = true;
+    var samplesLoaded = false;
+    var numSamplesLoaded = 0;
+    function sampleLoaded() {
+        numSamplesLoaded++;
+        if (numSamplesLoaded == 2) {
+            samplesLoaded = true;
+            console.log("Samples loaded");
+        }
     }
 
     var leftEmitter;
@@ -105,8 +110,8 @@ document.addEventListener(startEvent,function() {
 
     function change(a, b) {
 
-        a.frame = 3;
-        b.frame = 3;
+        //a.frame = 3;
+        //b.frame = 3;
         plucky.triggerAttack(a.position.y);
 
 
@@ -119,5 +124,6 @@ document.addEventListener(startEvent,function() {
 
     function shipHitRight(sprite, rightParticle) {
         console.log("Sprite " + sprite + " hit " + rightParticle);
+        snare.start();
     }
 });
