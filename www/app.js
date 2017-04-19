@@ -43,20 +43,22 @@ document.addEventListener(startEvent,function() {
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
         leftEmitter = game.add.emitter(50, game.world.centerY - 200);
-        leftEmitter.bounce.setTo(0.5, 0.5);
+        leftEmitter.gravity = 0;
+        leftEmitter.bounce.setTo(1, 1);
         leftEmitter.setXSpeed(100, 200);
         leftEmitter.setYSpeed(-50, 50);
         leftEmitter.makeParticles('balls', 0, 24, true, true);
 
         rightEmitter = game.add.emitter(game.world.width - 50, game.world.centerY - 200);
-        rightEmitter.bounce.setTo(0.5, 0.5);
+        rightEmitter.gravity = 0;
+        rightEmitter.bounce.setTo(1, 1);
         rightEmitter.setXSpeed(-100, -200);
         rightEmitter.setYSpeed(-50, 50);
         rightEmitter.makeParticles('balls', 1, 24, true, true);
 
         // explode, lifespan, frequency, quantity
-        leftEmitter.start(false, 6000, 40);
-        rightEmitter.start(false, 6000, 40);
+        leftEmitter.start(false, 12000, 40);
+        rightEmitter.start(false, 12000, 40);
 
         Tone.Transport.start();
 
