@@ -31,6 +31,14 @@ document.addEventListener(startEvent,function() {
     snarePart.loopEnd = "1m";
     snarePart.start(0);
 
+    var polyPart = new Tone.Part(function(time, note) {
+        plucky.triggerAttack(note, "16n", time);
+    }, notes);
+
+    polyPart.loop = true;
+    polyPart.length = 1;
+    polyPart.loopEnd = "1m";
+    polyPart.start(0);
 
     var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, '', {
         preload: preload,
@@ -71,7 +79,6 @@ document.addEventListener(startEvent,function() {
         game.load.spritesheet('balls', 'assets/balls.png', 17, 17);
 
         game.load.image('ship', 'assets/ship.png');
-
 
         //plucky.triggerAttack("C4");   // Test sound from Tone.js
     }
@@ -131,6 +138,12 @@ document.addEventListener(startEvent,function() {
     function change(a, b) {
 
         plucky.triggerAttack(a.position.y);
+        var beat = Math.round(a.position.x/window.innerWidth * 16);
+        //var pitch = Math.round(a.y/window.innerHeight * 36);
+        var pitch = a.position.y;
+
+        //console.log("left collision x: " + leftParticle.x + " and beat is " + beat);
+        polyPart.at(beat + "n", pitch);
 
     }
 
