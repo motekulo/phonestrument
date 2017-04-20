@@ -109,6 +109,7 @@ document.addEventListener(startEvent,function() {
 
         game.load.spritesheet('buttonvertical', 'assets/button-vertical.png',64,64);
         game.load.spritesheet('buttonhorizontal', 'assets/button-horizontal.png',96,64);
+        game.load.spritesheet('buttonfire', 'assets/button-round-a.png',96,96);
 
         //plucky.triggerAttack("C4");   // Test sound from Tone.js
     }
@@ -165,6 +166,13 @@ document.addEventListener(startEvent,function() {
         buttondown.events.onInputOut.add(function(){thrust=false;});
         buttondown.events.onInputDown.add(function(){thrust=true;});
         buttondown.events.onInputUp.add(function(){thrust=false;});
+
+        buttonfire = game.add.button(window.innerWidth - 200, window.innerHeight - 192, 'buttonfire', null, this, 0, 1, 0, 1);
+        buttonfire.fixedToCamera = true;
+        buttonfire.events.onInputOver.add(function(){fire=true;});
+        buttonfire.events.onInputOut.add(function(){fire=false;});
+        buttonfire.events.onInputDown.add(function(){fire=true;});
+        buttonfire.events.onInputUp.add(function(){fire=false;});
 
         Tone.Transport.start();
 
