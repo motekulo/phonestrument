@@ -132,9 +132,13 @@ document.addEventListener(startEvent,function() {
         ship = game.add.sprite(400, 400, 'ship');
         game.physics.enable(ship, Phaser.Physics.ARCADE);
         ship.body.collideWorldBounds = true;
+        ship.anchor.set(0.5);
         ship.body.bounce.set(1);
+        ship.body.drag.set(100);
+        ship.body.maxVelocity.set(200);
 
         cursors = game.input.keyboard.createCursorKeys();
+        game.input.keyboard.addKeyCapture([ Phaser.Keyboard.SPACEBAR ]);
 
         Tone.Transport.start();
 
@@ -146,14 +150,26 @@ document.addEventListener(startEvent,function() {
         game.physics.arcade.collide(ship, leftEmitter, shipHitLeft, null, this);
         game.physics.arcade.collide(ship, rightEmitter, shipHitRight, null, this);
 
-        if (cursors.left.isDown) {
-            ship.body.velocity.x -= 4;
-        } else if (cursors.right.isDown) {
-            ship.body.velocity.x += 4;
-        } else if (cursors.up.isDown) {
-            ship.body.velocity.y -= 4;
-        } else if (cursors.down.isDown) {
-            ship.body.velocity.y += 4;
+        if (cursors.up.isDown)
+        {
+            game.physics.arcade.accelerationFromRotation(ship.rotation, 200, ship.body.acceleration);
+        }
+        else
+        {
+            ship.body.acceleration.set(0);
+        }
+
+        if (cursors.left.isDown)
+        {
+            ship.body.angularVelocity = -300;
+        }
+        else if (cursors.right.isDown)
+        {
+            ship.body.angularVelocity = 300;
+        }
+        else
+        {
+            ship.body.angularVelocity = 0;
         }
 
     }
