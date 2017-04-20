@@ -147,19 +147,19 @@ document.addEventListener(startEvent,function() {
         cursors = game.input.keyboard.createCursorKeys();
         game.input.keyboard.addKeyCapture([ Phaser.Keyboard.SPACEBAR ]);
 
-        buttonleft = game.add.button(0, 472, 'buttonhorizontal', null, this, 0, 1, 0, 1);
+        buttonleft = game.add.button(0, window.innerHeight - 192, 'buttonhorizontal', null, this, 0, 1, 0, 1);
         buttonleft.fixedToCamera = true;
         buttonleft.events.onInputOver.add(function(){left=true;});
         buttonleft.events.onInputOut.add(function(){left=false;});
         buttonleft.events.onInputDown.add(function(){left=true;});
         buttonleft.events.onInputUp.add(function(){left=false;});
 
-        buttonright = game.add.button(160, 472, 'buttonhorizontal', null, this, 0, 1, 0, 1);
+        buttonright = game.add.button(160, window.innerHeight - 192, 'buttonhorizontal', null, this, 0, 1, 0, 1);
         buttonright.fixedToCamera = true;
         buttonright.events.onInputOver.add(function(){right=true;});
         buttonright.events.onInputOut.add(function(){right=false;});            buttonright.events.onInputDown.add(function(){right=true;});           buttonright.events.onInputUp.add(function(){right=false;});
 
-        buttondown = game.add.button(96, 536, 'buttonvertical', null, this, 0, 1, 0, 1);
+        buttondown = game.add.button(96, window.innerHeight - 128, 'buttonvertical', null, this, 0, 1, 0, 1);
         buttondown.fixedToCamera = true;
         buttondown.events.onInputOver.add(function(){thrust=true;});
         buttondown.events.onInputOut.add(function(){thrust=false;});
