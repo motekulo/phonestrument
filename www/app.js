@@ -81,6 +81,9 @@ document.addEventListener(startEvent,function() {
     var leftEmitter;
     var rightEmitter;
     var ship;
+    var bullet;
+    var bullets;
+    var bulletTime = 0;
     var cursors;
     var left = false;
     var right = false;
@@ -101,11 +104,12 @@ document.addEventListener(startEvent,function() {
 
     function preload () {
         //game.load.image('logo', 'phaser.png');
-        game.load.image('sky', 'assets/underwater3.png');
-        game.load.spritesheet('rain', 'assets/rain.png', 17, 17);
+        //game.load.image('sky', 'assets/underwater3.png');
+        //game.load.spritesheet('rain', 'assets/rain.png', 17, 17);
         game.load.spritesheet('balls', 'assets/balls.png', 17, 17);
 
         game.load.image('ship', 'assets/ship.png');
+        game.load.image('bullet', 'assets/bullets.png');
 
         game.load.spritesheet('buttonvertical', 'assets/button-vertical.png',64,64);
         game.load.spritesheet('buttonhorizontal', 'assets/button-horizontal.png',96,64);
@@ -124,14 +128,14 @@ document.addEventListener(startEvent,function() {
         leftEmitter.bounce.setTo(1, 1);
         leftEmitter.setXSpeed(100, 200);
         leftEmitter.setYSpeed(-50, 50);
-        leftEmitter.makeParticles('balls', 0, 8, true, true);
+        leftEmitter.makeParticles('balls', 0, 1, true, true);
 
         rightEmitter = game.add.emitter(game.world.width - 50, game.world.centerY - 200);
         rightEmitter.gravity = 0;
         rightEmitter.bounce.setTo(1, 1);
         rightEmitter.setXSpeed(-100, -200);
         rightEmitter.setYSpeed(-50, 50);
-        rightEmitter.makeParticles('balls', 1, 8, true, true);
+        rightEmitter.makeParticles('balls', 1, 1, true, true);
 
         // explode, lifespan, frequency, quantity
         leftEmitter.start(false, 0, 40);
@@ -145,29 +149,38 @@ document.addEventListener(startEvent,function() {
         ship.body.drag.set(100);
         ship.body.maxVelocity.set(200);
 
+        //   ship bullets
+        bullets = game.add.group();
+        bullets.enableBody = true;
+        bullets.physicsBodyType = Phaser.Physics.ARCADE;
+
+        bullets.createMultiple(40, 'bullet');
+        bullets.setAll('anchor.x', 0.5);
+        bullets.setAll('anchor.y', 0.5);
+
         cursors = game.input.keyboard.createCursorKeys();
         game.input.keyboard.addKeyCapture([ Phaser.Keyboard.SPACEBAR ]);
 
-        buttonleft = game.add.button(0, window.innerHeight - 192, 'buttonhorizontal', null, this, 0, 1, 0, 1);
+        buttonleft = game.add.button(0, window.innerHeight - 128, 'buttonhorizontal', null, this, 0, 1, 0, 1);
         buttonleft.fixedToCamera = true;
         buttonleft.events.onInputOver.add(function(){left=true;});
         buttonleft.events.onInputOut.add(function(){left=false;});
         buttonleft.events.onInputDown.add(function(){left=true;});
         buttonleft.events.onInputUp.add(function(){left=false;});
 
-        buttonright = game.add.button(160, window.innerHeight - 192, 'buttonhorizontal', null, this, 0, 1, 0, 1);
+        buttonright = game.add.button(160, window.innerHeight - 128, 'buttonhorizontal', null, this, 0, 1, 0, 1);
         buttonright.fixedToCamera = true;
         buttonright.events.onInputOver.add(function(){right=true;});
         buttonright.events.onInputOut.add(function(){right=false;});            buttonright.events.onInputDown.add(function(){right=true;});           buttonright.events.onInputUp.add(function(){right=false;});
 
-        buttondown = game.add.button(96, window.innerHeight - 128, 'buttonvertical', null, this, 0, 1, 0, 1);
+        buttondown = game.add.button(96, window.innerHeight - 64, 'buttonvertical', null, this, 0, 1, 0, 1);
         buttondown.fixedToCamera = true;
         buttondown.events.onInputOver.add(function(){thrust=true;});
         buttondown.events.onInputOut.add(function(){thrust=false;});
         buttondown.events.onInputDown.add(function(){thrust=true;});
         buttondown.events.onInputUp.add(function(){thrust=false;});
 
-        buttonfire = game.add.button(window.innerWidth - 200, window.innerHeight - 192, 'buttonfire', null, this, 0, 1, 0, 1);
+        buttonfire = game.add.button(window.innerWidth - 96, window.innerHeight - 96, 'buttonfire', null, this, 0, 1, 0, 1);
         buttonfire.fixedToCamera = true;
         buttonfire.events.onInputOver.add(function(){fire=true;});
         buttonfire.events.onInputOut.add(function(){fire=false;});
@@ -184,32 +197,11 @@ document.addEventListener(startEvent,function() {
         game.physics.arcade.collide(ship, leftEmitter, shipHitLeft, null, this);
         game.physics.arcade.collide(ship, rightEmitter, shipHitRight, null, this);
 
+        game.physics.arcade.collide(bullets, leftEmitter, hitLeftParticle, null, this);
+        game.physics.arcade.collide(bullets, rightEmitter, hitRightParticle, null, this);
+
         // Logic for virtual buttons (for mobile)
-        if (thrust)
-        {
-            game.physics.arcade.accelerationFromRotation(ship.rotation, 200, ship.body.acceleration);
-        }
-        else
-        {
-            ship.body.acceleration.set(0);
-        }
-
-        if (left)
-        {
-            ship.body.angularVelocity = -300;
-        }
-        else if (right)
-        {
-            ship.body.angularVelocity = 300;
-        }
-        else
-        {
-            ship.body.angularVelocity = 0;
-        }
-
-        // Logic for cursor keys
-
-        // if (cursors.up.isDown)
+        // if (thrust)
         // {
         //     game.physics.arcade.accelerationFromRotation(ship.rotation, 200, ship.body.acceleration);
         // }
@@ -218,11 +210,11 @@ document.addEventListener(startEvent,function() {
         //     ship.body.acceleration.set(0);
         // }
         //
-        // if (cursors.left.isDown)
+        // if (left)
         // {
         //     ship.body.angularVelocity = -300;
         // }
-        // else if (cursors.right.isDown)
+        // else if (right)
         // {
         //     ship.body.angularVelocity = 300;
         // }
@@ -230,6 +222,36 @@ document.addEventListener(startEvent,function() {
         // {
         //     ship.body.angularVelocity = 0;
         // }
+        // if (fire) {
+        //     fireBullet();
+        // }
+        // Logic for cursor keys
+
+        if (cursors.up.isDown)
+        {
+            game.physics.arcade.accelerationFromRotation(ship.rotation, 200, ship.body.acceleration);
+        }
+        else
+        {
+            ship.body.acceleration.set(0);
+        }
+
+        if (cursors.left.isDown)
+        {
+            ship.body.angularVelocity = -300;
+        }
+        else if (cursors.right.isDown)
+        {
+            ship.body.angularVelocity = 300;
+        }
+        else
+        {
+            ship.body.angularVelocity = 0;
+        }
+        if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR))
+        {
+        fireBullet();
+        }
 
     }
 
@@ -264,5 +286,39 @@ document.addEventListener(startEvent,function() {
         var beat = Math.round(rightParticle.x/window.innerWidth * 16);
         console.log("right collision x: " + rightParticle.x + " and beat is " + beat);
         snarePart.at(beat + "n", "C2");
+        rightParticle.body.velocity.x = 0;
+        rightParticle.body.velocity.y = 0;
+    }
+
+    function hitLeftParticle(bullet, particle) {
+        //console.log("Got ya" + particle);
+        var beat = Math.round(particle.x/window.innerWidth * 16);
+        kickPart.remove(beat + " * 16n");
+        particle.body.velocity.x = 25;
+    }
+
+    function hitRightParticle(bullet, particle) {
+        //console.log("Got ya" + particle);
+        var beat = Math.round(particle.x/window.innerWidth * 16);
+        snarePart.remove(beat + " * 16n");
+        particle.body.velocity.x = 25;
+    }
+
+    function fireBullet () {
+
+        if (game.time.now > bulletTime)
+        {
+            bullet = bullets.getFirstExists(false);
+
+            if (bullet)
+            {
+                bullet.reset(ship.body.x + 16, ship.body.y + 16);
+                bullet.lifespan = 2000;
+                bullet.rotation = ship.rotation;
+                game.physics.arcade.velocityFromRotation(ship.rotation, 400, bullet.body.velocity);
+                bulletTime = game.time.now + 50;
+            }
+        }
+
     }
 });
