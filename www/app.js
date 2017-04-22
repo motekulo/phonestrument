@@ -66,7 +66,8 @@ document.addEventListener(startEvent,function() {
     var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, '', {
         preload: preload,
         create: create,
-        update: update
+        update: update,
+        render: render
     });
     var samplesLoaded = false;
     var numSamplesLoaded = 0;
@@ -89,6 +90,7 @@ document.addEventListener(startEvent,function() {
     var right = false;
     var thrust = false;
     var fire = false;
+    var line = [];
 
     Tone.Transport.loop = false;
     Tone.Transport.bpm.value = 116;
@@ -187,6 +189,15 @@ document.addEventListener(startEvent,function() {
         buttonfire.events.onInputDown.add(function(){fire=true;});
         buttonfire.events.onInputUp.add(function(){fire=false;});
 
+        // Draw a grid
+        for (i = 0; i < 4; i++){
+            var xOrigin = window.innerWidth/4 * i;
+            var yOrigin = 0;
+            var xEnd = xOrigin;
+            var yEnd = window.innerHeight;
+            line[i] = new Phaser.Line(xOrigin, yOrigin, xEnd, yEnd);
+        }
+
         Tone.Transport.start();
 
     }
@@ -252,6 +263,16 @@ document.addEventListener(startEvent,function() {
         {
         fireBullet();
         }
+
+    }
+
+    function render() {
+
+        game.debug.geom(line[1]);
+        game.debug.geom(line[2]);
+        game.debug.geom(line[3]);
+        game.debug.geom(line[4]);
+        //game.debug.lineInfo(line[1], 32, 32);
 
     }
 
