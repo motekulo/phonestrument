@@ -79,8 +79,10 @@ document.addEventListener(startEvent,function() {
         }
     }
 
-    var leftEmitter;
-    var rightEmitter;
+    //var leftEmitter;
+    //var rightEmitter;
+    var drumBalls;
+    var snareBalls;
     var ship;
     var bullet;
     var bullets;
@@ -91,16 +93,17 @@ document.addEventListener(startEvent,function() {
     var thrust = false;
     var fire = false;
     var line = [];
+    var keyAlt;
 
     Tone.Transport.loop = false;
     Tone.Transport.bpm.value = 116;
     Tone.Transport.scheduleRepeat(function(time){
         console.log("Ping...");
-        for (var i = 0; i < leftEmitter.children.length; i++){
-            var kidX = leftEmitter.children[i].x;
-            console.log("Child " + i + " x: " + kidX);
-        }
-        leftEmitter.y = leftEmitter.y - 5;
+        // for (var i = 0; i < leftEmitter.children.length; i++){
+        //     var kidX = leftEmitter.children[i].x;
+        //     console.log("Child " + i + " x: " + kidX);
+        // }
+        // leftEmitter.y = leftEmitter.y - 5;
 
     }, "1m");
 
@@ -116,6 +119,7 @@ document.addEventListener(startEvent,function() {
         game.load.spritesheet('buttonvertical', 'assets/button-vertical.png',64,64);
         game.load.spritesheet('buttonhorizontal', 'assets/button-horizontal.png',96,64);
         game.load.spritesheet('buttonfire', 'assets/button-round-a.png',96,96);
+        game.load.spritesheet('buttonmakeball', 'assets/button-round-b.png',96,96);
 
         //plucky.triggerAttack("C4");   // Test sound from Tone.js
     }
@@ -124,24 +128,48 @@ document.addEventListener(startEvent,function() {
 
         game.stage.backgroundColor = "#4488AA";
         game.physics.startSystem(Phaser.Physics.ARCADE);
+        drumBalls = game.add.group();
+        drumBalls.enableBody = true;
+        drumBalls.physicsBodyType = Phaser.Physics.ARCADE;
+        //snareBalls = game.add.group();
+        for (var i =0; i < 4; i++) {
+            //drumBalls.add(makeRandomDrumBall());
+            var x = game.world.randomX;
+            var y = game.world.randomY;
+            var key =0;
+            var beat = Math.round(x/window.innerWidth * 16);
+            if (y > window.innerHeight/2) {
+                //kick.start("@16n");
+                kickPart.at(beat + " * 16n", "C2");
+            } else {
+                //snare.start("@16n");
+                snarePart.at(beat + " * 16n", "C2");
+                key = 1;
+            }
+            var ball = game.add.sprite(x, y,'balls', key);
+            //return ball;
+            drumBalls.add(ball);
+            //snareBalls.add(makeRandomSnareBall());
+        }
 
-        leftEmitter = game.add.emitter(50, game.world.centerY - 200);
-        leftEmitter.gravity = 0;
-        leftEmitter.bounce.setTo(1, 1);
-        leftEmitter.setXSpeed(100, 200);
-        leftEmitter.setYSpeed(-50, 50);
-        leftEmitter.makeParticles('balls', 0, 1, true, true);
 
-        rightEmitter = game.add.emitter(game.world.width - 50, game.world.centerY - 200);
-        rightEmitter.gravity = 0;
-        rightEmitter.bounce.setTo(1, 1);
-        rightEmitter.setXSpeed(-100, -200);
-        rightEmitter.setYSpeed(-50, 50);
-        rightEmitter.makeParticles('balls', 1, 1, true, true);
-
-        // explode, lifespan, frequency, quantity
-        leftEmitter.start(false, 0, 40);
-        rightEmitter.start(false, 0, 40);
+        // leftEmitter = game.add.emitter(50, game.world.centerY - 200);
+        // leftEmitter.gravity = 0;
+        // leftEmitter.bounce.setTo(1, 1);
+        // leftEmitter.setXSpeed(100, 200);
+        // leftEmitter.setYSpeed(-50, 50);
+        // leftEmitter.makeParticles('balls', 0, 1, true, true);
+        //
+        // rightEmitter = game.add.emitter(game.world.width - 50, game.world.centerY - 200);
+        // rightEmitter.gravity = 0;
+        // rightEmitter.bounce.setTo(1, 1);
+        // rightEmitter.setXSpeed(-100, -200);
+        // rightEmitter.setYSpeed(-50, 50);
+        // rightEmitter.makeParticles('balls', 1, 1, true, true);
+        //
+        // // explode, lifespan, frequency, quantity
+        // leftEmitter.start(false, 0, 40);
+        // rightEmitter.start(false, 0, 40);
 
         ship = game.add.sprite(400, 400, 'ship');
         game.physics.enable(ship, Phaser.Physics.ARCADE);
@@ -162,6 +190,10 @@ document.addEventListener(startEvent,function() {
 
         cursors = game.input.keyboard.createCursorKeys();
         game.input.keyboard.addKeyCapture([ Phaser.Keyboard.SPACEBAR ]);
+        //game.input.keyboard.addKeyCapture([ Phaser.Keyboard.ALT]);
+        keyAlt = game.input.keyboard.addKey(Phaser.Keyboard.ONE);
+        keyAlt.onDown.add(makeDrumBall, this);
+        game.input.keyboard.removeKeyCapture(Phaser.Keyboard.ONE);
 
         buttonleft = game.add.button(0, window.innerHeight - 128, 'buttonhorizontal', null, this, 0, 1, 0, 1);
         buttonleft.fixedToCamera = true;
@@ -203,13 +235,13 @@ document.addEventListener(startEvent,function() {
     }
     function update() {
 
-        game.physics.arcade.collide(leftEmitter, rightEmitter, change, null, this);
+        //game.physics.arcade.collide(leftEmitter, rightEmitter, change, null, this);
 
-        game.physics.arcade.collide(ship, leftEmitter, shipHitLeft, null, this);
-        game.physics.arcade.collide(ship, rightEmitter, shipHitRight, null, this);
+        //game.physics.arcade.collide(ship, leftEmitter, shipHitLeft, null, this);
+        //game.physics.arcade.collide(ship, rightEmitter, shipHitRight, null, this);
 
-        game.physics.arcade.collide(bullets, leftEmitter, hitLeftParticle, null, this);
-        game.physics.arcade.collide(bullets, rightEmitter, hitRightParticle, null, this);
+        //game.physics.arcade.collide(bullets, leftEmitter, hitLeftParticle, null, this);
+        game.physics.arcade.collide(bullets, drumBalls, hitDrumBall, null, this);
 
         // Logic for virtual buttons (for mobile)
         // if (thrust)
@@ -238,6 +270,7 @@ document.addEventListener(startEvent,function() {
         // }
         // Logic for cursor keys
 
+        game.input.enabled = true;
         if (cursors.up.isDown)
         {
             game.physics.arcade.accelerationFromRotation(ship.rotation, 200, ship.body.acceleration);
@@ -261,8 +294,12 @@ document.addEventListener(startEvent,function() {
         }
         if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR))
         {
-        fireBullet();
+            fireBullet();
         }
+        // if (game.input.keyboard.isDown(Phaser.Keyboard.ALT))
+        // {
+        //     drumBalls.add(makeKickBall());
+        // }
 
     }
 
@@ -275,6 +312,44 @@ document.addEventListener(startEvent,function() {
         //game.debug.lineInfo(line[1], 32, 32);
 
     }
+
+    function makeDrumBall(){
+        var x = ship.body.x;
+        var y = ship.body.y;
+        var key = 0;
+        var beat = Math.round(x/window.innerWidth * 16);
+        if (y > window.innerHeight/2) {
+            kick.start("@16n");
+            kickPart.at(beat + " * 16n", "C2");
+        } else {
+            snare.start("@16n");
+            snarePart.at(beat + " * 16n", "C2");
+            key = 1;
+        }
+
+        var ball = game.add.sprite(x, y,'balls', key);
+        drumBalls.add(ball);
+        //return ball;
+    }
+
+    function makeRandomDrumBall(){
+        var x = game.world.randomX;
+        var y = game.world.randomY;
+        var key =0;
+        var beat = Math.round(x/window.innerWidth * 16);
+        if (y > window.innerHeight/2) {
+            //kick.start("@16n");
+            kickPart.at(beat + " * 16n", "C2");
+        } else {
+            //snare.start("@16n");
+            snarePart.at(beat + " * 16n", "C2");
+            key = 1;
+        }
+        var ball = game.add.sprite(x, y,'balls', key);
+        return ball;
+    }
+
+
 
     function change(a, b) {
         var pitchDivision = scalestructure.length + 1;
@@ -318,11 +393,17 @@ document.addEventListener(startEvent,function() {
         particle.body.velocity.x = 25;
     }
 
-    function hitRightParticle(bullet, particle) {
+    function hitDrumBall(bullet, particle) {
         //console.log("Got ya" + particle);
         var beat = Math.round(particle.x/window.innerWidth * 16);
-        snarePart.remove(beat + " * 16n");
-        particle.body.velocity.x = 25;
+        if (particle.y > window.innerHeight/2) {
+            kickPart.remove(beat + " * 16n");
+
+        } else {
+            snarePart.remove(beat + " * 16n");
+
+        }
+        //particle.body.velocity.x = 25;
     }
 
     function fireBullet () {
