@@ -6,7 +6,7 @@ if(window.cordova){
 document.addEventListener(startEvent,function() {
 
     //var plucky = new Tone.PluckSynth().toMaster();
-    var plucky = new Tone.PolySynth(3, Tone.MembraneSynth).toMaster();
+    var plucky = new Tone.PolySynth(3, Tone.MonoSynth).toMaster();
     var kick = new Tone.Player("assets/kick_mix_1.wav",                 sampleLoaded).toMaster();
     kick.retrigger = true;
     var snare = new Tone.Player("assets/snare_mix_1.wav", sampleLoaded).toMaster();
@@ -39,6 +39,21 @@ document.addEventListener(startEvent,function() {
     polyPart.length = 1;
     polyPart.loopEnd = "1m";
     polyPart.start(0);
+
+    Tone.Transport.loop = false;
+    Tone.Transport.bpm.value = 116;
+    Tone.Transport.scheduleRepeat(function(time){
+        console.log("Ping...");
+        // if the ship is moving, then play a note depending on
+        // its y position; quantize to the nearest 8th note for now
+        if (ship.body.velocity.y != 0) {
+            var scaled = Math.round(20 - (ship.body.y/window.innerHeight * 20));
+            var note = scale[scaled % 5]; // adjust for number of notes in scale
+            var octave = Math.floor(scaled/20 * 4);  // 4 octaves to divide into
+            plucky.triggerAttackRelease(note + octave, "16n", "@8n", 0.7);
+        }
+
+    }, "8n");
 
     //var scalestructure = [2,2,1,2,2,2,1];
     var scalestructure = [2,2,3,2,3];
@@ -94,18 +109,6 @@ document.addEventListener(startEvent,function() {
     var fire = false;
     var line = [];
     var keyAlt;
-
-    Tone.Transport.loop = false;
-    Tone.Transport.bpm.value = 116;
-    Tone.Transport.scheduleRepeat(function(time){
-        console.log("Ping...");
-        // for (var i = 0; i < leftEmitter.children.length; i++){
-        //     var kidX = leftEmitter.children[i].x;
-        //     console.log("Child " + i + " x: " + kidX);
-        // }
-        // leftEmitter.y = leftEmitter.y - 5;
-
-    }, "1m");
 
     function preload () {
         //game.load.image('logo', 'phaser.png');
@@ -235,12 +238,7 @@ document.addEventListener(startEvent,function() {
     }
     function update() {
 
-        //game.physics.arcade.collide(leftEmitter, rightEmitter, change, null, this);
 
-        //game.physics.arcade.collide(ship, leftEmitter, shipHitLeft, null, this);
-        //game.physics.arcade.collide(ship, rightEmitter, shipHitRight, null, this);
-
-        //game.physics.arcade.collide(bullets, leftEmitter, hitLeftParticle, null, this);
         game.physics.arcade.collide(bullets, drumBalls, hitDrumBall, null, this);
 
         // Logic for virtual buttons (for mobile)
@@ -296,10 +294,7 @@ document.addEventListener(startEvent,function() {
         {
             fireBullet();
         }
-        // if (game.input.keyboard.isDown(Phaser.Keyboard.ALT))
-        // {
-        //     drumBalls.add(makeKickBall());
-        // }
+
 
     }
 
@@ -348,8 +343,6 @@ document.addEventListener(startEvent,function() {
         var ball = game.add.sprite(x, y,'balls', key);
         return ball;
     }
-
-
 
     function change(a, b) {
         var pitchDivision = scalestructure.length + 1;
