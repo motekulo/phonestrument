@@ -5,8 +5,8 @@ if(window.cordova){
 }
 document.addEventListener(startEvent,function() {
 
-    //var plucky = new Tone.PluckSynth().toMaster();
-    var plucky = new Tone.PolySynth(3, Tone.MonoSynth).toMaster();
+    var plucky = new Tone.MonoSynth().toMaster();
+    //var plucky = new Tone.PolySynth(3, Tone.MonoSynth).toMaster();
     var kick = new Tone.Player("assets/kick_mix_1.wav",                 sampleLoaded).toMaster();
     kick.retrigger = true;
     var snare = new Tone.Player("assets/snare_mix_1.wav", sampleLoaded).toMaster();
@@ -49,15 +49,29 @@ document.addEventListener(startEvent,function() {
         if (ship.body.velocity.y != 0) {
             var scaled = Math.round(20 - (ship.body.y/window.innerHeight * 20));
             var note = scale[scaled % 5]; // adjust for number of notes in scale
-            var octave = Math.floor(scaled/20 * 4);  // 4 octaves to divide into
-            plucky.triggerAttackRelease(note + octave, "16n", "@8n", 0.7);
+            var octave = Math.floor(scaled/20 * 4) + 2;  // 4 octaves to divide into
+            var filterFreq = (ship.body.x/window.innerWidth * 100);
+            console.log("filterFreq: " + filterFreq);
+            //plucky.filter.frequency.value = filterFreq;
+            plucky.set({
+                "filterEnvelope" : {
+                    "baseFrequency" : filterFreq
+                }
+            });
+
+            plucky.triggerAttackRelease(note + octave, "16n", "@8n", 0.3);
+            console.log(note + octave);
+            //console.log("ship y accel: " + ship.body.acceleration.y); // -200 to 200
+            //var filterFreq = (ship.body.acceleration.x/window.innerWidth * 8000 +500);
+            //console.log("filterFreq: " + filterFreq);
+            //plucky.filter,frequency = filterFreq;
         }
 
     }, "8n");
 
     //var scalestructure = [2,2,1,2,2,2,1];
     var scalestructure = [2,2,3,2,3];
-    var key = "E";
+    var key = "C";
     var scale = setScale(key);
 
     function setScale(key) {
