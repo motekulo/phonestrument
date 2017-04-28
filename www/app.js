@@ -111,7 +111,7 @@ document.addEventListener(startEvent,function() {
     //var leftEmitter;
     //var beatEmitter;
     var drumBalls;
-
+    var paddle;
     var cursors;
     var left = false;
     var right = false;
@@ -124,14 +124,14 @@ document.addEventListener(startEvent,function() {
         //game.load.image('sky', 'assets/underwater3.png');
         //game.load.spritesheet('rain', 'assets/rain.png', 17, 17);
         game.load.spritesheet('balls', 'assets/balls.png', 17, 17);
+        game.load.image('paddle', 'assets/paddle.png');
+        // game.load.image('ship', 'assets/ship.png');
+        // game.load.image('bullet', 'assets/bullets.png');
 
-        game.load.image('ship', 'assets/ship.png');
-        game.load.image('bullet', 'assets/bullets.png');
-
-        game.load.spritesheet('buttonvertical', 'assets/button-vertical.png',64,64);
-        game.load.spritesheet('buttonhorizontal', 'assets/button-horizontal.png',96,64);
-        game.load.spritesheet('buttonfire', 'assets/button-round-a.png',96,96);
-        game.load.spritesheet('buttonmakeball', 'assets/button-round-b.png',96,96);
+        // game.load.spritesheet('buttonvertical', 'assets/button-vertical.png',64,64);
+        // game.load.spritesheet('buttonhorizontal', 'assets/button-horizontal.png',96,64);
+        // game.load.spritesheet('buttonfire', 'assets/button-round-a.png',96,96);
+        // game.load.spritesheet('buttonmakeball', 'assets/button-round-b.png',96,96);
 
         //plucky.triggerAttack("C4");   // Test sound from Tone.js
     }
@@ -155,6 +155,15 @@ document.addEventListener(startEvent,function() {
         // explode, lifespan, frequency, quantity
         beatEmitter.start(false, 0, 1000, 48);
 
+        paddle = game.add.sprite(16, window.innerHeight/2, 'paddle');
+        paddle.anchor.set(0.5, 0.5);
+        paddle.enableBody = true;
+        //paddle.physicsBodyType = Phaser.Physics.ARCADE;
+        game.physics.enable(paddle, Phaser.Physics.ARCADE);
+        paddle.body.collideWorldBounds = true;
+        paddle.body.immovable = true;
+        //paddle.body.bounce.set(1);
+
         cursors = game.input.keyboard.createCursorKeys();
         game.input.keyboard.addKeyCapture([ Phaser.Keyboard.SPACEBAR ]);
         //game.input.keyboard.addKeyCapture([ Phaser.Keyboard.ALT]);
@@ -171,16 +180,19 @@ document.addEventListener(startEvent,function() {
     function update() {
 
         //game.physics.arcade.collide(bullets, drumBalls, hitDrumBall, null, this);
-        game.physics.arcade.collide(beatEmitter);
+            game.physics.arcade.collide(beatEmitter);
+            game.physics.arcade.collide(paddle, beatEmitter);
 
         game.input.enabled = true;
         if (cursors.up.isDown)
         {
+            paddle.body.velocity.y = -400;
             //game.physics.arcade.accelerationFromRotation(ship.rotation, 200, //ship.body.acceleration);
-        }
-        else
+        } else if (cursors.down.isDown)
         {
-            //ship.body.acceleration.set(0);
+            paddle.body.velocity.y = 400;
+        } else {
+            paddle.body.velocity.y = 0;
         }
 
     }
