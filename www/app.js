@@ -55,22 +55,22 @@ document.addEventListener(startEvent,function() {
     Tone.Transport.scheduleRepeat(function(time){
         console.log("Ping...");
 
-        if (beatCount < beatTotal) {
-            // Send out a beatBall in time
-            //var ball = drumBalls.create(window.innerWidth, window.innerHeight/2 + Math.random() * 60, 'ball');
-            var ball = drumBalls.create(window.innerWidth, window.innerHeight/2, 'ball');
-            ball.checkWorldBounds = true;
-            ball.body.collideWorldBounds = true;
-            ball.body.bounce.setTo(1,1);
-            //ball.body.gravity = 0;
-            ball.events.onOutOfBounds.add(ballOut, this);
-
-            //ball.body.onWorldBounds = worldBoundSignal;
-            ball.body.velocity.x = -400;
-            //ball.body.velocity.y = 200;
-            //ball.body.velocity.y = 100 - (Math.random() * 200);
-            beatCount++;
-        }
+        // if (beatCount < beatTotal) {
+        //     // Send out a beatBall in time
+        //     //var ball = drumBalls.create(window.innerWidth, window.innerHeight/2 + Math.random() * 60, 'ball');
+        //     var ball = drumBalls.create(window.innerWidth, window.innerHeight/2, 'ball');
+        //     ball.checkWorldBounds = true;
+        //     ball.body.collideWorldBounds = true;
+        //     ball.body.bounce.setTo(1,1);
+        //     //ball.body.gravity = 0;
+        //     ball.events.onOutOfBounds.add(ballOut, this);
+        //
+        //     //ball.body.onWorldBounds = worldBoundSignal;
+        //     ball.body.velocity.x = -400;
+        //     //ball.body.velocity.y = 200;
+        //     //ball.body.velocity.y = 100 - (Math.random() * 200);
+        //     beatCount++;
+        // }
 
     }, "4n");
 
@@ -218,8 +218,17 @@ document.addEventListener(startEvent,function() {
 
     }
 
-    function ballsHit() {
-        snare.start("@16n");
+    function ballsHit(ball1, ball2) {
+        if (ball1.instrument == "snare" && ball2.instrument == "snare"){
+            snare.start("@16n");
+
+        } else if (ball1.instrument == "kick" && ball2.instrument == "kick"){
+            kick.start("@16n");
+
+        } else {
+            console.log("different balls");
+        }
+
     }
 
     function paddleHit(paddle, ball){
@@ -239,13 +248,21 @@ document.addEventListener(startEvent,function() {
     }
 
     function makeDrumBall() {
-        var ball = drumBalls.create(window.innerWidth, window.innerHeight/2, 'ball');
+
+        var ball = drumBalls.create(window.innerWidth, paddle.y, 'ball');
         ball.checkWorldBounds = true;
         ball.body.collideWorldBounds = true;
         ball.body.bounce.setTo(1,1);
         //ball.body.gravity = 0;
         ball.events.onOutOfBounds.add(ballOut, this);
         ball.body.velocity.x = -400;
+        if (paddle.y < window.innerHeight/2) {
+            ball.instrument = "snare";
+            ball.frame = 1;
+        } else {
+            ball.instrument = "kick";
+            ball.frame = 2;
+        }
     }
 
 });
