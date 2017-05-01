@@ -165,7 +165,7 @@ document.addEventListener(startEvent,function() {
 
         game.stage.backgroundColor = "#4488AA";
         game.physics.startSystem(Phaser.Physics.ARCADE);
-        game.physics.arcade.checkCollision.left = false;
+        //game.physics.arcade.checkCollision.left = false;
         drumBalls = game.add.group();
         drumBalls.enableBody = true;
         drumBalls.physicsBodyType = Phaser.Physics.ARCADE;
@@ -196,6 +196,19 @@ document.addEventListener(startEvent,function() {
         vPaddle.anchor.x = 0.5;
         vPaddle.anchor.y = 0.5;
         //paddle.body.bounce.set(1);
+        hPaddle = game.add.sprite(window.innerWidth/2, window.innerHeight - 8, 'paddle');
+        hPaddle.scale.setTo(8,0.25);
+        hPaddle.anchor.set(0.5, 0.5);
+        //hPaddle.anchor.x = 0.5;
+        //hPaddle.anchor.y = 0.5;
+        hPaddle.enableBody = true;
+        //paddle.physicsBodyType = Phaser.Physics.ARCADE;
+        game.physics.enable(hPaddle, Phaser.Physics.ARCADE);
+        hPaddle.body.collideWorldBounds = true;
+        hPaddle.body.immovable = true;
+
+
+
 
         cursors = game.input.keyboard.createCursorKeys();
         game.input.keyboard.addKeyCapture([ Phaser.Keyboard.SPACEBAR ]);
@@ -270,11 +283,16 @@ document.addEventListener(startEvent,function() {
     function paddleHit(paddle, ball){
         //kick.start("@16n");
         //console.log(paddle, ball);
-        if (ball.y < (paddle.y - paddle.height/4)) {
-            ball.body.velocity.y = -10 * (paddle.y - ball.y);
-        } else if (ball.y > (paddle.y + paddle.height/4)) {
-            ball.body.velocity.y = 10 * (ball.y - paddle.y);
-        }
+
+        // Use paddle to bounce ball back:
+        // if (ball.y < (paddle.y - paddle.height/4)) {
+        //     ball.body.velocity.y = -10 * (paddle.y - ball.y);
+        // } else if (ball.y > (paddle.y + paddle.height/4)) {
+        //     ball.body.velocity.y = 10 * (ball.y - paddle.y);
+        // }
+
+        // Use paddle as a ball destroyer:
+        ball.destroy();
         //if ()
     }
 
