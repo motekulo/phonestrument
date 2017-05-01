@@ -17,3 +17,4 @@ exp_6 tagged; the most effective rhythm was in fact when balls were sent out str
 The paddle just returns the balls; if it's not there, then the beats are removed by going out of the world.
 
 Pressing a key adds more beats
+tagged as exp_7

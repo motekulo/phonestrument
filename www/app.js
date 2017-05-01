@@ -172,6 +172,9 @@ document.addEventListener(startEvent,function() {
         game.physics.enable(paddle, Phaser.Physics.ARCADE);
         paddle.body.collideWorldBounds = true;
         paddle.body.immovable = true;
+        paddle.scale.setTo(2,4);
+        paddle.anchor.x = 0.5;
+        paddle.anchor.y = 0.5;
         //paddle.body.bounce.set(1);
 
         cursors = game.input.keyboard.createCursorKeys();
@@ -192,18 +195,18 @@ document.addEventListener(startEvent,function() {
 
         //game.physics.arcade.collide(bullets, drumBalls, hitDrumBall, null, this);
         //game.physics.arcade.collide(beatEmitter);
-        //game.physics.arcade.collide(paddle, drumBalls, paddleHit, null, this);
-        game.physics.arcade.collide(paddle, drumBalls);
+        game.physics.arcade.collide(paddle, drumBalls, paddleHit, null, this);
+        //game.physics.arcade.collide(paddle, drumBalls);
         game.physics.arcade.collide(drumBalls, drumBalls, ballsHit, null, this);
 
         game.input.enabled = true;
         if (cursors.up.isDown)
         {
-            paddle.body.velocity.y = -400;
+            paddle.body.velocity.y = -800;
             //game.physics.arcade.accelerationFromRotation(ship.rotation, 200, //ship.body.acceleration);
         } else if (cursors.down.isDown)
         {
-            paddle.body.velocity.y = 400;
+            paddle.body.velocity.y = 800;
         } else {
             paddle.body.velocity.y = 0;
         }
@@ -219,8 +222,15 @@ document.addEventListener(startEvent,function() {
         snare.start("@16n");
     }
 
-    function paddleHit(){
-        kick.start("@16n");
+    function paddleHit(paddle, ball){
+        //kick.start("@16n");
+        //console.log(paddle, ball);
+        if (ball.y < (paddle.y - paddle.height/4)) {
+            ball.body.velocity.y = -10 * (paddle.y - ball.y);
+        } else if (ball.y > (paddle.y + paddle.height/4)) {
+            ball.body.velocity.y = 10 * (ball.y - paddle.y);
+        }
+        //if ()
     }
 
     function ballOut(beatBall) {
