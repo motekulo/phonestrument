@@ -11,7 +11,8 @@ document.addEventListener(startEvent,function() {
     kick.retrigger = true;
     var snare = new Tone.Player("assets/snare_mix_1.wav", sampleLoaded).toMaster();
     snare.retrigger = true;
-
+    var beatCount = 0;
+    var beatTotal = 16;
     var notes = [];
     var kickPart = new Tone.Part(function(time, note) {
         kick.start();
@@ -42,32 +43,26 @@ document.addEventListener(startEvent,function() {
 
     Tone.Transport.loop = false;
     Tone.Transport.bpm.value = 116;
-    // Tone.Transport.scheduleRepeat(function(time){
-    //     console.log("Ping...");
-    //     // if the ship is moving, then play a note depending on
-    //     // its y position; quantize to the nearest 8th note for now
-    //     if (ship.body.velocity.y != 0) {
-    //         var scaled = Math.round(20 - (ship.body.y/window.innerHeight * 20));
-    //         var note = scale[scaled % 5]; // adjust for number of notes in scale
-    //         var octave = Math.floor(scaled/20 * 4) + 2;  // 4 octaves to divide into
-    //         var filterFreq = (ship.body.x/window.innerWidth * 100);
-    //         console.log("filterFreq: " + filterFreq);
-    //         //plucky.filter.frequency.value = filterFreq;
-    //         plucky.set({
-    //             "filterEnvelope" : {
-    //                 "baseFrequency" : filterFreq
-    //             }
-    //         });
-    //
-    //         plucky.triggerAttackRelease(note + octave, "16n", "@8n", 0.3);
-    //         console.log(note + octave);
-    //         //console.log("ship y accel: " + ship.body.acceleration.y); // -200 to 200
-    //         //var filterFreq = (ship.body.acceleration.x/window.innerWidth * 8000 +500);
-    //         //console.log("filterFreq: " + filterFreq);
-    //         //plucky.filter,frequency = filterFreq;
-    //     }
-    //
-    // }, "8n");
+
+    Tone.Transport.scheduleRepeat(function(time){
+        console.log("Ping...");
+
+        if (beatCount < beatTotal) {
+            // Send out a beatBall in time
+            //var ball = drumBalls.create(window.innerWidth, window.innerHeight/2 + Math.random() * 60, 'ball');
+            var ball = drumBalls.create(window.innerWidth, window.innerHeight/2, 'ball');
+            ball.checkWorldBounds = true;
+            ball.body.collideWorldBounds = true;
+            ball.body.bounce.setTo(1,1);
+            //ball.body.gravity = 0;
+            ball.events.onOutOfBounds.add(ballOut, this);
+            ball.body.velocity.x = -400;
+            ball.body.velocity.y = 200;
+            //ball.body.velocity.y = 100 - (Math.random() * 200);
+            beatCount++;
+        }
+
+    }, "4n");
 
     //var scalestructure = [2,2,1,2,2,2,1];
     var scalestructure = [2,2,3,2,3];
@@ -123,7 +118,7 @@ document.addEventListener(startEvent,function() {
         //game.load.image('logo', 'phaser.png');
         //game.load.image('sky', 'assets/underwater3.png');
         //game.load.spritesheet('rain', 'assets/rain.png', 17, 17);
-        game.load.spritesheet('balls', 'assets/balls.png', 17, 17);
+        game.load.spritesheet('ball', 'assets/balls.png', 17, 17);
         game.load.image('paddle', 'assets/paddle.png');
         // game.load.image('ship', 'assets/ship.png');
         // game.load.image('bullet', 'assets/bullets.png');
@@ -143,17 +138,21 @@ document.addEventListener(startEvent,function() {
         drumBalls = game.add.group();
         drumBalls.enableBody = true;
         drumBalls.physicsBodyType = Phaser.Physics.ARCADE;
+
+
         //snareBalls = game.add.group();
 
-        beatEmitter = game.add.emitter(game.world.width - 50, game.world.centerY - 200);
-        beatEmitter.gravity = 0;
-        beatEmitter.bounce.setTo(1, 1);
-        beatEmitter.setXSpeed(-100, -200);
-        beatEmitter.setYSpeed(-50, 50);
-        beatEmitter.makeParticles('balls', 1, 24, true, true);
+        // beatEmitter = game.add.emitter(game.world.width - 50, game.world.centerY - 200);
+        // beatEmitter.gravity = 0;
+        // beatEmitter.bounce.setTo(1, 1);
+        // beatEmitter.setXSpeed(-100, -200);
+        // beatEmitter.setYSpeed(-50, 50);
+        // beatEmitter.makeParticles('balls', 1, 24, true, true);
 
+        //beatEmitter.events.onOutOfBounds.add(beatOut, this);
         // explode, lifespan, frequency, quantity
-        beatEmitter.start(false, 0, 1000, 48);
+        // beatEmitter.start(false, 0, 1000, 48);
+
 
         paddle = game.add.sprite(16, window.innerHeight/2, 'paddle');
         paddle.anchor.set(0.5, 0.5);
@@ -174,14 +173,15 @@ document.addEventListener(startEvent,function() {
 
         // Draw a grid
 
-        //Tone.Transport.start();
+        Tone.Transport.start();
 
     }
     function update() {
 
         //game.physics.arcade.collide(bullets, drumBalls, hitDrumBall, null, this);
-            game.physics.arcade.collide(beatEmitter);
-            game.physics.arcade.collide(paddle, beatEmitter);
+            //game.physics.arcade.collide(beatEmitter);
+            game.physics.arcade.collide(paddle, drumBalls, paddleHit, null, this);
+            game.physics.arcade.collide(drumBalls, drumBalls, ballsHit, null, this);
 
         game.input.enabled = true;
         if (cursors.up.isDown)
@@ -199,6 +199,19 @@ document.addEventListener(startEvent,function() {
 
     function render() {
 
+
+    }
+
+function ballsHit() {
+    snare.start("@16n");
+}
+
+function paddleHit(){
+    kick.start("@16n");
+}
+
+    function ballOut(beatBall) {
+        console.log("Beat out");
 
     }
 
