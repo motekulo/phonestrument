@@ -5,117 +5,37 @@ if(window.cordova){
 }
 document.addEventListener(startEvent,function() {
 
-    var plucky = new Tone.MonoSynth();
-    var pluckyPanVol = new Tone.PanVol(0.5, -18);
-    plucky.connect(pluckyPanVol);
-    pluckyPanVol.connect(Tone.Master);
+    var plucky; // Main pitched synth
+    var pluckyPanVol; // Panner and gain for plucky
 
-    //var plucky = new Tone.PolySynth(3, Tone.MonoSynth).toMaster();
-    var kick = new Tone.Player("assets/kick_mix_1.wav",                 sampleLoaded).toMaster();
-    kick.retrigger = true;
-    //var snare = new Tone.Player("assets/snare_mix_1.wav", sampleLoaded).toMaster();
-    var closedHat = new Tone.Player("assets/chh_mixed_1.wav", sampleLoaded).toMaster();
-    closedHat.retrigger = true;
-    var hatPart = new Tone.Part(function(time, note) {
-        closedHat.start();
-    }, [["0:0", "C3"],["0:1", "C3"],["0:2", "C3"],["0:3", "C3"]]);
-    hatPart.loop = true;
-    hatPart.length = 1;
-    hatPart.loopEnd = "1m";
-    //hatPart.start();
+    var kick;  // Sample player - kick sound
 
-    var snare = new Tone.Player("assets/snare_mix_1.wav", sampleLoaded);
+    var closedHat; // Metronome sample player
+    var hatPart; // Metronome part
 
-    var snarePanVol = new Tone.PanVol(0.5, -12);
-    snare.connect(snarePanVol);
-    snarePanVol.connect(Tone.Master);
-    snare.retrigger = true;
-    var beatCount = 0;
-    var beatTotal = 8;
+    var snare; // Sample player - snare
+    var snarePanVol; // Panner and gain for snare
+
+    var beatCount = 0; // number of beats/balls counter
+    var beatTotal = 8; // number of balls to start with
     var notes = [];
-    var kickPart = new Tone.Part(function(time, note) {
-        kick.start();
-    }, notes);
+
+    var kickPart;
+    var snarePart;
+    var polyPart;
+
+    //var worldBoundSignal = new Phaser.Signal();
 
     var tempo = 116;
-    var worldBoundSignal = new Phaser.Signal();
-    //worldBoundSignal.add(onWorldBounds, this);
+    var scalestructure = [2,2,3,2,3];
+    var key = "C";
+    var scale;
 
-    kickPart.loop = true;
-    kickPart.length = 1;
-    kickPart.loopEnd = "1m";
-    kickPart.start(0);
-
-    var snarePart = new Tone.Part(function(time, note) {
-        snare.start();
-    }, notes);
-
-    snarePart.loop = true;
-    snarePart.length = 1;
-    snarePart.loopEnd = "1m";
-    snarePart.start(0);
-
-    var polyPart = new Tone.Part(function(time, note) {
-        plucky.triggerAttackRelease(note, "16n", time);
-    }, notes);
-
-    polyPart.loop = true;
-    polyPart.length = 1;
-    polyPart.loopEnd = "1m";
-    polyPart.start(0);
-
-    Tone.Transport.loop = false;
-    Tone.Transport.bpm.value = tempo;
+    initMusic(); // FIXME - ugly; should be an object with properties
 
     // assuming 4 beats per bar for the moment
     var barHorVelocity = window.innerWidth/(60/tempo * 4);
     var barVertVelocity = window.innerHeight/(60/tempo * 4);
-
-    console.log("Bar velocity will be " + barHorVelocity)+ " pixels per sec";
-    // Tone.Transport.scheduleRepeat(function(time){
-    //     console.log("Ping...");
-    //
-    //     // if (beatCount < beatTotal) {
-    //     //     // Send out a beatBall in time
-    //     //     //var ball = drumBalls.create(window.innerWidth, window.innerHeight/2 + Math.random() * 60, 'ball');
-    //     //     var ball = drumBalls.create(window.innerWidth, window.innerHeight/2, 'ball');
-    //     //     ball.checkWorldBounds = true;
-    //     //     ball.body.collideWorldBounds = true;
-    //     //     ball.body.bounce.setTo(1,1);
-    //     //     //ball.body.gravity = 0;
-    //     //     ball.events.onOutOfBounds.add(ballOut, this);
-    //     //
-    //     //     //ball.body.onWorldBounds = worldBoundSignal;
-    //     //     ball.body.velocity.x = -400;
-    //     //     //ball.body.velocity.y = 200;
-    //     //     //ball.body.velocity.y = 100 - (Math.random() * 200);
-    //     //     beatCount++;
-    //     // }
-    //
-    // }, "4n");
-
-    //var scalestructure = [2,2,1,2,2,2,1];
-    var scalestructure = [2,2,3,2,3];
-    var key = "C";
-    var scale = setScale(key);
-
-    function setScale(key) {
-        var pitch = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
-        var _scale = [];
-        var start = pitch.indexOf(key);
-        _scale.push(pitch[start]);
-        var prevnoteindex = start;
-        for (i = 0; i < scalestructure.length - 1; i++) {
-            nextnoteindex = prevnoteindex + scalestructure[i];
-            if (nextnoteindex >= pitch.length) {
-                nextnoteindex = nextnoteindex - pitch.length; // wrap
-            }
-            _scale.push(pitch[nextnoteindex]);
-            prevnoteindex = nextnoteindex;
-        }
-        //this.scale = scale;
-        return _scale
-    }
 
     var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, '', {
         preload: preload,
@@ -123,17 +43,6 @@ document.addEventListener(startEvent,function() {
         update: update,
         render: render
     });
-    var samplesLoaded = false;
-    var numSamplesLoaded = 0;
-    function sampleLoaded() {
-        numSamplesLoaded++;
-        if (numSamplesLoaded == 3) {
-            samplesLoaded = true;
-            console.log("Samples loaded");
-            hatPart.start();
-        }
-    }
-
     //var leftEmitter;
     //var beatEmitter;
     var drumBalls;
@@ -336,6 +245,97 @@ document.addEventListener(startEvent,function() {
         //ball.body.gravity = 0;
         //ball.events.onOutOfBounds.add(ballOut, this);
         ball.body.velocity.y = -barVertVelocity;
+
+    }
+
+    function initMusic() {
+
+        plucky = new Tone.MonoSynth();
+        //plucky = new Tone.PolySynth(3, Tone.MonoSynth).toMaster();
+        pluckyPanVol = new Tone.PanVol(0.5, -18);
+        plucky.connect(pluckyPanVol);
+        pluckyPanVol.connect(Tone.Master);
+
+        kick = new Tone.Player("assets/kick_mix_1.wav",                 sampleLoaded).toMaster();
+        kick.retrigger = true;
+
+        // Using a closed high hat as metronome
+        closedHat = new Tone.Player("assets/chh_mixed_1.wav", sampleLoaded).toMaster();
+        closedHat.retrigger = true;
+        hatPart = new Tone.Part(function(time, note) {
+            closedHat.start();
+        }, [["0:0", "C3"],["0:1", "C3"],["0:2", "C3"],["0:3", "C3"]]);
+        hatPart.loop = true;
+        hatPart.length = 1;
+        hatPart.loopEnd = "1m";
+
+        snare = new Tone.Player("assets/snare_mix_1.wav", sampleLoaded);
+        snarePanVol = new Tone.PanVol(0.5, -12);
+        snare.connect(snarePanVol);
+        snarePanVol.connect(Tone.Master);
+        snare.retrigger = true;
+
+        kickPart = new Tone.Part(function(time, note) {
+            kick.start();
+        }, notes);
+
+        kickPart.loop = true;
+        kickPart.length = 1;
+        kickPart.loopEnd = "1m";
+        kickPart.start(0);
+
+        snarePart = new Tone.Part(function(time, note) {
+            snare.start();
+        }, notes);
+
+        snarePart.loop = true;
+        snarePart.length = 1;
+        snarePart.loopEnd = "1m";
+        snarePart.start(0);
+
+        polyPart = new Tone.Part(function(time, note) {
+            plucky.triggerAttackRelease(note, "16n", time);
+        }, notes);
+        polyPart.loop = true;
+        polyPart.length = 1;
+        polyPart.loopEnd = "1m";
+        polyPart.start(0);
+
+        var samplesLoaded = false;
+        var numSamplesLoaded = 0;
+        function sampleLoaded() {
+            numSamplesLoaded++;
+            if (numSamplesLoaded == 3) {
+                samplesLoaded = true;
+                console.log("Samples loaded");
+                hatPart.start();
+            }
+        }
+    
+
+        Tone.Transport.loop = false;
+        Tone.Transport.bpm.value = tempo;
+
+        scale = setScale(key);
+
+        function setScale(key) {
+            var pitch = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
+            var _scale = [];
+            var start = pitch.indexOf(key);
+            _scale.push(pitch[start]);
+            var prevnoteindex = start;
+            for (i = 0; i < scalestructure.length - 1; i++) {
+                nextnoteindex = prevnoteindex + scalestructure[i];
+                if (nextnoteindex >= pitch.length) {
+                    nextnoteindex = nextnoteindex - pitch.length; // wrap
+                }
+                _scale.push(pitch[nextnoteindex]);
+                prevnoteindex = nextnoteindex;
+            }
+            //this.scale = scale;
+            return _scale
+        }
+
 
     }
 
