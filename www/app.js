@@ -5,11 +5,25 @@ if(window.cordova){
 }
 document.addEventListener(startEvent,function() {
 
-    var plucky = new Tone.MonoSynth().toMaster();
+    var plucky = new Tone.MonoSynth();
+    var pluckyPanVol = new Tone.PanVol(0.5, -18);
+    plucky.connect(pluckyPanVol);
+    pluckyPanVol.connect(Tone.Master);
+
     //var plucky = new Tone.PolySynth(3, Tone.MonoSynth).toMaster();
     var kick = new Tone.Player("assets/kick_mix_1.wav",                 sampleLoaded).toMaster();
     kick.retrigger = true;
     //var snare = new Tone.Player("assets/snare_mix_1.wav", sampleLoaded).toMaster();
+    var closedHat = new Tone.Player("assets/chh_mixed_1.wav", sampleLoaded).toMaster();
+    closedHat.retrigger = true;
+    var hatPart = new Tone.Part(function(time, note) {
+        closedHat.start();
+    }, [["0:0", "C3"],["0:1", "C3"],["0:2", "C3"],["0:3", "C3"]]);
+    hatPart.loop = true;
+    hatPart.length = 1;
+    hatPart.loopEnd = "1m";
+    //hatPart.start();
+
     var snare = new Tone.Player("assets/snare_mix_1.wav", sampleLoaded);
 
     var snarePanVol = new Tone.PanVol(0.5, -12);
@@ -23,6 +37,7 @@ document.addEventListener(startEvent,function() {
         kick.start();
     }, notes);
 
+    var tempo = 116;
     var worldBoundSignal = new Phaser.Signal();
     //worldBoundSignal.add(onWorldBounds, this);
 
@@ -50,8 +65,11 @@ document.addEventListener(startEvent,function() {
     polyPart.start(0);
 
     Tone.Transport.loop = false;
-    Tone.Transport.bpm.value = 116;
+    Tone.Transport.bpm.value = tempo;
 
+    // assuming 4 beats per bar for the moment
+    var barVelocity = window.innerWidth/(60/tempo * 4);
+    console.log("Bar velocity will be " + barVelocity)+ " pixels per sec";
     Tone.Transport.scheduleRepeat(function(time){
         console.log("Ping...");
 
@@ -107,9 +125,10 @@ document.addEventListener(startEvent,function() {
     var numSamplesLoaded = 0;
     function sampleLoaded() {
         numSamplesLoaded++;
-        if (numSamplesLoaded == 2) {
+        if (numSamplesLoaded == 3) {
             samplesLoaded = true;
             console.log("Samples loaded");
+            hatPart.start();
         }
     }
 
@@ -190,6 +209,11 @@ document.addEventListener(startEvent,function() {
 
         Tone.Transport.start();
 
+        while (!samplesLoaded) {
+
+        }
+
+
     }
     function update() {
 
@@ -227,6 +251,17 @@ document.addEventListener(startEvent,function() {
 
         } else {
             console.log("different balls");
+            // var pitchDivision = scalestructure.length + 1;
+            //
+            // //var beat = Math.round(a.position.x/window.innerWidth * 16);
+            // var pitchIndex = Math.round(ball1.position.y/window.innerHeight * pitchDivision * 3);
+            // //var pitch = a.position.y;
+            // var octave = Math.floor(pitchIndex/pitchDivision) + 3 ; // 3 8ves; starting 8ve 4
+            // //console.log("left collision x: " + leftParticle.x + " and beat is " + beat);
+            // //polyPart.at(beat + "n", pitch);
+            // var pitch = scale[pitchIndex % (pitchDivision - 1)] + octave;
+            // // polyPart.at(beat + "n", pitch);
+            // plucky.triggerAttackRelease(pitch, "16n", "@16n");
         }
 
     }
@@ -255,7 +290,7 @@ document.addEventListener(startEvent,function() {
         ball.body.bounce.setTo(1,1);
         //ball.body.gravity = 0;
         ball.events.onOutOfBounds.add(ballOut, this);
-        ball.body.velocity.x = -400;
+        ball.body.velocity.x = -barVelocity;
         if (paddle.y < window.innerHeight/2) {
             ball.instrument = "snare";
             ball.frame = 1;
