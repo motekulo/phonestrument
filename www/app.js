@@ -9,10 +9,15 @@ document.addEventListener(startEvent,function() {
     //var plucky = new Tone.PolySynth(3, Tone.MonoSynth).toMaster();
     var kick = new Tone.Player("assets/kick_mix_1.wav",                 sampleLoaded).toMaster();
     kick.retrigger = true;
-    var snare = new Tone.Player("assets/snare_mix_1.wav", sampleLoaded).toMaster();
+    //var snare = new Tone.Player("assets/snare_mix_1.wav", sampleLoaded).toMaster();
+    var snare = new Tone.Player("assets/snare_mix_1.wav", sampleLoaded);
+
+    var snarePanVol = new Tone.PanVol(0.5, -12);
+    snare.connect(snarePanVol);
+    snarePanVol.connect(Tone.Master);
     snare.retrigger = true;
     var beatCount = 0;
-    var beatTotal = 16;
+    var beatTotal = 8;
     var notes = [];
     var kickPart = new Tone.Part(function(time, note) {
         kick.start();
@@ -57,7 +62,7 @@ document.addEventListener(startEvent,function() {
             //ball.body.gravity = 0;
             ball.events.onOutOfBounds.add(ballOut, this);
             ball.body.velocity.x = -400;
-            ball.body.velocity.y = 200;
+            //ball.body.velocity.y = 200;
             //ball.body.velocity.y = 100 - (Math.random() * 200);
             beatCount++;
         }
@@ -165,9 +170,10 @@ document.addEventListener(startEvent,function() {
 
         cursors = game.input.keyboard.createCursorKeys();
         game.input.keyboard.addKeyCapture([ Phaser.Keyboard.SPACEBAR ]);
+        keyAddBall = game.input.keyboard.addKey(Phaser.Keyboard.ONE);
         //game.input.keyboard.addKeyCapture([ Phaser.Keyboard.ALT]);
         //keyAlt = game.input.keyboard.addKey(Phaser.Keyboard.ONE);
-        //keyAlt.onDown.add(makeDrumBall, this);
+        keyAddBall.onDown.add(makeDrumBall, this);
         //game.input.keyboard.removeKeyCapture(Phaser.Keyboard.ONE);
 
 
@@ -179,9 +185,10 @@ document.addEventListener(startEvent,function() {
     function update() {
 
         //game.physics.arcade.collide(bullets, drumBalls, hitDrumBall, null, this);
-            //game.physics.arcade.collide(beatEmitter);
-            game.physics.arcade.collide(paddle, drumBalls, paddleHit, null, this);
-            game.physics.arcade.collide(drumBalls, drumBalls, ballsHit, null, this);
+        //game.physics.arcade.collide(beatEmitter);
+        //game.physics.arcade.collide(paddle, drumBalls, paddleHit, null, this);
+        game.physics.arcade.collide(paddle, drumBalls);
+        game.physics.arcade.collide(drumBalls, drumBalls, ballsHit, null, this);
 
         game.input.enabled = true;
         if (cursors.up.isDown)
@@ -202,18 +209,26 @@ document.addEventListener(startEvent,function() {
 
     }
 
-function ballsHit() {
-    snare.start("@16n");
-}
+    function ballsHit() {
+        snare.start("@16n");
+    }
 
-function paddleHit(){
-    kick.start("@16n");
-}
+    function paddleHit(){
+        kick.start("@16n");
+    }
 
     function ballOut(beatBall) {
         console.log("Beat out");
 
     }
-
+    function makeDrumBall() {
+        var ball = drumBalls.create(window.innerWidth, window.innerHeight/2, 'ball');
+        ball.checkWorldBounds = true;
+        ball.body.collideWorldBounds = true;
+        ball.body.bounce.setTo(1,1);
+        //ball.body.gravity = 0;
+        ball.events.onOutOfBounds.add(ballOut, this);
+        ball.body.velocity.x = -400;
+    }
 
 });
