@@ -23,6 +23,9 @@ document.addEventListener(startEvent,function() {
         kick.start();
     }, notes);
 
+    var worldBoundSignal = new Phaser.Signal();
+    //worldBoundSignal.add(onWorldBounds, this);
+
     kickPart.loop = true;
     kickPart.length = 1;
     kickPart.loopEnd = "1m";
@@ -61,6 +64,8 @@ document.addEventListener(startEvent,function() {
             ball.body.bounce.setTo(1,1);
             //ball.body.gravity = 0;
             ball.events.onOutOfBounds.add(ballOut, this);
+
+            //ball.body.onWorldBounds = worldBoundSignal;
             ball.body.velocity.x = -400;
             //ball.body.velocity.y = 200;
             //ball.body.velocity.y = 100 - (Math.random() * 200);
@@ -140,6 +145,7 @@ document.addEventListener(startEvent,function() {
 
         game.stage.backgroundColor = "#4488AA";
         game.physics.startSystem(Phaser.Physics.ARCADE);
+        game.physics.arcade.checkCollision.left = false;
         drumBalls = game.add.group();
         drumBalls.enableBody = true;
         drumBalls.physicsBodyType = Phaser.Physics.ARCADE;
@@ -221,6 +227,7 @@ document.addEventListener(startEvent,function() {
         console.log("Beat out");
 
     }
+
     function makeDrumBall() {
         var ball = drumBalls.create(window.innerWidth, window.innerHeight/2, 'ball');
         ball.checkWorldBounds = true;
