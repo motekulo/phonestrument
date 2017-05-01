@@ -68,8 +68,10 @@ document.addEventListener(startEvent,function() {
     Tone.Transport.bpm.value = tempo;
 
     // assuming 4 beats per bar for the moment
-    var barVelocity = window.innerWidth/(60/tempo * 4);
-    console.log("Bar velocity will be " + barVelocity)+ " pixels per sec";
+    var barHorVelocity = window.innerWidth/(60/tempo * 4);
+    var barVertVelocity = window.innerHeight/(60/tempo * 4);
+
+    console.log("Bar velocity will be " + barHorVelocity)+ " pixels per sec";
     // Tone.Transport.scheduleRepeat(function(time){
     //     console.log("Ping...");
     //
@@ -135,6 +137,7 @@ document.addEventListener(startEvent,function() {
     //var leftEmitter;
     //var beatEmitter;
     var drumBalls;
+    var pitchBalls;
     var vPaddle;
     var hPaddle;
     var cursors;
@@ -170,6 +173,10 @@ document.addEventListener(startEvent,function() {
         drumBalls.enableBody = true;
         drumBalls.physicsBodyType = Phaser.Physics.ARCADE;
 
+        pitchBalls = game.add.group();
+        pitchBalls.enableBody = true;
+        pitchBalls.physicsBodyType = Phaser.Physics.ARCADE;
+
 
         //snareBalls = game.add.group();
 
@@ -192,12 +199,12 @@ document.addEventListener(startEvent,function() {
         game.physics.enable(vPaddle, Phaser.Physics.ARCADE);
         vPaddle.body.collideWorldBounds = true;
         vPaddle.body.immovable = true;
-        vPaddle.scale.setTo(2,4);
-        vPaddle.anchor.x = 0.5;
-        vPaddle.anchor.y = 0.5;
+        vPaddle.scale.setTo(2,2);
+        //vPaddle.anchor.x = 0.5;
+        //vPaddle.anchor.y = 0.5;
         //paddle.body.bounce.set(1);
         hPaddle = game.add.sprite(window.innerWidth/2, window.innerHeight - 8, 'paddle');
-        hPaddle.scale.setTo(8,0.25);
+        hPaddle.scale.setTo(12,0.5);
         hPaddle.anchor.set(0.5, 0.5);
         //hPaddle.anchor.x = 0.5;
         //hPaddle.anchor.y = 0.5;
@@ -208,14 +215,15 @@ document.addEventListener(startEvent,function() {
         hPaddle.body.immovable = true;
 
 
-
-
         cursors = game.input.keyboard.createCursorKeys();
         game.input.keyboard.addKeyCapture([ Phaser.Keyboard.SPACEBAR ]);
-        keyAddBall = game.input.keyboard.addKey(Phaser.Keyboard.ONE);
+        keyAddHBall = game.input.keyboard.addKey(Phaser.Keyboard.ONE);
         //game.input.keyboard.addKeyCapture([ Phaser.Keyboard.ALT]);
         //keyAlt = game.input.keyboard.addKey(Phaser.Keyboard.ONE);
-        keyAddBall.onDown.add(makeDrumBall, this);
+        keyAddHBall.onDown.add(makeDrumBall, this);
+
+        keyAddVBall = game.input.keyboard.addKey(Phaser.Keyboard.TWO);
+        keyAddVBall.onDown.add(makePitchBall, this);
         //game.input.keyboard.removeKeyCapture(Phaser.Keyboard.ONE);
 
 
@@ -308,8 +316,8 @@ document.addEventListener(startEvent,function() {
         ball.body.collideWorldBounds = true;
         ball.body.bounce.setTo(1,1);
         //ball.body.gravity = 0;
-        ball.events.onOutOfBounds.add(ballOut, this);
-        ball.body.velocity.x = -barVelocity;
+        //ball.events.onOutOfBounds.add(ballOut, this);
+        ball.body.velocity.x = -barHorVelocity;
         if (vPaddle.y < window.innerHeight/2) {
             ball.instrument = "snare";
             ball.frame = 1;
@@ -317,6 +325,18 @@ document.addEventListener(startEvent,function() {
             ball.instrument = "kick";
             ball.frame = 2;
         }
+    }
+
+    function makePitchBall() {
+
+        var ball = pitchBalls.create(hPaddle.x, window.innerHeight,  'ball');
+        ball.checkWorldBounds = true;
+        ball.body.collideWorldBounds = true;
+        ball.body.bounce.setTo(1,1);
+        //ball.body.gravity = 0;
+        //ball.events.onOutOfBounds.add(ballOut, this);
+        ball.body.velocity.y = -barVertVelocity;
+
     }
 
 });
