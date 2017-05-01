@@ -24,8 +24,6 @@ document.addEventListener(startEvent,function() {
     var snarePart;
     var polyPart;
 
-    //var worldBoundSignal = new Phaser.Signal();
-
     var tempo = 116;
     var scalestructure = [2,2,3,2,3];
     var key = "C";
@@ -40,11 +38,9 @@ document.addEventListener(startEvent,function() {
     var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, '', {
         preload: preload,
         create: create,
-        update: update,
-        render: render
+        update: update
     });
-    //var leftEmitter;
-    //var beatEmitter;
+
     var drumBalls;
     var pitchBalls;
     var vPaddle;
@@ -52,9 +48,6 @@ document.addEventListener(startEvent,function() {
     var cursors;
     var left = false;
     var right = false;
-
-    //var line = [];
-    //var keyAlt;
 
     function preload () {
         //game.load.image('logo', 'phaser.png');
@@ -86,90 +79,48 @@ document.addEventListener(startEvent,function() {
         pitchBalls.enableBody = true;
         pitchBalls.physicsBodyType = Phaser.Physics.ARCADE;
 
-
-        //snareBalls = game.add.group();
-
-        // beatEmitter = game.add.emitter(game.world.width - 50, game.world.centerY - 200);
-        // beatEmitter.gravity = 0;
-        // beatEmitter.bounce.setTo(1, 1);
-        // beatEmitter.setXSpeed(-100, -200);
-        // beatEmitter.setYSpeed(-50, 50);
-        // beatEmitter.makeParticles('balls', 1, 24, true, true);
-
-        //beatEmitter.events.onOutOfBounds.add(beatOut, this);
-        // explode, lifespan, frequency, quantity
-        // beatEmitter.start(false, 0, 1000, 48);
-
-
         vPaddle = game.add.sprite(16, window.innerHeight/2, 'paddle');
         vPaddle.anchor.set(0.5, 0.5);
         vPaddle.enableBody = true;
-        //paddle.physicsBodyType = Phaser.Physics.ARCADE;
+
         game.physics.enable(vPaddle, Phaser.Physics.ARCADE);
         vPaddle.body.collideWorldBounds = true;
         vPaddle.body.immovable = true;
         vPaddle.scale.setTo(2,2);
-        //vPaddle.anchor.x = 0.5;
-        //vPaddle.anchor.y = 0.5;
-        //paddle.body.bounce.set(1);
+
         hPaddle = game.add.sprite(window.innerWidth/2, window.innerHeight - 8, 'paddle');
         hPaddle.scale.setTo(12,0.5);
         hPaddle.anchor.set(0.5, 0.5);
-        //hPaddle.anchor.x = 0.5;
-        //hPaddle.anchor.y = 0.5;
         hPaddle.enableBody = true;
-        //paddle.physicsBodyType = Phaser.Physics.ARCADE;
         game.physics.enable(hPaddle, Phaser.Physics.ARCADE);
         hPaddle.body.collideWorldBounds = true;
         hPaddle.body.immovable = true;
 
-
         cursors = game.input.keyboard.createCursorKeys();
         game.input.keyboard.addKeyCapture([ Phaser.Keyboard.SPACEBAR ]);
         keyAddHBall = game.input.keyboard.addKey(Phaser.Keyboard.ONE);
-        //game.input.keyboard.addKeyCapture([ Phaser.Keyboard.ALT]);
-        //keyAlt = game.input.keyboard.addKey(Phaser.Keyboard.ONE);
+
         keyAddHBall.onDown.add(makeDrumBall, this);
 
         keyAddVBall = game.input.keyboard.addKey(Phaser.Keyboard.TWO);
         keyAddVBall.onDown.add(makePitchBall, this);
-        //game.input.keyboard.removeKeyCapture(Phaser.Keyboard.ONE);
-
-
-        // Draw a grid
-
-        Tone.Transport.start();
-
-        while (!samplesLoaded) {
-
-        }
-
 
     }
     function update() {
 
-        //game.physics.arcade.collide(bullets, drumBalls, hitDrumBall, null, this);
-        //game.physics.arcade.collide(beatEmitter);
         game.physics.arcade.collide(vPaddle, drumBalls, paddleHit, null, this);
-        //game.physics.arcade.collide(paddle, drumBalls);
         game.physics.arcade.collide(drumBalls, drumBalls, ballsHit, null, this);
 
         game.input.enabled = true;
         if (cursors.up.isDown)
         {
             vPaddle.body.velocity.y = -800;
-            //game.physics.arcade.accelerationFromRotation(ship.rotation, 200, //ship.body.acceleration);
         } else if (cursors.down.isDown)
         {
             vPaddle.body.velocity.y = 800;
         } else {
             vPaddle.body.velocity.y = 0;
         }
-
-    }
-
-    function render() {
-
 
     }
 
@@ -182,24 +133,12 @@ document.addEventListener(startEvent,function() {
 
         } else {
             console.log("different balls");
-            // var pitchDivision = scalestructure.length + 1;
-            //
-            // //var beat = Math.round(a.position.x/window.innerWidth * 16);
-            // var pitchIndex = Math.round(ball1.position.y/window.innerHeight * pitchDivision * 3);
-            // //var pitch = a.position.y;
-            // var octave = Math.floor(pitchIndex/pitchDivision) + 3 ; // 3 8ves; starting 8ve 4
-            // //console.log("left collision x: " + leftParticle.x + " and beat is " + beat);
-            // //polyPart.at(beat + "n", pitch);
-            // var pitch = scale[pitchIndex % (pitchDivision - 1)] + octave;
-            // // polyPart.at(beat + "n", pitch);
-            // plucky.triggerAttackRelease(pitch, "16n", "@16n");
+
         }
 
     }
 
     function paddleHit(paddle, ball){
-        //kick.start("@16n");
-        //console.log(paddle, ball);
 
         // Use paddle to bounce ball back:
         // if (ball.y < (paddle.y - paddle.height/4)) {
@@ -210,7 +149,7 @@ document.addEventListener(startEvent,function() {
 
         // Use paddle as a ball destroyer:
         ball.destroy();
-        //if ()
+
     }
 
     function ballOut(beatBall) {
@@ -224,8 +163,7 @@ document.addEventListener(startEvent,function() {
         ball.checkWorldBounds = true;
         ball.body.collideWorldBounds = true;
         ball.body.bounce.setTo(1,1);
-        //ball.body.gravity = 0;
-        //ball.events.onOutOfBounds.add(ballOut, this);
+
         ball.body.velocity.x = -barHorVelocity;
         if (vPaddle.y < window.innerHeight/2) {
             ball.instrument = "snare";
@@ -242,8 +180,6 @@ document.addEventListener(startEvent,function() {
         ball.checkWorldBounds = true;
         ball.body.collideWorldBounds = true;
         ball.body.bounce.setTo(1,1);
-        //ball.body.gravity = 0;
-        //ball.events.onOutOfBounds.add(ballOut, this);
         ball.body.velocity.y = -barVertVelocity;
 
     }
@@ -308,10 +244,11 @@ document.addEventListener(startEvent,function() {
             if (numSamplesLoaded == 3) {
                 samplesLoaded = true;
                 console.log("Samples loaded");
-                hatPart.start();
+                Tone.Transport.start();
+                hatPart.start(); // has events in it from init
             }
         }
-    
+
 
         Tone.Transport.loop = false;
         Tone.Transport.bpm.value = tempo;
