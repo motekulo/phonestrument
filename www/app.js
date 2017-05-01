@@ -70,27 +70,27 @@ document.addEventListener(startEvent,function() {
     // assuming 4 beats per bar for the moment
     var barVelocity = window.innerWidth/(60/tempo * 4);
     console.log("Bar velocity will be " + barVelocity)+ " pixels per sec";
-    Tone.Transport.scheduleRepeat(function(time){
-        console.log("Ping...");
-
-        // if (beatCount < beatTotal) {
-        //     // Send out a beatBall in time
-        //     //var ball = drumBalls.create(window.innerWidth, window.innerHeight/2 + Math.random() * 60, 'ball');
-        //     var ball = drumBalls.create(window.innerWidth, window.innerHeight/2, 'ball');
-        //     ball.checkWorldBounds = true;
-        //     ball.body.collideWorldBounds = true;
-        //     ball.body.bounce.setTo(1,1);
-        //     //ball.body.gravity = 0;
-        //     ball.events.onOutOfBounds.add(ballOut, this);
-        //
-        //     //ball.body.onWorldBounds = worldBoundSignal;
-        //     ball.body.velocity.x = -400;
-        //     //ball.body.velocity.y = 200;
-        //     //ball.body.velocity.y = 100 - (Math.random() * 200);
-        //     beatCount++;
-        // }
-
-    }, "4n");
+    // Tone.Transport.scheduleRepeat(function(time){
+    //     console.log("Ping...");
+    //
+    //     // if (beatCount < beatTotal) {
+    //     //     // Send out a beatBall in time
+    //     //     //var ball = drumBalls.create(window.innerWidth, window.innerHeight/2 + Math.random() * 60, 'ball');
+    //     //     var ball = drumBalls.create(window.innerWidth, window.innerHeight/2, 'ball');
+    //     //     ball.checkWorldBounds = true;
+    //     //     ball.body.collideWorldBounds = true;
+    //     //     ball.body.bounce.setTo(1,1);
+    //     //     //ball.body.gravity = 0;
+    //     //     ball.events.onOutOfBounds.add(ballOut, this);
+    //     //
+    //     //     //ball.body.onWorldBounds = worldBoundSignal;
+    //     //     ball.body.velocity.x = -400;
+    //     //     //ball.body.velocity.y = 200;
+    //     //     //ball.body.velocity.y = 100 - (Math.random() * 200);
+    //     //     beatCount++;
+    //     // }
+    //
+    // }, "4n");
 
     //var scalestructure = [2,2,1,2,2,2,1];
     var scalestructure = [2,2,3,2,3];
@@ -135,7 +135,8 @@ document.addEventListener(startEvent,function() {
     //var leftEmitter;
     //var beatEmitter;
     var drumBalls;
-    var paddle;
+    var vPaddle;
+    var hPaddle;
     var cursors;
     var left = false;
     var right = false;
@@ -184,16 +185,16 @@ document.addEventListener(startEvent,function() {
         // beatEmitter.start(false, 0, 1000, 48);
 
 
-        paddle = game.add.sprite(16, window.innerHeight/2, 'paddle');
-        paddle.anchor.set(0.5, 0.5);
-        paddle.enableBody = true;
+        vPaddle = game.add.sprite(16, window.innerHeight/2, 'paddle');
+        vPaddle.anchor.set(0.5, 0.5);
+        vPaddle.enableBody = true;
         //paddle.physicsBodyType = Phaser.Physics.ARCADE;
-        game.physics.enable(paddle, Phaser.Physics.ARCADE);
-        paddle.body.collideWorldBounds = true;
-        paddle.body.immovable = true;
-        paddle.scale.setTo(2,4);
-        paddle.anchor.x = 0.5;
-        paddle.anchor.y = 0.5;
+        game.physics.enable(vPaddle, Phaser.Physics.ARCADE);
+        vPaddle.body.collideWorldBounds = true;
+        vPaddle.body.immovable = true;
+        vPaddle.scale.setTo(2,4);
+        vPaddle.anchor.x = 0.5;
+        vPaddle.anchor.y = 0.5;
         //paddle.body.bounce.set(1);
 
         cursors = game.input.keyboard.createCursorKeys();
@@ -219,20 +220,20 @@ document.addEventListener(startEvent,function() {
 
         //game.physics.arcade.collide(bullets, drumBalls, hitDrumBall, null, this);
         //game.physics.arcade.collide(beatEmitter);
-        game.physics.arcade.collide(paddle, drumBalls, paddleHit, null, this);
+        game.physics.arcade.collide(vPaddle, drumBalls, paddleHit, null, this);
         //game.physics.arcade.collide(paddle, drumBalls);
         game.physics.arcade.collide(drumBalls, drumBalls, ballsHit, null, this);
 
         game.input.enabled = true;
         if (cursors.up.isDown)
         {
-            paddle.body.velocity.y = -800;
+            vPaddle.body.velocity.y = -800;
             //game.physics.arcade.accelerationFromRotation(ship.rotation, 200, //ship.body.acceleration);
         } else if (cursors.down.isDown)
         {
-            paddle.body.velocity.y = 800;
+            vPaddle.body.velocity.y = 800;
         } else {
-            paddle.body.velocity.y = 0;
+            vPaddle.body.velocity.y = 0;
         }
 
     }
@@ -284,14 +285,14 @@ document.addEventListener(startEvent,function() {
 
     function makeDrumBall() {
 
-        var ball = drumBalls.create(window.innerWidth, paddle.y, 'ball');
+        var ball = drumBalls.create(window.innerWidth, vPaddle.y, 'ball');
         ball.checkWorldBounds = true;
         ball.body.collideWorldBounds = true;
         ball.body.bounce.setTo(1,1);
         //ball.body.gravity = 0;
         ball.events.onOutOfBounds.add(ballOut, this);
         ball.body.velocity.x = -barVelocity;
-        if (paddle.y < window.innerHeight/2) {
+        if (vPaddle.y < window.innerHeight/2) {
             ball.instrument = "snare";
             ball.frame = 1;
         } else {
