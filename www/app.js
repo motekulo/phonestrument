@@ -97,9 +97,9 @@ document.addEventListener(startEvent,function() {
         hPaddle.body.immovable = true;
 
         cursors = game.input.keyboard.createCursorKeys();
-        game.input.keyboard.addKeyCapture([ Phaser.Keyboard.SPACEBAR ]);
-        keyAddHBall = game.input.keyboard.addKey(Phaser.Keyboard.ONE);
+        //game.input.keyboard.addKeyCapture([ Phaser.Keyboard.SPACEBAR ]);
 
+        keyAddHBall = game.input.keyboard.addKey(Phaser.Keyboard.ONE);
         keyAddHBall.onDown.add(makeDrumBall, this);
 
         keyAddVBall = game.input.keyboard.addKey(Phaser.Keyboard.TWO);
@@ -109,7 +109,10 @@ document.addEventListener(startEvent,function() {
     function update() {
 
         game.physics.arcade.collide(vPaddle, drumBalls, paddleHit, null, this);
-        game.physics.arcade.collide(drumBalls, drumBalls, ballsHit, null, this);
+        game.physics.arcade.collide(hPaddle, pitchBalls, paddleHit, null, this);
+
+        game.physics.arcade.collide(drumBalls, drumBalls, horBallsHit, null, this);
+        game.physics.arcade.collide(pitchBalls, pitchBalls, vertBallsHit, null, this);
 
         game.input.enabled = true;
         if (cursors.up.isDown)
@@ -122,9 +125,22 @@ document.addEventListener(startEvent,function() {
             vPaddle.body.velocity.y = 0;
         }
 
+        if (cursors.left.isDown)
+        {
+            hPaddle.body.velocity.x = -800;
+        } else if (cursors.right.isDown)
+        {
+            hPaddle.body.velocity.x = 800;
+        } else {
+            hPaddle.body.velocity.x = 0;
+        }
+
     }
 
-    function ballsHit(ball1, ball2) {
+    /* Horizontal moving balls collision
+     *
+     */
+    function horBallsHit(ball1, ball2) {
         if (ball1.instrument == "snare" && ball2.instrument == "snare"){
             snare.start("@16n");
 
@@ -136,6 +152,10 @@ document.addEventListener(startEvent,function() {
 
         }
 
+    }
+
+    function vertBallsHit(ball1, ball2){
+        console.log("vert balls collision");
     }
 
     function paddleHit(paddle, ball){
@@ -176,7 +196,7 @@ document.addEventListener(startEvent,function() {
 
     function makePitchBall() {
 
-        var ball = pitchBalls.create(hPaddle.x, window.innerHeight,  'ball');
+        var ball = pitchBalls.create(hPaddle.x, 0,  'ball');
         ball.checkWorldBounds = true;
         ball.body.collideWorldBounds = true;
         ball.body.bounce.setTo(1,1);
