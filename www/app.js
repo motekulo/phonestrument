@@ -155,7 +155,28 @@ document.addEventListener(startEvent,function() {
     }
 
     function vertBallsHit(ball1, ball2){
-        console.log("vert balls collision");
+        //console.log("vert balls collision");
+
+        var scaled = Math.round(20 - (ball1.body.y/window.innerHeight * 20));
+        var note = scale[scaled % 5]; // adjust for number of notes in scale
+        var octave = Math.floor(scaled/20 * 4) + 2;  // 4 octaves to divide into
+        var filterFreq = (ball1.body.x/window.innerWidth * 100);
+        console.log("filterFreq: " + filterFreq);
+            //plucky.filter.frequency.value = filterFreq;
+        plucky.set({
+            "filterEnvelope" : {
+                "baseFrequency" : filterFreq
+            }
+        });
+
+        plucky.triggerAttackRelease(note + octave, "16n", "@8n");
+        console.log(note + octave);
+            //console.log("ship y accel: " + ship.body.acceleration.y); // -200 to 200
+            //var filterFreq = (ship.body.acceleration.x/window.innerWidth * 8000 +500);
+            //console.log("filterFreq: " + filterFreq);
+            //plucky.filter,frequency = filterFreq;
+
+
     }
 
     function paddleHit(paddle, ball){
@@ -206,8 +227,8 @@ document.addEventListener(startEvent,function() {
 
     function initMusic() {
 
-        plucky = new Tone.MonoSynth();
-        //plucky = new Tone.PolySynth(3, Tone.MonoSynth).toMaster();
+        //plucky = new Tone.MonoSynth();
+        plucky = new Tone.PolySynth(3, Tone.MonoSynth);
         pluckyPanVol = new Tone.PanVol(0.5, -18);
         plucky.connect(pluckyPanVol);
         pluckyPanVol.connect(Tone.Master);
