@@ -9,23 +9,26 @@ document.addEventListener(startEvent,function() {
     var pluckyPanVol; // Panner and gain for plucky
 
     var kick;  // Sample player - kick sound
+    var kickPanVol;
 
     var closedHat; // Metronome sample player
+    var closedHatPanVol;
     var hatPart; // Metronome part
 
     var snare; // Sample player - snare
+    var snareSampler;
     var snarePanVol; // Panner and gain for snare
 
     var beatCount = 0; // number of beats/balls counter
     var beatTotal = 8; // number of balls to start with
     var notes = [];
 
-    var kickPart;
-    var snarePart;
-    var polyPart;
+    //var kickPart;
+    //var snarePart;
+    //var polyPart;
 
     var tempo = 116;
-    var scalestructure = [2,2,3,2,3];
+    var scalestructure = [4,3,3,2];
     var key = "C";
     var scale;
 
@@ -50,20 +53,10 @@ document.addEventListener(startEvent,function() {
     var right = false;
 
     function preload () {
-        //game.load.image('logo', 'phaser.png');
-        //game.load.image('sky', 'assets/underwater3.png');
-        //game.load.spritesheet('rain', 'assets/rain.png', 17, 17);
+
         game.load.spritesheet('ball', 'assets/balls.png', 17, 17);
         game.load.image('paddle', 'assets/paddle.png');
-        // game.load.image('ship', 'assets/ship.png');
-        // game.load.image('bullet', 'assets/bullets.png');
 
-        // game.load.spritesheet('buttonvertical', 'assets/button-vertical.png',64,64);
-        // game.load.spritesheet('buttonhorizontal', 'assets/button-horizontal.png',96,64);
-        // game.load.spritesheet('buttonfire', 'assets/button-round-a.png',96,96);
-        // game.load.spritesheet('buttonmakeball', 'assets/button-round-b.png',96,96);
-
-        //plucky.triggerAttack("C4");   // Test sound from Tone.js
     }
 
     function create () {
@@ -114,6 +107,7 @@ document.addEventListener(startEvent,function() {
         game.physics.arcade.collide(drumBalls, drumBalls, horBallsHit, null, this);
         game.physics.arcade.collide(pitchBalls, pitchBalls, vertBallsHit, null, this);
 
+
         game.input.enabled = true;
         if (cursors.up.isDown)
         {
@@ -142,26 +136,26 @@ document.addEventListener(startEvent,function() {
      */
     function horBallsHit(ball1, ball2) {
         if (ball1.instrument == "snare" && ball2.instrument == "snare"){
-            snare.start("@16n");
+            //snare.start(Tone.TransportTime("@4n"));
+            snareSampler.triggerAttackRelease(0, "8n", "@8n");
+            //snarePart.at(Tone.TransportTime("@4n"), "C4");
 
         } else if (ball1.instrument == "kick" && ball2.instrument == "kick"){
-            kick.start("@16n");
-
-        } else {
-            console.log("different balls");
+            kick.triggerAttackRelease(0, "8n", "@8n");
+            //kick.start(Tone.TransportTime("@4n"));
+            //kickPart.at(Tone.TransportTime("@4n"), "C4");
 
         }
-
     }
 
     function vertBallsHit(ball1, ball2){
         //console.log("vert balls collision");
 
         var scaled = Math.round(20 - (ball1.body.y/window.innerHeight * 20));
-        var note = scale[scaled % 5]; // adjust for number of notes in scale
+        var note = scale[scaled % scalestructure.length]; // adjust for number of notes in scale
         var octave = Math.floor(scaled/20 * 4) + 2;  // 4 octaves to divide into
         var filterFreq = (ball1.body.x/window.innerWidth * 100);
-        console.log("filterFreq: " + filterFreq);
+    //    console.log("filterFreq: " + filterFreq);
             //plucky.filter.frequency.value = filterFreq;
         plucky.set({
             "filterEnvelope" : {
@@ -169,8 +163,8 @@ document.addEventListener(startEvent,function() {
             }
         });
 
-        plucky.triggerAttackRelease(note + octave, "16n", "@8n");
-        console.log(note + octave);
+        plucky.triggerAttackRelease(note + octave, "16n", "@16n");
+    //    console.log(note + octave);
             //console.log("ship y accel: " + ship.body.acceleration.y); // -200 to 200
             //var filterFreq = (ship.body.acceleration.x/window.innerWidth * 8000 +500);
             //console.log("filterFreq: " + filterFreq);
@@ -205,7 +199,7 @@ document.addEventListener(startEvent,function() {
         ball.body.collideWorldBounds = true;
         ball.body.bounce.setTo(1,1);
 
-        ball.body.velocity.x = -barHorVelocity;
+        ball.body.velocity.x = -barHorVelocity + (Math.random() * 200-100);
         if (vPaddle.y < window.innerHeight/2) {
             ball.instrument = "snare";
             ball.frame = 1;
@@ -221,62 +215,49 @@ document.addEventListener(startEvent,function() {
         ball.checkWorldBounds = true;
         ball.body.collideWorldBounds = true;
         ball.body.bounce.setTo(1,1);
-        ball.body.velocity.y = -barVertVelocity;
+        ball.body.velocity.y = -barVertVelocity * (hPaddle.x / window.innerWidth) * 2 +  (Math.random() * 200);
 
     }
 
     function initMusic() {
 
         //plucky = new Tone.MonoSynth();
-        plucky = new Tone.PolySynth(3, Tone.MonoSynth);
+        plucky = new Tone.PolySynth(4, Tone.MonoSynth);
         pluckyPanVol = new Tone.PanVol(0.5, -18);
         plucky.connect(pluckyPanVol);
         pluckyPanVol.connect(Tone.Master);
 
-        kick = new Tone.Player("assets/kick_mix_1.wav",                 sampleLoaded).toMaster();
-        kick.retrigger = true;
+        kick = new Tone.Sampler("assets/kick_mix_1.wav",                 sampleLoaded);
+        kickPanVol = new Tone.PanVol(0.5, 0);
+        kick.connect(kickPanVol);
+        kickPanVol.connect(Tone.Master);
+        //kick.retrigger = true;
 
         // Using a closed high hat as metronome
-        closedHat = new Tone.Player("assets/chh_mixed_1.wav", sampleLoaded).toMaster();
-        closedHat.retrigger = true;
+        closedHat = new Tone.Sampler("assets/chh_mixed_1.wav", sampleLoaded);
+        closedHatPanVol = new Tone.PanVol(0.5, -12);
+        closedHat.connect(closedHatPanVol);
+        closedHatPanVol.connect(Tone.Master);
+        //closedHat.retrigger = true;
+        //closedHat.sync();
         hatPart = new Tone.Part(function(time, note) {
-            closedHat.start();
-        }, [["0:0", "C3"],["0:1", "C3"],["0:2", "C3"],["0:3", "C3"]]);
+            closedHat.triggerAttackRelease(0, "8n", time);
+        }, [["0:0", "C3"],["0:1", "C3"],["0:2", "C3"]]);
         hatPart.loop = true;
         hatPart.length = 1;
         hatPart.loopEnd = "1m";
 
-        snare = new Tone.Player("assets/snare_mix_1.wav", sampleLoaded);
+        //snare = new Tone.Player("assets/snare_mix_1.wav", sampleLoaded);
+        snareSampler = new Tone.Sampler("assets/snare_mix_1.wav", sampleLoaded);
         snarePanVol = new Tone.PanVol(0.5, -12);
-        snare.connect(snarePanVol);
+        //snare.connect(snarePanVol);
+        snareSampler.connect(snarePanVol);
         snarePanVol.connect(Tone.Master);
-        snare.retrigger = true;
 
-        kickPart = new Tone.Part(function(time, note) {
-            kick.start();
-        }, notes);
-
-        kickPart.loop = true;
-        kickPart.length = 1;
-        kickPart.loopEnd = "1m";
-        kickPart.start(0);
-
-        snarePart = new Tone.Part(function(time, note) {
-            snare.start();
-        }, notes);
-
-        snarePart.loop = true;
-        snarePart.length = 1;
-        snarePart.loopEnd = "1m";
-        snarePart.start(0);
-
-        polyPart = new Tone.Part(function(time, note) {
-            plucky.triggerAttackRelease(note, "16n", time);
-        }, notes);
-        polyPart.loop = true;
-        polyPart.length = 1;
-        polyPart.loopEnd = "1m";
-        polyPart.start(0);
+        Tone.Transport.loop = true;
+        Tone.Transport.loopStart = 0;
+        Tone.Transport.loopEnd = "1m";
+        Tone.Transport.bpm.value = tempo;
 
         var samplesLoaded = false;
         var numSamplesLoaded = 0;
@@ -285,14 +266,16 @@ document.addEventListener(startEvent,function() {
             if (numSamplesLoaded == 3) {
                 samplesLoaded = true;
                 console.log("Samples loaded");
+
+                hatPart.start(0); // has events in it from init
+                //kickPart.start(0);
+                //snarePart.start(0);
+                //polyPart.start(0);
                 Tone.Transport.start();
-                hatPart.start(); // has events in it from init
+
             }
         }
 
-
-        Tone.Transport.loop = false;
-        Tone.Transport.bpm.value = tempo;
 
         scale = setScale(key);
 

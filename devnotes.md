@@ -10,7 +10,7 @@ Tilemap gravity good for world and camera too
 
 sprites/out of bounds.js has example of onOutOfBounds on sprites
 
-## May 5, 2017
+## May 1, 2017
 
 exp_6 tagged; the most effective rhythm was in fact when balls were sent out straight, and bounced back against themselves in various ways. A possible variation on this:
 
@@ -18,3 +18,7 @@ The paddle just returns the balls; if it's not there, then the beats are removed
 
 Pressing a key adds more beats
 tagged as exp_7
+
+## May 3, 2017
+
+exp_8 at the moment; paddle deletes balls. Adjusted the speed of the ball to match a bar across (or up and down) the screen. Different speeds likely to mean bounces have a different phase surely? Try snares with one speed (say 75% of current) versus the bass part.
