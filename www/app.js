@@ -49,13 +49,24 @@ document.addEventListener(startEvent,function() {
     var vPaddle;
     var hPaddle;
     var cursors;
+    var thumbStick;
+    var horBallButton;
+    var vertBallButton;
     var left = false;
     var right = false;
+    var up = false;
+    var down = false;
 
     function preload () {
 
         game.load.spritesheet('ball', 'assets/balls.png', 17, 17);
         game.load.image('paddle', 'assets/paddle.png');
+
+        game.load.spritesheet('buttonvertical', 'assets/button-vertical.png',64,64);
+
+        game.load.spritesheet('horballfire', 'assets/button-round-a.png', 96,96);
+        game.load.spritesheet('vertballfire', 'assets/button-round-b.png', 96,96);
+
 
     }
 
@@ -98,6 +109,52 @@ document.addEventListener(startEvent,function() {
         keyAddVBall = game.input.keyboard.addKey(Phaser.Keyboard.TWO);
         keyAddVBall.onDown.add(makePitchBall, this);
 
+
+        buttonup = game.add.button(64, window.innerHeight - 192, 'buttonvertical', null, this, 0, 1, 0, 1);
+        buttonup.fixedToCamera = true;
+        buttonup.events.onInputOver.add(function(){up=true;});
+        buttonup.events.onInputOut.add(function(){up=false;});
+        buttonup.events.onInputDown.add(function(){up=true;});
+        buttonup.events.onInputUp.add(function(){up=false;});
+
+        buttonleft = game.add.button(0, window.innerHeight - 128, 'buttonvertical', null, this, 0, 1, 0, 1);
+        buttonleft.fixedToCamera = true;
+        buttonleft.events.onInputOver.add(function(){left=true;});
+        buttonleft.events.onInputOut.add(function(){left=false;});
+        buttonleft.events.onInputDown.add(function(){left=true;});
+        buttonleft.events.onInputUp.add(function(){left=false;});
+
+        buttonright = game.add.button(128, window.innerHeight - 128, 'buttonvertical', null, this, 0, 1, 0, 1);
+        buttonright.fixedToCamera = true;
+        buttonright.events.onInputOver.add(function(){right=true;});
+        buttonright.events.onInputOut.add(function(){right=false;});            buttonright.events.onInputDown.add(function(){right=true;});           buttonright.events.onInputUp.add(function(){right=false;});
+
+        buttondown = game.add.button(64, window.innerHeight - 64, 'buttonvertical', null, this, 0, 1, 0, 1);
+        buttondown.fixedToCamera = true;
+        buttondown.events.onInputOver.add(function(){down=true;});
+        buttondown.events.onInputOut.add(function(){down=false;});
+        buttondown.events.onInputDown.add(function(){down=true;});
+        buttondown.events.onInputUp.add(function(){down=false;});
+
+        //thumbStick.events.onInputUp.add(function(){left=false;});
+
+
+        horBallButton = game.add.button(window.innerWidth - (96*2), window.innerHeight - 96, 'horballfire', null, this, 0, 1, 0, 1);
+        horBallButton.fixedToCamera = true;
+        //buttonfire.events.onInputOver.add(function(){fire=true;});
+        //buttonfire.events.onInputOut.add(function(){fire=false;});
+        horBallButton.events.onInputDown.add(function(){
+            makeDrumBall();
+        });
+        //buttonfire.events.onInputUp.add(function(){fire=false;}
+        vertBallButton = game.add.button(window.innerWidth - 96, window.innerHeight - 96, 'vertballfire', null, this, 0, 1, 0, 1);
+        vertBallButton.fixedToCamera = true;
+        //buttonfire.events.onInputOver.add(function(){fire=true;});
+        //buttonfire.events.onInputOut.add(function(){fire=false;});
+        vertBallButton.events.onInputDown.add(function(){
+            makePitchBall();
+        });
+
     }
     function update() {
 
@@ -109,20 +166,21 @@ document.addEventListener(startEvent,function() {
 
 
         game.input.enabled = true;
-        if (cursors.up.isDown)
+
+        if (cursors.up.isDown || up)
         {
             vPaddle.body.velocity.y = -800;
-        } else if (cursors.down.isDown)
+        } else if (cursors.down.isDown || down)
         {
             vPaddle.body.velocity.y = 800;
         } else {
             vPaddle.body.velocity.y = 0;
         }
 
-        if (cursors.left.isDown)
+        if (cursors.left.isDown || left)
         {
             hPaddle.body.velocity.x = -800;
-        } else if (cursors.right.isDown)
+        } else if (cursors.right.isDown || right)
         {
             hPaddle.body.velocity.x = 800;
         } else {
