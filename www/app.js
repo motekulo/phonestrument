@@ -161,6 +161,8 @@ function create () {
         makePitchBall();
     });
 
+    //
+
 }
 function update() {
 
@@ -348,7 +350,7 @@ function initMusic() {
     Tone.Transport.loopStart = 0;
     Tone.Transport.loopEnd = "1m";
     Tone.Transport.bpm.value = tempo;
-    Tone.context.latencyHint = 'playback';
+    Tone.Transport.latencyHint = 'playback';
     //Tone.context.latencyHint = 3;
 
     var samplesLoaded = false;
@@ -363,7 +365,7 @@ function initMusic() {
             //kickPart.start(0);
             //snarePart.start(0);
             //polyPart.start(0);
-            Tone.Transport.start("+0.1");
+            //Tone.Transport.start("+0.1");
 
         }
     }
@@ -394,6 +396,16 @@ function initMusic() {
 
 nx.onload = function(){
     nx.colorize("#1bd");
+
+    toggle1.on('*', function(data){
+        //console.log(data);
+        if (data.value == 1){
+            Tone.Transport.start("+0.1");
+        } else {
+            Tone.Transport.stop();
+        }
+    })
+
     dial1.label = "bFreq";
     dial1.on('*', function(data){
         console.log(data);
