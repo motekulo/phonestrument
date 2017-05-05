@@ -46,3 +46,14 @@ One thing - I've done a few days now without testing on mobile. From past experi
 * On collision increase player sprite size and delete ball
 
 * Try adding nexusUI controls for testing purposes in the browser (underneath, maybe)
+
+### May 5 2017
+
+Some performance problems on the Samsung Tab A. Audio in Tone barely working at all. Tried latency fixes on Tone.context.latencyHint to no avail. The only thing that seemed to make a difference was getting rid of the PolySynth (converting back to MonoSynth). Leave it for now, and return later to solve it. Things to try might be just setting up a Tone project without Phaser, trying samples as ogg or mp3, using parts instead of quantized scheduled evetns on the timeline, trying to schedule events further in the future. Bear in mind, though, that not even the click track was working. That's odd in itself. Should also try as many other devices I have to hand as well - Mareta's tablet, Patrick's, other phones.
+
+#### Plan:
+Try timing with Tone.Player synced to transport. No matter what happens, move on with game idea:
+- Initial ball creation
+- increase of intensity
+- square moving
+- collision
