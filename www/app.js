@@ -77,7 +77,7 @@ function preload () {
 }
 
 function create () {
-
+    var self = this;
     game.stage.backgroundColor = "#4488AA";
     game.physics.startSystem(Phaser.Physics.ARCADE);
     //game.physics.arcade.checkCollision.left = false;
@@ -109,11 +109,11 @@ function create () {
     cursors = game.input.keyboard.createCursorKeys();
     //game.input.keyboard.addKeyCapture([ Phaser.Keyboard.SPACEBAR ]);
 
-    keyAddHBall = game.input.keyboard.addKey(Phaser.Keyboard.ONE);
-    keyAddHBall.onDown.add(makeDrumBall, this);
+    //keyAddHBall = game.input.keyboard.addKey(Phaser.Keyboard.ONE);
+    //keyAddHBall.onDown.add(makeDrumBall, this);
 
     keyAddVBall = game.input.keyboard.addKey(Phaser.Keyboard.TWO);
-    keyAddVBall.onDown.add(makePitchBall, this);
+    //keyAddVBall.onDown.add(makePitchBall, this);
 
 
     buttonup = game.add.button(64, game.height - 192, 'buttonvertical', null, this, 0, 1, 0, 1);
@@ -150,7 +150,7 @@ function create () {
     //buttonfire.events.onInputOver.add(function(){fire=true;});
     //buttonfire.events.onInputOut.add(function(){fire=false;});
     horBallButton.events.onInputDown.add(function(){
-        makeDrumBall();
+        //makeDrumBall();
     });
     //buttonfire.events.onInputUp.add(function(){fire=false;}
     vertBallButton = game.add.button(game.width - 96, game.height - 96, 'vertballfire', null, this, 0, 1, 0, 1);
@@ -158,10 +158,26 @@ function create () {
     //buttonfire.events.onInputOver.add(function(){fire=true;});
     //buttonfire.events.onInputOut.add(function(){fire=false;});
     vertBallButton.events.onInputDown.add(function(){
-        makePitchBall();
+        //makePitchBall();
     });
 
     //
+    Tone.Transport.scheduleRepeat(function(time){
+        if (drumBalls.children.length < 12){
+            var horBallYpos = Math.floor(Math.random() * game.height);
+            game.time.events.repeat(Phaser.Timer.SECOND * 0.5, 2, makeDrumBall, this, horBallYpos);
+        }
+
+        //makePitchBall();
+    }, "2m");
+
+    Tone.Transport.scheduleRepeat(function(time){
+        if (pitchBalls.children.length < 12){
+            var vertBallXpos = Math.floor(Math.random() * game.width);
+            game.time.events.repeat(Phaser.Timer.SECOND * 0.5, 2, makePitchBall, this, vertBallXpos);
+        }
+        //makePitchBall();
+    }, "2m");
 
 }
 function update() {
@@ -279,15 +295,16 @@ function ballOut(beatBall) {
 
 }
 
-function makeDrumBall() {
+function makeDrumBall(y) {
 
-    var ball = drumBalls.create(game.width, vPaddle.y, 'ball');
+
+    var ball = drumBalls.create(game.width, y, 'ball');
     ball.checkWorldBounds = true;
     ball.body.collideWorldBounds = true;
     ball.body.bounce.setTo(1,1);
 
     ball.body.velocity.x = -barHorVelocity + (Math.random() * 200-100);
-    if (vPaddle.y < game.height/2) {
+    if (y < game.height/2) {
         ball.instrument = "snare";
         ball.frame = 1;
     } else {
@@ -296,13 +313,13 @@ function makeDrumBall() {
     }
 }
 
-function makePitchBall() {
+function makePitchBall(x) {
 
-    var ball = pitchBalls.create(hPaddle.x, 0,  'ball');
+    var ball = pitchBalls.create(x, 0,  'ball');
     ball.checkWorldBounds = true;
     ball.body.collideWorldBounds = true;
     ball.body.bounce.setTo(1,1);
-    ball.body.velocity.y = -barVertVelocity * (hPaddle.x / game.width) * 2 +  (Math.random() * 200);
+    ball.body.velocity.y = -barVertVelocity * (x / game.width) * 2 +  (Math.random() * 200);
 
 }
 
@@ -352,6 +369,8 @@ function initMusic() {
     Tone.Transport.bpm.value = tempo;
     Tone.Transport.latencyHint = 'playback';
     //Tone.context.latencyHint = 3;
+
+    // Puts out a regular stream of balls
 
     var samplesLoaded = false;
     var numSamplesLoaded = 0;
