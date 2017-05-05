@@ -53,7 +53,7 @@ var barVertVelocity = game.height/(60/tempo * 4);
 var drumBalls;
 var pitchBalls;
 var vPaddle;
-var hPaddle;
+//var hPaddle;
 var cursors;
 var thumbStick;
 var horBallButton;
@@ -96,15 +96,15 @@ function create () {
     game.physics.enable(vPaddle, Phaser.Physics.ARCADE);
     vPaddle.body.collideWorldBounds = true;
     vPaddle.body.immovable = true;
-    vPaddle.scale.setTo(2,2);
+    vPaddle.scale.setTo(4,1);
 
-    hPaddle = game.add.sprite(game.width/2, game.height - 8, 'paddle');
-    hPaddle.scale.setTo(12,0.5);
-    hPaddle.anchor.set(0.5, 0.5);
-    hPaddle.enableBody = true;
-    game.physics.enable(hPaddle, Phaser.Physics.ARCADE);
-    hPaddle.body.collideWorldBounds = true;
-    hPaddle.body.immovable = true;
+    // hPaddle = game.add.sprite(game.width/2, game.height - 8, 'paddle');
+    // hPaddle.scale.setTo(12,0.5);
+    // hPaddle.anchor.set(0.5, 0.5);
+    // hPaddle.enableBody = true;
+    // game.physics.enable(hPaddle, Phaser.Physics.ARCADE);
+    // hPaddle.body.collideWorldBounds = true;
+    // hPaddle.body.immovable = true;
 
     cursors = game.input.keyboard.createCursorKeys();
     //game.input.keyboard.addKeyCapture([ Phaser.Keyboard.SPACEBAR ]);
@@ -168,7 +168,6 @@ function create () {
             game.time.events.repeat(Phaser.Timer.SECOND * 0.5, 2, makeDrumBall, this, horBallYpos);
         }
 
-        //makePitchBall();
     }, "2m");
 
     Tone.Transport.scheduleRepeat(function(time){
@@ -176,14 +175,14 @@ function create () {
             var vertBallXpos = Math.floor(Math.random() * game.width);
             game.time.events.repeat(Phaser.Timer.SECOND * 0.5, 2, makePitchBall, this, vertBallXpos);
         }
-        //makePitchBall();
+
     }, "2m");
 
 }
 function update() {
 
-    game.physics.arcade.collide(vPaddle, drumBalls, paddleHit, null, this);
-    game.physics.arcade.collide(hPaddle, pitchBalls, paddleHit, null, this);
+    //game.physics.arcade.collide(vPaddle, drumBalls, paddleHit, null, this);
+    //game.physics.arcade.collide(hPaddle, pitchBalls, paddleHit, null, this);
 
     game.physics.arcade.collide(drumBalls, drumBalls, horBallsHit, null, this);
     game.physics.arcade.collide(pitchBalls, pitchBalls, vertBallsHit, null, this);
@@ -193,22 +192,22 @@ function update() {
 
     if (cursors.up.isDown || up)
     {
-        vPaddle.body.velocity.y = -800;
+        vPaddle.body.velocity.y = -400;
     } else if (cursors.down.isDown || down)
     {
-        vPaddle.body.velocity.y = 800;
+        vPaddle.body.velocity.y = 400;
     } else {
         vPaddle.body.velocity.y = 0;
     }
 
     if (cursors.left.isDown || left)
     {
-        hPaddle.body.velocity.x = -800;
+        vPaddle.body.velocity.x = -400;
     } else if (cursors.right.isDown || right)
     {
-        hPaddle.body.velocity.x = 800;
+        vPaddle.body.velocity.x = 400;
     } else {
-        hPaddle.body.velocity.x = 0;
+        vPaddle.body.velocity.x = 0;
     }
 
 }
