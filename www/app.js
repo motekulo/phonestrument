@@ -7,8 +7,10 @@ document.addEventListener(startEvent,function() {
 
 
 });
+var deviceWidth = window.innerWidth;// * window.devicePixelRatio;
+var deviceHeight = window.innerHeight;// * window.devicePixelRatio;
 
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'stage', {
+var game = new Phaser.Game(deviceWidth, deviceHeight * 0.85, Phaser.AUTO, 'stage', {
     preload: preload, create: create, update: update });
 
 var plucky; // Main pitched synth
@@ -63,6 +65,9 @@ var right = false;
 var up = false;
 var down = false;
 
+var cubeScaleWidth = 4;
+var cubeScaleHeight = 1;
+
 function preload () {
 
     game.load.spritesheet('ball', 'assets/balls.png', 17, 17);
@@ -72,6 +77,7 @@ function preload () {
 
     game.load.spritesheet('horballfire', 'assets/button-round-a.png', 96,96);
     game.load.spritesheet('vertballfire', 'assets/button-round-b.png', 96,96);
+    game.load.spritesheet('playpausebutton', 'assets/play_pause_button.png', 148, 80);
 
 
 }
@@ -96,70 +102,47 @@ function create () {
     game.physics.enable(vPaddle, Phaser.Physics.ARCADE);
     vPaddle.body.collideWorldBounds = true;
     vPaddle.body.immovable = true;
-    vPaddle.scale.setTo(4,1);
+    vPaddle.scale.setTo(cubeScaleWidth,cubeScaleHeight);
 
-    // hPaddle = game.add.sprite(game.width/2, game.height - 8, 'paddle');
-    // hPaddle.scale.setTo(12,0.5);
-    // hPaddle.anchor.set(0.5, 0.5);
-    // hPaddle.enableBody = true;
-    // game.physics.enable(hPaddle, Phaser.Physics.ARCADE);
-    // hPaddle.body.collideWorldBounds = true;
-    // hPaddle.body.immovable = true;
+    button = game.add.button(game.world.centerX - 95, game.height - 80,
+         'playpausebutton', actionOnClick, this, 1, 1, 1, 1);
 
     cursors = game.input.keyboard.createCursorKeys();
-    //game.input.keyboard.addKeyCapture([ Phaser.Keyboard.SPACEBAR ]);
-
-    //keyAddHBall = game.input.keyboard.addKey(Phaser.Keyboard.ONE);
-    //keyAddHBall.onDown.add(makeDrumBall, this);
 
     keyAddVBall = game.input.keyboard.addKey(Phaser.Keyboard.TWO);
-    //keyAddVBall.onDown.add(makePitchBall, this);
 
+    buttonup = game.add.button(64, game.height - 192, 'buttonvertical',
+            null, this, 0, 1, 0, 1);
 
-    buttonup = game.add.button(64, game.height - 192, 'buttonvertical', null, this, 0, 1, 0, 1);
     buttonup.fixedToCamera = true;
     buttonup.events.onInputOver.add(function(){up=true;});
     buttonup.events.onInputOut.add(function(){up=false;});
     buttonup.events.onInputDown.add(function(){up=true;});
     buttonup.events.onInputUp.add(function(){up=false;});
 
-    buttonleft = game.add.button(0, game.height - 128, 'buttonvertical', null, this, 0, 1, 0, 1);
+    buttonleft = game.add.button(0, game.height - 128, 'buttonvertical',
+            null, this, 0, 1, 0, 1);
     buttonleft.fixedToCamera = true;
     buttonleft.events.onInputOver.add(function(){left=true;});
     buttonleft.events.onInputOut.add(function(){left=false;});
     buttonleft.events.onInputDown.add(function(){left=true;});
     buttonleft.events.onInputUp.add(function(){left=false;});
 
-    buttonright = game.add.button(128, game.height - 128, 'buttonvertical', null, this, 0, 1, 0, 1);
+    buttonright = game.add.button(128, game.height - 128, 'buttonvertical',
+            null, this, 0, 1, 0, 1);
     buttonright.fixedToCamera = true;
     buttonright.events.onInputOver.add(function(){right=true;});
-    buttonright.events.onInputOut.add(function(){right=false;});            buttonright.events.onInputDown.add(function(){right=true;});           buttonright.events.onInputUp.add(function(){right=false;});
+    buttonright.events.onInputOut.add(function(){right=false;});
+    buttonright.events.onInputDown.add(function(){right=true;});
+    buttonright.events.onInputUp.add(function(){right=false;});
 
-    buttondown = game.add.button(64, game.height - 64, 'buttonvertical', null, this, 0, 1, 0, 1);
+    buttondown = game.add.button(64, game.height - 64, 'buttonvertical',
+            null, this, 0, 1, 0, 1);
     buttondown.fixedToCamera = true;
     buttondown.events.onInputOver.add(function(){down=true;});
     buttondown.events.onInputOut.add(function(){down=false;});
     buttondown.events.onInputDown.add(function(){down=true;});
     buttondown.events.onInputUp.add(function(){down=false;});
-
-    //thumbStick.events.onInputUp.add(function(){left=false;});
-
-
-    horBallButton = game.add.button(game.width - (96*2), game.height - 96, 'horballfire', null, this, 0, 1, 0, 1);
-    horBallButton.fixedToCamera = true;
-    //buttonfire.events.onInputOver.add(function(){fire=true;});
-    //buttonfire.events.onInputOut.add(function(){fire=false;});
-    horBallButton.events.onInputDown.add(function(){
-        //makeDrumBall();
-    });
-    //buttonfire.events.onInputUp.add(function(){fire=false;}
-    vertBallButton = game.add.button(game.width - 96, game.height - 96, 'vertballfire', null, this, 0, 1, 0, 1);
-    vertBallButton.fixedToCamera = true;
-    //buttonfire.events.onInputOver.add(function(){fire=true;});
-    //buttonfire.events.onInputOut.add(function(){fire=false;});
-    vertBallButton.events.onInputDown.add(function(){
-        //makePitchBall();
-    });
 
     //
     Tone.Transport.scheduleRepeat(function(time){
@@ -181,8 +164,8 @@ function create () {
 }
 function update() {
 
-    //game.physics.arcade.collide(vPaddle, drumBalls, paddleHit, null, this);
-    //game.physics.arcade.collide(hPaddle, pitchBalls, paddleHit, null, this);
+    game.physics.arcade.collide(vPaddle, drumBalls, drumBallHit, null, this);
+    game.physics.arcade.collide(vPaddle, pitchBalls, pitchBallHit, null, this);
 
     game.physics.arcade.collide(drumBalls, drumBalls, horBallsHit, null, this);
     game.physics.arcade.collide(pitchBalls, pitchBalls, vertBallsHit, null, this);
@@ -197,7 +180,7 @@ function update() {
     {
         vPaddle.body.velocity.y = 400;
     } else {
-        vPaddle.body.velocity.y = 0;
+        vPaddle.body.velocity.y = -100;
     }
 
     if (cursors.left.isDown || left)
@@ -207,8 +190,15 @@ function update() {
     {
         vPaddle.body.velocity.x = 400;
     } else {
-        vPaddle.body.velocity.x = 0;
+        vPaddle.body.velocity.x = 100;
     }
+
+}
+
+function actionOnClick () {
+
+    Tone.Transport.start("+0.1");
+    button.setFrames(0,0,0,0);
 
 }
 
@@ -275,7 +265,7 @@ function vertBallsHit(ball1, ball2){
 
 }
 
-function paddleHit(paddle, ball){
+function drumBallHit(paddle, ball){
 
     // Use paddle to bounce ball back:
     // if (ball.y < (paddle.y - paddle.height/4)) {
@@ -285,8 +275,31 @@ function paddleHit(paddle, ball){
     // }
 
     // Use paddle as a ball destroyer:
+    cubeScaleHeight = cubeScaleHeight * 1.2;
+    vPaddle.scale.setTo(cubeScaleWidth,cubeScaleHeight);
     ball.destroy();
+    if (vPaddle.height >= game.height) {
+        Tone.Transport.stop();
+    }
 
+}
+
+function pitchBallHit(paddle, ball){
+
+    // Use paddle to bounce ball back:
+    // if (ball.y < (paddle.y - paddle.height/4)) {
+    //     ball.body.velocity.y = -10 * (paddle.y - ball.y);
+    // } else if (ball.y > (paddle.y + paddle.height/4)) {
+    //     ball.body.velocity.y = 10 * (ball.y - paddle.y);
+    // }
+
+    // Use paddle as a ball destroyer:
+    cubeScaleWidth = cubeScaleWidth * 1.2;
+    vPaddle.scale.setTo(cubeScaleWidth,cubeScaleHeight);
+    ball.destroy();
+    if (vPaddle.width >= game.width) {
+        Tone.Transport.stop();
+    }
 }
 
 function ballOut(beatBall) {
@@ -424,31 +437,31 @@ nx.onload = function(){
         }
     })
 
-    dial1.label = "bFreq";
-    dial1.on('*', function(data){
-        console.log(data);
-        var scaledFreq = data.value * 5000
-        plucky.set({
-            "filterEnvelope": {
-                "baseFrequency": scaledFreq
-            }
-
-        });
-    })
-    slider1.label = "Att";
-    slider1.on('*', function(data){
-        console.log(data);
-        plucky.set({
-            "envelope": {
-                "attack": data.value
-            }
-
-        });
-    })
-    tabs1.options[0] = "sine";
-    tabs1.options[1] = "square";
-    tabs1.options[2] = "sawtooth";
-    tabs1.on('*', function(data){
-        console.log(data);
-    })
+    // dial1.label = "bFreq";
+    // dial1.on('*', function(data){
+    //     console.log(data);
+    //     var scaledFreq = data.value * 5000
+    //     plucky.set({
+    //         "filterEnvelope": {
+    //             "baseFrequency": scaledFreq
+    //         }
+    //
+    //     });
+    // })
+    // slider1.label = "Att";
+    // slider1.on('*', function(data){
+    //     console.log(data);
+    //     plucky.set({
+    //         "envelope": {
+    //             "attack": data.value
+    //         }
+    //
+    //     });
+    // })
+    // tabs1.options[0] = "sine";
+    // tabs1.options[1] = "square";
+    // tabs1.options[2] = "sawtooth";
+    // tabs1.on('*', function(data){
+    //     console.log(data);
+    // })
 }
