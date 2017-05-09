@@ -64,6 +64,7 @@ var left = false;
 var right = false;
 var up = false;
 var down = false;
+var isPaused = true;
 
 var cubeScaleWidth = 4;
 var cubeScaleHeight = 1;
@@ -163,34 +164,34 @@ function create () {
 
 }
 function update() {
+    if (!isPaused) {
+        game.physics.arcade.collide(vPaddle, drumBalls, drumBallHit, null, this);
+        game.physics.arcade.collide(vPaddle, pitchBalls, pitchBallHit, null, this);
 
-    game.physics.arcade.collide(vPaddle, drumBalls, drumBallHit, null, this);
-    game.physics.arcade.collide(vPaddle, pitchBalls, pitchBallHit, null, this);
+        game.physics.arcade.collide(drumBalls, drumBalls, horBallsHit, null, this);
+        game.physics.arcade.collide(pitchBalls, pitchBalls, vertBallsHit, null, this);
 
-    game.physics.arcade.collide(drumBalls, drumBalls, horBallsHit, null, this);
-    game.physics.arcade.collide(pitchBalls, pitchBalls, vertBallsHit, null, this);
+        game.input.enabled = true; // FIXME should this be here at all?
 
+        if (cursors.up.isDown || up)
+        {
+            vPaddle.body.velocity.y = -400;
+        } else if (cursors.down.isDown || down)
+        {
+            vPaddle.body.velocity.y = 400;
+        } else {
+            vPaddle.body.velocity.y = -100;
+        }
 
-    game.input.enabled = true;
-
-    if (cursors.up.isDown || up)
-    {
-        vPaddle.body.velocity.y = -400;
-    } else if (cursors.down.isDown || down)
-    {
-        vPaddle.body.velocity.y = 400;
-    } else {
-        vPaddle.body.velocity.y = -100;
-    }
-
-    if (cursors.left.isDown || left)
-    {
-        vPaddle.body.velocity.x = -400;
-    } else if (cursors.right.isDown || right)
-    {
-        vPaddle.body.velocity.x = 400;
-    } else {
-        vPaddle.body.velocity.x = 100;
+        if (cursors.left.isDown || left)
+        {
+            vPaddle.body.velocity.x = -400;
+        } else if (cursors.right.isDown || right)
+        {
+            vPaddle.body.velocity.x = 400;
+        } else {
+            vPaddle.body.velocity.x = 100;
+        }
     }
 
 }
@@ -333,6 +334,28 @@ function makePitchBall(x) {
     ball.body.bounce.setTo(1,1);
     ball.body.velocity.y = -barVertVelocity * (x / game.width) * 2 +  (Math.random() * 200);
 
+}
+
+function pauseGame() {
+    drumBalls.setAll(body.velocity.x, 0, false, false, 0 ,false);
+    pitchBalls.setAll(body.velocity.y, 0, false, false, 0 ,false);
+    Tone.Transport.pause();
+
+}
+
+function resumeGame(){
+    // Haven't saved previous ball speed so just starting randomly; Klugish...
+    //ball.body.velocity.y = -barVertVelocity * (x / game.width) * 2 +  (Math.random() * 200);
+
+//iterate(key, value, returnType, callback, callbackContext, args) → {any}
+    drumBalls.setAll(body.velocity.x, 0, false, false, 0 ,false);
+    pitchBalls.setAll(body.velocity.y, 0, false, false, 0 ,false);
+    Tone.Transport.play();
+    function setRandomx(ball){
+
+    }
+
+    
 }
 
 function initMusic() {
