@@ -65,7 +65,7 @@ var right = false;
 var up = false;
 var down = false;
 var isPaused = true;
-var gameStarted = false;
+var gameOver = false;
 
 var cubeScaleWidth = 4;
 var cubeScaleHeight = 1;
@@ -79,7 +79,7 @@ function preload () {
 
     game.load.spritesheet('horballfire', 'assets/button-round-a.png', 96,96);
     game.load.spritesheet('vertballfire', 'assets/button-round-b.png', 96,96);
-    game.load.spritesheet('playpausebutton', 'assets/play_pause_button.png', 148, 80);
+    game.load.spritesheet('playpausebutton', 'assets/pause_play_reset.png', 148, 80);
 
 
 }
@@ -282,6 +282,8 @@ function drumBallHit(paddle, ball){
     ball.destroy();
     if (vPaddle.height >= game.height) {
         Tone.Transport.stop();
+        button.setFrames(2,2,2,2);
+        gameOver = true;
     }
 
 }
@@ -301,6 +303,8 @@ function pitchBallHit(paddle, ball){
     ball.destroy();
     if (vPaddle.width >= game.width) {
         Tone.Transport.stop();
+        button.setFrames(2,2,2,2);
+        gameOver = true;
     }
 }
 
@@ -333,33 +337,44 @@ function makePitchBall(x) {
 }
 
 function pauseGame() {
-    if (isPaused == false){
-        Tone.Transport.start("+0.1");
+    if (gameOver == true) {
+        // reset game
+        // Get rid of existing balls
+        drumBalls.removeChildren();
+        pitchBalls.removeChildren();
+        // return paddle to normal size and starting position
+        cubeScaleWidth =  4;
+        cubeScaleHeight = 1;
+        vPaddle.scale.setTo(cubeScaleWidth,cubeScaleHeight);
+        vPaddle.position.x = 16;
+        vPaddle.position.y = game.height/2;
+        Tone.Transport.start();
         button.setFrames(0,0,0,0);
-        drumBalls.setAll('body.velocity.x', 0, false, false, 0 ,false);
-        pitchBalls.setAll('body.velocity.y', 0, false, false, 0 ,false);
-        Tone.Transport.pause();
-        isPaused = true;
-    }   else {
-        //if (gameStarted == true){
-//             var numBalls = drumBalls.iterate('body.velocity.x', 0, Phaser.Group.RETURN_TOTAL, function(ball){
-//                 ball.body.velocity.x = -barHorVelocity + (Math.random() * 200-100);
-//             }, this);
+        gameOver = false;
+
+    }  else {
+        if (isPaused == false) {
+            //Tone.Transport.start("+0.1");
+            button.setFrames(1,1,1,1);
+            drumBalls.setAll('body.velocity.x', 0, false, false, 0 ,false);
+            pitchBalls.setAll('body.velocity.y', 0, false, false, 0 ,false);
+            vPaddle.body.velocity.x = 0;
+            vPaddle.body.velocity.y = 0;
+            Tone.Transport.pause();
+            isPaused = true;
+        }   else {
 
             drumBalls.forEach(setRandomX, this, true);
-//            var numBalls2 = pitchBalls.iterate('body.velocity.y', 0, Phaser.Group.RETURN_TOTAL, setRandomY, this);
             pitchBalls.forEach(setRandomY, this, true);
-        //}
-        //drumBalls.setAll(body.velocity.x, 0, false, false, 0 ,false);
-        //pitchBalls.setAll(body.velocity.y, 0, false, false, 0 ,false);
-        Tone.Transport.start();
-        button.setFrames(1,1,1,1);
-        isPaused = false;
-        function setRandomX(ball) {
-            ball.body.velocity.x = -barHorVelocity + (Math.random() * 200 - 100);
-        }
-        function setRandomY(ball) {
-            ball.body.velocity.y = -barVertVelocity + (Math.random() * 200 - 100);
+            Tone.Transport.start("+0.1");
+            button.setFrames(0,0,0,0);
+            isPaused = false;
+            function setRandomX(ball) {
+                ball.body.velocity.x = -barHorVelocity + (Math.random() * 200 - 100);
+            }
+            function setRandomY(ball) {
+                ball.body.velocity.y = -barVertVelocity + (Math.random() * 200 - 100);
+            }
         }
     }
 
