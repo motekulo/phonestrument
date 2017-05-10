@@ -67,8 +67,8 @@ var down = false;
 var isPaused = true;
 var gameOver = false;
 
-var cubeScaleWidth = 4;
 var cubeScaleHeight = 1;
+var cubeScaleWidth = cubeScaleHeight * 4;
 
 function preload () {
 
@@ -106,8 +106,9 @@ function create () {
     vPaddle.body.immovable = true;
     vPaddle.scale.setTo(cubeScaleWidth,cubeScaleHeight);
 
-    button = game.add.button(game.world.centerX - 95, game.height - 80,
+    button = game.add.button(game.width - 148, game.height - 80,
          'playpausebutton', pauseGame, this, 1, 1, 1, 1);
+    button.scale.setTo(0.75, 0.75);
 
     cursors = game.input.keyboard.createCursorKeys();
 
@@ -385,12 +386,12 @@ function initMusic() {
 
     //plucky = new Tone.MonoSynth();
     plucky = new Tone.PolySynth(3, Tone.MonoSynth);
-    pluckyPanVol = new Tone.PanVol(0.5, -18);
+    pluckyPanVol = new Tone.PanVol(0.5, -24);
     plucky.connect(pluckyPanVol);
     pluckyPanVol.connect(Tone.Master);
 
     kick = new Tone.Sampler("assets/kick_mix_1.wav", sampleLoaded);
-    kickPanVol = new Tone.PanVol(0.5, -6);
+    kickPanVol = new Tone.PanVol(0.5, -9);
     //kick.retrigger = true;
     //kick.sync();
     kick.connect(kickPanVol);
@@ -399,7 +400,7 @@ function initMusic() {
     // Using a closed high hat as metronome
     //closedHat = new Tone.Sampler("assets/chh_mixed_1.wav", sampleLoaded);
     closedHat = new Tone.Sampler("assets/chh_mixed_1.wav", sampleLoaded);
-    closedHatPanVol = new Tone.PanVol(0.5, -12);
+    closedHatPanVol = new Tone.PanVol(0.5, -15);
     //closedHat.sync();
     //closedHat.retrigger = true;
     closedHat.connect(closedHatPanVol);
@@ -414,7 +415,7 @@ function initMusic() {
 
     //snare = new Tone.Player("assets/snare_mix_1.wav", sampleLoaded);
     snareSampler = new Tone.Sampler("assets/snare_mix_1.wav", sampleLoaded);
-    snarePanVol = new Tone.PanVol(0.5, -12);
+    snarePanVol = new Tone.PanVol(0.5, -15);
     //snareSampler.sync();
     //snareSampler.retrigger = true;
     //snare.connect(snarePanVol);
@@ -438,7 +439,7 @@ function initMusic() {
             samplesLoaded = true;
             console.log("Samples loaded");
 
-            hatPart.start(0); // has events in it from init
+            //hatPart.start(0); // has events in it from init
             //kickPart.start(0);
             //snarePart.start(0);
             //polyPart.start(0);
