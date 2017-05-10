@@ -65,6 +65,7 @@ var right = false;
 var up = false;
 var down = false;
 var isPaused = true;
+var gameStarted = false;
 
 var cubeScaleWidth = 4;
 var cubeScaleHeight = 1;
@@ -106,7 +107,7 @@ function create () {
     vPaddle.scale.setTo(cubeScaleWidth,cubeScaleHeight);
 
     button = game.add.button(game.world.centerX - 95, game.height - 80,
-         'playpausebutton', actionOnClick, this, 1, 1, 1, 1);
+         'playpausebutton', pauseGame, this, 1, 1, 1, 1);
 
     cursors = game.input.keyboard.createCursorKeys();
 
@@ -196,12 +197,12 @@ function update() {
 
 }
 
-function actionOnClick () {
-
-    Tone.Transport.start("+0.1");
-    button.setFrames(0,0,0,0);
-
-}
+// function actionOnClick () {
+//
+//     Tone.Transport.start("+0.1");
+//     button.setFrames(0,0,0,0);
+//
+// }
 
 /* Horizontal moving balls collision
 *
@@ -303,11 +304,6 @@ function pitchBallHit(paddle, ball){
     }
 }
 
-function ballOut(beatBall) {
-    console.log("Beat out");
-
-}
-
 function makeDrumBall(y) {
 
 
@@ -337,26 +333,38 @@ function makePitchBall(x) {
 }
 
 function pauseGame() {
-    drumBalls.setAll(body.velocity.x, 0, false, false, 0 ,false);
-    pitchBalls.setAll(body.velocity.y, 0, false, false, 0 ,false);
-    Tone.Transport.pause();
+    if (isPaused == false){
+        Tone.Transport.start("+0.1");
+        button.setFrames(0,0,0,0);
+        drumBalls.setAll('body.velocity.x', 0, false, false, 0 ,false);
+        pitchBalls.setAll('body.velocity.y', 0, false, false, 0 ,false);
+        Tone.Transport.pause();
+        isPaused = true;
+    }   else {
+        //if (gameStarted == true){
+//             var numBalls = drumBalls.iterate('body.velocity.x', 0, Phaser.Group.RETURN_TOTAL, function(ball){
+//                 ball.body.velocity.x = -barHorVelocity + (Math.random() * 200-100);
+//             }, this);
 
-}
-
-function resumeGame(){
-    // Haven't saved previous ball speed so just starting randomly; Klugish...
-    //ball.body.velocity.y = -barVertVelocity * (x / game.width) * 2 +  (Math.random() * 200);
-
-//iterate(key, value, returnType, callback, callbackContext, args) → {any}
-    drumBalls.setAll(body.velocity.x, 0, false, false, 0 ,false);
-    pitchBalls.setAll(body.velocity.y, 0, false, false, 0 ,false);
-    Tone.Transport.play();
-    function setRandomx(ball){
-
+            drumBalls.forEach(setRandomX, this, true);
+//            var numBalls2 = pitchBalls.iterate('body.velocity.y', 0, Phaser.Group.RETURN_TOTAL, setRandomY, this);
+            pitchBalls.forEach(setRandomY, this, true);
+        //}
+        //drumBalls.setAll(body.velocity.x, 0, false, false, 0 ,false);
+        //pitchBalls.setAll(body.velocity.y, 0, false, false, 0 ,false);
+        Tone.Transport.start();
+        button.setFrames(1,1,1,1);
+        isPaused = false;
+        function setRandomX(ball) {
+            ball.body.velocity.x = -barHorVelocity + (Math.random() * 200 - 100);
+        }
+        function setRandomY(ball) {
+            ball.body.velocity.y = -barVertVelocity + (Math.random() * 200 - 100);
+        }
     }
 
-    
 }
+
 
 function initMusic() {
 

@@ -12,16 +12,16 @@ sprites/out of bounds.js has example of onOutOfBounds on sprites
 
 ## May 1, 2017
 
-exp_6 tagged; the most effective rhythm was in fact when balls were sent out straight, and bounced back against themselves in various ways. A possible variation on this:
+exp\_6 tagged; the most effective rhythm was in fact when balls were sent out straight, and bounced back against themselves in various ways. A possible variation on this:
 
 The paddle just returns the balls; if it's not there, then the beats are removed by going out of the world.
 
 Pressing a key adds more beats
-tagged as exp_7
+tagged as exp\_7
 
 ## May 3, 2017
 
-exp_8 at the moment; paddle deletes balls. Adjusted the speed of the ball to match a bar across (or up and down) the screen. Different speeds likely to mean bounces have a different phase surely? Try snares with one speed (say 75% of current) versus the bass part. Could even scale it across the screen horizontally for experiments.
+exp\_8 at the moment; paddle deletes balls. Adjusted the speed of the ball to match a bar across (or up and down) the screen. Different speeds likely to mean bounces have a different phase surely? Try snares with one speed (say 75% of current) versus the bass part. Could even scale it across the screen horizontally for experiments.
 
 Next steps:
 
@@ -49,7 +49,16 @@ One thing - I've done a few days now without testing on mobile. From past experi
 
 ### May 5 2017
 
-Some performance problems on the Samsung Tab A. Audio in Tone barely working at all. Tried latency fixes on Tone.context.latencyHint to no avail. The only thing that seemed to make a difference was getting rid of the PolySynth (converting back to MonoSynth). Leave it for now, and return later to solve it. Things to try might be just setting up a Tone project without Phaser, trying samples as ogg or mp3, using parts instead of quantized scheduled evetns on the timeline, trying to schedule events further in the future. Bear in mind, though, that not even the click track was working. That's odd in itself. Should also try as many other devices I have to hand as well - Mareta's tablet, Patrick's, other phones.
+Some performance problems on the Samsung Tab A. Audio in Tone barely working at
+all. Tried latency fixes on Tone.context.latencyHint to no avail. The only
+thing that seemed to make a difference was getting rid of the PolySynth
+(converting back to MonoSynth). Leave it for now, and return later to solve it.
+Things to try might be just setting up a Tone project without Phaser, trying
+samples as ogg or mp3, using parts instead of quantized scheduled evetns on the
+timeline, trying to schedule events further in the future. Bear in mind,
+though, that not even the click track was working. That's odd in itself. Should
+also try as many other devices I have to hand as well - Mareta's tablet,
+Patrick's, other phones.
 
 #### Plan:
 Try timing with Tone.Player synced to transport. No matter what happens, move on with game idea:
@@ -57,3 +66,19 @@ Try timing with Tone.Player synced to transport. No matter what happens, move on
 - increase of intensity
 - square moving
 - collision
+
+
+### Mon 8 May 2017 
+
+Tried on Rob's Nexus 7 and performance good.
+
+Tagged as exp\_9. Can now move on to making the game aspect of it more
+complete. Some sort of explosion or effect when the paddle hits the edge, then
+a popup screen after a short period that resets and starts again. Could even
+start with a popup screen that has instructions? Then a pause button (smaller)
+on the bottom right that actually pauses Tone.js and ball movement and movement
+of main player sprite. Reduce the volume, and turn off metronome for now, too.
+Can then tweak the sounds and game settings to make it more playable. Get a
+complete game going at the moment though.
+
+
