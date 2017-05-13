@@ -212,14 +212,14 @@ function horBallsHit(ball1, ball2) {
     if (ball1.instrument == "snare" && ball2.instrument == "snare"){
         //snareSampler.start("+@4n");
         var nowPos = Tone.Transport.position;
-        console.log("Transport pos: " + nowPos);
+        //console.log("Transport pos: " + nowPos);
         var quantTime = Tone.TransportTime("@8n");
-        console.log("quantized 8n time: " + quantTime);
+        //console.log("quantized 8n time: " + quantTime);
         quantPos = quantTime.toBarsBeatsSixteenths();
-        console.log("quantized 8n pos: " + quantPos);
+        //console.log("quantized 8n pos: " + quantPos);
         Tone.Transport.scheduleOnce(function(time){
             snareSampler.triggerAttackRelease(0, "16n", time);
-            console.log("playing at: " + Tone.Transport.position);
+            //console.log("playing at: " + Tone.Transport.position);
             //console.log("Time is: " + time);
         }, "@8n");
 
