@@ -37,12 +37,60 @@ describe("tonality", function() {
         expect(cMajorChord[1]).toBe(4);
         expect(cMajorChord[2]).toBe(7);
 
-        var bMinorChord = tonality.getChord(3, 5, []);
-        expect(bMinorChord[0]).toBe(2);
-        expect(bMinorChord[1]).toBe(5);
-        expect(bMinorChord[2]).toBe(9);
+        var eMinorChord = tonality.getChord(3, 5, []);
+        expect(eMinorChord[0]).toBe(4);
+        expect(eMinorChord[1]).toBe(7);
+        expect(eMinorChord[2]).toBe(11);
+
+    });
+    it("can get a chord array in different keys", function() {
+        tonality.setKey(4); // key of E
+        var eMajorChord = tonality.getChord(1, 5, []);
+        expect(eMajorChord[0]).toBe(4);
+        expect(eMajorChord[1]).toBe(8);
+        expect(eMajorChord[2]).toBe(11);
+
+        var bMajorChord = tonality.getChord(5, 5, []);
+        expect(bMajorChord[0]).toBe(11);
+        expect(bMajorChord[1]).toBe(15);
+        expect(bMajorChord[2]).toBe(18);
+
+    });
+    it("can get chords up to 13th", function() {
+        tonality.setKey(2); // key of E
+        var dMajor7Chord = tonality.getChord(1, 7, []);
+        expect(dMajor7Chord[0]).toBe(2);
+        expect(dMajor7Chord[1]).toBe(6);
+        expect(dMajor7Chord[2]).toBe(9);
+        expect(dMajor7Chord[3]).toBe(13);
+
+        var a7Chord = tonality.getChord(5, 7, []);
+        expect(a7Chord[3]).toBe(19);
+
+        var a9Chord = tonality.getChord(5, 9, []);
+        expect(a9Chord[4]).toBe(23);
+
+        var a11Chord = tonality.getChord(5, 11, []);
+        expect(a11Chord[5]).toBe(26);
+
+        var a13Chord = tonality.getChord(5, 13, []);
+        expect(a13Chord[6]).toBe(30);
+
+        // test highest extension - key of B, chord 7, 13th (unlikely!)
+        tonality.setKey(11);
+        var aSharpDim13 = tonality.getChord(7, 13, []);
+        expect(aSharpDim13[6]).toBe(42);
 
     });
 
+    it("can alter notes in chords outside diatonic tones", function() {
+        tonality.setKey(7);  // test with G major
+        var c7Chord = tonality.getChord(4,7,[0,0,0,-1]);
+        expect(c7Chord[3]).toBe(22);
+
+        var aMinor7Flat5 = tonality.getChord(2,7,[0,0,-1,0]);
+        expect(aMinor7Flat5[2]).toBe(15);
+
+    });
 
 });

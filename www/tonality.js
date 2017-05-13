@@ -50,19 +50,31 @@ Tonality.prototype._setScale = function(){
 * get a chord
 * @param {int} root - the root of the chord
 * @param {int} toChordTone - up to which tone (7th, for example)
-* @param {array} chordAlt - any alterations to the chord
+* @param {array} chordAlt - any alterations to the chord [root, 3rd,5th...]
+* And yes, it's odd that theoretically here the root note could be altered :)
 *
 **/
 Tonality.prototype.getChord = function(root, toChordTone, chordAlt) {
 
     var chordArray = [];
     var chordIndex = 0;
-    for (var i = root - 1; i < this.scaleStructure.length * 2; i = i+2){
+    for (var i = root - 1; i < root + this.scaleStructure.length * 2; i = i+2){
         if (i <= toChordTone + root - 1){
             chordArray[chordIndex] = this.fullScale[i];
             chordIndex++;
         }
     }
-    console.log(chordArray);
+    console.log("Before alt: " + chordArray);
+    // Now adjust for any chordtone alterations
+    if (chordAlt.length == 0) {
+        return chordArray;
+    } else {
+        for (var i = 0; i < chordArray.length; i++){
+            chordArray[i] = chordArray[i] + chordAlt[i];
+        }
+        //return chordArray;
+    }
     return chordArray;
+
+
 }
