@@ -64,7 +64,7 @@ Tonality.prototype.getChord = function(root, toChordTone, chordAlt) {
             chordIndex++;
         }
     }
-    console.log("Before alt: " + chordArray);
+    //console.log("Before alt: " + chordArray);
     // Now adjust for any chordtone alterations
     if (chordAlt.length == 0) {
         return chordArray;

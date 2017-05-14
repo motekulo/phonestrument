@@ -152,7 +152,7 @@ function create () {
 
     //
     Tone.Transport.scheduleRepeat(function(time){
-        if (drumBalls.children.length < 12){
+        if (drumBalls.children.length < 6){
             var horBallYpos = Math.floor(Math.random() * game.height);
             game.time.events.repeat(Phaser.Timer.SECOND * 0.5, 2, makeDrumBall, this, horBallYpos);
         }
@@ -201,12 +201,6 @@ function update() {
 
 }
 
-// function actionOnClick () {
-//
-//     Tone.Transport.start("+0.1");
-//     button.setFrames(0,0,0,0);
-//
-// }
 
 /* Horizontal moving balls collision
 *
@@ -250,7 +244,7 @@ function vertBallsHit(ball1, ball2){
     var scaled = ball1.body.y/game.height;
     //var note = note[scaled % scalestructure.length + 14]; // adjust for number of notes in scale
     var hitNote = notes[Math.floor(scaled * notes.length)];
-    console.log("hitNote is " + hitNote);
+    //console.log("hitNote is " + hitNote);
     var octave = Math.floor(scaled/20 * 4) + 2;  // 4 octaves to divide into
     var filterFreq = (ball1.body.x/game.width * 100);
     //    console.log("filterFreq: " + filterFreq);
@@ -265,12 +259,6 @@ function vertBallsHit(ball1, ball2){
         //plucky.triggerAttackRelease(note + octave, "16n", time);
         plucky.triggerAttackRelease(Tone.Frequency(hitNote, "midi"), "16n", time);
     }, "@8n");
-    //    console.log(note + octave);
-    //console.log("ship y accel: " + ship.body.acceleration.y); // -200 to 200
-    //var filterFreq = (ship.body.acceleration.x/window.innerWidth * 8000 +500);
-    //console.log("filterFreq: " + filterFreq);
-    //plucky.filter,frequency = filterFreq;
-
 
 }
 
@@ -324,13 +312,15 @@ function makeDrumBall(y) {
     ball.body.bounce.setTo(1,1);
 
     ball.body.velocity.x = -barHorVelocity + (Math.random() * 200-100);
-    if (y < game.height/2) {
-        ball.instrument = "snare";
-        ball.frame = 1;
-    } else {
-        ball.instrument = "kick";
-        ball.frame = 2;
-    }
+    ball.instrument = "snare";
+    ball.frame = 1;
+    // if (y < game.height/2) {
+    //     ball.instrument = "snare";
+    //     ball.frame = 1;
+    // } else {
+    //     ball.instrument = "kick";
+    //     ball.frame = 2;
+    // }
 }
 
 function makePitchBall(x) {
@@ -339,7 +329,7 @@ function makePitchBall(x) {
     ball.checkWorldBounds = true;
     ball.body.collideWorldBounds = true;
     ball.body.bounce.setTo(1,1);
-    ball.body.velocity.y = -barVertVelocity * (x / game.width) * 2 +  (Math.random() * 200);
+    ball.body.velocity.y = -barVertVelocity + ((Math.random() * 200-100));
 
 }
 
@@ -402,6 +392,13 @@ function initMusic() {
     //kick.sync();
     kick.connect(kickPanVol);
     kickPanVol.connect(Tone.Master);
+    kickPart = new Tone.Part(function(time, note) {
+        kick.triggerAttackRelease(0, "8n", time);
+    }, [["0:0", "C3"], ["0:1", "C3"], ["0:2", "C3"], ["0:3", "C3"],
+        ["1:0", "C3"], ["1:2", "C3"], ["1:3", "C3"], ["1:3:2", "C3"]]
+    );
+    kickPart.loop = true;
+    kickPart.loopEnd = "2m";
 
     // Using a closed high hat as metronome
     //closedHat = new Tone.Sampler("assets/chh_mixed_1.wav", sampleLoaded);
@@ -420,39 +417,61 @@ function initMusic() {
     hatPart.loopEnd = "1m";
 
     chordProgPart = new Tone.Part(function(time, value) {
-        console.log("chord change " + value);
+        //console.log("chord change " + value);
         console.log("bar num " + Tone.Transport.position);
         var allNotes = tonalEnv.getFullChordArray(value.root, value.tochordtone, value.alterations);
         notes = tonalEnv.trimArray(allNotes, 36, 84);
     }, [
+        {time: "0m",
+        root: 1,
+        tochordtone: 7,
+        alterations: [0,0,0,-1]},
         {time: "1m",
-         root: 1,
-         tochordtone: 7,
-         alterations: [0,0,0,-1]},
-         {time: "2m",
-          root: 4,
-          tochordtone: 7,
-          alterations: [0,0,0,-1]},
-          {time: "3m",
-           root: 5,
-           tochordtone: 7,
-           alterations: [0,0,0,0]}
+        root: 4,
+        tochordtone: 7,
+        alterations: [0,0,0,-1]},
+        {time: "2m",
+        root: 1,
+        tochordtone: 7,
+        alterations: [0,0,0,-1]},
+        {time: "4m",
+        root: 4,
+        tochordtone: 7,
+        alterations: [0,0,0,-1]},
+        {time: "6m",
+        root: 1,
+        tochordtone: 7,
+        alterations: [0,0,0,-1]},
+        {time: "8m",
+        root: 2,
+        tochordtone: 7,
+        alterations: [0,0,0,0]},
+        {time: "9m",
+        root: 5,
+        tochordtone: 7,
+        alterations: [0,0,0,0]},
+        {time: "10m",
+        root: 1,
+        tochordtone: 7,
+        alterations: [0,0,0,-1]},
+        {time: "11m",
+        root: 5,
+        tochordtone: 7,
+        alterations: [0,0,0,0]}
+
     ]);
     chordProgPart.loop = true;
-    chordProgPart.loopEnd = "4m";
+    chordProgPart.loopEnd = "12m";
 
-    //snare = new Tone.Player("assets/snare_mix_1.wav", sampleLoaded);
     snareSampler = new Tone.Sampler("assets/snare_mix_1.wav", sampleLoaded);
     snarePanVol = new Tone.PanVol(0.5, -15);
-    //snareSampler.sync();
-    //snareSampler.retrigger = true;
-    //snare.connect(snarePanVol);
+
     snareSampler.connect(snarePanVol);
     snarePanVol.connect(Tone.Master);
 
     Tone.Transport.loop = true;
     Tone.Transport.loopStart = 0;
-    Tone.Transport.loopEnd = "4m";
+    Tone.Transport.loopEnd = "12m";
     Tone.Transport.bpm.value = tempo;
     Tone.Transport.latencyHint = 'playback';
     //Tone.context.latencyHint = 3;
@@ -466,39 +485,14 @@ function initMusic() {
         if (numSamplesLoaded == 3) {
             samplesLoaded = true;
             console.log("Samples loaded");
-
-            //hatPart.start(0); // has events in it from init
-            //kickPart.start(0);
-            //snarePart.start(0);
-            //polyPart.start(0);
             chordProgPart.start(0);
-            //Tone.Transport.start("+0.1");
+            kickPart.start(0);
 
         }
     }
 
-    var allNotes = tonalEnv.getFullChordArray(1, 5, []);
+    var allNotes = tonalEnv.getFullChordArray(1, 7, [0,0,0,-1]);
     notes = tonalEnv.trimArray(allNotes, 36, 84);
-
-    //scale = setScale(key);
-
-    // function setScale(key) {
-    //     var pitch = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
-    //     var _scale = [];
-    //     var start = pitch.indexOf(key);
-    //     _scale.push(pitch[start]);
-    //     var prevnoteindex = start;
-    //     for (i = 0; i < scalestructure.length - 1; i++) {
-    //         nextnoteindex = prevnoteindex + scalestructure[i];
-    //         if (nextnoteindex >= pitch.length) {
-    //             nextnoteindex = nextnoteindex - pitch.length; // wrap
-    //         }
-    //         _scale.push(pitch[nextnoteindex]);
-    //         prevnoteindex = nextnoteindex;
-    //     }
-    //     //this.scale = scale;
-    //     return _scale
-    // }
 
 
 }
