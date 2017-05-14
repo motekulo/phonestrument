@@ -24,6 +24,8 @@ var closedHat; // Metronome sample player
 var closedHatPanVol;
 var hatPart; // Metronome part
 
+var chordProgPart;
+
 var snare; // Sample player - snare
 var snareSampler;
 var snarePanVol; // Panner and gain for snare
@@ -417,6 +419,28 @@ function initMusic() {
     hatPart.length = 1;
     hatPart.loopEnd = "1m";
 
+    chordProgPart = new Tone.Part(function(time, value) {
+        console.log("chord change " + value);
+        console.log("bar num " + Tone.Transport.position);
+        var allNotes = tonalEnv.getFullChordArray(value.root, value.tochordtone, value.alterations);
+        notes = tonalEnv.trimArray(allNotes, 36, 84);
+    }, [
+        {time: "1m",
+         root: 1,
+         tochordtone: 7,
+         alterations: [0,0,0,-1]},
+         {time: "2m",
+          root: 4,
+          tochordtone: 7,
+          alterations: [0,0,0,-1]},
+          {time: "3m",
+           root: 5,
+           tochordtone: 7,
+           alterations: [0,0,0,0]}
+    ]);
+    chordProgPart.loop = true;
+    chordProgPart.loopEnd = "4m";
+
     //snare = new Tone.Player("assets/snare_mix_1.wav", sampleLoaded);
     snareSampler = new Tone.Sampler("assets/snare_mix_1.wav", sampleLoaded);
     snarePanVol = new Tone.PanVol(0.5, -15);
@@ -428,7 +452,7 @@ function initMusic() {
 
     Tone.Transport.loop = true;
     Tone.Transport.loopStart = 0;
-    Tone.Transport.loopEnd = "1m";
+    Tone.Transport.loopEnd = "4m";
     Tone.Transport.bpm.value = tempo;
     Tone.Transport.latencyHint = 'playback';
     //Tone.context.latencyHint = 3;
@@ -447,6 +471,7 @@ function initMusic() {
             //kickPart.start(0);
             //snarePart.start(0);
             //polyPart.start(0);
+            chordProgPart.start(0);
             //Tone.Transport.start("+0.1");
 
         }
