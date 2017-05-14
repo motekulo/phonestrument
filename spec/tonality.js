@@ -93,4 +93,21 @@ describe("tonality", function() {
 
     });
 
+    it("can return an array over full midi note range for a chord", function() {
+        var allCMajorChord = tonality.getFullChordArray(1, 5, []); // a simple C triad
+        expect(allCMajorChord[3]).toBe(12);
+        expect(allCMajorChord[6]).toBe(24);
+        expect(allCMajorChord[7]).toBe(28);
+        expect(allCMajorChord[8]).toBe(31);
+        expect(allCMajorChord[30]).toBe(120);
+
+        tonality.setKey(10);  // Bflat major
+        var c7 = tonality.getFullChordArray(2, 7, [0, 1, 0 ,0]);
+        expect(c7[1]).toBe(16);
+        expect(c7[3]).toBe(22);
+        expect(c7[11]).toBe(46);
+
+
+    });
+
 });

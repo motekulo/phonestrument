@@ -52,7 +52,7 @@ Tonality.prototype._setScale = function(){
 * @param {int} toChordTone - up to which tone (7th, for example)
 * @param {array} chordAlt - any alterations to the chord [root, 3rd,5th...]
 * And yes, it's odd that theoretically here the root note could be altered :)
-*
+* @returns {array} - An array from lowest midi note with all distinct chord tones
 **/
 Tonality.prototype.getChord = function(root, toChordTone, chordAlt) {
 
@@ -77,4 +77,30 @@ Tonality.prototype.getChord = function(root, toChordTone, chordAlt) {
     return chordArray;
 
 
+}
+
+/**
+ * get an array with chordtones over the full MIDI note range
+ * @param {int} root - the root of the chord
+ * @param {int} toChordTone - up to which tone (7th, for example)
+ * @param {array} chordAlt - any alterations to the chord [root, 3rd,5th...]
+ * And yes, it's odd that theoretically here the root note could be altered :)
+ * @returns {array} - An array from lowest midi note with all chord tones, repeated
+ * through all ocatves
+ **/
+Tonality.prototype.getFullChordArray = function(root, toChordTone, chordAlt) {
+    var fullChordArray = [];
+    var basicChord = this.getChord(root, toChordTone, chordAlt);
+    var octave = 0;
+    var index = 0;
+    var nextMidiNote = 0;
+    while (nextMidiNote <=127){
+        nextMidiNote = basicChord[index % basicChord.length] + octave * 12;
+        fullChordArray.push(nextMidiNote);
+        index++;
+        if ((index % basicChord.length) == 0) {
+            octave++;
+        }
+    }
+    return fullChordArray;
 }
