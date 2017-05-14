@@ -17,6 +17,9 @@ var tonalEnv = new Tonality();
 var plucky; // Main pitched synth
 var pluckyPanVol; // Panner and gain for plucky
 
+var bassSynth;
+var bassPanVol;
+
 var kick;  // Sample player - kick sound
 var kickPanVol;
 
@@ -25,6 +28,8 @@ var closedHatPanVol;
 var hatPart; // Metronome part
 
 var chordProgPart;
+var bassPart;
+var bassArpeggio;
 
 var snare; // Sample player - snare
 var snareSampler;
@@ -386,6 +391,11 @@ function initMusic() {
     plucky.connect(pluckyPanVol);
     pluckyPanVol.connect(Tone.Master);
 
+    bassSynth = new Tone.MonoSynth();
+    bassPanVol = new Tone.PanVol(0.5, -24);
+    bassSynth.connect(bassPanVol);
+    bassPanVol.connect(Tone.Master);
+
     kick = new Tone.Sampler("assets/kick_mix_1.wav", sampleLoaded);
     kickPanVol = new Tone.PanVol(0.5, -9);
     //kick.retrigger = true;
@@ -421,6 +431,12 @@ function initMusic() {
         console.log("bar num " + Tone.Transport.position);
         var allNotes = tonalEnv.getFullChordArray(value.root, value.tochordtone, value.alterations);
         notes = tonalEnv.trimArray(allNotes, 36, 84);
+        bassArpeggio = tonalEnv.scaleOctave(tonalEnv.getChord(value.root,
+                                                              value.tochordtone, value.alterations), 3);
+        for (var i = 0; i < bassArpeggio.length; i++) {
+            //var time = "0:" + i;
+            bassPart.at(i, bassArpeggio[i]);
+        }
     }, [
         {time: "0m",
         root: 1,
@@ -463,6 +479,16 @@ function initMusic() {
     chordProgPart.loop = true;
     chordProgPart.loopEnd = "12m";
 
+    bassArpeggio = tonalEnv.scaleOctave(tonalEnv.getChord(1, 7, []), 4);
+
+    var bassPart = new Tone.Sequence(function(time, note){
+    	//console.log(note);
+        bassSynth.triggerAttackRelease(Tone.Frequency(note, "midi"), "8n", time);
+
+    }, bassArpeggio, "4n");
+    bassPart.loop = true;
+    bassPart.loopEnd = "1m";
+
     snareSampler = new Tone.Sampler("assets/snare_mix_1.wav", sampleLoaded);
     snarePanVol = new Tone.PanVol(0.5, -15);
 
@@ -487,6 +513,7 @@ function initMusic() {
             console.log("Samples loaded");
             chordProgPart.start(0);
             kickPart.start(0);
+            bassPart.start(0)
 
         }
     }

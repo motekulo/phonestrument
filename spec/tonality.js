@@ -57,7 +57,7 @@ describe("tonality", function() {
 
     });
     it("can get chords up to 13th", function() {
-        tonality.setKey(2); // key of E
+        tonality.setKey(2); // key of E flat
         var dMajor7Chord = tonality.getChord(1, 7, []);
         expect(dMajor7Chord[0]).toBe(2);
         expect(dMajor7Chord[1]).toBe(6);
@@ -113,12 +113,18 @@ describe("tonality", function() {
         var trimmedArray = tonality.trimArray(tonality.fullScale, 36, 84);
         expect(trimmedArray[0]).toBeGreaterThan(36);
         expect(trimmedArray[trimmedArray.length - 1]).toBeLessThan(84);
-
+        
         var chordArray = tonality.getFullChordArray(1, 7, []);
         trimmedArray = tonality.trimArray(chordArray, 40, 98);
         expect(trimmedArray[0]).toBeGreaterThan(40);
         expect(trimmedArray[trimmedArray.length - 1]).toBeLessThan(98);
+    });
 
+    it("can transpose a chord array to a chosen octave", function() {
+        tonality.setKey(4); // key of E
+        var eMajor7Chord = tonality.getChord(1, 7, []);
+        var octaveAdjusted = tonality.scaleOctave(eMajor7Chord, 5);
+        expect(octaveAdjusted[0]).toBe(64);
     });
 
 });

@@ -76,8 +76,22 @@ Tonality.prototype.getChord = function(root, toChordTone, chordAlt) {
     }
     return chordArray;
 
-
 }
+
+/**
+ * Transpose a chord
+ * @param {array} chordArray -  the chord array to transpose
+ * @param {octave} octave - the octave to transpose it to
+ * @returns {array} - transposed chord array
+ **/
+Tonality.prototype.scaleOctave = function(chordArray, octave) {
+    var scaledArray = [];
+    for (var i = 0; i < chordArray.length; i++) {
+        scaledArray[i] = chordArray[i] + (12 * octave);
+    }
+    return scaledArray;
+}
+ 
 
 /**
  * get an array with chordtones over the full MIDI note range
