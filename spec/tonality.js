@@ -107,6 +107,12 @@ describe("tonality", function() {
         expect(c7[3]).toBe(22);
         expect(c7[11]).toBe(46);
 
+    });
+
+    it("can trim a chord or scale array between lower and upper midi note limits", function() {
+        var trimmedArray = tonality.trimArray(tonality.fullScale, 36, 84);
+        expect(trimmedArray[0]).toBeGreaterThan(36);
+        expect(trimmedArray[trimmedArray.length - 1]).toBeLessThan(84);
 
     });
 

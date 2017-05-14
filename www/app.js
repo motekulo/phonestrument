@@ -13,6 +13,7 @@ var deviceHeight = window.innerHeight;// * window.devicePixelRatio;
 var game = new Phaser.Game(deviceWidth, deviceHeight * 0.85, Phaser.AUTO, 'stage', {
     preload: preload, create: create, update: update });
 
+var tonalEnv = new Tonality();
 var plucky; // Main pitched synth
 var pluckyPanVol; // Panner and gain for plucky
 
@@ -36,9 +37,9 @@ var notes = [];
 //var polyPart;
 
 var tempo = 116;
-var scalestructure = [4,3,3,2];
-var key = "C";
-var scale;
+//var scalestructure = [4,3,3,2];
+//var key = "C";
+//var scale;
 
 initMusic(); // FIXME - ugly; should be an object with properties
 
@@ -245,7 +246,8 @@ function vertBallsHit(ball1, ball2){
     //console.log("vert balls collision");
 
     var scaled = Math.round(20 - (ball1.body.y/game.height * 20));
-    var note = scale[scaled % scalestructure.length]; // adjust for number of notes in scale
+    //var note = note[scaled % scalestructure.length + 14]; // adjust for number of notes in scale
+    var note = note[scaled % scalestructure.length + 14];
     var octave = Math.floor(scaled/20 * 4) + 2;  // 4 octaves to divide into
     var filterFreq = (ball1.body.x/game.width * 100);
     //    console.log("filterFreq: " + filterFreq);
@@ -257,7 +259,8 @@ function vertBallsHit(ball1, ball2){
     });
 
     Tone.Transport.scheduleOnce(function(time){
-        plucky.triggerAttackRelease(note + octave, "16n", time);
+        //plucky.triggerAttackRelease(note + octave, "16n", time);
+        plucky.triggerAttackRelease(note, "16n", time);
     }, "@8n");
     //    console.log(note + octave);
     //console.log("ship y accel: " + ship.body.acceleration.y); // -200 to 200
@@ -448,26 +451,26 @@ function initMusic() {
         }
     }
 
+    notes = tonalEnv.getFullChordArray(1, 5, []);
+    //scale = setScale(key);
 
-    scale = setScale(key);
-
-    function setScale(key) {
-        var pitch = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
-        var _scale = [];
-        var start = pitch.indexOf(key);
-        _scale.push(pitch[start]);
-        var prevnoteindex = start;
-        for (i = 0; i < scalestructure.length - 1; i++) {
-            nextnoteindex = prevnoteindex + scalestructure[i];
-            if (nextnoteindex >= pitch.length) {
-                nextnoteindex = nextnoteindex - pitch.length; // wrap
-            }
-            _scale.push(pitch[nextnoteindex]);
-            prevnoteindex = nextnoteindex;
-        }
-        //this.scale = scale;
-        return _scale
-    }
+    // function setScale(key) {
+    //     var pitch = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
+    //     var _scale = [];
+    //     var start = pitch.indexOf(key);
+    //     _scale.push(pitch[start]);
+    //     var prevnoteindex = start;
+    //     for (i = 0; i < scalestructure.length - 1; i++) {
+    //         nextnoteindex = prevnoteindex + scalestructure[i];
+    //         if (nextnoteindex >= pitch.length) {
+    //             nextnoteindex = nextnoteindex - pitch.length; // wrap
+    //         }
+    //         _scale.push(pitch[nextnoteindex]);
+    //         prevnoteindex = nextnoteindex;
+    //     }
+    //     //this.scale = scale;
+    //     return _scale
+    // }
 
 
 }
