@@ -114,6 +114,11 @@ describe("tonality", function() {
         expect(trimmedArray[0]).toBeGreaterThan(36);
         expect(trimmedArray[trimmedArray.length - 1]).toBeLessThan(84);
 
+        var chordArray = tonality.getFullChordArray(1, 7, []);
+        trimmedArray = tonality.trimArray(chordArray, 40, 98);
+        expect(trimmedArray[0]).toBeGreaterThan(40);
+        expect(trimmedArray[trimmedArray.length - 1]).toBeLessThan(98);
+
     });
 
 });

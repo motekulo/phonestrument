@@ -245,9 +245,10 @@ function horBallsHit(ball1, ball2) {
 function vertBallsHit(ball1, ball2){
     //console.log("vert balls collision");
 
-    var scaled = Math.round(20 - (ball1.body.y/game.height * 20));
+    var scaled = ball1.body.y/game.height;
     //var note = note[scaled % scalestructure.length + 14]; // adjust for number of notes in scale
-    var note = note[scaled % scalestructure.length + 14];
+    var hitNote = notes[Math.floor(scaled * notes.length)];
+    console.log("hitNote is " + hitNote);
     var octave = Math.floor(scaled/20 * 4) + 2;  // 4 octaves to divide into
     var filterFreq = (ball1.body.x/game.width * 100);
     //    console.log("filterFreq: " + filterFreq);
@@ -260,7 +261,7 @@ function vertBallsHit(ball1, ball2){
 
     Tone.Transport.scheduleOnce(function(time){
         //plucky.triggerAttackRelease(note + octave, "16n", time);
-        plucky.triggerAttackRelease(note, "16n", time);
+        plucky.triggerAttackRelease(Tone.Frequency(hitNote, "midi"), "16n", time);
     }, "@8n");
     //    console.log(note + octave);
     //console.log("ship y accel: " + ship.body.acceleration.y); // -200 to 200
@@ -451,7 +452,9 @@ function initMusic() {
         }
     }
 
-    notes = tonalEnv.getFullChordArray(1, 5, []);
+    var allNotes = tonalEnv.getFullChordArray(1, 5, []);
+    notes = tonalEnv.trimArray(allNotes, 36, 84);
+
     //scale = setScale(key);
 
     // function setScale(key) {
