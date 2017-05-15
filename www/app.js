@@ -15,7 +15,7 @@ var bubbles;
 var tonalEnv;
 var notes = [];
 
-plucky = new Tone.PolySynth(4, Tone.MonoSynth);
+plucky = new Tone.PolySynth(3, Tone.MonoSynth);
 pluckyPanVol = new Tone.PanVol(0.5, -24);
 plucky.connect(pluckyPanVol);
 pluckyPanVol.connect(Tone.Master);
@@ -47,7 +47,7 @@ function create () {
     var allNotes = tonalEnv.getFullChordArray(1, 7, [0,0,0,-1]);
     notes = tonalEnv.trimArray(allNotes, 36, 84);
 
-    for (var i = 0; i < 4; i++) {
+    for (var i = 0; i < 3; i++) {
         musBubble = bubbles.create(game.world.randomX, game.world.randomY, 'bubble');
         musBubble.anchor.set(0.5, 0.5);
         musBubble.inputEnabled = true;
@@ -69,28 +69,30 @@ function create () {
         var index = Math.floor(musBubble.body.y/game.world.height * notes.length);
         var startNotes = [];
         for (var k = 0; k < 4; k++) {
-            var noteName = Tone.Frequency(notes[index+k], "midi").toNote();
+            //var noteName = Tone.Frequency(notes[index+k], "midi").toNote();
+            var noteName = notes[index+k];
             startNotes.push(noteName);
         }
 
-        var subDiv = game.rnd.pick([1,2,4]) + "n";
+        var subDiv = game.rnd.pick([1, 2, 3, 4, 8, 12, 16]) + "n";
 
-        musBubble.tonePattern = new Tone.Pattern(function(time, note){
-            console.log("Note is " + note);
-            if (note == undefined) {
-                console.log("No good");
-
-            } else {
-                console.log("playing");
-                plucky.triggerAttackRelease(note, "8n", time);
+        musBubble.tonePattern = new Tone.Sequence(function(time, note){
+            //console.log("Note is " + note);
+            if (note !== null){
+                //console.log("play");
+                plucky.triggerAttackRelease(Tone.Frequency(note, "midi"), "16n", time);
             }
-
-        },startNotes, "upDown");
-        musBubble.tonePattern.interval = subDiv;
+        },startNotes, subDiv);
+        //musBubble.tonePattern.interval = subDiv;
         musBubble.tonePattern.start(0);
 
     }
 
+    Tone.Transport.loop = true;
+    Tone.Transport.loopStart = 0;
+    Tone.Transport.loopEnd = "12m";
+    Tone.Transport.bpm.value = 112;
+    Tone.Transport.latencyHint = 'playback';
     Tone.Transport.start("+0.8");
     // for (var i = 0; i < 40; i++)
     // {
