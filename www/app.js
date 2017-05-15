@@ -14,13 +14,7 @@ var bubbles;
 
 var tonalEnv;
 var notes = [];
-var chordProgPart;
-
-plucky = new Tone.PolySynth(3, Tone.MonoSynth);
-pluckyPanVol = new Tone.PanVol(0.5, -24);
-plucky.connect(pluckyPanVol);
-pluckyPanVol.connect(Tone.Master);
-
+//var chordProgPart;
 
 var game = new Phaser.Game(deviceWidth, deviceHeight * 0.85, Phaser.AUTO, 'stage', {preload: preload, create: create, update: update });
 
@@ -77,15 +71,9 @@ function create () {
 
         var subDiv = game.rnd.pick([1, 2, 3, 4, 12]) + "n";
 
-        musBubble.tonePattern = new Tone.Sequence(function(time, note){
-            //console.log("Note is " + note);
-            if (note !== null){
-                //console.log("play");
-                plucky.triggerAttackRelease(Tone.Frequency(note, "midi"), "16n", time);
-            }
-        },startNotes, subDiv);
-        //musBubble.tonePattern.interval = subDiv;
-        musBubble.tonePattern.start(0);
+        musBubble.tonePattern = new PatternPlayer();
+        musBubble.tonePattern.setNotes(startNotes);
+        musBubble.tonePattern.setLoopInterval(subDiv);
 
     }
 
@@ -93,8 +81,9 @@ function create () {
            // cycle through balls and modify sequence notes based on position
            bubbles.forEach(function(bubble){
                var pitch = notes[Math.floor(bubble.body.y/game.world.height * notes.length)];
-               var index = game.rnd.pick([0, 1, 2, 3]);
-               bubble.tonePattern.at(index, pitch);
+               //var index = game.rnd.pick([0, 1, 2, 3]);
+               //bubble.tonePattern.at(index, pitch);
+               bubble.tonePattern.randomReplaceNote(pitch);
            }, this, true);
     }, "4n");
 

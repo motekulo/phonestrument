@@ -68,7 +68,7 @@ Try timing with Tone.Player synced to transport. No matter what happens, move on
 - collision
 
 
-### Mon 8 May 2017 
+### Mon 8 May 2017
 
 Tried on Rob's Nexus 7 and performance good.
 
@@ -81,4 +81,35 @@ of main player sprite. Reduce the volume, and turn off metronome for now, too.
 Can then tweak the sounds and game settings to make it more playable. Get a
 complete game going at the moment though.
 
+### Mon 15 May 2017
 
+Have worked on chord progressions, and added a bass line so the whole thing sounds more musical. Looked at some games during the week on new phone. There aren't many engaging music games, as it turns out. There are derivative tap games - one that is 1.2GB to download in fact (Deemo) - but not much where player action affects the music. The simple games like agar.io are appealing.
+
+Pushed current game, which has pause, play, and reset controls as exp_10.
+
+#### From exp 11 to 20
+
+Heading to exp_11 and beyond. Perhaps try a new tack? Use the gradually rising bubbles example from phaser. Bubbles emerge from the bottom and rise up. A different coloured bubble is the protagonist and can bounce other bubbles away. Bubbles can disappear through the top of the screen.
+
+Musical ideas:
+
+- Play with proximity to balls as to the music that gets made.
+- General energy of ball movement could relate to musical density
+- Consider relatively abstract connections between movement and musical parts
+- Make it a generative, relaxing thing with a protagonist follows finger movement rather than a game that can be lost or working
+- Each bubble could have some sort of unique musical character/feature going on
+
+Coding/ Structure ideas:
+
+- separate music from game and visual model (so have a phonestrument style object)
+- consider, in fact, whether phonestrument could be used as is
+
+Think of bubbles. Dragging them, popping them even.
+
+enable drag on bubbles. If drag is really short, then pop them.
+
+Perhaps focus on getting the physical movement happening with some really simple sounds and effects, then refine.
+
+### May 16
+
+Exp 11 tagged as a bubble player - called babol. Performance not great on mobile. exp 12 will be using a separate library and object for pattern playing, and will move to a Tone.Pattern rather than Tone.Sequence
