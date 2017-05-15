@@ -4,6 +4,7 @@
     "displayName": "Museroids",
     "cordova": {
         "platforms": [
+            "android",
             "browser"
         ],
         "plugins": {
@@ -11,6 +12,7 @@
         }
     },
     "dependencies": {
+        "cordova-android": "^6.2.2",
         "cordova-browser": "~4.1.0",
         "cordova-plugin-whitelist": "1"
     },

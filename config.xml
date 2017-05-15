@@ -23,6 +23,7 @@
         <allow-intent href="itms-apps:*" />
     </platform>
     <preference name="Orientation" value="landscape" />
+    <engine name="android" spec="^6.2.2" />
     <engine name="browser" spec="~4.1.0" />
     <plugin name="cordova-plugin-whitelist" spec="1" />
 </widget>
