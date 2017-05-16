@@ -16,9 +16,9 @@ describe("patternPlayer", function() {
     });
     it("can replace a note in pattern randomly", function() {
         patternPlayer.setNotes([24,28,31,35]);
-        patternPlayer.randomReplaceNote(99);
+        var index = patternPlayer.randomReplaceNote(99);
         expect(patternPlayer.notes.length).toBe(4);
-        console.log("should be a 99 in here: " + patternPlayer.notes);
+        expect(patternPlayer.notes[index]).toBe(99);
 
     });
 

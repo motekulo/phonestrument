@@ -85,7 +85,9 @@ function create () {
                bubble.tonePattern.setPanPosition(pan);
                //var index = game.rnd.pick([0, 1, 2, 3]);
                //bubble.tonePattern.at(index, pitch);
-               bubble.tonePattern.randomReplaceNote(pitch);
+
+               var replaceIndex = bubble.tonePattern.randomReplaceNote(pitch);
+               console.log("Pitch we are changing: " + pitch + " at index " + replaceIndex);
            }, this, true);
     }, "4n");
 
@@ -102,7 +104,7 @@ function create () {
             var allNotes = tonalEnv.getFullChordArray(value.root, value.tochordtone, value.alterations);
             notes = tonalEnv.trimArray(allNotes, 36, 84);
             bassArpeggio = tonalEnv.scaleOctave(tonalEnv.getChord(value.root,
-                                                                  value.tochordtone, value.alterations), 3);
+                                                    value.tochordtone, value.alterations), 3);
             for (var i = 0; i < bassArpeggio.length; i++) {
                 //var time = "0:" + i;
                 bassPart.at(i, bassArpeggio[i]);

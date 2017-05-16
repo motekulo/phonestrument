@@ -113,3 +113,46 @@ Perhaps focus on getting the physical movement happening with some really simple
 ### May 16
 
 Exp 11 tagged as a bubble player - called babol. Performance not great on mobile. exp 12 will be using a separate library and object for pattern playing, and will move to a Tone.Pattern rather than Tone.Sequence
+
+#### Next steps:
+
+- add transport buttons
+- be able to reset
+- iron out playback (note undefined?) bug
+
+then tag as exp\_12.
+
+#### exp 13 performance and parameters
+
+- test performance limits
+- try changing other parameters (filter? envelope?)
+
+#### exp 14 touch
+
+- work on touch motion; bubble motion after touch
+- touch motion; be able to stop a bubble
+
+#### exp 15 more parameters
+
+- change probability
+- change human 
+
+#### exp 16 change number of bubbles
+
+- add bubbles
+- delete bubbles
+
+#### Ideas
+
+This thing is starting to shape up like phonestrument was, but with a game engine... That wasn't the original intention, but seems to have emerged.
+
+Could have the main screen as the stage. Not sure about editing individual bubbles, but possibility is there.
+
+Not very gamelike, but that could be thought about. Could easily be really good for the linkage things
+
+
+
+
+
+
+

@@ -65,6 +65,7 @@ PatternPlayer.prototype.randomReplaceNote = function(note) {
     var index = _getRandomIntInclusive(0, this.notes.length - 1);
     this.notes[index] = note;
     this.pattern.values = this.notes;   //FIXME Why do we need this.notes at all?
+    return index;
 }
 
 /**
