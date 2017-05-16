@@ -30,7 +30,8 @@ PatternPlayer.prototype.setPanVol = function() {
 PatternPlayer.prototype.setPattern = function() {
     self = this;
     this.pattern = new Tone.Pattern(function(time, note) {
-        if (note !== null){
+        //console.log("patternPlayer note " + note);
+        if (note !== undefined){
             self.instrument.triggerAttackRelease(Tone.Frequency(note, "midi"), self.noteLength, time);
         }
     },[24], "upDown");
