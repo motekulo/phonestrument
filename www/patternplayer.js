@@ -26,10 +26,13 @@ PatternPlayer.prototype.setPanVol = function() {
     var panVol = new Tone.PanVol(0.5, -15);
     return panVol;
 }
+
 PatternPlayer.prototype.setPattern = function() {
     self = this;
     this.pattern = new Tone.Pattern(function(time, note) {
-        self.instrument.triggerAttackRelease(Tone.Frequency(note, "midi"), self.noteLength, time);
+        if (note !== null){
+            self.instrument.triggerAttackRelease(Tone.Frequency(note, "midi"), self.noteLength, time);
+        }
     },[24], "upDown");
     this.pattern.interval = this.interval;
     this.pattern.start(0);
