@@ -67,6 +67,14 @@ PatternPlayer.prototype.randomReplaceNote = function(note) {
     this.pattern.values = this.notes;   //FIXME Why do we need this.notes at all?
 }
 
+/**
+ * pan the pattern
+ * @param {float} panPos - the pan value (between 0 and 1)
+ *
+ **/
+ PatternPlayer.prototype.setPanPosition = function(panPos) {
+     this.panVol.pan.value = panPos;
+ }
 
 function _getRandomIntInclusive(min, max) {
     min = Math.ceil(min);

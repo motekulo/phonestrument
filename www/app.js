@@ -81,6 +81,8 @@ function create () {
            // cycle through balls and modify sequence notes based on position
            bubbles.forEach(function(bubble){
                var pitch = notes[Math.floor(bubble.body.y/game.world.height * notes.length)];
+               var pan = bubble.body.x/game.world.width;
+               bubble.tonePattern.setPanPosition(pan);
                //var index = game.rnd.pick([0, 1, 2, 3]);
                //bubble.tonePattern.at(index, pitch);
                bubble.tonePattern.randomReplaceNote(pitch);
