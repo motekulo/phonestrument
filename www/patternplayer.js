@@ -23,7 +23,7 @@ PatternPlayer.prototype.setSoloInstrument = function() {
 }
 
 PatternPlayer.prototype.setPanVol = function() {
-    var panVol = new Tone.PanVol(0.5, -15);
+    var panVol = new Tone.PanVol(0.5, -24);
     return panVol;
 }
 

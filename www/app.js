@@ -12,6 +12,8 @@ var deviceWidth = window.innerWidth;// * window.devicePixelRatio;
 var deviceHeight = window.innerHeight;// * window.devicePixelRatio;
 var bubbles;
 var isPaused = true;
+var button;
+var resetButton;
 
 var tonalEnv;
 var notes = [];
@@ -35,9 +37,13 @@ function create () {
     bubbles.physicsBodyType = Phaser.Physics.ARCADE;
     game.physics.enable(bubbles, Phaser.Physics.ARCADE);
 
-    button = game.add.button(game.width - 148, game.height - 80,
+    button = game.add.button(game.width - 128, game.height - 72,
          'playpausebutton', pausePlay, this, 1, 1, 1, 1);
     button.scale.setTo(0.75, 0.75);
+
+    resetButton = game.add.button(game.width - 128, 12,
+         'playpausebutton', resetBubbles, this, 2, 2, 2, 2);
+    resetButton.scale.setTo(0.75, 0.75);
 
     tonalEnv = new Tonality();
     var delay = 0;
@@ -64,7 +70,7 @@ function create () {
     }, "4n");
 
     bassSynth = new Tone.MonoSynth();
-    bassPanVol = new Tone.PanVol(0.5, -24);
+    bassPanVol = new Tone.PanVol(0.5, -27);
     bassSynth.connect(bassPanVol);
     bassPanVol.connect(Tone.Master);
 
@@ -199,4 +205,13 @@ function pausePlay() {
         button.setFrames(0, 0, 0, 0);
         isPaused = false;
     }
+}
+
+function resetBubbles() {
+    console.log("Reset");
+    Tone.Transport.stop();
+    isPaused = true;
+    bubbles.removeAll(true, false, false);
+    button.setFrames(1,1,1,1);
+    makeBubbles();
 }
