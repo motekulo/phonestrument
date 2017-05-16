@@ -1,4 +1,4 @@
-describe("tonality", function() {
+describe("patternPlayer", function() {
     var patternPlayer;
 
     beforeEach(function() {

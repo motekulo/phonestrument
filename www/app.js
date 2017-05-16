@@ -43,7 +43,7 @@ function create () {
     notes = tonalEnv.trimArray(allNotes, 36, 84);
 
     for (var i = 0; i < 6; i++) {
-        musBubble = bubbles.create(game.world.randomX, game.world.randomY, 'bubble');
+        var musBubble = bubbles.create(game.world.randomX, game.world.randomY, 'bubble');
         musBubble.anchor.set(0.5, 0.5);
         musBubble.inputEnabled = true;
         musBubble.input.enableDrag(true);

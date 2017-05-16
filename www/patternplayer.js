@@ -5,27 +5,32 @@
 
 function PatternPlayer() {
     this.instrument = this.setSoloInstrument();
-    this.panVol;
-    this.pattern = this.setPattern;
+    this.panVol = this.setPanVol();
+    this.instrument.connect(this.panVol);
+    this.panVol.connect(Tone.Master);
+    this.interval = "8n";
+    this.setPattern();
     this.notes = []; // should be private?
     this.noteLength = "16n";  // length of note played by synth
     //this.loopLength = 1;  // number of bars to loop over
-    this.interval = "8n";
+
 }
 
 PatternPlayer.prototype.setSoloInstrument = function() {
-    this.instrument = new Tone.MonoSynth();
-    this.panVol = new Tone.PanVol(0.5, -15);
-    this.instrument.connect(this.panVol);
-    this.panVol.connect(Tone.Master);
+    var instrument = new Tone.MonoSynth();
+    return instrument;
 
 }
 
+PatternPlayer.prototype.setPanVol = function() {
+    var panVol = new Tone.PanVol(0.5, -15);
+    return panVol;
+}
 PatternPlayer.prototype.setPattern = function() {
-
+    self = this;
     this.pattern = new Tone.Pattern(function(time, note) {
-        this.instrument.triggerAttackRelease(Tone.Frequency(note, "midi"), this.noteLength, time);
-    },[], "upDown");
+        self.instrument.triggerAttackRelease(Tone.Frequency(note, "midi"), self.noteLength, time);
+    },[24], "upDown");
     this.pattern.interval = this.interval;
     this.pattern.start(0);
 }
@@ -37,6 +42,7 @@ PatternPlayer.prototype.setPattern = function() {
 **/
 PatternPlayer.prototype.setNotes = function(notes) {
     this.notes = notes;
+    this.pattern.values = notes;
 
 }
 
@@ -58,6 +64,7 @@ PatternPlayer.prototype.setNotes = function(notes) {
 PatternPlayer.prototype.randomReplaceNote = function(note) {
     var index = _getRandomIntInclusive(0, this.notes.length - 1);
     this.notes[index] = note;
+    this.pattern.values = this.notes;   //FIXME Why do we need this.notes at all?
 }
 
 
