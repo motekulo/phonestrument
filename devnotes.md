@@ -135,7 +135,7 @@ then tag as exp\_12.
 #### exp 15 more parameters
 
 - change probability
-- change human 
+- change human
 
 #### exp 16 change number of bubbles
 
@@ -151,8 +151,14 @@ Could have the main screen as the stage. Not sure about editing individual bubbl
 Not very gamelike, but that could be thought about. Could easily be really good for the linkage things
 
 
+### May 17
 
+towards exp 13
 
+Performance - originally idea was to test limits, but today it's to try and optimise performance given how poorly it's running on mobile. Not so great on browser either really.
 
+#### Performance
 
+in browser, up to 180mb memory (using task manager in chrome) and 31k javascript (about 18k live).
 
+Keep hitting reset button on app and overall memory use increases. Need to dispose of some things!

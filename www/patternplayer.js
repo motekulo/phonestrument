@@ -8,9 +8,9 @@ function PatternPlayer() {
     this.panVol = this.setPanVol();
     this.instrument.connect(this.panVol);
     this.panVol.connect(Tone.Master);
-    this.interval = "8n";
+    //this.interval = "8n";
     this.setPattern();
-    this.notes = []; // should be private?
+    //this.notes = []; // should be private?
     this.noteLength = "16n";  // length of note played by synth
     //this.loopLength = 1;  // number of bars to loop over
 
@@ -35,7 +35,7 @@ PatternPlayer.prototype.setPattern = function() {
             self.instrument.triggerAttackRelease(Tone.Frequency(note, "midi"), self.noteLength, time);
         }
     },[24], "upDown");
-    this.pattern.interval = this.interval;
+    this.pattern.interval = "8n";  // default for init
     this.pattern.start(0);
 }
 
@@ -45,7 +45,7 @@ PatternPlayer.prototype.setPattern = function() {
 *
 **/
 PatternPlayer.prototype.setNotes = function(notes) {
-    this.notes = notes;
+    //this.notes = notes;
     this.pattern.values = notes;
 
 }
@@ -56,19 +56,19 @@ PatternPlayer.prototype.setNotes = function(notes) {
  *
  **/
  PatternPlayer.prototype.setLoopInterval = function(newInterval) {
-     this.interval = newInterval;
-     this.pattern.interval = this.interval;
+     //this.interval = newInterval;
+     this.pattern.interval = newInterval;
  }
 
 /**
 * replace a random note in a pattern
 * @param {note} note - the midi note of the note to insert
-*
+* @returns {int} - the index of the random array item changed
 **/
 PatternPlayer.prototype.randomReplaceNote = function(note) {
-    var index = _getRandomIntInclusive(0, this.notes.length - 1);
-    this.notes[index] = note;
-    this.pattern.values = this.notes;   //FIXME Why do we need this.notes at all?
+    var index = _getRandomIntInclusive(0, this.pattern.values.length - 1);
+    //this.notes[index] = note;
+    this.pattern.values[index] = note;   //FIXME Why do we need this.notes at all?
     return index;
 }
 

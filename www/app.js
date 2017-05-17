@@ -64,7 +64,7 @@ function create () {
                 //bubble.tonePattern.at(index, pitch);
 
                 var replaceIndex = bubble.tonePattern.randomReplaceNote(pitch);
-                console.log("Pitch we are changing: " + pitch + " at index " + replaceIndex);
+                //console.log("Pitch we are changing: " + pitch + " at index " + replaceIndex);
             }, this, true);
         }
     }, "4n");
@@ -155,7 +155,7 @@ game.physics.arcade.collide(bubbles, bubbles, bubblesCollide, null, this);
 }
 
 function bubblesCollide() {
-    console.log("pop");
+    //console.log("pop");
 }
 
 function makeBubbles() {
@@ -211,6 +211,11 @@ function resetBubbles() {
     console.log("Reset");
     Tone.Transport.stop();
     isPaused = true;
+    bubbles.forEach(function(bubble){
+        bubble.tonePattern.instrument.dispose();
+        bubble.tonePattern.panVol.dispose();
+        bubble.tonePattern.pattern.dispose();
+    }, this, true);
     bubbles.removeAll(true, false, false);
     button.setFrames(1,1,1,1);
     makeBubbles();
