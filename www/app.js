@@ -174,7 +174,7 @@ function makeBubbles() {
         musBubble.events.onDragStart.add(onDragStart, this);
         musBubble.events.onDragStop.add(onDragStop, this);
         game.physics.enable(musBubble, Phaser.Physics.ARCADE);
-        musBubble.scale.set(game.rnd.realInRange(0.1, 0.4));
+
 
         musBubble.body.bounce.setTo(1,1);
         //musBubble.body.velocity.setTo(100, 50);
@@ -186,6 +186,7 @@ function makeBubbles() {
         musBubble.body.velocity.y = game.rnd.between(-200, 200);
 
         musBubble.body.angularVelocity = game.rnd.between(-10, 10);
+        musBubble.body.drag.set(60);
 
         var index = Math.floor(musBubble.body.y/game.world.height * notes.length);
         var startNotes = [];
@@ -196,6 +197,11 @@ function makeBubbles() {
         }
 
         var subDiv = game.rnd.pick([2, 3, 4, 12]) + "n";
+
+        //musBubble.scale.set(game.rnd.realInRange(0.2, 0.5));
+        var bubbleScale = game.rnd.realInRange(0.2, 0.5);
+        musBubble.scale.set(bubbleScale);
+        musBubble.body.drag.set(100 * bubbleScale);
 
         musBubble.tonePattern = new PatternPlayer();
         musBubble.tonePattern.setNotes(startNotes);
