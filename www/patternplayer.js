@@ -73,6 +73,22 @@ PatternPlayer.prototype.randomReplaceNote = function(note) {
 }
 
 /**
+ * change the pattern type randomly
+ * @returns {string} - the pattern type changed to
+ **/
+PatternPlayer.prototype.changePatternTypeRandomly = function() {
+    var types = ["up", "down", "upDown", "downUp", "alternateUp", "alternateDown",
+    "random", "randomWalk", "randomOnce"];
+    var currentType = this.pattern.pattern;
+    do {
+        randomIndex = _getRandomIntInclusive(0, types.length - 1);
+        var newType = types[randomIndex];
+    } while (newType == currentType);  // ust return a different random type
+    this.pattern.pattern = newType;
+    return newType;
+}
+
+/**
  * pan the pattern
  * @param {float} panPos - the pan value (between 0 and 1)
  *
