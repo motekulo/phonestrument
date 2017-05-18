@@ -19,7 +19,7 @@ var tonalEnv;
 var notes = [];
 //var chordProgPart;
 
-var game = new Phaser.Game(deviceWidth, deviceHeight * 0.85, Phaser.AUTO, 'stage', {preload: preload, create: create, update: update });
+var game = new Phaser.Game(deviceWidth, deviceHeight, Phaser.AUTO, 'stage', {preload: preload, create: create, update: update });
 
 //var tonalEnv = new Tonality();
 
@@ -159,7 +159,7 @@ function bubblesCollide() {
 }
 
 function makeBubbles() {
-    for (var i = 0; i < 6; i++) {
+    for (var i = 0; i < 2; i++) {
         var musBubble = bubbles.create(game.world.randomX, game.world.randomY, 'bubble');
         musBubble.anchor.set(0.5, 0.5);
         musBubble.inputEnabled = true;
