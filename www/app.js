@@ -74,8 +74,6 @@ function create () {
     bassSynth.connect(bassPanVol);
     bassPanVol.connect(Tone.Master);
 
-
-
     chordProgPart = new Tone.Part(function(time, value) {
             //console.log("chord change " + value);
             console.log("bar num " + Tone.Transport.position);
@@ -155,12 +153,14 @@ function update() {
 game.physics.arcade.collide(bubbles, bubbles, bubblesCollide, null, this);
 }
 
-function bubblesCollide() {
+function bubblesCollide(bubble1, bubble2) {
+    bubble1.tonePattern.changePatternTypeRandomly();
+    bubble1.tonePattern.changePatternTypeRandomly();
     //console.log("pop");
 }
 
 function makeBubbles() {
-    for (var i = 0; i < 1; i++) {
+    for (var i = 0; i < 2; i++) {
         var musBubble = bubbles.create(game.world.randomX, game.world.randomY, 'bubble');
         musBubble.anchor.set(0.5, 0.5);
         musBubble.inputEnabled = true;
