@@ -17,9 +17,12 @@ var resetButton;
 
 var tonalEnv;
 var notes = [];
+
+var result = [];  // for debugging
 //var chordProgPart;
 
-var game = new Phaser.Game(deviceWidth, deviceHeight, Phaser.AUTO, 'stage', {preload: preload, create: create, update: update });
+var game = new Phaser.Game(deviceWidth, deviceHeight, Phaser.AUTO, 'stage', {
+    preload: preload, create: create, update: update, render: render });
 
 //var tonalEnv = new Tonality();
 
@@ -165,6 +168,8 @@ function makeBubbles() {
         musBubble.anchor.set(0.5, 0.5);
         musBubble.inputEnabled = true;
         musBubble.input.enableDrag(true);
+        musBubble.events.onDragStart.add(onDragStart, this);
+        musBubble.events.onDragStop.add(onDragStop, this);
         game.physics.enable(musBubble, Phaser.Physics.ARCADE);
         musBubble.scale.set(game.rnd.realInRange(0.1, 0.4));
 
@@ -194,6 +199,20 @@ function makeBubbles() {
         musBubble.tonePattern.setLoopInterval(subDiv);
 
     }
+}
+
+function render() {
+    game.debug.text(result[0], 10, 20);
+    game.debug.text(result[1], 10, 40);
+}
+function onDragStart(sprite, pointer) {
+    result[0] = "Start drag at x: " + pointer.x + " y: "
+                + pointer.y + " time down + " + pointer.timeDown;
+}
+
+function onDragStop(sprite, pointer) {
+    result[1] = "Stop drag at x: " + pointer.x + "y: " + pointer.y
+                + " time up + " + pointer.timeUp;
 }
 
 function pausePlay() {
