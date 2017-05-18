@@ -18,6 +18,9 @@ var resetButton;
 var tonalEnv;
 var notes = [];
 
+var xDown;
+var yDown;
+
 var result = [];  // for debugging
 //var chordProgPart;
 
@@ -204,15 +207,27 @@ function makeBubbles() {
 function render() {
     game.debug.text(result[0], 10, 20);
     game.debug.text(result[1], 10, 40);
+    game.debug.text(result[2], 10, 60);
 }
 function onDragStart(sprite, pointer) {
     result[0] = "Start drag at x: " + pointer.x + " y: "
                 + pointer.y + " time down + " + pointer.timeDown;
+    xDown = pointer.x;
+    yDown = pointer.y;
+
 }
 
 function onDragStop(sprite, pointer) {
     result[1] = "Stop drag at x: " + pointer.x + "y: " + pointer.y
                 + " time up + " + pointer.timeUp;
+    var dragTime = pointer.timeUp - pointer.timeDown;
+    var deltaX = pointer.x - xDown;
+    var deltaY = pointer.y - yDown;
+    var velocityX = deltaX/dragTime * 1000;
+    var velocityY = deltaY/dragTime * 1000;
+    result[2] = "velocity X: " + velocityX + " and velocity Y: " + velocityY;
+    sprite.body.velocity.x = velocityX;
+    sprite.body.velocity.y = velocityY;
 }
 
 function pausePlay() {
