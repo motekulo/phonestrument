@@ -16,10 +16,10 @@ function PatternPlayer() {
 
 }
 
+
 PatternPlayer.prototype.setSoloInstrument = function() {
     var instrument = new Tone.MonoSynth();
     return instrument;
-
 }
 
 PatternPlayer.prototype.setPanVol = function() {

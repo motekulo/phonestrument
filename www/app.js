@@ -130,13 +130,14 @@ function create () {
         chordProgPart.loopEnd = "12m";
         chordProgPart.start(0);
 
-        bassArpeggio = tonalEnv.scaleOctave(tonalEnv.getChord(1, 7, []), 4);
+        var bassArpeggio = tonalEnv.scaleOctave(tonalEnv.getChord(1, 7, []), 4);
+        var bassRoot = bassArpeggio[0];
 
     var bassPart = new Tone.Sequence(function(time, note){
     	//console.log(note);
         bassSynth.triggerAttackRelease(Tone.Frequency(note, "midi"), "8n", time);
 
-    }, bassArpeggio, "4n");
+    }, [bassRoot], "1m");
     bassPart.loop = true;
     bassPart.loopEnd = "1m";
     bassPart.start(0);
@@ -159,7 +160,7 @@ function bubblesCollide() {
 }
 
 function makeBubbles() {
-    for (var i = 0; i < 2; i++) {
+    for (var i = 0; i < 1; i++) {
         var musBubble = bubbles.create(game.world.randomX, game.world.randomY, 'bubble');
         musBubble.anchor.set(0.5, 0.5);
         musBubble.inputEnabled = true;
@@ -186,7 +187,7 @@ function makeBubbles() {
             startNotes.push(noteName);
         }
 
-        var subDiv = game.rnd.pick([1, 2, 3, 4, 12]) + "n";
+        var subDiv = game.rnd.pick([2, 3, 4, 12]) + "n";
 
         musBubble.tonePattern = new PatternPlayer();
         musBubble.tonePattern.setNotes(startNotes);
