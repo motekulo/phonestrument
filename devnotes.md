@@ -168,3 +168,11 @@ Keep hitting reset button on app and overall memory use increases. Need to dispo
 Tagged exp\_13 - two balls, working well on mobile, changing pattern on collision.
 
 Touch motion adjustment next.
+
+### May 19
+
+Comment from Mareta with exp_13 + touch (so exp 14 almost really) was "how do you change the music" - so she found it engaging and had fun moving the bubbles but wasn't sure how the music was changing. Maybe that's a good thing?!
+
+Could do a beta testing arrangement at some stage.
+
+Could document some of these experiments online.
