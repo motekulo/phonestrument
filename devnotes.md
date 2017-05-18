@@ -162,3 +162,9 @@ Performance - originally idea was to test limits, but today it's to try and opti
 in browser, up to 180mb memory (using task manager in chrome) and 31k javascript (about 18k live).
 
 Keep hitting reset button on app and overall memory use increases. Need to dispose of some things!
+
+### May 18
+
+Tagged exp\_13 - two balls, working well on mobile, changing pattern on collision.
+
+Touch motion adjustment next.
