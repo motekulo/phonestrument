@@ -183,9 +183,10 @@ exp\-14 tagged
 
 Modularize chord progression creation and randomize that too (bass will need to be linked)
 
-
 Try changing filter based on velocity
 Add some random humanization and probability parameters
 Some of this could be added with nexusUI widgets - adjust then code and remove widgets
+
+How about nexusUI widgets to change parameters, rather than full reset? So change length of bubble patterns, tempo, synth even?
 
 Haven't really thought about changing to a sample based instrument or percussion yet, so that might be worth looking at as a separate experiment completely? Pretty easy to implement if we have the patternPlayer approach - just change the instrument type.
