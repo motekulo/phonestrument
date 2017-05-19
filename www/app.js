@@ -24,8 +24,8 @@ var yDown;
 var result = [];  // for debugging
 //var chordProgPart;
 
-var game = new Phaser.Game(deviceWidth, deviceHeight, Phaser.AUTO, 'stage', {
-    preload: preload, create: create, update: update, render: render });
+var game = new Phaser.Game(deviceWidth, deviceHeight * 0.85, Phaser.AUTO, 'stage', {
+    preload: preload, create: create, update: update});
 
 //var tonalEnv = new Tonality();
 
@@ -225,6 +225,12 @@ function resetBubbles() {
     bubbles.removeAll(true, false, false);
     button.setFrames(1,1,1,1);
     makeBubbles();
+    resetChordProgression();
+
+
+}
+
+function resetChordProgression() {
     // And change chord progression
     var numProggies = tonalEnv.chordProgressions.length;
     var progIndex = game.rnd.between(0, numProggies-1);
@@ -236,5 +242,15 @@ function resetBubbles() {
     chordProgPart.loopEnd = chordProg.length + "m";
     Tone.Transport.loopEnd = chordProgPart.loopEnd;
     console.log("Prog changed to " + tonalEnv.chordProgressions[progIndex].name);
+}
 
+nx.onload = function(){
+    button1.on('*', function(data) {
+
+       if (data.press == 1) {
+           resetChordProgression();
+
+       }
+
+     })
 }
