@@ -79,7 +79,7 @@ function create () {
     bassPanVol = new Tone.PanVol(0.5, -27);
     bassSynth.connect(bassPanVol);
     bassPanVol.connect(Tone.Master);
-
+    var chordProg = tonalEnv.chordProgressions[0].prog;
     chordProgPart = new Tone.Part(function(time, value) {
             //console.log("chord change " + value);
             console.log("bar num " + Tone.Transport.position);
@@ -91,47 +91,10 @@ function create () {
                 //var time = "0:" + i;
                 bassPart.at(i, bassArpeggio[i]);
             }
-        }, [
-            {time: "0m",
-            root: 1,
-            tochordtone: 7,
-            alterations: [0,0,0,-1]},
-            {time: "1m",
-            root: 4,
-            tochordtone: 7,
-            alterations: [0,0,0,-1]},
-            {time: "2m",
-            root: 1,
-            tochordtone: 7,
-            alterations: [0,0,0,-1]},
-            {time: "4m",
-            root: 4,
-            tochordtone: 7,
-            alterations: [0,0,0,-1]},
-            {time: "6m",
-            root: 1,
-            tochordtone: 7,
-            alterations: [0,0,0,-1]},
-            {time: "8m",
-            root: 2,
-            tochordtone: 7,
-            alterations: [0,0,0,0]},
-            {time: "9m",
-            root: 5,
-            tochordtone: 7,
-            alterations: [0,0,0,0]},
-            {time: "10m",
-            root: 1,
-            tochordtone: 7,
-            alterations: [0,0,0,-1]},
-            {time: "11m",
-            root: 5,
-            tochordtone: 7,
-            alterations: [0,0,0,0]}
+        }, chordProg);
 
-        ]);
         chordProgPart.loop = true;
-        chordProgPart.loopEnd = "12m";
+        chordProgPart.loopEnd = chordProg.length + "m";
         chordProgPart.start(0);
 
         var bassArpeggio = tonalEnv.scaleOctave(tonalEnv.getChord(1, 7, []), 4);
@@ -148,7 +111,7 @@ function create () {
 
     Tone.Transport.loop = true;
     Tone.Transport.loopStart = 0;
-    Tone.Transport.loopEnd = "12m";
+    Tone.Transport.loopEnd = chordProgPart.loopEnd;
     Tone.Transport.bpm.value = 112;
     Tone.Transport.latencyHint = 'playback';
     //Tone.Transport.start("+0.8");

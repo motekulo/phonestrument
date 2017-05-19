@@ -13,8 +13,47 @@ function Tonality() {
     this.scaleStructure = [2,2,1,2,2,2,1];
     this.fullScale = [];
     this._setScale();
+    this.chordProgressions = [
+        {name: "oneFourFive",
+         prog: [
+            {time: "0m", root: 1, tochordtone: 5, alterations: [0,0,0]},
+            {time: "1m", root: 4, tochordtone: 5, alterations: [0,0,0]},
+            {time: "2m", root: 5, tochordtone: 5, alterations: [0,0,0]},
+            {time: "3m", root: 5, tochordtone: 7, alterations: [0,0,0,0]}
+        ]},
+        {name: "blues1",
+         prog: [
+            {time: "0m", root: 1, tochordtone: 7, alterations: [0,0,0,-1]},
+            {time: "1m", root: 4, tochordtone: 7, alterations: [0,0,0,-1]},
+            {time: "2m", root: 1, tochordtone: 7, alterations: [0,0,0,-1]},
+            {time: "3m", root: 1, tochordtone: 7, alterations: [0,0,0,-1]},
+            {time: "4m", root: 4, tochordtone: 7, alterations: [0,0,0,-1]},
+            {time: "5m", root: 4, tochordtone: 7, alterations: [0,0,0,-1]},
+            {time: "6m", root: 1, tochordtone: 7, alterations: [0,0,0,-1]},
+            {time: "7m", root: 1, tochordtone: 7, alterations: [0,0,0,-1]},
+            {time: "8m", root: 2, tochordtone: 7, alterations: [0,0,0,0]},
+            {time: "9m", root: 5, tochordtone: 7, alterations: [0,0,0,0]},
+            {time: "10m", root: 1, tochordtone: 7, alterations: [0,0,0,-1]},
+            {time: "11m", root: 5, tochordtone: 7, alterations: [0,0,0,0]}
+        ]},
+        {name: "one_6_2_5",
+         prog: [
+            {time: "0m", root: 1, tochordtone: 5, alterations: [0,0,0]},
+            {time: "1m", root: 6, tochordtone: 7, alterations: [0,0,0,0]},
+            {time: "2m", root: 2, tochordtone: 7, alterations: [0,0,0,0]},
+            {time: "3m", root: 5, tochordtone: 7, alterations: [0,0,0,0]}
+        ]},
+        {name: "1_2_3_4",
+         prog: [
+            {time: "0m", root: 1, tochordtone: 5, alterations: [0,0,0]},
+            {time: "1m", root: 2, tochordtone: 7, alterations: [0,0,0,0]},
+            {time: "2m", root: 3, tochordtone: 7, alterations: [0,0,0,0]},
+            {time: "3m", root: 4, tochordtone: 7, alterations: [0,0,0,0]}
+        ]}
+    ];
 
 }
+
 
 
 Tonality.prototype.setKey = function (key) {
@@ -91,7 +130,7 @@ Tonality.prototype.scaleOctave = function(chordArray, octave) {
     }
     return scaledArray;
 }
- 
+
 
 /**
  * get an array with chordtones over the full MIDI note range

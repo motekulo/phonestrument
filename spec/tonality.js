@@ -113,7 +113,7 @@ describe("tonality", function() {
         var trimmedArray = tonality.trimArray(tonality.fullScale, 36, 84);
         expect(trimmedArray[0]).toBeGreaterThan(36);
         expect(trimmedArray[trimmedArray.length - 1]).toBeLessThan(84);
-        
+
         var chordArray = tonality.getFullChordArray(1, 7, []);
         trimmedArray = tonality.trimArray(chordArray, 40, 98);
         expect(trimmedArray[0]).toBeGreaterThan(40);
@@ -125,6 +125,13 @@ describe("tonality", function() {
         var eMajor7Chord = tonality.getChord(1, 7, []);
         var octaveAdjusted = tonality.scaleOctave(eMajor7Chord, 5);
         expect(octaveAdjusted[0]).toBe(64);
+    });
+
+    it("has a selection of common chord progressions", function() {
+        expect(tonality.chordProgressions[0].name).toBe("oneFourFive");
+        expect(tonality.chordProgressions[0].prog[2].root).toBe(5);
+        //expect(tonality.chordProgression.blues1[11].root).toBe(5);
+
     });
 
 });
