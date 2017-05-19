@@ -79,26 +79,28 @@ function create () {
     bassPanVol = new Tone.PanVol(0.5, -27);
     bassSynth.connect(bassPanVol);
     bassPanVol.connect(Tone.Master);
-    var chordProg = tonalEnv.chordProgressions[0].prog;
+    var numProggies = tonalEnv.chordProgressions.length;
+    var progIndex = game.rnd.between(0, numProggies-1);
+    var chordProg = tonalEnv.chordProgressions[progIndex].prog;
     chordProgPart = new Tone.Part(function(time, value) {
-            //console.log("chord change " + value);
-            console.log("bar num " + Tone.Transport.position);
-            var allNotes = tonalEnv.getFullChordArray(value.root, value.tochordtone, value.alterations);
-            notes = tonalEnv.trimArray(allNotes, 36, 84);
-            bassArpeggio = tonalEnv.scaleOctave(tonalEnv.getChord(value.root,
-                                                    value.tochordtone, value.alterations), 3);
-            for (var i = 0; i < bassArpeggio.length; i++) {
-                //var time = "0:" + i;
-                bassPart.at(i, bassArpeggio[i]);
-            }
-        }, chordProg);
+        //console.log("chord change " + value);
+        console.log("bar num " + Tone.Transport.position);
+        var allNotes = tonalEnv.getFullChordArray(value.root, value.tochordtone, value.alterations);
+        notes = tonalEnv.trimArray(allNotes, 36, 84);
+        bassArpeggio = tonalEnv.scaleOctave(tonalEnv.getChord(value.root,
+            value.tochordtone, value.alterations), 3);
+        for (var i = 0; i < bassArpeggio.length; i++) {
+            //var time = "0:" + i;
+            bassPart.at(i, bassArpeggio[i]);
+        }
+    }, chordProg);
 
-        chordProgPart.loop = true;
-        chordProgPart.loopEnd = chordProg.length + "m";
-        chordProgPart.start(0);
+    chordProgPart.loop = true;
+    chordProgPart.loopEnd = chordProg.length + "m";
+    chordProgPart.start(0);
 
-        var bassArpeggio = tonalEnv.scaleOctave(tonalEnv.getChord(1, 7, []), 4);
-        var bassRoot = bassArpeggio[0];
+    var bassArpeggio = tonalEnv.scaleOctave(tonalEnv.getChord(1, 7, []), 4);
+    var bassRoot = bassArpeggio[0];
 
     var bassPart = new Tone.Sequence(function(time, note){
     	//console.log(note);
@@ -223,4 +225,16 @@ function resetBubbles() {
     bubbles.removeAll(true, false, false);
     button.setFrames(1,1,1,1);
     makeBubbles();
+    // And change chord progression
+    var numProggies = tonalEnv.chordProgressions.length;
+    var progIndex = game.rnd.between(0, numProggies-1);
+    var chordProg = tonalEnv.chordProgressions[progIndex].prog;
+    chordProgPart.removeAll();
+    for (var i = 0; i < chordProg.length; i++) {
+        chordProgPart.at(chordProg[i].time, chordProg[i]);
+    }
+    chordProgPart.loopEnd = chordProg.length + "m";
+    Tone.Transport.loopEnd = chordProgPart.loopEnd;
+    console.log("Prog changed to " + tonalEnv.chordProgressions[progIndex].name);
+
 }
