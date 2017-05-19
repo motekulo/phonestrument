@@ -176,3 +176,16 @@ Comment from Mareta with exp_13 + touch (so exp 14 almost really) was "how do yo
 Could do a beta testing arrangement at some stage.
 
 Could document some of these experiments online.
+
+exp\-14 tagged
+
+#### Towards exp\_15
+
+Modularize chord progression creation and randomize that too (bass will need to be linked)
+
+
+Try changing filter based on velocity
+Add some random humanization and probability parameters
+Some of this could be added with nexusUI widgets - adjust then code and remove widgets
+
+Haven't really thought about changing to a sample based instrument or percussion yet, so that might be worth looking at as a separate experiment completely? Pretty easy to implement if we have the patternPlayer approach - just change the instrument type.
