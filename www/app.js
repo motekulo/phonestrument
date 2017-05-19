@@ -15,6 +15,8 @@ var isPaused = true;
 var button;
 var resetButton;
 
+var bassPart;
+
 var tonalEnv;
 var notes = [];
 
@@ -102,7 +104,7 @@ function create () {
     var bassArpeggio = tonalEnv.scaleOctave(tonalEnv.getChord(1, 7, []), 4);
     var bassRoot = bassArpeggio[0];
 
-    var bassPart = new Tone.Sequence(function(time, note){
+    bassPart = new Tone.Sequence(function(time, note){
     	//console.log(note);
         bassSynth.triggerAttackRelease(Tone.Frequency(note, "midi"), "8n", time);
 
@@ -126,7 +128,7 @@ game.physics.arcade.collide(bubbles, bubbles, bubblesCollide, null, this);
 
 function bubblesCollide(bubble1, bubble2) {
     bubble1.tonePattern.changePatternTypeRandomly();
-    bubble1.tonePattern.changePatternTypeRandomly();
+    bubble2.tonePattern.changePatternTypeRandomly();
     //console.log("pop");
 }
 
@@ -139,7 +141,6 @@ function makeBubbles() {
         musBubble.events.onDragStart.add(onDragStart, this);
         musBubble.events.onDragStop.add(onDragStop, this);
         game.physics.enable(musBubble, Phaser.Physics.ARCADE);
-
 
         musBubble.body.bounce.setTo(1,1);
         //musBubble.body.velocity.setTo(100, 50);
@@ -185,7 +186,6 @@ function onDragStart(sprite, pointer) {
                 + pointer.y + " time down + " + pointer.timeDown;
     xDown = pointer.x;
     yDown = pointer.y;
-
 }
 
 function onDragStop(sprite, pointer) {
@@ -245,12 +245,66 @@ function resetChordProgression() {
 }
 
 nx.onload = function(){
+    button1.label = "chd reset";
+    button2.label = "bass";
+    slider1.label = "Filt1";
+    slider2.label = "Vol1";
+    slider3.label = "Filt2";
+    slider4.label = "Vol2";
     button1.on('*', function(data) {
 
-       if (data.press == 1) {
-           resetChordProgression();
+        if (data.press == 1) {
+            resetChordProgression();
+        }
 
-       }
+    })
+    button2.on('*', function(data) {
 
-     })
+        if (data.press == 1) {
+            if (bassPart.state == "started") {
+                bassPart.stop(0);
+            } else {
+                bassPart.start(0);
+            }
+        }
+    })
+
+    slider1.on('*', function(data) {
+
+        //console.log(data);
+        var filterFreq = (data.value * 5000);
+        console.log("filterFreq: " + filterFreq);
+        //plucky.filter.frequency.value = filterFreq;
+        bubbles.children[0].tonePattern.instrument.set({
+            "filterEnvelope" : {
+                "baseFrequency" : filterFreq
+            }
+        });
+    })
+    slider2.on('*', function(data) {
+        bubbles.children[0].tonePattern.panVol.volume.value = -(1-data.value) * 48;
+        // for (var k = 0; k < bubbles.children.length; k++) {
+        //     if (k ==0){
+        //         var bubble = bubbles.children[k];
+        //         var vol = -(1-data.value) * 48
+        //         bubble.tonePattern.panVol.volume.value = vol;
+        //     }
+        // }
+
+    })
+    slider3.on('*', function(data) {
+
+        console.log(data);
+        var filterFreq = (data.value * 5000);
+        console.log("filterFreq: " + filterFreq);
+        //plucky.filter.frequency.value = filterFreq;
+        bubbles.children[1].tonePattern.instrument.set({
+            "filterEnvelope" : {
+                "baseFrequency" : filterFreq
+            }
+        });
+    })
+    slider4.on('*', function(data) {
+        bubbles.children[1].tonePattern.panVol.volume.value = -(1-data.value) * 48;
+    })
 }
