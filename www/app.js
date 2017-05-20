@@ -85,7 +85,7 @@ function create () {
     var progIndex = game.rnd.between(0, numProggies-1);
     var chordProg = tonalEnv.chordProgressions[progIndex].prog;
     chordProgPart = new Tone.Part(function(time, value) {
-        //console.log("chord change " + value);
+        console.log("chord change " + value);
         console.log("bar num " + Tone.Transport.position);
         var allNotes = tonalEnv.getFullChordArray(value.root, value.tochordtone, value.alterations);
         notes = tonalEnv.trimArray(allNotes, 36, 84);
@@ -105,7 +105,7 @@ function create () {
     var bassRoot = bassArpeggio[0];
 
     bassPart = new Tone.Sequence(function(time, note){
-    	//console.log(note);
+    	console.log(note);
         bassSynth.triggerAttackRelease(Tone.Frequency(note, "midi"), "8n", time);
 
     }, [bassRoot], "1m");
@@ -241,6 +241,13 @@ function resetChordProgression() {
     }
     chordProgPart.loopEnd = chordProg.length + "m";
     Tone.Transport.loopEnd = chordProgPart.loopEnd;
+
+    var bassArpeggio = tonalEnv.scaleOctave(tonalEnv.getChord(1, 7, []), 4);
+    var bassRoot = bassArpeggio[0];
+    bassPart.removeAll();
+    bassPart.at(0, bassRoot);
+
+    Tone.Transport.position = 0;
     console.log("Prog changed to " + tonalEnv.chordProgressions[progIndex].name);
 }
 
