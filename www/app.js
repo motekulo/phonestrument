@@ -26,7 +26,7 @@ var yDown;
 var result = [];  // for debugging
 //var chordProgPart;
 
-var game = new Phaser.Game(deviceWidth, deviceHeight * 0.85, Phaser.AUTO, 'stage', {
+var game = new Phaser.Game(deviceWidth, deviceHeight, Phaser.AUTO, 'stage', {
     preload: preload, create: create, update: update});
 
 //var tonalEnv = new Tonality();
@@ -68,11 +68,23 @@ function create () {
                 var pitch = notes[Math.floor(bubble.body.y/game.world.height * notes.length)];
                 var pan = bubble.body.x/game.world.width;
                 bubble.tonePattern.setPanPosition(pan);
-                //var index = game.rnd.pick([0, 1, 2, 3]);
-                //bubble.tonePattern.at(index, pitch);
-
                 var replaceIndex = bubble.tonePattern.randomReplaceNote(pitch);
-                //console.log("Pitch we are changing: " + pitch + " at index " + replaceIndex);
+                // Change the filter based on x velocity
+                var baseFreq = Math.abs(bubble.body.velocity.x/1000) * 150 + 20;
+
+                bubble.tonePattern.instrument.set({
+                    "filterEnvelope" : {
+                        "baseFrequency" : baseFreq
+                    }
+                });
+                // Change attack based on y velocity
+                var attack = 0.1 - (bubble.body.velocity.y/1000 * 0.1) + 0.02;
+                bubble.tonePattern.instrument.set({
+                    "envelope" : {
+                        "attack" : attack
+                    }
+                });
+                console.log("baseFreq is " + baseFreq + " and attack " + attack);
             }, this, true);
         }
     }, "4n");
@@ -85,8 +97,8 @@ function create () {
     var progIndex = game.rnd.between(0, numProggies-1);
     var chordProg = tonalEnv.chordProgressions[progIndex].prog;
     chordProgPart = new Tone.Part(function(time, value) {
-        console.log("chord change " + value);
-        console.log("bar num " + Tone.Transport.position);
+        //console.log("chord change " + value);
+        //console.log("bar num " + Tone.Transport.position);
         var allNotes = tonalEnv.getFullChordArray(value.root, value.tochordtone, value.alterations);
         notes = tonalEnv.trimArray(allNotes, 36, 84);
         bassArpeggio = tonalEnv.scaleOctave(tonalEnv.getChord(value.root,
@@ -105,7 +117,7 @@ function create () {
     var bassRoot = bassArpeggio[0];
 
     bassPart = new Tone.Sequence(function(time, note){
-    	console.log(note);
+    	//console.log(note);
         bassSynth.triggerAttackRelease(Tone.Frequency(note, "midi"), "8n", time);
 
     }, [bassRoot], "1m");
@@ -195,7 +207,9 @@ function onDragStop(sprite, pointer) {
     var deltaX = pointer.x - xDown;
     var deltaY = pointer.y - yDown;
     var velocityX = deltaX/dragTime * 1000;
+    if (velocityX > 1000) velocityX = 1000;
     var velocityY = deltaY/dragTime * 1000;
+    if (velocityY > 1000) velocityY = 1000;
     result[2] = "velocity X: " + velocityX + " and velocity Y: " + velocityY;
     sprite.body.velocity.x = velocityX;
     sprite.body.velocity.y = velocityY;
@@ -251,78 +265,78 @@ function resetChordProgression() {
     console.log("Prog changed to " + tonalEnv.chordProgressions[progIndex].name);
 }
 
-nx.onload = function(){
-
-    button1.on('*', function(data) {
-
-        if (data.press == 1) {
-            resetChordProgression();
-        }
-
-    })
-    button2.on('*', function(data) {
-
-        if (data.press == 1) {
-            if (bassPart.state == "started") {
-                bassPart.stop(0);
-            } else {
-                bassPart.start(0);
-            }
-        }
-    })
-
-    slider1.on('*', function(data) {
-
-        //console.log(data);
-        var filterFreq = (data.value * 150);
-        console.log("filterFreq: " + filterFreq);
-        //plucky.filter.frequency.value = filterFreq;
-        bubbles.children[0].tonePattern.instrument.set({
-            "filterEnvelope" : {
-                "baseFrequency" : filterFreq
-            }
-        });
-    })
-    slider2.on('*', function(data) {
-        bubbles.children[0].tonePattern.panVol.volume.value = -(1-data.value) * 48;
-
-    })
-    slider5.on('*', function(data) {
-        var attack = data.value * 0.4;
-        bubbles.children[0].tonePattern.instrument.set({
-            "envelope" : {
-                "attack" : attack
-            }
-        });
-
-
-    })
-
-
-    slider3.on('*', function(data) {
-
-        console.log(data);
-        var filterFreq = (data.value * 150);
-        console.log("filterFreq: " + filterFreq);
-        //plucky.filter.frequency.value = filterFreq;
-        bubbles.children[1].tonePattern.instrument.set({
-            "filterEnvelope" : {
-                "baseFrequency" : filterFreq
-            }
-        });
-    })
-    slider4.on('*', function(data) {
-        bubbles.children[1].tonePattern.panVol.volume.value = -(1-data.value) * 48;
-    })
-
-    slider6.on('*', function(data) {
-        var attack = data.value * 0.4;
-        bubbles.children[1].tonePattern.instrument.set({
-            "envelope" : {
-                "attack" : attack
-            }
-        });
-
-
-    })
-}
+// nx.onload = function(){
+//
+//     button1.on('*', function(data) {
+//
+//         if (data.press == 1) {
+//             resetChordProgression();
+//         }
+//
+//     })
+//     button2.on('*', function(data) {
+//
+//         if (data.press == 1) {
+//             if (bassPart.state == "started") {
+//                 bassPart.stop(0);
+//             } else {
+//                 bassPart.start(0);
+//             }
+//         }
+//     })
+//
+//     slider1.on('*', function(data) {
+//
+//         //console.log(data);
+//         var filterFreq = (data.value * 150);
+//         console.log("filterFreq: " + filterFreq);
+//         //plucky.filter.frequency.value = filterFreq;
+//         bubbles.children[0].tonePattern.instrument.set({
+//             "filterEnvelope" : {
+//                 "baseFrequency" : filterFreq
+//             }
+//         });
+//     })
+//     slider2.on('*', function(data) {
+//         bubbles.children[0].tonePattern.panVol.volume.value = -(1-data.value) * 48;
+//
+//     })
+//     slider5.on('*', function(data) {
+//         var attack = data.value * 0.4;
+//         bubbles.children[0].tonePattern.instrument.set({
+//             "envelope" : {
+//                 "attack" : attack
+//             }
+//         });
+//
+//
+//     })
+//
+//
+//     slider3.on('*', function(data) {
+//
+//         console.log(data);
+//         var filterFreq = (data.value * 150);
+//         console.log("filterFreq: " + filterFreq);
+//         //plucky.filter.frequency.value = filterFreq;
+//         bubbles.children[1].tonePattern.instrument.set({
+//             "filterEnvelope" : {
+//                 "baseFrequency" : filterFreq
+//             }
+//         });
+//     })
+//     slider4.on('*', function(data) {
+//         bubbles.children[1].tonePattern.panVol.volume.value = -(1-data.value) * 48;
+//     })
+//
+//     slider6.on('*', function(data) {
+//         var attack = data.value * 0.4;
+//         bubbles.children[1].tonePattern.instrument.set({
+//             "envelope" : {
+//                 "attack" : attack
+//             }
+//         });
+//
+//
+//     })
+// }

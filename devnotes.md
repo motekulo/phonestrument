@@ -190,3 +190,9 @@ Some of this could be added with nexusUI widgets - adjust then code and remove w
 How about nexusUI widgets to change parameters, rather than full reset? So change length of bubble patterns, tempo, synth even?
 
 Haven't really thought about changing to a sample based instrument or percussion yet, so that might be worth looking at as a separate experiment completely? Pretty easy to implement if we have the patternPlayer approach - just change the instrument type.
+
+An idea is to add a melody by touch - so a separate vertical grid that determines the melodic notes.
+
+Tagged exp 15 with two bubbles, working with changes to filter and attack based on velocity x and y, able to change chord progression.
+
+#### Towards exp 16
