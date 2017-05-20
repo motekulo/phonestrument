@@ -245,12 +245,7 @@ function resetChordProgression() {
 }
 
 nx.onload = function(){
-    button1.label = "chd reset";
-    button2.label = "bass";
-    slider1.label = "Filt1";
-    slider2.label = "Vol1";
-    slider3.label = "Filt2";
-    slider4.label = "Vol2";
+
     button1.on('*', function(data) {
 
         if (data.press == 1) {
@@ -272,7 +267,7 @@ nx.onload = function(){
     slider1.on('*', function(data) {
 
         //console.log(data);
-        var filterFreq = (data.value * 5000);
+        var filterFreq = (data.value * 150);
         console.log("filterFreq: " + filterFreq);
         //plucky.filter.frequency.value = filterFreq;
         bubbles.children[0].tonePattern.instrument.set({
@@ -283,19 +278,24 @@ nx.onload = function(){
     })
     slider2.on('*', function(data) {
         bubbles.children[0].tonePattern.panVol.volume.value = -(1-data.value) * 48;
-        // for (var k = 0; k < bubbles.children.length; k++) {
-        //     if (k ==0){
-        //         var bubble = bubbles.children[k];
-        //         var vol = -(1-data.value) * 48
-        //         bubble.tonePattern.panVol.volume.value = vol;
-        //     }
-        // }
 
     })
+    slider5.on('*', function(data) {
+        var attack = data.value * 0.4;
+        bubbles.children[0].tonePattern.instrument.set({
+            "envelope" : {
+                "attack" : attack
+            }
+        });
+
+
+    })
+
+
     slider3.on('*', function(data) {
 
         console.log(data);
-        var filterFreq = (data.value * 5000);
+        var filterFreq = (data.value * 150);
         console.log("filterFreq: " + filterFreq);
         //plucky.filter.frequency.value = filterFreq;
         bubbles.children[1].tonePattern.instrument.set({
@@ -306,5 +306,16 @@ nx.onload = function(){
     })
     slider4.on('*', function(data) {
         bubbles.children[1].tonePattern.panVol.volume.value = -(1-data.value) * 48;
+    })
+
+    slider6.on('*', function(data) {
+        var attack = data.value * 0.4;
+        bubbles.children[1].tonePattern.instrument.set({
+            "envelope" : {
+                "attack" : attack
+            }
+        });
+
+
     })
 }
