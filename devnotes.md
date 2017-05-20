@@ -196,3 +196,8 @@ An idea is to add a melody by touch - so a separate vertical grid that determine
 Tagged exp 15 with two bubbles, working with changes to filter and attack based on velocity x and y, able to change chord progression.
 
 #### Towards exp 16
+
+Sample based instruments
+remove and add bubbles
+
+add melody on touch (with separate grid - exp 17)
