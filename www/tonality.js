@@ -1,4 +1,4 @@
-/**
+/** @class
 * A class that provides tonal support
 *
 * Has a key, scale structure (in semitones)
@@ -21,20 +21,12 @@ function Tonality() {
             {time: "2m", root: 5, tochordtone: 5, alterations: [0,0,0]},
             {time: "3m", root: 5, tochordtone: 7, alterations: [0,0,0,0]}
         ]},
-        {name: "blues1",
+        {name: "1_4_1_5",
          prog: [
-            {time: "0m", root: 1, tochordtone: 7, alterations: [0,0,0,-1]},
-            {time: "1m", root: 4, tochordtone: 7, alterations: [0,0,0,-1]},
-            {time: "2m", root: 1, tochordtone: 7, alterations: [0,0,0,-1]},
-            {time: "3m", root: 1, tochordtone: 7, alterations: [0,0,0,-1]},
-            {time: "4m", root: 4, tochordtone: 7, alterations: [0,0,0,-1]},
-            {time: "5m", root: 4, tochordtone: 7, alterations: [0,0,0,-1]},
-            {time: "6m", root: 1, tochordtone: 7, alterations: [0,0,0,-1]},
-            {time: "7m", root: 1, tochordtone: 7, alterations: [0,0,0,-1]},
-            {time: "8m", root: 2, tochordtone: 7, alterations: [0,0,0,0]},
-            {time: "9m", root: 5, tochordtone: 7, alterations: [0,0,0,0]},
-            {time: "10m", root: 1, tochordtone: 7, alterations: [0,0,0,-1]},
-            {time: "11m", root: 5, tochordtone: 7, alterations: [0,0,0,0]}
+            {time: "0m", root: 1, tochordtone: 5, alterations: [0,0,0]},
+            {time: "1m", root: 4, tochordtone: 7, alterations: [0,0,0]},
+            {time: "2m", root: 1, tochordtone: 7, alterations: [0,0,0]},
+            {time: "3m", root: 5, tochordtone: 7, alterations: [0,0,0,0]}
         ]},
         {name: "one_6_2_5",
          prog: [

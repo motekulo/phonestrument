@@ -1,38 +1,112 @@
-/**
+/** @class
 * A pattern player using Tone js
-*
+* Default is to create a player with a monophonic synth
 **/
-
 function PatternPlayer() {
-    this.instrument = this.setSoloInstrument();
     this.panVol = this.setPanVol();
-    this.instrument.connect(this.panVol);
-    this.panVol.connect(Tone.Master);
-    //this.interval = "8n";
+    this.setSoloInstrument();
+    //this.instrument = this.setPitchedSamplerInstrument();
+    //this.instrument = this.setSamplerInstrument();
+
+
     this.setPattern();
-    //this.notes = []; // should be private?
     this.noteLength = "16n";  // length of note played by synth
-    //this.loopLength = 1;  // number of bars to loop over
+
 
 }
 
-
+/**
+ * set the instrument to be a monophonic synth
+ * @returns {Tone.Monophonic} - the instrument created
+ **/
 PatternPlayer.prototype.setSoloInstrument = function() {
-    var instrument = new Tone.MonoSynth();
+    this.instrument = new Tone.MonoSynth();
+    this.isPitchedSampler = false;
+    this.isSampler = false;
+    this.connectToMaster(this.instrument);
+    this.panVol.volume.value = -24; // these things are loud
+    return this.instrument;
+}
+
+/**
+ * set the instrument to be a pitched sample player
+ * @returns {Tone.Sampler} - the instrument created
+ **/
+PatternPlayer.prototype.setPitchedSamplerInstrument = function() {
+    var loaded = (function(){
+        console.log("Loaded pitched sample");
+        this.pitchedSampleLoaded = true;
+    }).bind(this);
+    var url = ["./assets/marimba2.wav"];  //FIXME should be passed in
+    var instrument = new Tone.Sampler(url[0], loaded);
+    this.isPitchedSampler = true;
+    instrument.envelope.sustain = 0.4;
     return instrument;
 }
 
+ /**
+  * set the instrument to be a sample player (unpitched)
+  * @param {array} string - url of sample to play
+  * @returns {Tone.Player} - the instrument created
+  **/
+PatternPlayer.prototype.setSamplerInstrument = function(url) {
+    var loaded = (function(){
+        console.log("Loaded pitched sample");
+        this.sampleLoaded = true;
+    }).bind(this);
+    //var url = ["./assets/snare.wav"]; //FIXME should be passed in
+    var instrument = new Tone.Player(url, loaded);
+    this.isSampler = true;
+    return instrument;
+}
+
+/**
+ * create a panner and volume combined
+ * @returns {Tone.PanVol} - the panvol object created
+ **/
 PatternPlayer.prototype.setPanVol = function() {
-    var panVol = new Tone.PanVol(0.5, -24);
+    var panVol = new Tone.PanVol(0.5, -18);
     return panVol;
 }
 
+/**
+ * Connect instrument to master bus (Tone.Master)
+ * Goes through the object's pnVol first
+ *
+ **/
+PatternPlayer.prototype.connectToMaster = function(instrument){
+    instrument.connect(this.panVol);
+    //this.instrument.connect(this.panVol);
+    this.panVol.connect(Tone.Master);
+    this.isConnected = true;
+}
+
+/**
+ * Disconnect instrument from master bus (Tone.Master)
+ *
+ **/
+PatternPlayer.prototype.disconnectFromMaster = function(){
+    this.instrument.disconnect();
+    this.panVol.disconnect();
+    this.isConnected = false;
+}
+
+
 PatternPlayer.prototype.setPattern = function() {
-    //self = this;
+
     this.pattern = new Tone.Pattern((function(time, note) {
-        //console.log("patternPlayer note " + note);
+
         if (note !== undefined){
-            this.instrument.triggerAttackRelease(Tone.Frequency(note, "midi"), this.noteLength, time);
+            if (this.isSampler == true) {
+                this.instrument.start(time);
+            } else if (this.isPitchedSampler == true) {
+                var sampleBase = Tone.Frequency("F4").toMidi();
+                var interval = note - sampleBase;
+                this.instrument.triggerAttack(interval);
+            } else {
+
+                this.instrument.triggerAttackRelease(Tone.Frequency(note, "midi"), this.noteLength, time);
+            }
         }
     }).bind(this),[24], "upDown");
     this.pattern.interval = "8n";  // default for init
@@ -42,7 +116,7 @@ PatternPlayer.prototype.setPattern = function() {
 /**
 * set the pattern notes
 * @param {array} notes - the array of midi notes to set
-*
+* @memberof PatternPlayer.prototype
 **/
 PatternPlayer.prototype.setNotes = function(notes) {
     //this.notes = notes;

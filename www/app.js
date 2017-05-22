@@ -70,27 +70,27 @@ function create () {
                 bubble.tonePattern.setPanPosition(pan);
                 var replaceIndex = bubble.tonePattern.randomReplaceNote(pitch);
                 // Change the filter based on x velocity
-                var baseFreq = Math.abs(bubble.body.velocity.x/1000) * 150 + 20;
-
-                bubble.tonePattern.instrument.set({
-                    "filterEnvelope" : {
-                        "baseFrequency" : baseFreq
-                    }
-                });
+                // var baseFreq = Math.abs(bubble.body.velocity.x/1000) * 150 + 20;
+                //
+                // bubble.tonePattern.instrument.set({
+                //     "filterEnvelope" : {
+                //         "baseFrequency" : baseFreq
+                //     }
+                // });
                 // Change attack based on y velocity
-                var attack = 0.1 - (bubble.body.velocity.y/1000 * 0.1) + 0.02;
-                bubble.tonePattern.instrument.set({
-                    "envelope" : {
-                        "attack" : attack
-                    }
-                });
-                console.log("baseFreq is " + baseFreq + " and attack " + attack);
+                // var attack = 0.1 - (bubble.body.velocity.y/1000 * 0.1) + 0.02;
+                // bubble.tonePattern.instrument.set({
+                //     "envelope" : {
+                //         "attack" : attack
+                //     }
+                // });
+                // console.log("baseFreq is " + baseFreq + " and attack " + attack);
             }, this, true);
         }
     }, "4n");
 
     bassSynth = new Tone.MonoSynth();
-    bassPanVol = new Tone.PanVol(0.5, -27);
+    bassPanVol = new Tone.PanVol(0.5, -30);
     bassSynth.connect(bassPanVol);
     bassPanVol.connect(Tone.Master);
     var numProggies = tonalEnv.chordProgressions.length;
@@ -174,7 +174,7 @@ function makeBubbles() {
             startNotes.push(noteName);
         }
 
-        var subDiv = game.rnd.pick([2, 3, 4, 12]) + "n";
+        var subDiv = game.rnd.pick([4, 8, 12]) + "n";
 
         //musBubble.scale.set(game.rnd.realInRange(0.2, 0.5));
         var bubbleScale = game.rnd.realInRange(0.2, 0.5);
@@ -184,6 +184,8 @@ function makeBubbles() {
         musBubble.tonePattern = new PatternPlayer();
         musBubble.tonePattern.setNotes(startNotes);
         musBubble.tonePattern.setLoopInterval(subDiv);
+        musBubble.connectToMaster
+
 
     }
 }
@@ -265,78 +267,78 @@ function resetChordProgression() {
     console.log("Prog changed to " + tonalEnv.chordProgressions[progIndex].name);
 }
 
-// nx.onload = function(){
-//
-//     button1.on('*', function(data) {
-//
-//         if (data.press == 1) {
-//             resetChordProgression();
-//         }
-//
-//     })
-//     button2.on('*', function(data) {
-//
-//         if (data.press == 1) {
-//             if (bassPart.state == "started") {
-//                 bassPart.stop(0);
-//             } else {
-//                 bassPart.start(0);
-//             }
-//         }
-//     })
-//
-//     slider1.on('*', function(data) {
-//
-//         //console.log(data);
-//         var filterFreq = (data.value * 150);
-//         console.log("filterFreq: " + filterFreq);
-//         //plucky.filter.frequency.value = filterFreq;
-//         bubbles.children[0].tonePattern.instrument.set({
-//             "filterEnvelope" : {
-//                 "baseFrequency" : filterFreq
-//             }
-//         });
-//     })
-//     slider2.on('*', function(data) {
-//         bubbles.children[0].tonePattern.panVol.volume.value = -(1-data.value) * 48;
-//
-//     })
-//     slider5.on('*', function(data) {
-//         var attack = data.value * 0.4;
-//         bubbles.children[0].tonePattern.instrument.set({
-//             "envelope" : {
-//                 "attack" : attack
-//             }
-//         });
-//
-//
-//     })
-//
-//
-//     slider3.on('*', function(data) {
-//
-//         console.log(data);
-//         var filterFreq = (data.value * 150);
-//         console.log("filterFreq: " + filterFreq);
-//         //plucky.filter.frequency.value = filterFreq;
-//         bubbles.children[1].tonePattern.instrument.set({
-//             "filterEnvelope" : {
-//                 "baseFrequency" : filterFreq
-//             }
-//         });
-//     })
-//     slider4.on('*', function(data) {
-//         bubbles.children[1].tonePattern.panVol.volume.value = -(1-data.value) * 48;
-//     })
-//
-//     slider6.on('*', function(data) {
-//         var attack = data.value * 0.4;
-//         bubbles.children[1].tonePattern.instrument.set({
-//             "envelope" : {
-//                 "attack" : attack
-//             }
-//         });
-//
-//
-//     })
-// }
+nx.onload = function(){
+
+    button1.on('*', function(data) {
+
+        if (data.press == 1) {
+            resetChordProgression();
+        }
+
+    })
+    button2.on('*', function(data) {
+
+        if (data.press == 1) {
+            if (bassPart.state == "started") {
+                bassPart.stop(0);
+            } else {
+                bassPart.start(0);
+            }
+        }
+    })
+
+    slider1.on('*', function(data) {
+
+        //console.log(data);
+        var filterFreq = (data.value * 150);
+        console.log("filterFreq: " + filterFreq);
+        //plucky.filter.frequency.value = filterFreq;
+        bubbles.children[0].tonePattern.instrument.set({
+            "filterEnvelope" : {
+                "baseFrequency" : filterFreq
+            }
+        });
+    })
+    slider2.on('*', function(data) {
+        bubbles.children[0].tonePattern.panVol.volume.value = -(1-data.value) * 48;
+
+    })
+    slider5.on('*', function(data) {
+        var attack = data.value * 0.4;
+        bubbles.children[0].tonePattern.instrument.set({
+            "envelope" : {
+                "attack" : attack
+            }
+        });
+
+
+    })
+
+
+    slider3.on('*', function(data) {
+
+        console.log(data);
+        var filterFreq = (data.value * 150);
+        console.log("filterFreq: " + filterFreq);
+        //plucky.filter.frequency.value = filterFreq;
+        bubbles.children[1].tonePattern.instrument.set({
+            "filterEnvelope" : {
+                "baseFrequency" : filterFreq
+            }
+        });
+    })
+    slider4.on('*', function(data) {
+        bubbles.children[1].tonePattern.panVol.volume.value = -(1-data.value) * 48;
+    })
+
+    slider6.on('*', function(data) {
+        var attack = data.value * 0.4;
+        bubbles.children[1].tonePattern.instrument.set({
+            "envelope" : {
+                "attack" : attack
+            }
+        });
+
+
+    })
+}

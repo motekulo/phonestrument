@@ -197,7 +197,17 @@ Tagged exp 15 with two bubbles, working with changes to filter and attack based 
 
 #### Towards exp 16
 
-Sample based instruments
+Sample based instruments - pitch based done
 remove and add bubbles
 
+#### Towards exp 17
+
 add melody on touch (with separate grid - exp 17)
+
+## JsDoc
+
+with ink-docstrap installed via npm:
+
+    jsdoc -t node_modules/ink-docstrap/template/  -d doc www/*js
+
+    
