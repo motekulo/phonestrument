@@ -145,7 +145,7 @@ function bubblesCollide(bubble1, bubble2) {
 }
 
 function makeBubbles() {
-    for (var i = 0; i < 2; i++) {
+    for (var i = 0; i < 4; i++) {
         var musBubble = bubbles.create(game.world.randomX, game.world.randomY, 'bubble');
         musBubble.anchor.set(0.5, 0.5);
         musBubble.inputEnabled = true;

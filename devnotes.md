@@ -157,57 +157,9 @@ towards exp 13
 
 Performance - originally idea was to test limits, but today it's to try and optimise performance given how poorly it's running on mobile. Not so great on browser either really.
 
-#### Performance
+### May 23
 
-in browser, up to 180mb memory (using task manager in chrome) and 31k javascript (about 18k live).
+Performance on mobile (Samsung A5 at least) not good beyond a couple of synths, so worth trying a few things.
 
-Keep hitting reset button on app and overall memory use increases. Need to dispose of some things!
-
-### May 18
-
-Tagged exp\_13 - two balls, working well on mobile, changing pattern on collision.
-
-Touch motion adjustment next.
-
-### May 19
-
-Comment from Mareta with exp_13 + touch (so exp 14 almost really) was "how do you change the music" - so she found it engaging and had fun moving the bubbles but wasn't sure how the music was changing. Maybe that's a good thing?!
-
-Could do a beta testing arrangement at some stage.
-
-Could document some of these experiments online.
-
-exp\-14 tagged
-
-#### Towards exp\_15
-
-Modularize chord progression creation and randomize that too (bass will need to be linked)
-
-Try changing filter based on velocity
-Add some random humanization and probability parameters
-Some of this could be added with nexusUI widgets - adjust then code and remove widgets
-
-How about nexusUI widgets to change parameters, rather than full reset? So change length of bubble patterns, tempo, synth even?
-
-Haven't really thought about changing to a sample based instrument or percussion yet, so that might be worth looking at as a separate experiment completely? Pretty easy to implement if we have the patternPlayer approach - just change the instrument type.
-
-An idea is to add a melody by touch - so a separate vertical grid that determines the melodic notes.
-
-Tagged exp 15 with two bubbles, working with changes to filter and attack based on velocity x and y, able to change chord progression.
-
-#### Towards exp 16
-
-Sample based instruments - pitch based done
-remove and add bubbles
-
-#### Towards exp 17
-
-add melody on touch (with separate grid - exp 17)
-
-## JsDoc
-
-with ink-docstrap installed via npm:
-
-    jsdoc -t node_modules/ink-docstrap/template/  -d doc www/*js
-
-    
+Firstly, get a music environment using Tone js happening without any Phaser stuff at all. If that works, then it' something about the combination that might need fixing. Consider completely separating the music from the Phaser objects (and don't create things within a Phaser function like create()).
+If it doesn't work, then we know it's a performance of Tone thing, and can then experiment by looking at what works best, and what the limits might be. I have a feeling that MonoSynths take up a fair bit of CPU time and memory, so maybe that's worth looking at. Players seem to use less CPU time. Starting to isolate things with this approach anyway.
