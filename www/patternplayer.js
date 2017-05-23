@@ -55,9 +55,11 @@ PatternPlayer.prototype.setSamplerInstrument = function(url) {
         this.sampleLoaded = true;
     }).bind(this);
     //var url = ["./assets/snare.wav"]; //FIXME should be passed in
-    var instrument = new Tone.Player(url, loaded);
+    this.instrument = new Tone.Player(url, loaded);
+    this.instrument.retrigger = true;
+    this.connectToMaster(this.instrument);
     this.isSampler = true;
-    return instrument;
+    return this.instrument;
 }
 
 /**

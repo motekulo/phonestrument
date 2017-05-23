@@ -184,10 +184,14 @@ function makeBubbles() {
         musBubble.tonePattern = new PatternPlayer();
         musBubble.tonePattern.setNotes(startNotes);
         musBubble.tonePattern.setLoopInterval(subDiv);
-        musBubble.connectToMaster
+        //musBubble.connectToMaster
 
 
     }
+    // experiment with changing to sampler (unpitched)
+    var urls = ["./assets/ohh_mixed_1.wav", "./assets/chh_mixed_1.wav"];
+    bubbles.children[0].tonePattern.setSamplerInstrument(urls[0]);
+    bubbles.children[1].tonePattern.setSamplerInstrument(urls[1]);
 }
 
 function render() {
