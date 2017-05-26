@@ -163,3 +163,24 @@ Performance on mobile (Samsung A5 at least) not good beyond a couple of synths, 
 
 Firstly, get a music environment using Tone js happening without any Phaser stuff at all. If that works, then it' something about the combination that might need fixing. Consider completely separating the music from the Phaser objects (and don't create things within a Phaser function like create()).
 If it doesn't work, then we know it's a performance of Tone thing, and can then experiment by looking at what works best, and what the limits might be. I have a feeling that MonoSynths take up a fair bit of CPU time and memory, so maybe that's worth looking at. Players seem to use less CPU time. Starting to isolate things with this approach anyway.
+
+### May 24
+
+So now we have a music only version, and the same performance problems exist.
+From a quick profile of performance, the monosynth calls were taking 13ms on the mobile phones Samsung A5. In the browser? Less than a millisecond. So is this just my code or does it happen more broadly? Could test Tone js examples, perhaps? Certainly need to isolate down to single things to test.
+
+#### Monosynth Tone js examples
+
+https://tonejs.github.io/examples/#monoSynth
+
+Browser: monosynth example; triggerAttack takes 0.21ms
+Mobile: 1.82 ms (on stock android chrome browser); another 0.95
+
+Take same code from examples and try and cordovaerise them - what if the problem is with the webview?
+
+
+Things to try:
+
+No bass, no monosynths, just sample players
+just MonoSynths
+Simplify the music only app to fire just a single monosynth for comparison purposes

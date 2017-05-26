@@ -36,38 +36,38 @@ notes = tonalEnv.trimArray(allNotes, 36, 84);
 
 makePlayers();
 
-Tone.Transport.scheduleRepeat(function(time){
-    // cycle through balls and modify sequence notes based on position
-    if (isPaused == false) {
-        for (var i = 0; i < players.length; i++) {
-            var pitch = notes[Math.floor(Math.random() * notes.length)];
-            var pan = Math.random();
-            players[i].setPanPosition(pan);
-            var replaceIndex = players[i].randomReplaceNote(pitch);
-            // Change the filter based on x velocity
-            // var baseFreq = Math.abs(bubble.body.velocity.x/1000) * 150 + 20;
-            //
-            // bubble.tonePattern.instrument.set({
-            //     "filterEnvelope" : {
-            //         "baseFrequency" : baseFreq
-            //     }
-            // });
-            // Change attack based on y velocity
-            // var attack = 0.1 - (bubble.body.velocity.y/1000 * 0.1) + 0.02;
-            // bubble.tonePattern.instrument.set({
-            //     "envelope" : {
-            //         "attack" : attack
-            //     }
-            // });
-            // console.log("baseFreq is " + baseFreq + " and attack " + attack);
-        }
-    }
-}, "4n");
+// Tone.Transport.scheduleRepeat(function(time){
+//     // cycle through balls and modify sequence notes based on position
+//     if (isPaused == false) {
+//         for (var i = 0; i < players.length; i++) {
+//             var pitch = notes[Math.floor(Math.random() * notes.length)];
+//             var pan = Math.random();
+//             //players[i].setPanPosition(pan);
+//             var replaceIndex = players[i].randomReplaceNote(pitch);
+//             // Change the filter based on x velocity
+//             // var baseFreq = Math.abs(bubble.body.velocity.x/1000) * 150 + 20;
+//             //
+//             // bubble.tonePattern.instrument.set({
+//             //     "filterEnvelope" : {
+//             //         "baseFrequency" : baseFreq
+//             //     }
+//             // });
+//             // Change attack based on y velocity
+//             // var attack = 0.1 - (bubble.body.velocity.y/1000 * 0.1) + 0.02;
+//             // bubble.tonePattern.instrument.set({
+//             //     "envelope" : {
+//             //         "attack" : attack
+//             //     }
+//             // });
+//             // console.log("baseFreq is " + baseFreq + " and attack " + attack);
+//         }
+//     }
+// }, "4n");
 
-bassSynth = new Tone.MonoSynth();
-bassPanVol = new Tone.PanVol(0.5, -30);
-bassSynth.connect(bassPanVol);
-bassPanVol.connect(Tone.Master);
+// bassSynth = new Tone.MonoSynth();
+// bassPanVol = new Tone.PanVol(0.5, -30);
+// bassSynth.connect(bassPanVol);
+// bassPanVol.connect(Tone.Master);
 var numProggies = tonalEnv.chordProgressions.length;
 var progIndex = Math.floor(Math.random() * numProggies);
 var chordProg = tonalEnv.chordProgressions[progIndex].prog;
@@ -76,29 +76,29 @@ chordProgPart = new Tone.Part(function(time, value) {
     //console.log("bar num " + Tone.Transport.position);
     var allNotes = tonalEnv.getFullChordArray(value.root, value.tochordtone, value.alterations);
     notes = tonalEnv.trimArray(allNotes, 36, 84);
-    bassArpeggio = tonalEnv.scaleOctave(tonalEnv.getChord(value.root,
-        value.tochordtone, value.alterations), 3);
-    for (var i = 0; i < bassArpeggio.length; i++) {
-        //var time = "0:" + i;
-        bassPart.at(i, bassArpeggio[i]);
-    }
+    // bassArpeggio = tonalEnv.scaleOctave(tonalEnv.getChord(value.root,
+    //     value.tochordtone, value.alterations), 3);
+    // for (var i = 0; i < bassArpeggio.length; i++) {
+    //     //var time = "0:" + i;
+    //     bassPart.at(i, bassArpeggio[i]);
+    // }
 }, chordProg);
 
 chordProgPart.loop = true;
 chordProgPart.loopEnd = chordProg.length + "m";
 chordProgPart.start(0);
 
-var bassArpeggio = tonalEnv.scaleOctave(tonalEnv.getChord(1, 7, []), 4);
-var bassRoot = bassArpeggio[0];
+// var bassArpeggio = tonalEnv.scaleOctave(tonalEnv.getChord(1, 7, []), 4);
+// var bassRoot = bassArpeggio[0];
 
-bassPart = new Tone.Sequence(function(time, note){
-	//console.log(note);
-    bassSynth.triggerAttackRelease(Tone.Frequency(note, "midi"), "8n", time);
-
-}, [bassRoot], "1m");
-bassPart.loop = true;
-bassPart.loopEnd = "1m";
-bassPart.start(0);
+// bassPart = new Tone.Sequence(function(time, note){
+// 	//console.log(note);
+//     bassSynth.triggerAttackRelease(Tone.Frequency(note, "midi"), "8n", time);
+//
+// }, [bassRoot], "1m");
+// bassPart.loop = true;
+// bassPart.loopEnd = "1m";
+//bassPart.start(0);
 
 Tone.Transport.loop = true;
 Tone.Transport.loopStart = 0;
@@ -124,8 +124,9 @@ function makePlayers() {
             var noteName = notes[index+k];
             startNotes.push(noteName);
         }
-        var subDivs = [4, 8, 12]; // possible subdiv choices
-        var subDiv = subDivs[Math.floor(Math.random() * 3)] + "n";
+        //var subDivs = [4, 8, 12]; // possible subdiv choices
+        //var subDiv = subDivs[Math.floor(Math.random() * 3)] + "n";
+        var subDiv = "4n";
         //var subDiv = game.rnd.pick([4, 8, 12]) + "n";
 
         //musBubble.scale.set(game.rnd.realInRange(0.2, 0.5));
@@ -140,9 +141,9 @@ function makePlayers() {
 
     }
     // experiment with changing to sampler (unpitched)
-    var urls = ["./assets/ohh_mixed_1.wav", "./assets/chh_mixed_1.wav"];
-    players[2].setSamplerInstrument(urls[0]);
-    players[3].setSamplerInstrument(urls[1]);
+    //var urls = ["./assets/ohh_mixed_1.wav", "./assets/chh_mixed_1.wav"];
+    //players[2].setSamplerInstrument(urls[0]);
+    //players[3].setSamplerInstrument(urls[1]);
 }
 
 
@@ -189,10 +190,10 @@ function resetChordProgression() {
     chordProgPart.loopEnd = chordProg.length + "m";
     Tone.Transport.loopEnd = chordProgPart.loopEnd;
 
-    var bassArpeggio = tonalEnv.scaleOctave(tonalEnv.getChord(1, 7, []), 4);
-    var bassRoot = bassArpeggio[0];
-    bassPart.removeAll();
-    bassPart.at(0, bassRoot);
+    // var bassArpeggio = tonalEnv.scaleOctave(tonalEnv.getChord(1, 7, []), 4);
+    // var bassRoot = bassArpeggio[0];
+    // bassPart.removeAll();
+    // bassPart.at(0, bassRoot);
 
     Tone.Transport.position = 0;
     console.log("Prog changed to " + tonalEnv.chordProgressions[progIndex].name);
@@ -214,13 +215,13 @@ nx.onload = function(){
     })
     button2.on('*', function(data) {
 
-        if (data.press == 1) {
-            if (bassPart.state == "started") {
-                bassPart.stop(0);
-            } else {
-                bassPart.start(0);
-            }
-        }
+        // if (data.press == 1) {
+        //     if (bassPart.state == "started") {
+        //         bassPart.stop(0);
+        //     } else {
+        //         bassPart.start(0);
+        //     }
+        // }
     })
 
     slider1.on('*', function(data) {
