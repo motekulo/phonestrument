@@ -77,22 +77,25 @@ Then try other devices.
 
 Consider a nexusUI interface with Tone js to add and remove different types of PatternPlayers to see what the performance limits are.
 
-Test on more mobile devices.
+Test on more mobile devices. That should probably be priority 1. There are so many devices, that something non-Samsung should be checked first. Need to have that hardware testing thing sorted. Hard to firebase test an app like this, as we need to be able to hear the sound playing. Try testing in Firebase (check out the video that results, for example).
 
 <table>
     <tr>
         <td>Platform</td><td>Version</td><td>Slow</td><td>Fast</td>
     </tr>
     <tr>
-        <td>Cordova app running in browser</td><td></td><td></td><td></td>
+        <td>Cordova app running in browser</td><td></td><td>1.13ms</td><td></td>
     </tr>
     <tr>
-        <td>Cordova app with Crosswalk- Android mobile</td><td>Crosswalk stable 23+</td><td></td><td></td>
+        <td>Cordova app with Crosswalk- Android mobile</td><td>Crosswalk stable 23+</td><td>25ms</td><td>9ms</td>
     </tr>
     <tr>
-        <td>Web app from browser</td><td></td><td></td><td></td>
+        <td>Web app from browser</td><td></td><td>2ms</td><td></td>
     </tr>
     <tr>
-        <td>Web app from mobile</td><td></td><td></td><td></td>
+        <td>Web app from mobile</td><td></td><td>24ms</td><td>4.5ms</td>
+    </tr>
+    <tr>
+        <td>Web app from mobile</td><td>Chrome</td><td>37ms</td><td>2.4ms</td>
     </tr>
 </table>
