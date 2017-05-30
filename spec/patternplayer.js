@@ -2,7 +2,10 @@ describe("patternPlayer", function() {
     var patternPlayer;
 
     beforeEach(function() {
-        patternPlayer = new PatternPlayer();
+        var options = {
+            "instrument" : "solo"
+        }
+        patternPlayer = new PatternPlayer(options);
     });
 
     it("can create a new tonality object", function() {

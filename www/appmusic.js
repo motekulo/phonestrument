@@ -9,10 +9,15 @@
 
 var deviceWidth = window.innerWidth;// * window.devicePixelRatio;
 var deviceHeight = window.innerHeight;// * window.devicePixelRatio;
-var bubbles;
+//var bubbles;
 var isPaused = true;
 var button;
 var resetButton;
+var tally = {
+    "solo" : 0,
+    "sampler" : 0,
+    "pitchedSampler" : 0
+}
 
 var bassPart;
 
@@ -25,7 +30,9 @@ var yDown;
 var result = [];  // for debugging
 //var chordProgPart;
 var players = [];
-
+var urls = ["./assets/samples/kick_mix_1.wav",
+            "./assets/samples/snare_mix_1.wav",
+            "./assets/samples/ohh_mixed_1.wav",              "./assets/samples/chh_mixed_1.wav"];
 
 tonalEnv = new Tonality();
 var delay = 0;
@@ -33,7 +40,7 @@ var delay = 0;
 var allNotes = tonalEnv.getFullChordArray(1, 7, [0,0,0,-1]);
 notes = tonalEnv.trimArray(allNotes, 36, 84);
 
-makePlayers();
+//makePlayers();
 
 var numProggies = tonalEnv.chordProgressions.length;
 var progIndex = Math.floor(Math.random() * numProggies);
@@ -56,31 +63,22 @@ Tone.Transport.loopEnd = chordProgPart.loopEnd;
 Tone.Transport.bpm.value = 112;
 Tone.Transport.latencyHint = 'playback';
 
-function makePlayers() {
-    for (var i = 0; i < 4; i++) {
-
-        var index = Math.floor(Math.random() * notes.length);
-        var startNotes = [];
-        for (var k = 0; k < 4; k++) {
-            //var noteName = Tone.Frequency(notes[index+k], "midi").toNote();
-            var noteName = notes[index+k];
-            startNotes.push(noteName);
-        }
-        var subDiv = "4n";
-
-        var tonePattern = new PatternPlayer();
-        tonePattern.setNotes(startNotes);
-        tonePattern.setLoopInterval(subDiv);
-        players.push(tonePattern);
-
+function makePlayer(options) {
+    var index = Math.floor(Math.random() * notes.length);
+    var startNotes = [];
+    for (var k = 0; k < 4; k++) {
+        //var noteName = Tone.Frequency(notes[index+k], "midi").toNote();
+        var noteName = notes[index+k];
+        startNotes.push(noteName);
     }
-    // experiment with changing to sampler (unpitched)
-    //var urls = ["./assets/ohh_mixed_1.wav", "./assets/chh_mixed_1.wav"];
-    //players[2].setSamplerInstrument(urls[0]);
-    //players[3].setSamplerInstrument(urls[1]);
+    var subDiv = "4n";
+
+    var tonePattern = new PatternPlayer(options);
+    tonePattern.setNotes(startNotes);
+    tonePattern.setLoopInterval(subDiv);
+    players.push(tonePattern);
+
 }
-
-
 
 
 function pausePlay() {
@@ -95,7 +93,7 @@ function pausePlay() {
     }
 }
 
-function resetBubbles() {
+function resetPlayers() {
     console.log("Reset");
     Tone.Transport.stop();
     isPaused = true;
@@ -104,11 +102,8 @@ function resetBubbles() {
         players[i].panVol.dispose();
         players[i].pattern.dispose();
     }
-    //bubbles.removeAll(true, false, false);
-    //button.setFrames(1,1,1,1);
-    makePlayers();
-    resetChordProgression();
 
+    resetChordProgression();
 
 }
 
@@ -142,63 +137,43 @@ nx.onload = function(){
         }
 
     })
-    button2.on('*', function(data) {
 
-
-    })
-
-    slider1.on('*', function(data) {
-
-        //console.log(data);
-        var filterFreq = (data.value * 150);
-        console.log("filterFreq: " + filterFreq);
-        //plucky.filter.frequency.value = filterFreq;
-        players[0].instrument.set({
-            "filterEnvelope" : {
-                "baseFrequency" : filterFreq
+    addSolo.on('*', function(data) {
+        if (data.press == 1) {
+            var options = {
+                "instrument" : "solo"
             }
-        });
-    })
-    slider2.on('*', function(data) {
-        players[0].panVol.volume.value = -(1-data.value) * 48;
+            makePlayer(options);
+            tally.solo++;
+            console.log("solo " + tally.solo);
+        }
 
     })
-    slider5.on('*', function(data) {
-        var attack = data.value * 0.4;
-        players[0].instrument.set({
-            "envelope" : {
-                "attack" : attack
+
+    addSampler.on('*', function(data) {
+        if (data.press == 1) {
+            var options = {
+                "instrument" : "sampler",
+                "url" : urls[tally.sampler % 4]
             }
-        });
+            makePlayer(options);
+            tally.sampler++;
+            console.log("sampler " + tally.sampler);
+        }
 
 
     })
 
-
-    slider3.on('*', function(data) {
-
-        console.log(data);
-        var filterFreq = (data.value * 150);
-        console.log("filterFreq: " + filterFreq);
-        //plucky.filter.frequency.value = filterFreq;
-        players[1].instrument.set({
-            "filterEnvelope" : {
-                "baseFrequency" : filterFreq
+    addPitchedSampler.on('*', function(data) {
+        if (data.press == 1) {
+            var options = {
+                "instrument" : "pitchedSampler"
             }
-        });
-    })
-    slider4.on('*', function(data) {
-        players[1].panVol.volume.value = -(1-data.value) * 48;
-    })
-
-    slider6.on('*', function(data) {
-        var attack = data.value * 0.4;
-        players[1].instrument.set({
-            "envelope" : {
-                "attack" : attack
-            }
-        });
-
+            //makePlayer(options);
+            //tally.pitchedSampler++;
+            console.log("pitched sampler " + tally.pitchedSampler);
+        }
 
     })
+
 }

@@ -1,18 +1,36 @@
 /** @class
-* A pattern player using Tone js
-* Default is to create a player with a monophonic synth
+* A PatternPlayer is a Tone js instrument that plays a Tone js Tone.Pattern
+* or Tone.Part. A PatternPlayer's instrument can be changed, and the class
+* takes care of connections to the master audio bus Tone.Master.
+* The default is to create a player with a monophonic synth
 **/
-function PatternPlayer() {
+function PatternPlayer(options) {
     this.panVol = this.setPanVol();
-    this.setSoloInstrument();
-    //this.instrument = this.setPitchedSamplerInstrument();
-    //this.instrument = this.setSamplerInstrument();
 
+    if (options.instrument == null) {
+        options = PatternPlayer.defaults;
+    }
+    switch (options.instrument) {
+        case "solo" :
+            this.setSoloInstrument();
+            break;
+
+        case "sampler" :
+            this.instrument = this.setSamplerInstrument(options.url);
+            break;
+
+        case "pitchedSampler" :
+            this.instrument = this.setPitchedSamplerInstrument();
+            break;
+    }
 
     this.setPattern();
     this.noteLength = "16n";  // length of note played by synth
 
+}
 
+PatternPlayer.defaults = {
+    "instrument" : "solo"
 }
 
 /**
