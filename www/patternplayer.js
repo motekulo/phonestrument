@@ -25,6 +25,8 @@ function PatternPlayer(options) {
     }
 
     this.setPattern();
+    this.sampleLoaded = false;
+    this.pitchedSampleLoaded = false;
     this.noteLength = "16n";  // length of note played by synth
 
 }
@@ -42,7 +44,7 @@ PatternPlayer.prototype.setSoloInstrument = function() {
     this.isPitchedSampler = false;
     this.isSampler = false;
     this.connectToMaster(this.instrument);
-    this.panVol.volume.value = -24; // these things are loud
+    this.panVol.volume.value = -30; // these things are loud
     return this.instrument;
 }
 
@@ -55,11 +57,13 @@ PatternPlayer.prototype.setPitchedSamplerInstrument = function() {
         console.log("Loaded pitched sample");
         this.pitchedSampleLoaded = true;
     }).bind(this);
-    var url = ["./assets/marimba2.wav"];  //FIXME should be passed in
-    var instrument = new Tone.Sampler(url[0], loaded);
+    var url = ["./assets/samples/marimba_g4.wav"];  //FIXME should be passed in
+    this.instrument = new Tone.Sampler(url[0], loaded);
     this.isPitchedSampler = true;
-    instrument.envelope.sustain = 0.4;
-    return instrument;
+    this.instrument.envelope.sustain = 0.4;
+    this.panVol.volume.value = -15;
+    this.connectToMaster(this.instrument);
+    return this.instrument;
 }
 
  /**
@@ -69,13 +73,14 @@ PatternPlayer.prototype.setPitchedSamplerInstrument = function() {
   **/
 PatternPlayer.prototype.setSamplerInstrument = function(url) {
     var loaded = (function(){
-        console.log("Loaded pitched sample");
+        console.log("Loaded sample");
         this.sampleLoaded = true;
     }).bind(this);
     //var url = ["./assets/snare.wav"]; //FIXME should be passed in
     this.instrument = new Tone.Player(url, loaded);
     this.instrument.retrigger = true;
     this.connectToMaster(this.instrument);
+    this.panVol.volume.value = -15;
     this.isSampler = true;
     return this.instrument;
 }
@@ -117,10 +122,10 @@ PatternPlayer.prototype.setPattern = function() {
     this.pattern = new Tone.Pattern((function(time, note) {
 
         if (note !== undefined){
-            if (this.isSampler == true) {
+            if (this.isSampler == true && this.sampleLoaded == true) {
                 this.instrument.start(time);
-            } else if (this.isPitchedSampler == true) {
-                var sampleBase = Tone.Frequency("F4").toMidi();
+            } else if (this.isPitchedSampler == true && this.pitchedSampleLoaded == true) {
+                var sampleBase = Tone.Frequency("G4").toMidi();
                 var interval = note - sampleBase;
                 this.instrument.triggerAttack(interval);
             } else {

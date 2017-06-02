@@ -61,7 +61,9 @@ Tone.Transport.loop = true;
 Tone.Transport.loopStart = 0;
 Tone.Transport.loopEnd = chordProgPart.loopEnd;
 Tone.Transport.bpm.value = 112;
-Tone.Transport.latencyHint = 'playback';
+//Tone.Transport.latencyHint = 'playback';
+//Tone.context.latencyHint = 'playback';
+Tone.context.latencyHint = 1.6;
 
 function makePlayer(options) {
     var index = Math.floor(Math.random() * notes.length);
@@ -132,14 +134,14 @@ nx.onload = function(){
 
     button1.on('*', function(data) {
 
-        if (data.press == 1) {
+        if (data.press == 0) {
             resetChordProgression();
         }
 
     })
 
     addSolo.on('*', function(data) {
-        if (data.press == 1) {
+        if (data.press == 0) {
             var options = {
                 "instrument" : "solo"
             }
@@ -151,7 +153,7 @@ nx.onload = function(){
     })
 
     addSampler.on('*', function(data) {
-        if (data.press == 1) {
+        if (data.press == 0) {
             var options = {
                 "instrument" : "sampler",
                 "url" : urls[tally.sampler % 4]
@@ -165,12 +167,12 @@ nx.onload = function(){
     })
 
     addPitchedSampler.on('*', function(data) {
-        if (data.press == 1) {
+        if (data.press == 0) {
             var options = {
                 "instrument" : "pitchedSampler"
             }
-            //makePlayer(options);
-            //tally.pitchedSampler++;
+            makePlayer(options);
+            tally.pitchedSampler++;
             console.log("pitched sampler " + tally.pitchedSampler);
         }
 

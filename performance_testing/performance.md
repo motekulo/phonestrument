@@ -99,3 +99,30 @@ Test on more mobile devices. That should probably be priority 1. There are so ma
         <td>Web app from mobile</td><td>Chrome</td><td>37ms</td><td>2.4ms</td>
     </tr>
 </table>
+
+
+On Samsung A5; can get 4 samplers, 4 pitched samplers, then start getting glitches with 2 MonoSynths:
+
+W/chromium: [WARNING:audio_sync_reader.cc(132)] AudioSyncReader::Read timed out, audio glitch count=1
+
+9 pitched samplers, the glitches
+
+3 MonoSynths, then glitches
+
+31 unpitched samplers (so Tone.Player) before glitches
+
+1 MonoSynth, 8 unpitched samplers, 8 pitched samplers; ok for quite a while
+
+That was all with this set:
+
+    Tone.Transport.latencyHint = 'playback';
+
+Tried ths instead:
+
+    Tone.context.latencyHint = 'playback';
+
+Should actually be the same thing (and a value of 0.8secs)
+
+Managed 12 pitched samplers before glitches, though did get some moments of really weird rhythm (so no longer quarter notes, but some missed, some quicker? seemed to be in time though).
+
+So doubling that to 1.6secs
