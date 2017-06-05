@@ -5,7 +5,6 @@ if(window.cordova){
 }
 document.addEventListener(startEvent,function() {
 
-
 });
 
 var deviceWidth = window.innerWidth;// * window.devicePixelRatio;
@@ -89,10 +88,10 @@ function create () {
         }
     }, "4n");
 
-    bassSynth = new Tone.MonoSynth();
-    bassPanVol = new Tone.PanVol(0.5, -30);
-    bassSynth.connect(bassPanVol);
-    bassPanVol.connect(Tone.Master);
+    //bassSynth = new Tone.MonoSynth();
+    //bassPanVol = new Tone.PanVol(0.5, -30);
+    //bassSynth.connect(bassPanVol);
+    //bassPanVol.connect(Tone.Master);
     var numProggies = tonalEnv.chordProgressions.length;
     var progIndex = game.rnd.between(0, numProggies-1);
     var chordProg = tonalEnv.chordProgressions[progIndex].prog;
@@ -118,12 +117,12 @@ function create () {
 
     bassPart = new Tone.Sequence(function(time, note){
     	//console.log(note);
-        bassSynth.triggerAttackRelease(Tone.Frequency(note, "midi"), "8n", time);
+        //bassSynth.triggerAttackRelease(Tone.Frequency(note, "midi"), "8n", time);
 
     }, [bassRoot], "1m");
     bassPart.loop = true;
     bassPart.loopEnd = "1m";
-    bassPart.start(0);
+    //bassPart.start(0);
 
     Tone.Transport.loop = true;
     Tone.Transport.loopStart = 0;
@@ -145,7 +144,10 @@ function bubblesCollide(bubble1, bubble2) {
 }
 
 function makeBubbles() {
-    for (var i = 0; i < 4; i++) {
+    var options = {
+        "instrument" : "pitchedSampler"
+    };
+    for (var i = 0; i < 2; i++) {
         var musBubble = bubbles.create(game.world.randomX, game.world.randomY, 'bubble');
         musBubble.anchor.set(0.5, 0.5);
         musBubble.inputEnabled = true;
@@ -174,14 +176,15 @@ function makeBubbles() {
             startNotes.push(noteName);
         }
 
-        var subDiv = game.rnd.pick([4, 8, 12]) + "n";
+        var subDiv = game.rnd.pick([4, 8]) + "n";
+        //var subDiv = "4n";
 
         //musBubble.scale.set(game.rnd.realInRange(0.2, 0.5));
         var bubbleScale = game.rnd.realInRange(0.2, 0.5);
         musBubble.scale.set(bubbleScale);
         musBubble.body.drag.set(100 * bubbleScale);
 
-        musBubble.tonePattern = new PatternPlayer();
+        musBubble.tonePattern = new PatternPlayer(options);
         musBubble.tonePattern.setNotes(startNotes);
         musBubble.tonePattern.setLoopInterval(subDiv);
         //musBubble.connectToMaster
@@ -189,9 +192,9 @@ function makeBubbles() {
 
     }
     // experiment with changing to sampler (unpitched)
-    var urls = ["./assets/ohh_mixed_1.wav", "./assets/chh_mixed_1.wav"];
-    bubbles.children[0].tonePattern.setSamplerInstrument(urls[0]);
-    bubbles.children[1].tonePattern.setSamplerInstrument(urls[1]);
+    //var urls = ["./assets/ohh_mixed_1.wav", "./assets/chh_mixed_1.wav"];
+    //bubbles.children[0].tonePattern.setSamplerInstrument(urls[0]);
+    //bubbles.children[1].tonePattern.setSamplerInstrument(urls[1]);
 }
 
 function render() {
@@ -273,6 +276,11 @@ function resetChordProgression() {
 
 nx.onload = function(){
 
+    toggle1.on('*', function(data) {
+        console.log("Toggle data " + data.value);
+        pausePlay();
+    })
+
     button1.on('*', function(data) {
 
         if (data.press == 1) {
@@ -280,69 +288,70 @@ nx.onload = function(){
         }
 
     })
-    button2.on('*', function(data) {
 
-        if (data.press == 1) {
-            if (bassPart.state == "started") {
-                bassPart.stop(0);
-            } else {
-                bassPart.start(0);
-            }
-        }
-    })
+    // button2.on('*', function(data) {
+    //
+    //     if (data.press == 1) {
+    //         if (bassPart.state == "started") {
+    //             bassPart.stop(0);
+    //         } else {
+    //             bassPart.start(0);
+    //         }
+    //     }
+    // })
 
-    slider1.on('*', function(data) {
-
-        //console.log(data);
-        var filterFreq = (data.value * 150);
-        console.log("filterFreq: " + filterFreq);
-        //plucky.filter.frequency.value = filterFreq;
-        bubbles.children[0].tonePattern.instrument.set({
-            "filterEnvelope" : {
-                "baseFrequency" : filterFreq
-            }
-        });
-    })
-    slider2.on('*', function(data) {
-        bubbles.children[0].tonePattern.panVol.volume.value = -(1-data.value) * 48;
-
-    })
-    slider5.on('*', function(data) {
-        var attack = data.value * 0.4;
-        bubbles.children[0].tonePattern.instrument.set({
-            "envelope" : {
-                "attack" : attack
-            }
-        });
-
-
-    })
-
-
-    slider3.on('*', function(data) {
-
-        console.log(data);
-        var filterFreq = (data.value * 150);
-        console.log("filterFreq: " + filterFreq);
-        //plucky.filter.frequency.value = filterFreq;
-        bubbles.children[1].tonePattern.instrument.set({
-            "filterEnvelope" : {
-                "baseFrequency" : filterFreq
-            }
-        });
-    })
-    slider4.on('*', function(data) {
-        bubbles.children[1].tonePattern.panVol.volume.value = -(1-data.value) * 48;
-    })
-
-    slider6.on('*', function(data) {
-        var attack = data.value * 0.4;
-        bubbles.children[1].tonePattern.instrument.set({
-            "envelope" : {
-                "attack" : attack
-            }
-        });
+    // slider1.on('*', function(data) {
+    //
+    //     //console.log(data);
+    //     var filterFreq = (data.value * 150);
+    //     console.log("filterFreq: " + filterFreq);
+    //     //plucky.filter.frequency.value = filterFreq;
+    //     bubbles.children[0].tonePattern.instrument.set({
+    //         "filterEnvelope" : {
+    //             "baseFrequency" : filterFreq
+    //         }
+    //     });
+    // })
+    // slider2.on('*', function(data) {
+    //     bubbles.children[0].tonePattern.panVol.volume.value = -(1-data.value) * 48;
+    //
+    // })
+    // slider5.on('*', function(data) {
+    //     var attack = data.value * 0.4;
+    //     bubbles.children[0].tonePattern.instrument.set({
+    //         "envelope" : {
+    //             "attack" : attack
+    //         }
+    //     });
+    //
+    //
+    // })
 
 
-    })
+    // slider3.on('*', function(data) {
+    //
+    //     console.log(data);
+    //     var filterFreq = (data.value * 150);
+    //     console.log("filterFreq: " + filterFreq);
+    //     //plucky.filter.frequency.value = filterFreq;
+    //     bubbles.children[1].tonePattern.instrument.set({
+    //         "filterEnvelope" : {
+    //             "baseFrequency" : filterFreq
+    //         }
+    //     });
+    // })
+    // slider4.on('*', function(data) {
+    //     bubbles.children[1].tonePattern.panVol.volume.value = -(1-data.value) * 48;
+    // })
+
+    // slider6.on('*', function(data) {
+    //     var attack = data.value * 0.4;
+    //     bubbles.children[1].tonePattern.instrument.set({
+    //         "envelope" : {
+    //             "attack" : attack
+    //         }
+    //     });
+    //
+    //
+    // })
 }

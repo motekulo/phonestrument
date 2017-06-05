@@ -13,18 +13,38 @@ function PatternPlayer(options) {
     switch (options.instrument) {
         case "solo" :
             this.setSoloInstrument();
+            this.pattern = new Tone.Pattern((function(time, note) {
+                if (note !== undefined){
+                    this.instrument.triggerAttackRelease(Tone.Frequency(note, "midi"), this.noteLength, time);
+                }
+            }).bind(this),[24], "upDown");
             break;
 
         case "sampler" :
             this.instrument = this.setSamplerInstrument(options.url);
+            this.pattern = new Tone.Pattern((function(time, note) {
+                if (note !== undefined){
+                    this.instrument.start(time);
+                }
+            }).bind(this),[24], "upDown");
             break;
 
         case "pitchedSampler" :
             this.instrument = this.setPitchedSamplerInstrument();
+            var sampleBase = Tone.Frequency("G4").toMidi();
+            this.pattern = new Tone.Pattern((function(time, note) {
+                if (note !== undefined){
+                    var interval = note - sampleBase;
+                    this.instrument.triggerAttack(interval);
+
+                    }
+            }).bind(this),[24], "upDown");
             break;
     }
 
-    this.setPattern();
+    //this.setPattern();
+    this.pattern.interval = "8n";  // default for init
+    this.pattern.start(0);
     this.sampleLoaded = false;
     this.pitchedSampleLoaded = false;
     this.noteLength = "16n";  // length of note played by synth
@@ -118,14 +138,14 @@ PatternPlayer.prototype.disconnectFromMaster = function(){
 
 
 PatternPlayer.prototype.setPattern = function() {
+    var sampleBase = Tone.Frequency("G4").toMidi();
 
     this.pattern = new Tone.Pattern((function(time, note) {
-
         if (note !== undefined){
             if (this.isSampler == true && this.sampleLoaded == true) {
                 this.instrument.start(time);
             } else if (this.isPitchedSampler == true && this.pitchedSampleLoaded == true) {
-                var sampleBase = Tone.Frequency("G4").toMidi();
+
                 var interval = note - sampleBase;
                 this.instrument.triggerAttack(interval);
             } else {
