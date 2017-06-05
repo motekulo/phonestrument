@@ -1,14 +1,21 @@
 
 var startEvent = "DOMContentLoaded";
+
+var deviceWidth = window.innerWidth;// * window.devicePixelRatio;
+var deviceHeight = window.innerHeight;// * window.devicePixelRatio;
+
 if(window.cordova){
     startEvent = "deviceready";
 }
 document.addEventListener(startEvent,function() {
-
+    game = new Phaser.Game(deviceWidth, deviceHeight, Phaser.AUTO, "");
+    game.state.add("BassPlayer",bassPlayer);
+    game.state.start("BassPlayer");
 });
 
-var deviceWidth = window.innerWidth;// * window.devicePixelRatio;
-var deviceHeight = window.innerHeight;// * window.devicePixelRatio;
+//var bassPlayer = function(game){};
+
+
 var bubbles;
 var isPaused = true;
 var button;
@@ -25,16 +32,16 @@ var yDown;
 var result = [];  // for debugging
 //var chordProgPart;
 
-var game = new Phaser.Game(deviceWidth, deviceHeight, Phaser.AUTO, 'stage', {
-    preload: preload, create: create, update: update});
+//var game = new Phaser.Game(deviceWidth, deviceHeight, Phaser.AUTO, 'stage', {
+//    preload: preload, create: create, update: update});
 
 //var tonalEnv = new Tonality();
 
 
-function preload () {
-    game.load.image('bubble', 'assets/bubble256.png');
-    game.load.spritesheet('playpausebutton', 'assets/pause_play_reset.png', 148, 80);
-}
+// function preload () {
+//     game.load.image('bubble', 'assets/bubble256.png');
+//     game.load.spritesheet('playpausebutton', 'assets/pause_play_reset.png', 148, 80);
+// }
 
 function create () {
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -134,7 +141,7 @@ function create () {
 }
 
 function update() {
-game.physics.arcade.collide(bubbles, bubbles, bubblesCollide, null, this);
+    game.physics.arcade.collide(bubbles, bubbles, bubblesCollide, null, this);
 }
 
 function bubblesCollide(bubble1, bubble2) {
@@ -274,20 +281,20 @@ function resetChordProgression() {
     console.log("Prog changed to " + tonalEnv.chordProgressions[progIndex].name);
 }
 
-nx.onload = function(){
-
-    toggle1.on('*', function(data) {
-        console.log("Toggle data " + data.value);
-        pausePlay();
-    })
-
-    button1.on('*', function(data) {
-
-        if (data.press == 1) {
-            resetChordProgression();
-        }
-
-    })
+// nx.onload = function(){
+//
+//     toggle1.on('*', function(data) {
+//         console.log("Toggle data " + data.value);
+//         pausePlay();
+//     })
+//
+//     button1.on('*', function(data) {
+//
+//         if (data.press == 1) {
+//             resetChordProgression();
+//         }
+//
+//     })
 
     // button2.on('*', function(data) {
     //
@@ -354,4 +361,4 @@ nx.onload = function(){
     //
     //
     // })
-}
+//}
