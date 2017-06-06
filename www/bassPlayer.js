@@ -5,6 +5,14 @@ bassPlayer = function(game) {
     this.xDown;
     this.yDown;
     this.tonalEnv = new Tonality();
+    this.lowestOctave = 3;
+    this.pitchRange = 2; // number of octaves
+    this.pitches = []; // main array for pitch data on y axis
+    this.timeSubDiv = 8; // resolution of time on x axis
+    var options = {
+        "instrument" : "pitchedSampler"
+    };
+    this.player = new PatternPlayer(options);
 };
 
 bassPlayer.prototype = {
@@ -23,8 +31,24 @@ bassPlayer.prototype = {
         this.bubbles.physicsBodyType = Phaser.Physics.ARCADE;
         game.physics.enable(this.bubbles, Phaser.Physics.ARCADE);
 
-        for (var i = 0; i < 2; i++) {
-            var musBubble = this.bubbles.create(game.world.randomX, game.world.randomY, 'bubble');
+        var allPitches = this.tonalEnv.getFullChordArray(1, 7, []);
+        var lowestPitch = this.tonalEnv.key + (this.lowestOctave * 12);
+        this.pitches = this.tonalEnv.trimArray(allPitches, lowestPitch, lowestPitch + (this.pitchRange * 12));
+
+        var bassArpeggio = this.tonalEnv.scaleOctave(this.tonalEnv.getChord(1, 7, []), 4);
+        var bassRoot = bassArpeggio[0];
+
+        this.player.setNotes(bassArpeggio);
+        this.player.setLoopInterval(4);  // FIXME just for now
+
+        for (var i = 0; i < 4; i++) {
+            // place first bubble root, beginning of loop; res randomly
+            if (i == 0) {
+                var musBubble = this.bubbles.create(0, game.height, 'bubble');
+            } else {
+                var musBubble = this.bubbles.create(game.world.randomX, game.world.randomY, 'bubble');
+            }
+
             musBubble.anchor.set(0.5, 0.5);
             musBubble.inputEnabled = true;
             musBubble.input.enableDrag(true);
@@ -35,19 +59,12 @@ bassPlayer.prototype = {
             musBubble.scale.set(this.bubbleScale);
         }
 
+        this.bubbles.forEach(function(bubble) {
+            // set bassPart events based on bubble position
+            var pitchIndex = Math.floor(bubble.body.y/game.world.height * this.pitches.length);
+            var time = Math.floor(bubble.body.x/game.world.width * this.timeSubDiv);
 
-
-        var bassArpeggio = this.tonalEnv.scaleOctave(this.tonalEnv.getChord(1, 7, []), 4);
-        var bassRoot = bassArpeggio[0];
-        bassPart = new Tone.Sequence(function(time, note){
-        	//console.log(note);
-            //bassSynth.triggerAttackRelease(Tone.Frequency(note, "midi"), "8n", time);
-
-        }, [bassRoot], "1m");
-        bassPart.loop = true;
-        bassPart.loopEnd = "1m";
-
-        
+        }, this, true);
 
     },
 

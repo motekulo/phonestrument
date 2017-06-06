@@ -47,7 +47,6 @@ function Tonality() {
 }
 
 
-
 Tonality.prototype.setKey = function (key) {
     this.key = key;
     this._setScale();
@@ -160,7 +159,7 @@ Tonality.prototype.getFullChordArray = function(root, toChordTone, chordAlt) {
 Tonality.prototype.trimArray = function(arrayToTrim, lowNote, highNote) {
     var trimmedArray = [];
     for (var i = 0; i < arrayToTrim.length; i++) {
-        if (arrayToTrim[i] > lowNote && arrayToTrim[i] < highNote) {
+        if (arrayToTrim[i] >= lowNote && arrayToTrim[i] <= highNote) {
             trimmedArray.push(arrayToTrim[i]);
         }
     }

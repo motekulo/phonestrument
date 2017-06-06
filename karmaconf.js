@@ -16,7 +16,9 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'www/lib/Tone.js',
+      'www/lib/phaser.js',
       'www/tonality.js',
+      'www/bassplayer.js',
       'www/patternplayer.js',
       'spec/*.js'
     ],

@@ -9,8 +9,13 @@ if(window.cordova){
 }
 document.addEventListener(startEvent,function() {
     game = new Phaser.Game(deviceWidth, deviceHeight, Phaser.AUTO, "");
-    game.state.add("BassPlayer",bassPlayer);
+    game.state.add("BassPlayer", bassPlayer);
     game.state.start("BassPlayer");
+    Tone.Transport.loop = true;
+    Tone.Transport.loopStart = 0;
+    Tone.Transport.loopEnd = "1m";
+    Tone.Transport.bpm.value = 112;
+    Tone.Transport.latencyHint = 'playback';
 });
 
 //var bassPlayer = function(game){};
@@ -234,11 +239,11 @@ function onDragStop(sprite, pointer) {
 function pausePlay() {
     if (isPaused == false) {
         Tone.Transport.pause();
-        button.setFrames(1, 1, 1, 1);
+        //button.setFrames(1, 1, 1, 1);
         isPaused = true;
     } else {
         Tone.Transport.start("+0.1");
-        button.setFrames(0, 0, 0, 0);
+        //button.setFrames(0, 0, 0, 0);
         isPaused = false;
     }
 }
@@ -281,12 +286,13 @@ function resetChordProgression() {
     console.log("Prog changed to " + tonalEnv.chordProgressions[progIndex].name);
 }
 
-// nx.onload = function(){
-//
-//     toggle1.on('*', function(data) {
-//         console.log("Toggle data " + data.value);
-//         pausePlay();
-//     })
+nx.onload = function(){
+
+    toggle1.on('*', function(data) {
+        console.log("Toggle data " + data.value);
+        pausePlay();
+    })
+}
 //
 //     button1.on('*', function(data) {
 //
