@@ -79,6 +79,10 @@ bassPlayer.prototype = {
     onDragStart: function(sprite, pointer) {
         this.xDown = pointer.x;
         this.yDown = pointer.y;
+        // remove current part at this time pointer
+        var time = Math.floor(sprite.body.x/game.world.width * this.timeSubDiv);
+        var time = "0m + (" + time + " * " + this.timeSubDiv + "n)";
+        this.player.part.remove(time);
         //console.log("touch down at " + this.xDown + ", " + this.yDown);
     },
 
