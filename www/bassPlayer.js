@@ -10,9 +10,9 @@ bassPlayer = function(game) {
     this.pitches = []; // main array for pitch data on y axis
     this.timeSubDiv = 8; // resolution of time on x axis
     var options = {
-        "instrument" : "pitchedSampler"
+        "instrument": "pitchedSampler"
     };
-    this.player = new PatternPlayer(options);
+    this.player = new PartPlayer(options);
 };
 
 bassPlayer.prototype = {
@@ -61,8 +61,12 @@ bassPlayer.prototype = {
 
         this.bubbles.forEach(function(bubble) {
             // set bassPart events based on bubble position
-            var pitchIndex = Math.floor(bubble.body.y/game.world.height * this.pitches.length);
+            var indexHigh = this.pitches.length - 1;
+            var pitchIndex = indexHigh - Math.floor(bubble.body.y/game.world.height * indexHigh);
             var time = Math.floor(bubble.body.x/game.world.width * this.timeSubDiv);
+            var time = "0m + (" + time + " * " + this.timeSubDiv + "n)";
+            this.player.part.at(time, this.pitches[pitchIndex]);
+            //console.log("Looping through bubbles; time: " + time);
 
         }, this, true);
 
@@ -79,7 +83,14 @@ bassPlayer.prototype = {
     },
 
     onDragStop: function(sprite, pointer) {
+        var indexHigh = this.pitches.length - 1;
+        var pitchIndex = indexHigh - Math.floor(sprite.body.y/game.world.height * indexHigh);
+        var time = Math.floor(sprite.body.x/game.world.width * this.timeSubDiv);
+        var time = "0m + (" + time + " * " + this.timeSubDiv + "n)";
+        this.player.part.at(time, this.pitches[pitchIndex]);
         //console.log("touch up at " + pointer.x + ", " + pointer.y);
+
+
     }
 
 }

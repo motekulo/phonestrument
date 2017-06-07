@@ -3,6 +3,7 @@ var startEvent = "DOMContentLoaded";
 
 var deviceWidth = window.innerWidth;// * window.devicePixelRatio;
 var deviceHeight = window.innerHeight;// * window.devicePixelRatio;
+var isPaused = true;
 
 if(window.cordova){
     startEvent = "deviceready";
