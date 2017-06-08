@@ -12,16 +12,19 @@ bassPlayer = function(game) {
     var options = {
         "instrument": "pitchedSampler"
     };
-    this.player = new PartPlayer(options);
-    this.player.loop = true;
-    this.loopStart = "0m";
-    this.loopEnd = "1m";
+
     this.chordProgression = {name: "1_4_1_5",
      prog: [{time: "0m", root: 1, tochordtone: 5, alterations: [0,0,0]},
-            {time: "1m", root: 4, tochordtone: 7, alterations: [0,0,0]},
-            {time: "2m", root: 1, tochordtone: 7, alterations: [0,0,0]},
+            {time: "1m", root: 4, tochordtone: 7, alterations: [0,0,0,0]},
+            {time: "2m", root: 1, tochordtone: 7, alterations: [0,0,0,0]},
             {time: "3m", root: 5, tochordtone: 7, alterations: [0,0,0,0]}]
         }
+    this.player = new SequencePlayer(options);
+    this.player.loop = true;
+
+    //this.loopStart = "0m";
+    //this.loopEnd = "4m";
+
 };
 
 bassPlayer.prototype = {
@@ -50,10 +53,16 @@ bassPlayer.prototype = {
         chordProgPart = new Tone.Part((function(time, value) {
 
             console.log("bar num " + Tone.Transport.position);
+            console.log("Value " + value);
             var allNotes = this.tonalEnv.getFullChordArray(value.root, value.tochordtone, value.alterations);
             var lowestPitch = allNotes[0] + (this.lowestOctave * 12);
-            console.log("chord change lowest pitch now " + lowestPitch);
             this.pitches = this.tonalEnv.trimArray(allNotes, lowestPitch, lowestPitch + (this.pitchRange * 12));
+            console.log("chord change " + this.pitches);
+            var self = this;
+            // transpose bubble pitch values accordingly
+            this.bubbles.forEach(function(bubble) {
+                self.setToneEventFromBubble(bubble);
+            })
 
         }).bind(this), this.chordProgression.prog);
 
@@ -70,7 +79,7 @@ bassPlayer.prototype = {
         for (var i = 0; i < 4; i++) {
             // place first bubble root, beginning of loop; res randomly
             if (i == 0) {
-                var musBubble = this.bubbles.create(0, game.height, 'bubble');
+                var musBubble = this.bubbles.create(24, game.height-24, 'bubble');
             } else {
                 var musBubble = this.bubbles.create(game.world.randomX, game.world.randomY, 'bubble');
             }
@@ -87,12 +96,7 @@ bassPlayer.prototype = {
 
         this.bubbles.forEach(function(bubble) {
             // set bassPart events based on bubble position
-            var indexHigh = this.pitches.length - 1;
-            var pitchIndex = indexHigh - Math.floor(bubble.body.y/game.world.height * indexHigh);
-            var time = Math.floor(bubble.body.x/game.world.width * this.timeSubDiv);
-            var time = "0m + (" + time + " * " + this.timeSubDiv + "n)";
-            this.player.part.at(time, this.pitches[pitchIndex]);
-            //console.log("Looping through bubbles; time: " + time);
+            this.setToneEventFromBubble(bubble);
 
         }, this, true);
 
@@ -107,20 +111,25 @@ bassPlayer.prototype = {
         this.yDown = pointer.y;
         // remove current part at this time pointer
         var time = Math.floor(sprite.body.x/game.world.width * this.timeSubDiv);
-        var time = "0m + (" + time + " * " + this.timeSubDiv + "n)";
-        this.player.part.remove(time);
+        //var time = "0m + (" + time + " * " + this.timeSubDiv + "n)";
+        this.player.sequence.remove(time);
         //console.log("touch down at " + this.xDown + ", " + this.yDown);
     },
 
     onDragStop: function(sprite, pointer) {
-        var indexHigh = this.pitches.length - 1;
-        var pitchIndex = indexHigh - Math.floor(sprite.body.y/game.world.height * indexHigh);
-        var time = Math.floor(sprite.body.x/game.world.width * this.timeSubDiv);
-        var time = "0m + (" + time + " * " + this.timeSubDiv + "n)";
-        this.player.part.at(time, this.pitches[pitchIndex]);
-        //console.log("touch up at " + pointer.x + ", " + pointer.y);
+        this.setToneEventFromBubble(sprite);
 
+    },
 
+    setToneEventFromBubble: function(bubble) {
+        //var indexHigh = this.pitches.length;
+        //console.log("indexHigh is " + indexHigh);
+        var pitchIndex = (this.pitches.length - Math.floor(bubble.body.y/game.world.height * this.pitches.length))-1;
+        var time = Math.floor(bubble.body.x/game.world.width * this.timeSubDiv);
+        //var time = "0m + (" + time + " * " + this.timeSubDiv + "n)";
+        this.player.sequence.at(time, this.pitches[pitchIndex]);
+        console.log("Bubble time " + time + " pitchIndex " + pitchIndex + " and pitch " + this.pitches[pitchIndex]);
+        //console.log("Looping through bubbles; time: " + time);
     }
 
 }
