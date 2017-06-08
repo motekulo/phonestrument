@@ -139,30 +139,9 @@ PartPlayer.prototype.disconnectFromMaster = function(){
 }
 
 
-/**
-* set the pattern notes
-* @param {array} notes - the array of midi notes to set
-* @memberof PartPlayer.prototype
-**/
-PartPlayer.prototype.setNotes = function(notes) {
-    //this.notes = notes;
-    this.part.values = notes;
-
-}
 
 /**
- * change the loop interval
- * @param {string} newInterval - new interval as Tone note notation ("4n")
- *
- **/
- PartPlayer.prototype.setLoopInterval = function(newInterval) {
-     //this.interval = newInterval;
-     this.part.interval = newInterval;
- }
-
-
-/**
- * pan the pattern
+ * pan the part
  * @param {float} panPos - the pan value (between 0 and 1)
  *
  **/

@@ -4,6 +4,8 @@ var startEvent = "DOMContentLoaded";
 var deviceWidth = window.innerWidth;// * window.devicePixelRatio;
 var deviceHeight = window.innerHeight;// * window.devicePixelRatio;
 var isPaused = true;
+var chordProgPart;
+var tonalEnv;
 
 if(window.cordova){
     startEvent = "deviceready";
@@ -12,9 +14,12 @@ document.addEventListener(startEvent,function() {
     game = new Phaser.Game(deviceWidth, deviceHeight, Phaser.AUTO, "");
     game.state.add("BassPlayer", bassPlayer);
     game.state.start("BassPlayer");
+
+    //tonalEnv = new Tonality();
+
     Tone.Transport.loop = true;
     Tone.Transport.loopStart = 0;
-    Tone.Transport.loopEnd = "1m";
+    Tone.Transport.loopEnd = "4m";
     Tone.Transport.bpm.value = 112;
     Tone.Transport.latencyHint = 'playback';
 });

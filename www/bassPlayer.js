@@ -13,6 +13,15 @@ bassPlayer = function(game) {
         "instrument": "pitchedSampler"
     };
     this.player = new PartPlayer(options);
+    this.player.loop = true;
+    this.loopStart = "0m";
+    this.loopEnd = "1m";
+    this.chordProgression = {name: "1_4_1_5",
+     prog: [{time: "0m", root: 1, tochordtone: 5, alterations: [0,0,0]},
+            {time: "1m", root: 4, tochordtone: 7, alterations: [0,0,0]},
+            {time: "2m", root: 1, tochordtone: 7, alterations: [0,0,0]},
+            {time: "3m", root: 5, tochordtone: 7, alterations: [0,0,0,0]}]
+        }
 };
 
 bassPlayer.prototype = {
@@ -35,11 +44,28 @@ bassPlayer.prototype = {
         var lowestPitch = this.tonalEnv.key + (this.lowestOctave * 12);
         this.pitches = this.tonalEnv.trimArray(allPitches, lowestPitch, lowestPitch + (this.pitchRange * 12));
 
-        var bassArpeggio = this.tonalEnv.scaleOctave(this.tonalEnv.getChord(1, 7, []), 4);
-        var bassRoot = bassArpeggio[0];
+        //var numProggies = tonalEnv.chordProgressions.length;
+        //var progIndex = game.rnd.between(0, numProggies-1);
+        //var chordProg = tonalEnv.chordProgressions[progIndex].prog;
+        chordProgPart = new Tone.Part((function(time, value) {
 
-        this.player.setNotes(bassArpeggio);
-        this.player.setLoopInterval(4);  // FIXME just for now
+            console.log("bar num " + Tone.Transport.position);
+            var allNotes = this.tonalEnv.getFullChordArray(value.root, value.tochordtone, value.alterations);
+            var lowestPitch = allNotes[0] + (this.lowestOctave * 12);
+            console.log("chord change lowest pitch now " + lowestPitch);
+            this.pitches = this.tonalEnv.trimArray(allNotes, lowestPitch, lowestPitch + (this.pitchRange * 12));
+
+        }).bind(this), this.chordProgression.prog);
+
+        chordProgPart.loop = true;
+        chordProgPart.loopEnd = this.chordProgression.prog.length + "m";
+        chordProgPart.start(0);
+
+        //var bassArpeggio = this.tonalEnv.scaleOctave(this.tonalEnv.getChord(1, 7, []), 4);
+        //var bassRoot = bassArpeggio[0];
+
+        //this.player.setNotes(bassArpeggio);
+        //this.player.setLoopInterval(4);  // FIXME just for now
 
         for (var i = 0; i < 4; i++) {
             // place first bubble root, beginning of loop; res randomly
