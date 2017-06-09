@@ -11,7 +11,8 @@ if(window.cordova){
     startEvent = "deviceready";
 }
 document.addEventListener(startEvent,function() {
-    game = new Phaser.Game(deviceWidth * 0.9, deviceHeight * 0.8, Phaser.AUTO, "");
+    game = new Phaser.Game("94", "100", Phaser.AUTO, "stage");
+
     game.state.add("BassPlayer", bassPlayer);
     game.state.add("DrumPlayer", drumPlayer);
     //game.state.start("BassPlayer");
@@ -41,7 +42,7 @@ function pausePlay() {
 
 
 nx.onload = function(){
-
+    nx.colorize("#7986cb");
     toggle1.on('*', function(data) {
         console.log("Toggle data " + data.value);
         pausePlay();

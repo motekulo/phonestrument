@@ -36,6 +36,7 @@ bassPlayer.prototype = {
 
     create: function() {
         console.log("Create");
+        game.stage.backgroundColor = "#303f9f";
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
         this.bubbles = game.add.group();

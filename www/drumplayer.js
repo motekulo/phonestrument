@@ -43,6 +43,7 @@ drumPlayer.prototype = {
     create: function() {
         this.tally++;
         console.log("Create tally: " + this.tally);
+        game.stage.backgroundColor = "#303f9f";
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
         this.bubbles = game.add.group();
