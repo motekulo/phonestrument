@@ -20,7 +20,7 @@ bassPlayer = function(game) {
             {time: "3m", root: 5, tochordtone: 7, alterations: [0,0,0,0]}]
         }
     this.player = new SequencePlayer(options);
-    this.player.loop = true;
+    this.player.loop = true; // FIXME redundant?
 
     //this.loopStart = "0m";
     //this.loopEnd = "4m";

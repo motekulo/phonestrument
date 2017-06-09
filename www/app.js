@@ -13,7 +13,9 @@ if(window.cordova){
 document.addEventListener(startEvent,function() {
     game = new Phaser.Game(deviceWidth, deviceHeight, Phaser.AUTO, "");
     game.state.add("BassPlayer", bassPlayer);
-    game.state.start("BassPlayer");
+    game.state.add("DrumPlayer", drumPlayer);
+    //game.state.start("BassPlayer");
+    game.state.start("DrumPlayer");
 
     //tonalEnv = new Tonality();
 
