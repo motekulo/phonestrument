@@ -2,7 +2,7 @@
 drumPlayer = function(game) {
     this.bubbles;  // main group of bubble sprites
     this.tally = 0;
-    this.bubbleScale = 0.35;
+    this.bubbleScale = 0.25;
     this.xDown;
     this.yDown;
     this.players=[];
@@ -88,7 +88,7 @@ drumPlayer.prototype = {
         var samplerIndex = (this.numPlayers - Math.floor(bubble.body.y/game.world.height * this.numPlayers))-1;
         var time = Math.floor(bubble.body.x/game.world.width * this.timeSubDiv);
         if (samplerIndex < 0) samplerIndex = 0;
-        if (samplerIndex > this.numPlayers - 1) samplerIndex = this.numPlayers - 1; 
+        if (samplerIndex > this.numPlayers - 1) samplerIndex = this.numPlayers - 1;
         //var time = "0m + (" + time + " * " + this.timeSubDiv + "n)";
         this.players[samplerIndex].sequence.remove(time);
         //console.log("touch down at " + this.xDown + ", " + this.yDown);

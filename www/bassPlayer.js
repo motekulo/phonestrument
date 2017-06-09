@@ -1,7 +1,7 @@
 
 bassPlayer = function(game) {
     this.bubbles;  // main group of bubble sprites
-    this.bubbleScale = 0.35;
+    this.bubbleScale = 0.25;
     this.xDown;
     this.yDown;
     this.tonalEnv = new Tonality();

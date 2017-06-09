@@ -11,7 +11,7 @@ if(window.cordova){
     startEvent = "deviceready";
 }
 document.addEventListener(startEvent,function() {
-    game = new Phaser.Game(deviceWidth, deviceHeight, Phaser.AUTO, "");
+    game = new Phaser.Game(deviceWidth * 0.9, deviceHeight * 0.8, Phaser.AUTO, "");
     game.state.add("BassPlayer", bassPlayer);
     game.state.add("DrumPlayer", drumPlayer);
     //game.state.start("BassPlayer");
