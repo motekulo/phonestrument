@@ -1,6 +1,7 @@
 
 drumPlayer = function(game) {
     this.bubbles;  // main group of bubble sprites
+    this.tally = 0;
     this.bubbleScale = 0.35;
     this.xDown;
     this.yDown;
@@ -40,7 +41,8 @@ drumPlayer.prototype = {
     },
 
     create: function() {
-        console.log("Create");
+        this.tally++;
+        console.log("Create tally: " + this.tally);
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
         this.bubbles = game.add.group();
@@ -85,6 +87,8 @@ drumPlayer.prototype = {
         // remove current part at this time pointer
         var samplerIndex = (this.numPlayers - Math.floor(bubble.body.y/game.world.height * this.numPlayers))-1;
         var time = Math.floor(bubble.body.x/game.world.width * this.timeSubDiv);
+        if (samplerIndex < 0) samplerIndex = 0;
+        if (samplerIndex > this.numPlayers - 1) samplerIndex = this.numPlayers - 1; 
         //var time = "0m + (" + time + " * " + this.timeSubDiv + "n)";
         this.players[samplerIndex].sequence.remove(time);
         //console.log("touch down at " + this.xDown + ", " + this.yDown);
@@ -100,7 +104,8 @@ drumPlayer.prototype = {
         var samplerIndex = (this.numPlayers - Math.floor(bubble.body.y/game.world.height * this.numPlayers))-1;
         var time = Math.floor(bubble.body.x/game.world.width * this.timeSubDiv);
         //var time = "0m + (" + time + " * " + this.timeSubDiv + "n)";
-
+        if (samplerIndex < 0) samplerIndex = 0;
+        if (samplerIndex > this.numPlayers - 1) samplerIndex = this.numPlayers - 1;
         this.players[samplerIndex].sequence.at(time, "G4"); // value G$ a dummy
 
         //console.log("Bubble time " + time + " pitchIndex " + pitchIndex + " and pitch " + this.pitches[pitchIndex]);

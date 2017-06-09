@@ -46,4 +46,12 @@ nx.onload = function(){
         console.log("Toggle data " + data.value);
         pausePlay();
     })
+    button1.on('*', function(data) {
+        console.log("Button data " + data.value);
+        game.state.start("BassPlayer");
+    })
+    button2.on('*', function(data) {
+        console.log("Button data " + data.value);
+        game.state.start("DrumPlayer");
+    })
 }
