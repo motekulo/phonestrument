@@ -5,7 +5,7 @@
 * The default is to create a player with a monophonic synth
 * @param {opbject} options - json object of options in the format
 * @example
-* options take the form of {"instrument": "solo"};
+* options take the form of {"instrument": "solo", "sequence": []};
 * instrument options either "solo", "sampler" or "pitchedSampler"
 **/
 function SequencePlayer(options) {
@@ -13,6 +13,10 @@ function SequencePlayer(options) {
     this.subDiv = 8;  // FIXME should be able to be added in options
     // empty sequence array at subDiv:
     var sequenceValues = Array(this.subDiv).fill(null);
+    if (options.sequence != null) {
+        sequenceValues = options.sequence;
+    }
+
 
     if (options.instrument == null) {
         options = SequencePlayer.defaults;
