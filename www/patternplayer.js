@@ -78,7 +78,7 @@ PatternPlayer.prototype.setSoloInstrument = function() {
  **/
 PatternPlayer.prototype.setPitchedSamplerInstrument = function() {
     var loaded = (function(){
-        console.log("Loaded pitched sample");
+        //console.log("Loaded pitched sample");
         this.pitchedSampleLoaded = true;
     }).bind(this);
     var url = ["./assets/samples/marimba_g4.wav"];  //FIXME should be passed in
@@ -97,7 +97,7 @@ PatternPlayer.prototype.setPitchedSamplerInstrument = function() {
   **/
 PatternPlayer.prototype.setSamplerInstrument = function(url) {
     var loaded = (function(){
-        console.log("Loaded sample");
+        //console.log("Loaded sample");
         this.sampleLoaded = true;
     }).bind(this);
     //var url = ["./assets/snare.wav"]; //FIXME should be passed in

@@ -41,18 +41,21 @@ function pausePlay() {
 }
 
 
-nx.onload = function(){
+nx.onload = function() {
     nx.colorize("#7986cb");
     toggle1.on('*', function(data) {
-        console.log("Toggle data " + data.value);
+        //console.log("Toggle data " + data.value);
         pausePlay();
-    })
+    });
     button1.on('*', function(data) {
-        console.log("Button data " + data.value);
-        game.state.start("BassPlayer");
-    })
+        if (data.press == 1) {
+            game.state.start("BassPlayer");
+        }
+
+    });
     button2.on('*', function(data) {
-        console.log("Button data " + data.value);
-        game.state.start("DrumPlayer");
-    })
+        if (data.press == 1) {
+            game.state.start("DrumPlayer");
+        }
+    });
 }

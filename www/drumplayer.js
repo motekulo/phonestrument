@@ -35,14 +35,14 @@ drumPlayer = function(game) {
 
 drumPlayer.prototype = {
     preload: function() {
-        console.log("Pre-loading");
+        //console.log("Pre-loading");
         game.load.image('bubble', 'assets/bubble256.png');
         game.load.spritesheet('playpausebutton', 'assets/pause_play_reset.png', 148, 80);
     },
 
     create: function() {
-        this.tally++;
-        console.log("Create tally: " + this.tally);
+        //this.tally++;
+        //console.log("Create drumPlayer tally: " + this.tally);
         game.stage.backgroundColor = "#303f9f";
         game.physics.startSystem(Phaser.Physics.ARCADE);
 

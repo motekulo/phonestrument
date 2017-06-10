@@ -29,13 +29,13 @@ bassPlayer = function(game) {
 
 bassPlayer.prototype = {
     preload: function() {
-        console.log("Pre-loading");
+        //console.log("Pre-loading");
         game.load.image('bubble', 'assets/bubble256.png');
         game.load.spritesheet('playpausebutton', 'assets/pause_play_reset.png', 148, 80);
     },
 
     create: function() {
-        console.log("Create");
+        //console.log("Create bass player");
         game.stage.backgroundColor = "#303f9f";
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -53,12 +53,12 @@ bassPlayer.prototype = {
         //var chordProg = tonalEnv.chordProgressions[progIndex].prog;
         chordProgPart = new Tone.Part((function(time, value) {
 
-            console.log("bar num " + Tone.Transport.position);
-            console.log("Value " + value);
+            //console.log("bar num " + Tone.Transport.position);
+            //console.log("Value " + value);
             var allNotes = this.tonalEnv.getFullChordArray(value.root, value.tochordtone, value.alterations);
             var lowestPitch = allNotes[0] + (this.lowestOctave * 12);
             this.pitches = this.tonalEnv.trimArray(allNotes, lowestPitch, lowestPitch + (this.pitchRange * 12));
-            console.log("chord change " + this.pitches);
+            //console.log("chord change " + this.pitches);
             var self = this;
             // transpose bubble pitch values accordingly
             this.bubbles.forEach(function(bubble) {
@@ -129,7 +129,7 @@ bassPlayer.prototype = {
         var time = Math.floor(bubble.body.x/game.world.width * this.timeSubDiv);
         //var time = "0m + (" + time + " * " + this.timeSubDiv + "n)";
         this.player.sequence.at(time, this.pitches[pitchIndex]);
-        console.log("Bubble time " + time + " pitchIndex " + pitchIndex + " and pitch " + this.pitches[pitchIndex]);
+        //console.log("Bubble time " + time + " pitchIndex " + pitchIndex + " and pitch " + this.pitches[pitchIndex]);
         //console.log("Looping through bubbles; time: " + time);
     }
 
