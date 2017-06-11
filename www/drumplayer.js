@@ -62,7 +62,7 @@ drumPlayer.prototype = {
         for (var i = 0; i < this.players.length; i++) {
             for (var j = 0; j < this.timeSubDiv; j++) {
                 var sequenceEvent = this.players[i].sequence.at(j);
-                if (sequenceEvent != null) {  
+                if (sequenceEvent != null) {
                     var bubbleX = Math.floor(j/this.timeSubDiv * game.width);
                     var bubbleY = Math.floor(i/this.players.length * game.height);
                     var musBubble = this.bubbles.create(bubbleX, bubbleY, 'bubble');
@@ -77,29 +77,6 @@ drumPlayer.prototype = {
             }
         }
 
-        // for (var i = 0; i < 4; i++) {
-        //     // place first bubble root, beginning of loop; res randomly
-        //     if (i == 0) {
-        //         var musBubble = this.bubbles.create(24, game.height-24, 'bubble');
-        //     } else {
-        //         var musBubble = this.bubbles.create(game.world.randomX, game.world.randomY, 'bubble');
-        //     }
-        //
-        //     musBubble.anchor.set(0.5, 0.5);
-        //     musBubble.inputEnabled = true;
-        //     musBubble.input.enableDrag(true);
-        //     musBubble.events.onDragStart.add(this.onDragStart, this);
-        //     musBubble.events.onDragStop.add(this.onDragStop, this);
-        //     game.physics.enable(musBubble, Phaser.Physics.ARCADE);
-        //
-        //     musBubble.scale.set(this.bubbleScale);
-        // }
-        //
-        // this.bubbles.forEach(function(bubble) {
-        //     // set bassPart events based on bubble position
-        //     this.setToneEventFromBubble(bubble);
-        //
-        // }, this, true);
 
     },
 

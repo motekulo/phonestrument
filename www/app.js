@@ -5,14 +5,20 @@ var deviceWidth = window.innerWidth;// * window.devicePixelRatio;
 var deviceHeight = window.innerHeight;// * window.devicePixelRatio;
 var isPaused = true;
 var chordProgPart;
-var tonalEnv;
+//var tonalEnv;
 
 if(window.cordova){
     startEvent = "deviceready";
 }
 document.addEventListener(startEvent,function() {
     game = new Phaser.Game("94", "100", Phaser.AUTO, "stage");
-
+    game.tonalEnv = new Tonality();
+    game.chordProgression = {name: "1_4_1_5",
+     prog: [{time: "0m", root: 1, tochordtone: 5, alterations: [0,0,0]},
+            {time: "1m", root: 4, tochordtone: 7, alterations: [0,0,0,0]},
+            {time: "2m", root: 1, tochordtone: 7, alterations: [0,0,0,0]},
+            {time: "3m", root: 5, tochordtone: 7, alterations: [0,0,0,0]}]
+        };
     game.state.add("BassPlayer", bassPlayer);
     game.state.add("DrumPlayer", drumPlayer);
     //game.state.start("BassPlayer");
