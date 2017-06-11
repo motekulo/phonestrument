@@ -72,18 +72,12 @@ bassPlayer.prototype = {
         this.bubbles.physicsBodyType = Phaser.Physics.ARCADE;
         game.physics.enable(this.bubbles, Phaser.Physics.ARCADE);
 
-        //var bassArpeggio = this.tonalEnv.scaleOctave(this.tonalEnv.getChord(1, 7, []), 4);
-        //var bassRoot = bassArpeggio[0];
-
-        //this.player.setNotes(bassArpeggio);
-        //this.player.setLoopInterval(4);  // FIXME just for now
-
         for (var i=0; i < this.timeSubDiv; i++) {
             var sequenceEvent = this.player.sequence.at(i);
             if (sequenceEvent != null) {
                 var bubbleX = Math.floor(i/this.timeSubDiv * game.width);
                 // sequenceEvent.value is a midi note; need to find index
-                var bubbleY = Math.floor(this.pitches.indexOf(sequenceEvent.value)/this.pitches.length * game.height);
+                var bubbleY = game.height - Math.floor(this.pitches.indexOf(sequenceEvent.value)/this.pitches.length * game.height);
                 var musBubble = this.bubbles.create(bubbleX, bubbleY, 'bubble');
                 musBubble.anchor.set(0.5, 0.5);
                 musBubble.inputEnabled = true;
@@ -96,23 +90,6 @@ bassPlayer.prototype = {
             }
         }
 
-        // for (var i = 0; i < 4; i++) {
-        //     // place first bubble root, beginning of loop; res randomly
-        //     if (i == 0) {
-        //         var musBubble = this.bubbles.create(24, game.height-24, 'bubble');
-        //     } else {
-        //         var musBubble = this.bubbles.create(game.world.randomX, game.world.randomY, 'bubble');
-        //     }
-        //
-        //     musBubble.anchor.set(0.5, 0.5);
-        //     musBubble.inputEnabled = true;
-        //     musBubble.input.enableDrag(true);
-        //     musBubble.events.onDragStart.add(this.onDragStart, this);
-        //     musBubble.events.onDragStop.add(this.onDragStop, this);
-        //     game.physics.enable(musBubble, Phaser.Physics.ARCADE);
-        //
-        //     musBubble.scale.set(this.bubbleScale);
-        // }
 
         this.bubbles.forEach(function(bubble) {
             // set bassPart events based on bubble position
