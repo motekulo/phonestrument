@@ -15,14 +15,14 @@ drumPlayer = function(game) {
         "instrument": "sampler"
     };
 
-    //var kickPart = ["G4", null, "G4", null, "G4", null, "G4", null];
-    var kickPart = [null, null, null, null, "G4", null, null, null];
-    //var snarePart = [null, null, "G4", null, null, null, "G4", null];
-    var snarePart = [null, null, null, null, null, null, null, null];
-    //var ohhPart = ["G4", "G4", null, "G4", "G4", "G4", null, null];
-    var ohhPart = [null, null, null, null, null, null, null, null];
-    //var chhPart = [null, null, "G4", null, null, null, "G4", null];
-    var chhPart = [null, null, null, null, null, null, null, null];
+    var kickPart = ["G4", null, "G4", null, "G4", null, "G4", null];
+    //var kickPart = [null, null, null, null, "G4", null, null, null];
+    var snarePart = [null, null, "G4", null, null, null, "G4", null];
+    //var snarePart = [null, null, null, null, null, null, null, null];
+    var ohhPart = ["G4", "G4", null, "G4", "G4", "G4", null, null];
+    //var ohhPart = [null, null, null, null, null, null, null, null];
+    var chhPart = [null, null, "G4", null, null, null, "G4", null];
+    //var chhPart = [null, null, null, null, null, null, null, null];
 
     options.url = "./assets/samples/kick_mix_1.wav";
     options.sequence = kickPart;
@@ -91,20 +91,20 @@ drumPlayer.prototype = {
                 }
             }
         }
-        console.log("after create");
-        this.dumpAllEvents();
+        //console.log("after create");
+        //this.dumpAllEvents();
     },
 
     update: function() {
 
     },
 
-    render: function() {
-         game.debug.geom(vertHalfLine, 'rgba(255,0,0,1)');
-         game.debug.geom(horHalfLine, 'rgba(255,0,0,1)');
-         game.debug.text("x body" + this.bubbles.children[0].body.x, 20, 20);
-         game.debug.text("x sprite" + this.bubbles.children[0].x, 20, 40);
-    },
+    // render: function() {
+    //      game.debug.geom(vertHalfLine, 'rgba(255,0,0,1)');
+    //      game.debug.geom(horHalfLine, 'rgba(255,0,0,1)');
+    //      game.debug.text("x body" + this.bubbles.children[0].body.x, 20, 20);
+    //      game.debug.text("x sprite" + this.bubbles.children[0].x, 20, 40);
+    // },
 
     onDragStart: function(bubble, pointer) {
         this.xDown = pointer.x;
@@ -117,10 +117,10 @@ drumPlayer.prototype = {
         //var time = "0m + (" + time + " * " + this.timeSubDiv + "n)";
         this.players[samplerIndex].sequence.remove(time);
         //this.players[samplerIndex].sequence.at(time, "rest");
-        this.dumpAllEvents();
+        //this.dumpAllEvents();
         //console.log("touch down at " + this.xDown + ", " + this.yDown);
-        console.log("Bubble.x is " + bubble.x);
-        console.log("Removing index " + samplerIndex + " at time " + time);
+        //console.log("Bubble.x is " + bubble.x);
+        //console.log("Removing index " + samplerIndex + " at time " + time);
     },
 
     onDragStop: function(sprite, pointer) {
@@ -136,9 +136,9 @@ drumPlayer.prototype = {
         if (samplerIndex < 0) samplerIndex = 0;
         if (samplerIndex > this.numPlayers - 1) samplerIndex = this.numPlayers - 1;
         this.players[samplerIndex].sequence.at(time, "G4"); // value G$ a dummy
-        console.log("After drag");
-        this.dumpAllEvents();
-        console.log("adding index " + samplerIndex + " at time " + time);
+        //console.log("After drag");
+        //this.dumpAllEvents();
+        //console.log("adding index " + samplerIndex + " at time " + time);
         //console.log("Bubble time " + time + " pitchIndex " + pitchIndex + " and pitch " + this.pitches[pitchIndex]);
         //console.log("Looping through bubbles; time: " + time);
     },

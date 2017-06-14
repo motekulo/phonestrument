@@ -42,7 +42,7 @@ function SequencePlayer(options) {
 
         case "pitchedSampler" :
             this.instrument = this.setPitchedSamplerInstrument();
-            var sampleBase = Tone.Frequency("G4").toMidi();
+            var sampleBase = Tone.Frequency("C4").toMidi();
             this.sequence = new Tone.Sequence((function(time, note) {
                 if (note !== undefined){
                     var interval = note - sampleBase;
@@ -86,7 +86,7 @@ SequencePlayer.prototype.setPitchedSamplerInstrument = function() {
         //console.log("Loaded pitched sample");
         this.pitchedSampleLoaded = true;
     }).bind(this);
-    var url = ["./assets/samples/marimba_g4.wav"];  //FIXME should be passed in
+    var url = ["./assets/samples/bass.wav"];  //FIXME should be passed in
     this.instrument = new Tone.Sampler(url[0], loaded);
     this.isPitchedSampler = true;
     this.instrument.envelope.sustain = 0.4;

@@ -5,7 +5,7 @@ bassPlayer = function(game) {
     this.xDown;
     this.yDown;
     //this.tonalEnv = new Tonality();
-    this.lowestOctave = 3;
+    this.lowestOctave = 4;
     this.pitchRange = 2; // number of octaves
     this.pitches = []; // main array for pitch data on y axis
     this.timeSubDiv = 8; // resolution of time on x axis
@@ -26,12 +26,12 @@ bassPlayer = function(game) {
     chordProgPart = new Tone.Part((function(time, value) {
 
         //console.log("bar num " + Tone.Transport.position);
-        console.log("chordProg ping at " + Tone.Transport.position);
+        //console.log("chordProg ping at " + Tone.Transport.position);
         var allNotes = game.tonalEnv.getFullChordArray(value.root, value.tochordtone, value.alterations);
         var lowestPitch = allNotes[0] + (this.lowestOctave * 12);
         var prevPitches = this.pitches;
         this.pitches = game.tonalEnv.trimArray(allNotes, lowestPitch, lowestPitch + (this.pitchRange * 12));
-        console.log("chord change " + this.pitches);
+        //console.log("chord change " + this.pitches);
         var self = this;
         // transpose bubble pitch values accordingly
         for (i = 0; i < this.pitches.length; i++) {
@@ -112,7 +112,7 @@ bassPlayer.prototype = {
         //var time = "0m + (" + time + " * " + this.timeSubDiv + "n)";
         //this.player.sequence.remove(time);
         this.player.sequence.at(time, null);
-        console.log("touch down at " + this.xDown + ", " + this.yDown);
+        //console.log("touch down at " + this.xDown + ", " + this.yDown);
     },
 
     onDragStop: function(sprite, pointer) {
@@ -127,7 +127,7 @@ bassPlayer.prototype = {
         var time = Math.floor(bubble.x/game.world.width * this.timeSubDiv);
         //var time = "0m + (" + time + " * " + this.timeSubDiv + "n)";
         this.player.sequence.at(time, this.pitches[pitchIndex]);
-        console.log("Bubble time " + time + " pitchIndex " + pitchIndex + " and pitch " + this.pitches[pitchIndex]);
+        //console.log("Bubble time " + time + " pitchIndex " + pitchIndex + " and pitch " + this.pitches[pitchIndex]);
         //console.log("Looping through bubbles; time: " + time);
     }
 

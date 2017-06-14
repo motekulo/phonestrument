@@ -30,9 +30,8 @@ document.addEventListener(startEvent,function() {
     Tone.Transport.loopStart = 0;
     Tone.Transport.loopEnd = "4m";
     Tone.Transport.bpm.value = 112;
-    Tone.Transport.latencyHint = 'playback';
+    Tone.Transport.latencyHint = "playback";
 });
-
 
 function pausePlay() {
     if (isPaused == false) {
@@ -45,7 +44,6 @@ function pausePlay() {
         isPaused = false;
     }
 }
-
 
 nx.onload = function() {
     nx.colorize("#7986cb");
