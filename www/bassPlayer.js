@@ -75,9 +75,10 @@ bassPlayer.prototype = {
         for (var i=0; i < this.timeSubDiv; i++) {
             var sequenceEvent = this.player.sequence.at(i);
             if (sequenceEvent != null) {
-                var bubbleX = Math.floor(i/this.timeSubDiv * game.width);
+                var bubbleX = Math.floor(i/this.timeSubDiv * game.width) + 1;
                 // sequenceEvent.value is a midi note; need to find index
-                var bubbleY = game.height - Math.floor(this.pitches.indexOf(sequenceEvent.value)/this.pitches.length * game.height);
+                var index = this.pitches.indexOf(sequenceEvent.value);
+                var bubbleY = Math.floor((this.pitches.length - index)/this.pitches.length * game.height);
                 var musBubble = this.bubbles.create(bubbleX, bubbleY, 'bubble');
                 musBubble.anchor.set(0.5, 0.5);
                 musBubble.inputEnabled = true;
@@ -122,7 +123,7 @@ bassPlayer.prototype = {
     setToneEventFromBubble: function(bubble) {
         //var indexHigh = this.pitches.length;
         //console.log("indexHigh is " + indexHigh);
-        var pitchIndex = ((this.pitches.length - 1) - Math.floor(bubble.y/game.world.height * this.pitches.length));
+        var pitchIndex = (Math.floor((game.world.height - bubble.y)/game.world.height * this.pitches.length));
         var time = Math.floor(bubble.x/game.world.width * this.timeSubDiv);
         //var time = "0m + (" + time + " * " + this.timeSubDiv + "n)";
         this.player.sequence.at(time, this.pitches[pitchIndex]);
