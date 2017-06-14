@@ -5,9 +5,10 @@ drumPlayer = function(game) {
     this.bubbleScale = 0.25;
     this.xDown;
     this.yDown;
-    this.players=[];
+    this.sequences = [];
     this.numPlayers = 4;
-
+    this.loaded = false;
+    this.panVol = new Tone.PanVol(0.5, -18);
     // Debug things
     var vertHalfLine;
     this.timeSubDiv = 8; // resolution of time on x axis
@@ -15,36 +16,55 @@ drumPlayer = function(game) {
         "instrument": "sampler"
     };
 
-    var kickPart = ["G4", null, "G4", null, "G4", null, "G4", null];
+    var kickSequence = new Tone.Sequence((function(time, note){
+        this.drumPlayer1.start(0);
+    }).bind(this), ["G4", null, "G4", null, "G4", null, "G4", null], "8n");
     //var kickPart = [null, null, null, null, "G4", null, null, null];
-    var snarePart = [null, null, "G4", null, null, null, "G4", null];
+    this.sequences.push(kickSequence);
+
+    var snareSequence = new Tone.Sequence((function(time, note){
+        this.drumPlayer2.start(1);
+    }).bind(this), [null, null, "G4", null, null, null, "G4", null], "8n");
     //var snarePart = [null, null, null, null, null, null, null, null];
-    var ohhPart = ["G4", "G4", null, "G4", "G4", "G4", null, null];
+    this.sequences.push(snareSequence);
+
+    var ohhSequence = new Tone.Sequence((function(time, note){
+        this.drumPlayer3.start(2);
+    }).bind(this), ["G4", "G4", null, "G4", "G4", "G4", null, null], "8n");
+    this.sequences.push(ohhSequence);
+
     //var ohhPart = [null, null, null, null, null, null, null, null];
-    var chhPart = [null, null, "G4", null, null, null, "G4", null];
+    var chhSequence = new Tone.Sequence((function(time, note){
+        this.drumPlayer4.start(3);
+    }).bind(this), [null, null, "G4", null, null, null, "G4", null], "8n");
+    this.sequences.push(chhSequence);
+
+    for (var i = 0; i < this.sequences.length; i++) {
+        this.sequences[i].start(0);
+    }
     //var chhPart = [null, null, null, null, null, null, null, null];
 
-    options.url = "./assets/samples/kick_mix_1.wav";
-    options.sequence = kickPart;
-    this.kickPlayer = new SequencePlayer(options);
-    this.players.push(this.kickPlayer);
+    var urls = ["./assets/samples/kick_mix_1.wav",
+                "./assets/samples/snare_mix_1.wav",
+                "./assets/samples/chh_mixed_1.wav", "./assets/samples/ohh_mixed_1.wav"];
 
-    options.url = "./assets/samples/snare_mix_1.wav";
-    options.sequence = snarePart;
-    this.snarePlayer = new SequencePlayer(options);
-    this.players.push(this.snarePlayer);
-
-    options.url = "./assets/samples/chh_mixed_1.wav";
-    options.sequence = chhPart;
-
-    this.closedHatPlayer = new SequencePlayer(options);
-    this.players.push(this.closedHatPlayer);
-
-    options.url = "./assets/samples/ohh_mixed_1.wav"
-    options.sequence = ohhPart;
-    this.openHatPlayer = new SequencePlayer(options);
-    this.players.push(this.openHatPlayer);
-
+    this.drumPlayer1 = new Tone.MultiPlayer(urls, (function() {
+        this.loaded = true;
+    }).bind(this));
+    this.drumPlayer2 = new Tone.MultiPlayer(urls, (function() {
+        this.loaded = true;
+    }).bind(this));
+    this.drumPlayer3 = new Tone.MultiPlayer(urls, (function() {
+        this.loaded = true;
+    }).bind(this));
+    this.drumPlayer4 = new Tone.MultiPlayer(urls, (function() {
+        this.loaded = true;
+    }).bind(this));
+    this.drumPlayer1.connect(this.panVol);
+    this.drumPlayer2.connect(this.panVol);
+    this.drumPlayer3.connect(this.panVol);
+    this.drumPlayer4.connect(this.panVol);
+    this.panVol.connect(Tone.Master);
 };
 
 drumPlayer.prototype = {
@@ -71,12 +91,12 @@ drumPlayer.prototype = {
 
         // loop through the players, extrating parts at subdiv and adding
         // bubbles if something found
-        for (var i = 0; i < this.players.length; i++) {
+        for (var i = 0; i < this.sequences.length; i++) {
             for (var j = 0; j < this.timeSubDiv; j++) {
-                var sequenceEvent = this.players[i].sequence.at(j);
+                var sequenceEvent = this.sequences[i].at(j);
                 if (sequenceEvent != null && sequenceEvent.value == "G4") {
                     var bubbleX = Math.floor(j/this.timeSubDiv * game.world.width) + 1;
-                    var bubbleY = Math.floor((this.players.length - i)/this.players.length * game.world.height);
+                    var bubbleY = Math.floor((this.sequences.length - i)/this.sequences.length * game.world.height);
                     var musBubble = this.bubbles.create(bubbleX, bubbleY, 'bubble');
                     musBubble.scale.set(this.bubbleScale);
                     musBubble.anchor.set(0.5, 0.5);
@@ -115,12 +135,13 @@ drumPlayer.prototype = {
         if (samplerIndex < 0) samplerIndex = 0;
         if (samplerIndex > this.numPlayers - 1) samplerIndex = this.numPlayers - 1;
         //var time = "0m + (" + time + " * " + this.timeSubDiv + "n)";
-        this.players[samplerIndex].sequence.remove(time);
+        console.log("Removing index " + samplerIndex + " at time " + time);
+        this.sequences[samplerIndex].remove(time);
         //this.players[samplerIndex].sequence.at(time, "rest");
         //this.dumpAllEvents();
         //console.log("touch down at " + this.xDown + ", " + this.yDown);
         //console.log("Bubble.x is " + bubble.x);
-        //console.log("Removing index " + samplerIndex + " at time " + time);
+
     },
 
     onDragStop: function(sprite, pointer) {
@@ -135,7 +156,7 @@ drumPlayer.prototype = {
         //var time = "0m + (" + time + " * " + this.timeSubDiv + "n)";
         if (samplerIndex < 0) samplerIndex = 0;
         if (samplerIndex > this.numPlayers - 1) samplerIndex = this.numPlayers - 1;
-        this.players[samplerIndex].sequence.at(time, "G4"); // value G$ a dummy
+        this.sequences[samplerIndex].at(time, "G4"); // value G$ a dummy
         //console.log("After drag");
         //this.dumpAllEvents();
         //console.log("adding index " + samplerIndex + " at time " + time);
@@ -147,7 +168,7 @@ drumPlayer.prototype = {
         for (var k = 0; k < this.numPlayers; k++) {
             console.log("Player " + k);
             for (var i = 0; i < this.timeSubDiv; i++){
-                var eventVal = this.players[k].sequence.at(i);
+                var eventVal = this.sequences[k].at(i);
                 if (eventVal != null) {
                     console.log("event value " + i + " is " + eventVal.value);
                 } else {
