@@ -107,10 +107,11 @@ bassPlayer.prototype = {
         this.xDown = pointer.x;
         this.yDown = pointer.y;
         // remove current part at this time pointer
-        var time = Math.floor(sprite.body.x/game.world.width * this.timeSubDiv);
+        var time = Math.floor(sprite.x/game.world.width * this.timeSubDiv);
         //var time = "0m + (" + time + " * " + this.timeSubDiv + "n)";
-        this.player.sequence.remove(time);
-        //console.log("touch down at " + this.xDown + ", " + this.yDown);
+        //this.player.sequence.remove(time);
+        this.player.sequence.at(time, null);
+        console.log("touch down at " + this.xDown + ", " + this.yDown);
     },
 
     onDragStop: function(sprite, pointer) {
@@ -121,11 +122,11 @@ bassPlayer.prototype = {
     setToneEventFromBubble: function(bubble) {
         //var indexHigh = this.pitches.length;
         //console.log("indexHigh is " + indexHigh);
-        var pitchIndex = (this.pitches.length - Math.floor(bubble.body.y/game.world.height * this.pitches.length))-1;
-        var time = Math.floor(bubble.body.x/game.world.width * this.timeSubDiv);
+        var pitchIndex = ((this.pitches.length - 1) - Math.floor(bubble.y/game.world.height * this.pitches.length));
+        var time = Math.floor(bubble.x/game.world.width * this.timeSubDiv);
         //var time = "0m + (" + time + " * " + this.timeSubDiv + "n)";
         this.player.sequence.at(time, this.pitches[pitchIndex]);
-        //console.log("Bubble time " + time + " pitchIndex " + pitchIndex + " and pitch " + this.pitches[pitchIndex]);
+        console.log("Bubble time " + time + " pitchIndex " + pitchIndex + " and pitch " + this.pitches[pitchIndex]);
         //console.log("Looping through bubbles; time: " + time);
     }
 

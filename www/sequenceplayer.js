@@ -17,7 +17,6 @@ function SequencePlayer(options) {
         sequenceValues = options.sequence;
     }
 
-
     if (options.instrument == null) {
         options = SequencePlayer.defaults;
     }
@@ -38,6 +37,7 @@ function SequencePlayer(options) {
                     this.instrument.start(time);
                 }
             }).bind(this),sequenceValues, this.subDiv + "n");
+            //this.instrument.sync();
             break;
 
         case "pitchedSampler" :
