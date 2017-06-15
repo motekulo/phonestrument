@@ -184,3 +184,25 @@ Things to try:
 No bass, no monosynths, just sample players
 just MonoSynths
 Simplify the music only app to fire just a single monosynth for comparison purposes
+
+
+### June 16
+
+Tested various combinations and MonoSynths bad, samplers better. Changed
+structure, and made pitched and unpitched samplers as the main synths. Again,
+spent a fair bit of time in the browser before testing on mobile. Must test on
+mobile every day. Every day coding happens, test on mobile. Mantra.
+
+Timing seems out on mobile, so time to play with a few things:
+
+1. Try a music only version using the existing objects. If it's possible to
+   separate the Tone js from the interface code completely, then I should be
+   able to add a different app.js front end that doesn't call phaser.
+
+2. Also try samples as mp3 files rather than wav
+
+3. Try on different devices
+
+
+
+
