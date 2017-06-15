@@ -7,7 +7,7 @@ drumPlayer = function(game) {
     this.yDown;
     this.sequences = [];
     this.numPlayers = 4;
-    this.loaded = false;
+    this.loaded = 0;
     this.panVol = new Tone.PanVol(0.5, -18);
     // Debug things
     var vertHalfLine;
@@ -15,6 +15,7 @@ drumPlayer = function(game) {
     var options = {
         "instrument": "sampler"
     };
+
 
     var kickSequence = new Tone.Sequence((function(time, note){
         this.drumPlayer1.start(0);
@@ -48,18 +49,16 @@ drumPlayer = function(game) {
                 "./assets/samples/snare_mix_1.wav",
                 "./assets/samples/chh_mixed_1.wav", "./assets/samples/ohh_mixed_1.wav"];
 
-    this.drumPlayer1 = new Tone.MultiPlayer(urls, (function() {
-        this.loaded = true;
-    }).bind(this));
-    this.drumPlayer2 = new Tone.MultiPlayer(urls, (function() {
-        this.loaded = true;
-    }).bind(this));
-    this.drumPlayer3 = new Tone.MultiPlayer(urls, (function() {
-        this.loaded = true;
-    }).bind(this));
-    this.drumPlayer4 = new Tone.MultiPlayer(urls, (function() {
-        this.loaded = true;
-    }).bind(this));
+    this.samplesLoaded = function() {
+        this.loaded++;
+        console.log("Num samples loaded: " + this.loaded);
+    }
+    //var self = this;
+    this.drumPlayer1 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
+    this.drumPlayer2 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
+    this.drumPlayer3 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
+    this.drumPlayer4 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
+
     this.drumPlayer1.connect(this.panVol);
     this.drumPlayer2.connect(this.panVol);
     this.drumPlayer3.connect(this.panVol);
