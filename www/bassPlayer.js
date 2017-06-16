@@ -45,12 +45,12 @@ bassPlayer = function(game) {
     chordProgPart = new Tone.Part((function(time, value) {
 
         //console.log("bar num " + Tone.Transport.position);
-        console.log("chordProg ping at " + Tone.Transport.position);
+        //console.log("chordProg ping at " + Tone.Transport.position);
         var allNotes = game.tonalEnv.getFullChordArray(value.root, value.tochordtone, value.alterations);
         var lowestPitch = allNotes[0] + (this.lowestOctave * 12);
         var prevPitches = this.pitches;
         this.pitches = game.tonalEnv.trimArray(allNotes, lowestPitch, lowestPitch + (this.pitchRange * 12));
-        console.log("chord change " + this.pitches);
+        //console.log("chord change " + this.pitches);
         //var self = this;
         // transpose bubble pitch values accordingly
         for (var i = 0; i < this.pitches.length; i++) {
@@ -94,14 +94,14 @@ bassPlayer.prototype = {
         for (var i=0; i < this.timeSubDiv; i++) {
             var sequenceEvent = this.sequence.at(i);
             if (sequenceEvent != null) {
-                var bubbleX = Math.floor(i/this.timeSubDiv * game.width) + 1;
+                var bubbleX = Math.floor(i/this.timeSubDiv * game.world.width) + 1;
                 // sequenceEvent.value is a midi note; need to find index
                 var index = this.pitches.indexOf(sequenceEvent.value);
-                var bubbleY = Math.floor((this.pitches.length - index)/this.pitches.length * game.height);
+                var bubbleY = Math.floor((this.pitches.length - index)/this.pitches.length * game.world.height);
                 var musBubble = this.bubbles.create(bubbleX, bubbleY, 'bubble');
                 musBubble.anchor.set(0.5, 0.5);
                 musBubble.inputEnabled = true;
-                musBubble.input.enableDrag(true);
+                musBubble.input.enableDrag();
                 musBubble.events.onDragStart.add(this.onDragStart, this);
                 musBubble.events.onDragStop.add(this.onDragStop, this);
                 game.physics.enable(musBubble, Phaser.Physics.ARCADE);
@@ -130,6 +130,8 @@ bassPlayer.prototype = {
         var time = Math.floor(sprite.x/game.world.width * this.timeSubDiv);
         //var time = "0m + (" + time + " * " + this.timeSubDiv + "n)";
         this.sequence.remove(time);
+        console.log("On drag removing at time " + time);
+        this.dumpAllEvents();
         //this.sequence.at(time, null);
         //console.log("touch down at " + this.xDown + ", " + this.yDown);
     },
@@ -146,8 +148,19 @@ bassPlayer.prototype = {
         var time = Math.floor(bubble.x/game.world.width * this.timeSubDiv);
         //var time = "0m + (" + time + " * " + this.timeSubDiv + "n)";
         this.sequence.at(time, this.pitches[pitchIndex]);
+        console.log("After drag");
+        this.dumpAllEvents();
         //console.log("Bubble time " + time + " pitchIndex " + pitchIndex + " and pitch " + this.pitches[pitchIndex]);
         //console.log("Looping through bubbles; time: " + time);
+    },
+
+    dumpAllEvents: function() {
+        for (var i = 0; i < this.timeSubDiv; i++) {
+            var eventVal = this.sequence.at(i);
+            if (eventVal != null) {
+                console.log("bass event value " + i + ": " + eventVal.value);
+            }
+        }
     }
 
 }
