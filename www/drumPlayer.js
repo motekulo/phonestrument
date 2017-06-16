@@ -18,25 +18,25 @@ drumPlayer = function(game) {
 
 
     var kickSequence = new Tone.Sequence((function(time, note){
-        this.drumPlayer1.start(0);
+        drumPlayer1.start(0, time);
     }).bind(this), ["G4", null, "G4", null, "G4", null, "G4", null], "8n");
     //var kickPart = [null, null, null, null, "G4", null, null, null];
     this.sequences.push(kickSequence);
 
     var snareSequence = new Tone.Sequence((function(time, note){
-        this.drumPlayer2.start(1);
+        drumPlayer2.start(1, time);
     }).bind(this), [null, null, "G4", null, null, null, "G4", null], "8n");
     //var snarePart = [null, null, null, null, null, null, null, null];
     this.sequences.push(snareSequence);
 
     var ohhSequence = new Tone.Sequence((function(time, note){
-        this.drumPlayer3.start(2);
+        drumPlayer3.start(2, time);
     }).bind(this), ["G4", "G4", null, "G4", "G4", "G4", null, null], "8n");
     this.sequences.push(ohhSequence);
 
     //var ohhPart = [null, null, null, null, null, null, null, null];
     var chhSequence = new Tone.Sequence((function(time, note){
-        this.drumPlayer4.start(3);
+        drumPlayer4.start(3, time);
     }).bind(this), [null, null, "G4", null, null, null, "G4", null], "8n");
     this.sequences.push(chhSequence);
 
@@ -54,15 +54,15 @@ drumPlayer = function(game) {
         console.log("Num samples loaded: " + this.loaded);
     }
     //var self = this;
-    this.drumPlayer1 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
-    this.drumPlayer2 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
-    this.drumPlayer3 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
-    this.drumPlayer4 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
+    var drumPlayer1 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
+    var drumPlayer2 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
+    var drumPlayer3 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
+    var drumPlayer4 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
 
-    this.drumPlayer1.connect(this.panVol);
-    this.drumPlayer2.connect(this.panVol);
-    this.drumPlayer3.connect(this.panVol);
-    this.drumPlayer4.connect(this.panVol);
+    drumPlayer1.connect(this.panVol);
+    drumPlayer2.connect(this.panVol);
+    drumPlayer3.connect(this.panVol);
+    drumPlayer4.connect(this.panVol);
     this.panVol.connect(Tone.Master);
 };
 

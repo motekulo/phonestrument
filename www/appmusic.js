@@ -1,87 +1,41 @@
 
-// var startEvent = "DOMContentLoaded";
-// if(window.cordova){
-//     startEvent = "deviceready";
-// }
-// document.addEventListener(startEvent,function() {
-//
-// });
+var startEvent = "DOMContentLoaded";
 
 var deviceWidth = window.innerWidth;// * window.devicePixelRatio;
 var deviceHeight = window.innerHeight;// * window.devicePixelRatio;
-//var bubbles;
 var isPaused = true;
-var button;
-var resetButton;
-var tally = {
-    "solo" : 0,
-    "sampler" : 0,
-    "pitchedSampler" : 0
+var chordProgPart;
+var game = {
+    "name" : "dummygame"
+};
+//var tonalEnv;
+
+if(window.cordova){
+    startEvent = "deviceready";
 }
+document.addEventListener(startEvent,function() {
+    //game = new Phaser.Game("94", "100", Phaser.AUTO, "stage");
+    game.tonalEnv = new Tonality();
+    game.chordProgression = {name: "1_4_1_5",
+     prog: [{time: "0m", root: 1, tochordtone: 5, alterations: [0,0,0]},
+            {time: "1m", root: 4, tochordtone: 7, alterations: [0,0,0,0]},
+            {time: "2m", root: 1, tochordtone: 7, alterations: [0,0,0,0]},
+            {time: "3m", root: 5, tochordtone: 7, alterations: [0,0,0,0]}]
+        };
+    //game.state.add("BassPlayer", bassPlayer);
+    //game.state.add("DrumPlayer", drumPlayer);
+    //game.state.start("BassPlayer");
+    //game.state.start("DrumPlayer");
+    this.drum = new drumPlayer(game);
 
-var bassPart;
+    //tonalEnv = new Tonality();
 
-var tonalEnv;
-var notes = [];
-
-var xDown;
-var yDown;
-
-var result = [];  // for debugging
-//var chordProgPart;
-var players = [];
-var urls = ["./assets/samples/kick_mix_1.wav",
-            "./assets/samples/snare_mix_1.wav",
-            "./assets/samples/ohh_mixed_1.wav",              "./assets/samples/chh_mixed_1.wav"];
-
-tonalEnv = new Tonality();
-var delay = 0;
-
-var allNotes = tonalEnv.getFullChordArray(1, 7, [0,0,0,-1]);
-notes = tonalEnv.trimArray(allNotes, 36, 84);
-
-//makePlayers();
-
-var numProggies = tonalEnv.chordProgressions.length;
-var progIndex = Math.floor(Math.random() * numProggies);
-var chordProg = tonalEnv.chordProgressions[progIndex].prog;
-chordProgPart = new Tone.Part(function(time, value) {
-    //console.log("chord change " + value);
-    //console.log("bar num " + Tone.Transport.position);
-    var allNotes = tonalEnv.getFullChordArray(value.root, value.tochordtone, value.alterations);
-    notes = tonalEnv.trimArray(allNotes, 36, 84);
-
-}, chordProg);
-
-chordProgPart.loop = true;
-chordProgPart.loopEnd = chordProg.length + "m";
-chordProgPart.start(0);
-
-Tone.Transport.loop = true;
-Tone.Transport.loopStart = 0;
-Tone.Transport.loopEnd = chordProgPart.loopEnd;
-Tone.Transport.bpm.value = 112;
-//Tone.Transport.latencyHint = 'playback';
-//Tone.context.latencyHint = 'playback';
-Tone.context.latencyHint = 1.6;
-
-function makePlayer(options) {
-    var index = Math.floor(Math.random() * notes.length);
-    var startNotes = [];
-    for (var k = 0; k < 4; k++) {
-        //var noteName = Tone.Frequency(notes[index+k], "midi").toNote();
-        var noteName = notes[index+k];
-        startNotes.push(noteName);
-    }
-    var subDiv = "4n";
-
-    var tonePattern = new PatternPlayer(options);
-    tonePattern.setNotes(startNotes);
-    tonePattern.setLoopInterval(subDiv);
-    players.push(tonePattern);
-
-}
-
+    Tone.Transport.loop = true;
+    Tone.Transport.loopStart = 0;
+    Tone.Transport.loopEnd = "4m";
+    Tone.Transport.bpm.value = 112;
+    Tone.Transport.latencyHint = "playback";
+});
 
 function pausePlay() {
     if (isPaused == false) {
@@ -89,93 +43,27 @@ function pausePlay() {
         //button.setFrames(1, 1, 1, 1);
         isPaused = true;
     } else {
-        Tone.Transport.start("+0.1");
+        Tone.Transport.start("+0.2");
         //button.setFrames(0, 0, 0, 0);
         isPaused = false;
     }
 }
 
-function resetPlayers() {
-    console.log("Reset");
-    Tone.Transport.stop();
-    isPaused = true;
-    for (var i = 0; i < players.length; i++){
-        players[i].instrument.dispose();
-        players[i].panVol.dispose();
-        players[i].pattern.dispose();
-    }
-
-    resetChordProgression();
-
-}
-
-function resetChordProgression() {
-    // And change chord progression
-    var numProggies = tonalEnv.chordProgressions.length;
-    var progIndex = Math.floor(Math.random() * numProggies);
-    var chordProg = tonalEnv.chordProgressions[progIndex].prog;
-    chordProgPart.removeAll();
-    for (var i = 0; i < chordProg.length; i++) {
-        chordProgPart.at(chordProg[i].time, chordProg[i]);
-    }
-    chordProgPart.loopEnd = chordProg.length + "m";
-    Tone.Transport.loopEnd = chordProgPart.loopEnd;
-
-    Tone.Transport.position = 0;
-    console.log("Prog changed to " + tonalEnv.chordProgressions[progIndex].name);
-}
-
-nx.onload = function(){
-
+nx.onload = function() {
+    nx.colorize("#7986cb");
     toggle1.on('*', function(data) {
-        console.log("Toggle data " + data.value);
+        //console.log("Toggle data " + data.value);
         pausePlay();
-    })
-
+    });
     button1.on('*', function(data) {
-
-        if (data.press == 0) {
-            resetChordProgression();
+        if (data.press == 1) {
+            //game.state.start("BassPlayer");
         }
 
-    })
-
-    addSolo.on('*', function(data) {
-        if (data.press == 0) {
-            var options = {
-                "instrument" : "solo"
-            }
-            makePlayer(options);
-            tally.solo++;
-            console.log("solo " + tally.solo);
+    });
+    button2.on('*', function(data) {
+        if (data.press == 1) {
+            game.state.start("DrumPlayer");
         }
-
-    })
-
-    addSampler.on('*', function(data) {
-        if (data.press == 0) {
-            var options = {
-                "instrument" : "sampler",
-                "url" : urls[tally.sampler % 4]
-            }
-            makePlayer(options);
-            tally.sampler++;
-            console.log("sampler " + tally.sampler);
-        }
-
-
-    })
-
-    addPitchedSampler.on('*', function(data) {
-        if (data.press == 0) {
-            var options = {
-                "instrument" : "pitchedSampler"
-            }
-            makePlayer(options);
-            tally.pitchedSampler++;
-            console.log("pitched sampler " + tally.pitchedSampler);
-        }
-
-    })
-
+    });
 }

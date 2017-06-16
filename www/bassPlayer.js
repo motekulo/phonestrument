@@ -4,6 +4,7 @@ bassPlayer = function(game) {
     this.bubbleScale = 0.25;
     this.xDown;
     this.yDown;
+    this.loaded = false;
     //this.tonalEnv = new Tonality();
     this.lowestOctave = 4;
     this.pitchRange = 2; // number of octaves
@@ -20,26 +21,44 @@ bassPlayer = function(game) {
     options.sequence = [this.pitches[0], null, this.pitches[1], null,
                         this.pitches[2], null, this.pitches[3], null];
 
-    this.player = new SequencePlayer(options);
-    this.player.loop = true; // FIXME redundant?
+    //this.player = new SequencePlayer(options);
+
+    this.player = new Tone.Sampler("./assets/samples/bass.wav", (function(){
+        this.loaded = true;
+        console.log("Bass loaded");
+    }).bind(this));
+    this.panVol = new Tone.PanVol(0.5, -18);
+    this.player.connect(this.panVol);
+    this.panVol.connect(Tone.Master);
+
+    //this.player.loop = true; // FIXME redundant?
+    var sampleBase = Tone.Frequency("C4").toMidi();
+    this.sequence = new Tone.Sequence((function(time, note) {
+        if (note !== undefined){
+            var interval = note - sampleBase;
+            this.player.triggerAttack(interval, time);
+
+        }
+    }).bind(this), options.sequence, this.timeSubDiv + "n");
+    this.sequence.start(0);
 
     chordProgPart = new Tone.Part((function(time, value) {
 
         //console.log("bar num " + Tone.Transport.position);
-        //console.log("chordProg ping at " + Tone.Transport.position);
+        console.log("chordProg ping at " + Tone.Transport.position);
         var allNotes = game.tonalEnv.getFullChordArray(value.root, value.tochordtone, value.alterations);
         var lowestPitch = allNotes[0] + (this.lowestOctave * 12);
         var prevPitches = this.pitches;
         this.pitches = game.tonalEnv.trimArray(allNotes, lowestPitch, lowestPitch + (this.pitchRange * 12));
-        //console.log("chord change " + this.pitches);
-        var self = this;
+        console.log("chord change " + this.pitches);
+        //var self = this;
         // transpose bubble pitch values accordingly
-        for (i = 0; i < this.pitches.length; i++) {
-            var sequenceEvent = this.player.sequence.at(i);
+        for (var i = 0; i < this.pitches.length; i++) {
+            var sequenceEvent = this.sequence.at(i);
             if (sequenceEvent != null) {
 
                 var newPitch = this.pitches[prevPitches.indexOf(sequenceEvent.value)];
-                this.player.sequence.at(i, newPitch);
+                this.sequence.at(i, newPitch);
             }
 
         }
@@ -73,7 +92,7 @@ bassPlayer.prototype = {
         game.physics.enable(this.bubbles, Phaser.Physics.ARCADE);
 
         for (var i=0; i < this.timeSubDiv; i++) {
-            var sequenceEvent = this.player.sequence.at(i);
+            var sequenceEvent = this.sequence.at(i);
             if (sequenceEvent != null) {
                 var bubbleX = Math.floor(i/this.timeSubDiv * game.width) + 1;
                 // sequenceEvent.value is a midi note; need to find index
@@ -110,8 +129,8 @@ bassPlayer.prototype = {
         // remove current part at this time pointer
         var time = Math.floor(sprite.x/game.world.width * this.timeSubDiv);
         //var time = "0m + (" + time + " * " + this.timeSubDiv + "n)";
-        //this.player.sequence.remove(time);
-        this.player.sequence.at(time, null);
+        this.sequence.remove(time);
+        //this.sequence.at(time, null);
         //console.log("touch down at " + this.xDown + ", " + this.yDown);
     },
 
@@ -126,7 +145,7 @@ bassPlayer.prototype = {
         var pitchIndex = (Math.floor((game.world.height - bubble.y)/game.world.height * this.pitches.length));
         var time = Math.floor(bubble.x/game.world.width * this.timeSubDiv);
         //var time = "0m + (" + time + " * " + this.timeSubDiv + "n)";
-        this.player.sequence.at(time, this.pitches[pitchIndex]);
+        this.sequence.at(time, this.pitches[pitchIndex]);
         //console.log("Bubble time " + time + " pitchIndex " + pitchIndex + " and pitch " + this.pitches[pitchIndex]);
         //console.log("Looping through bubbles; time: " + time);
     }

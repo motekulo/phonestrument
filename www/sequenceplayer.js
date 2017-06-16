@@ -46,7 +46,7 @@ function SequencePlayer(options) {
             this.sequence = new Tone.Sequence((function(time, note) {
                 if (note !== undefined){
                     var interval = note - sampleBase;
-                    this.instrument.triggerAttack(interval);
+                    this.instrument.triggerAttack(interval, time);
 
                     }
             }).bind(this),sequenceValues, this.subDiv + "n");
