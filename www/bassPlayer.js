@@ -36,7 +36,7 @@ bassPlayer = function(game) {
     this.sequence = new Tone.Sequence((function(time, note) {
         if (note !== undefined){
             var interval = note - sampleBase;
-            this.player.triggerAttack(interval, time);
+            this.player.triggerAttackRelease(interval, "8n", time, 0.75);
 
         }
     }).bind(this), options.sequence, this.timeSubDiv + "n");
