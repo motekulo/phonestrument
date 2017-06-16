@@ -45,9 +45,9 @@ drumPlayer = function(game) {
     }
     //var chhPart = [null, null, null, null, null, null, null, null];
 
-    var urls = ["./assets/samples/kick_mix_1.wav",
-                "./assets/samples/snare_mix_1.wav",
-                "./assets/samples/chh_mixed_1.wav", "./assets/samples/ohh_mixed_1.wav"];
+    var urls = ["./assets/samples/kick_mix_1.mp3",
+                "./assets/samples/snare_mix_1.mp3",
+                "./assets/samples/chh_mixed_1.mp3", "./assets/samples/ohh_mixed_1.mp3"];
 
     this.samplesLoaded = function() {
         this.loaded++;

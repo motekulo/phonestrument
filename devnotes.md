@@ -199,7 +199,7 @@ Timing seems out on mobile, so time to play with a few things:
    separate the Tone js from the interface code completely, then I should be
    able to add a different app.js front end that doesn't call phaser.
 
-2. Also try samples as mp3 files rather than wav
+2. Also try samples as mp3 files rather than wav - no difference; timing still out; faltering, stuttering, uneven
 
 3. Try on different devices
 
