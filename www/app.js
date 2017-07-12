@@ -21,7 +21,7 @@ document.addEventListener(startEvent,function() {
         };
     game.state.add("BassPlayer", bassPlayer);
     game.state.add("DrumPlayer", drumPlayer);
-    game.state.start("BassPlayer");
+//    game.state.start("BassPlayer");
     game.state.start("DrumPlayer");
 
     //tonalEnv = new Tonality();

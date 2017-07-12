@@ -27,7 +27,7 @@ bassPlayer = function(game) {
         this.loaded = true;
         console.log("Bass loaded");
     }).bind(this));
-    this.panVol = new Tone.PanVol(0.5, -18);
+    this.panVol = new Tone.PanVol(0.5, -12);
     this.player.connect(this.panVol);
     this.panVol.connect(Tone.Master);
 
@@ -36,7 +36,7 @@ bassPlayer = function(game) {
     this.sequence = new Tone.Sequence((function(time, note) {
         if (note !== undefined){
             var interval = note - sampleBase;
-            this.player.triggerAttackRelease(interval, "8n", time, 0.75);
+            this.player.triggerAttackRelease(interval, "4n", time, 0.75);
 
         }
     }).bind(this), options.sequence, this.timeSubDiv + "n");
