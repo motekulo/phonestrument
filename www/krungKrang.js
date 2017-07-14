@@ -18,13 +18,25 @@ krungKrang = function(game) {
     //var self = this;
     this.drumPlayer1 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
     // var drumPlayer2 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
-    // var drumPlayer3 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
-    // var drumPlayer4 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
+    var drumPlayer3 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
+    var drumPlayer4 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
+
+
+    var ohhSequence = new Tone.Sequence((function(time, note){
+        drumPlayer3.start(3, time);
+    }).bind(this), ["G4"], "1n");
+    ohhSequence.start(0);
+
+    //var ohhPart = [null, null, null, null, null, null, null, null];
+    var chhSequence = new Tone.Sequence((function(time, note){
+        drumPlayer4.start(2, time);
+    }).bind(this), ["G4", "G4", "G4", "G4"], "4n");
+    chhSequence.start(0);
 
     this.drumPlayer1.connect(this.panVol);
     // drumPlayer2.connect(this.panVol);
-    // drumPlayer3.connect(this.panVol);
-    // drumPlayer4.connect(this.panVol);
+    drumPlayer3.connect(this.panVol);
+    drumPlayer4.connect(this.panVol);
     this.panVol.connect(Tone.Master);
 };
 
