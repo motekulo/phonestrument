@@ -16,12 +16,12 @@ krungKrang = function(game) {
         console.log("Num samples loaded: " + this.loaded);
     }
     //var self = this;
-    var drumPlayer1 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
+    this.drumPlayer1 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
     // var drumPlayer2 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
     // var drumPlayer3 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
     // var drumPlayer4 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
 
-    drumPlayer1.connect(this.panVol);
+    this.drumPlayer1.connect(this.panVol);
     // drumPlayer2.connect(this.panVol);
     // drumPlayer3.connect(this.panVol);
     // drumPlayer4.connect(this.panVol);
@@ -73,7 +73,8 @@ krungKrang.prototype = {
     },
 
     update: function() {
-        game.physics.arcade.collide(this.bounceBalls, this.kickPlayers);
+        game.physics.arcade.collide(this.bounceBalls, this.kickPlayers,
+                                    this.playKick, null, this);
     },
 
     // render: function() {
@@ -92,5 +93,10 @@ krungKrang.prototype = {
 
 
     },
+
+    playKick: function(bounceBall, kickPlayer) {
+        console.log("Kick player collision");
+        this.drumPlayer1.start(0, "@8n");
+    }
 
 }
