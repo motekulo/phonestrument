@@ -75,6 +75,8 @@ krungKrang.prototype = {
         bounceBall.body.collideWorldBounds = true;
         bounceBall.body.velocity.setTo(200, 200);
         bounceBall.body.bounce.setTo(1, 1);
+        bounceBall.inputEnabled = true;
+        bounceBall.input.enableDrag();
 
         // create some kick player obstacles
         for (var i = 0; i < 8; i++) {
@@ -85,6 +87,8 @@ krungKrang.prototype = {
             game.physics.enable(kickPlayer, Phaser.Physics.ARCADE);
             kickPlayer.body.bounce.setTo(1, 1);
             kickPlayer.body.immovable = true;
+            kickPlayer.inputEnabled = true;
+            kickPlayer.input.enableDrag();
 
             x = game.rnd.integerInRange(0, game.world.width);
             y = game.rnd.integerInRange(0, game.world.height);
@@ -92,6 +96,8 @@ krungKrang.prototype = {
             game.physics.enable(snarePlayer, Phaser.Physics.ARCADE);
             snarePlayer.body.bounce.setTo(1, 1);
             snarePlayer.body.immovable = true;
+            snarePlayer.inputEnabled = true;
+            snarePlayer.input.enableDrag();
 
         }
 
