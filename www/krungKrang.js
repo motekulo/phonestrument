@@ -1,8 +1,7 @@
 
-var bounceBall;
-var arrow;
-var analog;
-var catchFlag = false;
+
+var xDown;
+var yDown;
 
 krungKrang = function(game) {
     this.bounceBalls; // main group of bouncers
@@ -79,7 +78,7 @@ krungKrang.prototype = {
         game.physics.startSystem(Phaser.Physics.ARCADE);
         var x = game.world.width/2;
         var y = game.world.height/2;
-        bounceBall = this.bounceBalls.create(x, y, 'ball');
+        var bounceBall = this.bounceBalls.create(x, y, 'ball');
         game.physics.enable(bounceBall, Phaser.Physics.ARCADE);
         bounceBall.scale.set(this.ballScale);
         bounceBall.anchor.setTo(0.5, 0.5);
@@ -90,18 +89,8 @@ krungKrang.prototype = {
         bounceBall.input.enableDrag();
 
         //player.input.start(0, true);
-        bounceBall.events.onInputDown.add(this.set);
-        bounceBall.events.onInputUp.add(this.launch);
-
-        analog = game.add.sprite(200, 450, 'analog');
-        analog.width = 8;
-        analog.rotation = 220;
-        analog.alpha = 0;
-        analog.anchor.setTo(0.5, 0.0);
-
-        arrow = game.add.sprite(200, 450, 'arrow');
-        arrow.anchor.setTo(0.1, 0.5);
-        arrow.alpha = 0;
+        bounceBall.events.onDragStart.add(this.grab, this);
+        bounceBall.events.onDragStop.add(this.flick, this);
 
 
         // create some kick player obstacles
@@ -136,19 +125,6 @@ krungKrang.prototype = {
         game.physics.arcade.collide(this.bounceBalls, this.snarePlayers,
                                     this.snareKick, null, this);
 
-        arrow.rotation = game.physics.arcade.angleBetween(arrow, bounceBall);
-
-        if (catchFlag == true){
-            //  Track the ball sprite to the mouse
-            bounceBall.x = game.input.activePointer.worldX;
-            bounceBall.y = game.input.activePointer.worldY;
-
-            arrow.alpha = 1;
-            analog.alpha = 0.5;
-            analog.rotation = arrow.rotation - 3.14 / 2;
-            analog.height = game.physics.arcade.distanceBetween(arrow, bounceBall);
-            this.launchVelocity = analog.height;
-        }
 
     },
 
@@ -159,30 +135,27 @@ krungKrang.prototype = {
     //      game.debug.text("x sprite" + this.bubbles.children[0].x, 20, 40);
     // },
 
-    set: function(ball, pointer) {
+    grab: function(ball, pointer) {
+        xDown = pointer.x;
+        yDown = pointer.y;
 
-        catchFlag = true;
-        //game.camera.follow(null);
+        ball.body.velocity.x = 0;
+        ball.body.velocity.y = 0;
 
-        ball.body.moves = false;
-        ball.body.velocity.setTo(0, 0);
-        arrow.reset(ball.x, ball.y);
-        analog.reset(ball.x, ball.y);
 
     },
 
-    launch: function(ball, pointer) {
-        catchFlag = false;
-        ball.body.moves = true;
-        //game.camera.follow(player, Phaser.Camera.FOLLOW_TOPDOWN);
+    flick: function(ball, pointer) {
 
-        arrow.alpha = 0;
-        analog.alpha = 0;
+        var dragTime = pointer.timeUp - pointer.timeDown;
+        var deltaX = pointer.x - xDown;
+        var deltaY = pointer.y - yDown;
+        var velocityX = deltaX/dragTime * 1000;
+        var velocityY = deltaY/dragTime * 1000;
+        //result[2] = "velocity X: " + velocityX + " and velocity Y: " + velocityY;
+        ball.body.velocity.x = velocityX;
+        ball.body.velocity.y = velocityY;
 
-        var Xvector = (this.arrow.x - ball.x) * 3;
-        var Yvector = (this.arrow.y - ball.y) * 3;
-
-        ball.body.velocity.setTo(Xvector, Yvector);
     },
 
     onDragStart: function(bubble, pointer) {
