@@ -142,7 +142,6 @@ krungKrang.prototype = {
         ball.body.velocity.x = 0;
         ball.body.velocity.y = 0;
 
-
     },
 
     flick: function(ball, pointer) {
@@ -158,15 +157,6 @@ krungKrang.prototype = {
 
     },
 
-    onDragStart: function(bubble, pointer) {
-
-
-    },
-
-    onDragStop: function(sprite, pointer) {
-
-
-    },
 
     playKick: function(bounceBall, kickPlayer) {
         //console.log("Kick player collision");
