@@ -17,26 +17,30 @@ krungKrang = function(game) {
     }
     //var self = this;
     this.drumPlayer1 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
-    // var drumPlayer2 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
-    var drumPlayer3 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
-    var drumPlayer4 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
 
+    this.drumPlayer2 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
+
+    var drumPlayer3 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
+
+    var drumPlayer4 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
 
     var ohhSequence = new Tone.Sequence((function(time, note){
         drumPlayer3.start(3, time);
     }).bind(this), ["G4"], "1n");
-    ohhSequence.start(0);
+    //ohhSequence.start(0);
 
     //var ohhPart = [null, null, null, null, null, null, null, null];
     var chhSequence = new Tone.Sequence((function(time, note){
         drumPlayer4.start(2, time);
     }).bind(this), ["G4", "G4", "G4", "G4"], "4n");
-    chhSequence.start(0);
+    //chhSequence.start(0);
 
     this.drumPlayer1.connect(this.panVol);
-    // drumPlayer2.connect(this.panVol);
-    drumPlayer3.connect(this.panVol);
-    drumPlayer4.connect(this.panVol);
+    this.drumPlayer2.connect(this.panVol);
+
+    //drumPlayer3.connect(this.panVol);
+    //drumPlayer4.connect(this.panVol);
+
     this.panVol.connect(Tone.Master);
 };
 
@@ -44,6 +48,7 @@ krungKrang.prototype = {
     preload: function() {
         //console.log("Pre-loading");
         game.load.image('ball', 'assets/bubble256.png');
+        game.load.image('blue_ball', 'assets/blue_ball.png');
         game.load.image('brick', 'assets/brick0.png');
         game.load.spritesheet('playpausebutton', 'assets/pause_play_reset.png', 148, 80);
     },
@@ -56,6 +61,7 @@ krungKrang.prototype = {
 
         this.bounceBalls = game.add.group();
         this.kickPlayers = game.add.group();
+        this.snarePlayers = game.add.group();
         //this.tally++;
         //console.log("Create drumPlayer tally: " + this.tally);
         game.stage.backgroundColor = "#303f9f";
@@ -80,6 +86,13 @@ krungKrang.prototype = {
             kickPlayer.body.bounce.setTo(1, 1);
             kickPlayer.body.immovable = true;
 
+            x = game.rnd.integerInRange(0, game.world.width);
+            y = game.rnd.integerInRange(0, game.world.height);
+            var snarePlayer = this.snarePlayers.create(x, y, 'blue_ball');
+            game.physics.enable(snarePlayer, Phaser.Physics.ARCADE);
+            snarePlayer.body.bounce.setTo(1, 1);
+            snarePlayer.body.immovable = true;
+
         }
 
     },
@@ -87,6 +100,9 @@ krungKrang.prototype = {
     update: function() {
         game.physics.arcade.collide(this.bounceBalls, this.kickPlayers,
                                     this.playKick, null, this);
+
+        game.physics.arcade.collide(this.bounceBalls, this.snarePlayers,
+                                    this.snareKick, null, this);
     },
 
     // render: function() {
@@ -107,8 +123,13 @@ krungKrang.prototype = {
     },
 
     playKick: function(bounceBall, kickPlayer) {
-        console.log("Kick player collision");
+        //console.log("Kick player collision");
         this.drumPlayer1.start(0, "@8n");
+    },
+
+    snareKick: function(bounceBall, snarePlayer) {
+        console.log("Snare player collision");
+        this.drumPlayer2.start(1, "@8n");
     }
 
 }
