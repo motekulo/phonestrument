@@ -203,6 +203,12 @@ Timing seems out on mobile, so time to play with a few things:
 
 3. Try on different devices
 
+### July 12
 
+Went to PNG, didn't really do the phonestrument thing. On leave now, so time for some game coding for fun.
 
+And test, test, test on mobile - particularly the new Huawei work dual sim phone.
 
+Game idea - thinking about "Okay!" the bouncing balls to remove obstacle game, where as the ball hits an object, a sound is made. Build something similar, with a ball striking objects in a space, and triggering sounds in time on the Tonejs timeline. Just get something working, rather than thinking about it as a game so much yet. Build something, see what it sounds like.
+
+The new branch for this will be called "krung" and will be set up as a branch on the main repository.

@@ -19,17 +19,18 @@ document.addEventListener(startEvent,function() {
             {time: "2m", root: 1, tochordtone: 7, alterations: [0,0,0,0]},
             {time: "3m", root: 5, tochordtone: 7, alterations: [0,0,0,0]}]
         };
-    game.state.add("BassPlayer", bassPlayer);
-    game.state.add("DrumPlayer", drumPlayer);
+    //game.state.add("BassPlayer", bassPlayer);
+    //game.state.add("DrumPlayer", drumPlayer);
+    game.state.add("krungKrang", krungKrang);
 //    game.state.start("BassPlayer");
-    game.state.start("DrumPlayer");
+    game.state.start("krungKrang");
 
     //tonalEnv = new Tonality();
 
     Tone.Transport.loop = true;
     Tone.Transport.loopStart = 0;
     Tone.Transport.loopEnd = "4m";
-    Tone.Transport.bpm.value = 112;
+    Tone.Transport.bpm.value = 116;
     Tone.Transport.latencyHint = "playback";
 });
 
@@ -51,15 +52,15 @@ nx.onload = function() {
         //console.log("Toggle data " + data.value);
         pausePlay();
     });
-    button1.on('*', function(data) {
-        if (data.press == 1) {
-            game.state.start("BassPlayer");
-        }
-
-    });
-    button2.on('*', function(data) {
-        if (data.press == 1) {
-            game.state.start("DrumPlayer");
-        }
-    });
+    // button1.on('*', function(data) {
+    //     if (data.press == 1) {
+    //         game.state.start("BassPlayer");
+    //     }
+    //
+    // });
+    // button2.on('*', function(data) {
+    //     if (data.press == 1) {
+    //         game.state.start("DrumPlayer");
+    //     }
+    // });
 }
