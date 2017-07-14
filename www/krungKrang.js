@@ -2,6 +2,7 @@
 var bounceBall;
 var arrow;
 var analog;
+var catchFlag = false;
 
 krungKrang = function(game) {
     this.bounceBalls; // main group of bouncers
@@ -9,7 +10,7 @@ krungKrang = function(game) {
     this.snarePlayers;
     this.stringPlayers;
     this.ballScale = 0.25;
-    this.catchFlag = false;
+    //this.catchFlag = false;
     this.launchVelocity = 0;
 
     var self = this;
@@ -137,18 +138,17 @@ krungKrang.prototype = {
 
         arrow.rotation = game.physics.arcade.angleBetween(arrow, bounceBall);
 
-            if (this.catchFlag == true)
-            {
-                //  Track the ball sprite to the mouse
-                player.x = game.input.activePointer.worldX;
-                player.y = game.input.activePointer.worldY;
+        if (catchFlag == true){
+            //  Track the ball sprite to the mouse
+            bounceBall.x = game.input.activePointer.worldX;
+            bounceBall.y = game.input.activePointer.worldY;
 
-                arrow.alpha = 1;
-                analog.alpha = 0.5;
-                analog.rotation = this.arrow.rotation - 3.14 / 2;
-                analog.height = game.physics.arcade.distanceBetween(arrow, bounceBall);
-                this.launchVelocity = analog.height;
-            }
+            arrow.alpha = 1;
+            analog.alpha = 0.5;
+            analog.rotation = arrow.rotation - 3.14 / 2;
+            analog.height = game.physics.arcade.distanceBetween(arrow, bounceBall);
+            this.launchVelocity = analog.height;
+        }
 
     },
 
@@ -161,7 +161,7 @@ krungKrang.prototype = {
 
     set: function(ball, pointer) {
 
-        this.catchFlag = true;
+        catchFlag = true;
         //game.camera.follow(null);
 
         ball.body.moves = false;
@@ -172,7 +172,7 @@ krungKrang.prototype = {
     },
 
     launch: function(ball, pointer) {
-        this.catchFlag = false;
+        catchFlag = false;
         ball.body.moves = true;
         //game.camera.follow(player, Phaser.Camera.FOLLOW_TOPDOWN);
 
