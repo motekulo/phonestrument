@@ -43,6 +43,7 @@ krungKrang.prototype = {
         horHalfLine = new Phaser.Line(0, game.world.height/2, game.world.width, game.world.height/2);
 
         this.bounceBalls = game.add.group();
+        this.kickPlayers = game.add.group();
         //this.tally++;
         //console.log("Create drumPlayer tally: " + this.tally);
         game.stage.backgroundColor = "#303f9f";
@@ -57,10 +58,22 @@ krungKrang.prototype = {
         bounceBall.body.velocity.setTo(200, 200);
         bounceBall.body.bounce.setTo(1, 1);
 
+        // create some kick player obstacles
+        for (var i = 0; i < 8; i++) {
+            var x = game.rnd.integerInRange(0, game.world.width);
+            var y = game.rnd.integerInRange(0, game.world.height);
+
+            var kickPlayer = this.kickPlayers.create(x, y, 'brick');
+            game.physics.enable(kickPlayer, Phaser.Physics.ARCADE);
+            kickPlayer.body.bounce.setTo(1, 1);
+            kickPlayer.body.immovable = true;
+
+        }
+
     },
 
     update: function() {
-
+        game.physics.arcade.collide(this.bounceBalls, this.kickPlayers);
     },
 
     // render: function() {
