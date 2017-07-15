@@ -12,9 +12,17 @@ krungKrang = function(game) {
     //this.catchFlag = false;
     this.launchVelocity = 0;
 
-    var self = this;
+    this.lowestOctave = 4;
+    this.pitchRange = 2; // number of octaves
+    this.pitches = []; // main array for pitch data on y axis
+
+    var allPitches = game.tonalEnv.getFullChordArray(1, 7, []);
+    var lowestPitch = game.tonalEnv.key + (this.lowestOctave * 12);
+    this.pitches = game.tonalEnv.trimArray(allPitches, lowestPitch, lowestPitch + (this.pitchRange * 12));
 
     this.panVol = new Tone.PanVol(0.5, -18);
+    this.pitchPanVol = new Tone.PanVol(0.5, -12);
+
     var urls = ["./assets/samples/kick_mix_1.mp3",
                 "./assets/samples/snare_mix_1.mp3",
                 "./assets/samples/chh_mixed_1.mp3", "./assets/samples/ohh_mixed_1.mp3"];
@@ -23,7 +31,7 @@ krungKrang = function(game) {
         this.loaded++;
         console.log("Num samples loaded: " + this.loaded);
     }
-    //var self = this;
+
     this.drumPlayer1 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
 
     this.drumPlayer2 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
@@ -31,6 +39,28 @@ krungKrang = function(game) {
     var drumPlayer3 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
 
     var drumPlayer4 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
+
+    this.pitchPlayer = new Tone.Sampler("./assets/samples/bass.wav", (function(){
+        this.loaded = true;
+        console.log("Bass loaded");
+    }).bind(this));
+
+    this.sampleBase = Tone.Frequency("C4").toMidi();
+
+    var chordProgPart = new Tone.Part((function(time, value) {
+
+        console.log("chordProg ping at " + Tone.Transport.position);
+        var allNotes = game.tonalEnv.getFullChordArray(value.root, value.tochordtone, value.alterations);
+        var lowestPitch = allNotes[0] + (this.lowestOctave * 12);
+        var prevPitches = this.pitches;
+        this.pitches = game.tonalEnv.trimArray(allNotes, lowestPitch, lowestPitch + (this.pitchRange * 12));
+        console.log("chord change " + this.pitches);
+
+    }).bind(this), game.chordProgression.prog);
+
+    chordProgPart.loop = true;
+    chordProgPart.loopEnd = game.chordProgression.prog.length + "m";
+    chordProgPart.start(0);
 
     var ohhSequence = new Tone.Sequence((function(time, note){
         drumPlayer3.start(3, time);
@@ -45,11 +75,13 @@ krungKrang = function(game) {
 
     this.drumPlayer1.connect(this.panVol);
     this.drumPlayer2.connect(this.panVol);
-
+    this.pitchPlayer.connect(this.pitchPanVol);
     //drumPlayer3.connect(this.panVol);
     //drumPlayer4.connect(this.panVol);
 
     this.panVol.connect(Tone.Master);
+    this.pitchPanVol.connect(Tone.Master);
+
 };
 
 krungKrang.prototype = {
@@ -60,6 +92,7 @@ krungKrang.prototype = {
         game.load.image('brick', 'assets/brick0.png');
         game.load.image('analog', 'assets/fusia.png');
         game.load.image('arrow', 'assets/arrow.png');
+        game.load.image('string', 'assets/river.png');
         game.load.spritesheet('playpausebutton', 'assets/pause_play_reset.png', 148, 80);
     },
 
@@ -72,6 +105,7 @@ krungKrang.prototype = {
         this.bounceBalls = game.add.group();
         this.kickPlayers = game.add.group();
         this.snarePlayers = game.add.group();
+        this.stringPlayers = game.add.group();
         //this.tally++;
         //console.log("Create drumPlayer tally: " + this.tally);
         game.stage.backgroundColor = "#303f9f";
@@ -114,6 +148,14 @@ krungKrang.prototype = {
             snarePlayer.inputEnabled = true;
             snarePlayer.input.enableDrag();
 
+            x = game.rnd.integerInRange(0, game.world.width);
+            y = game.rnd.integerInRange(0, game.world.height);
+            var stringPlayer = this.stringPlayers.create(x, y, 'string');
+            game.physics.enable(stringPlayer, Phaser.Physics.ARCADE);
+            stringPlayer.inputEnabled = true;
+            stringPlayer.input.enableDrag();
+//            stringPlayer.scale.set(0.5);
+            stringPlayer.scale.setTo(0.5, 0.2);
         }
 
     },
@@ -125,6 +167,8 @@ krungKrang.prototype = {
         game.physics.arcade.collide(this.bounceBalls, this.snarePlayers,
                                     this.snareKick, null, this);
 
+        game.physics.arcade.overlap(this.bounceBalls, this.stringPlayers,
+                                    this.playString, null, this);
 
     },
 
@@ -164,8 +208,16 @@ krungKrang.prototype = {
     },
 
     snareKick: function(bounceBall, snarePlayer) {
-        console.log("Snare player collision");
+        //console.log("Snare player collision");
         this.drumPlayer2.start(1, "@8n");
+    },
+
+    playString: function(bounceBall, string) {
+        console.log("String overlap");
+        var pitchIndex = (Math.floor((game.world.height - bounceBall.y)/game.world.height * this.pitches.length));
+        var interval = this.pitches[pitchIndex] - this.sampleBase;
+        this.pitchPlayer.triggerAttackRelease(interval, "4n", "@8n", 0.75);
+
     }
 
 }
