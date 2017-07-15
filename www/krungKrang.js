@@ -20,7 +20,7 @@ krungKrang = function(game) {
     var lowestPitch = game.tonalEnv.key + (this.lowestOctave * 12);
     this.pitches = game.tonalEnv.trimArray(allPitches, lowestPitch, lowestPitch + (this.pitchRange * 12));
 
-    this.panVol = new Tone.PanVol(0.5, -18);
+    this.panVol = new Tone.PanVol(0.5, -12);
     this.pitchPanVol = new Tone.PanVol(0.5, -12);
 
     var urls = ["./assets/samples/kick_mix_1.mp3",
@@ -110,22 +110,26 @@ krungKrang.prototype = {
         //console.log("Create drumPlayer tally: " + this.tally);
         game.stage.backgroundColor = "#303f9f";
         game.physics.startSystem(Phaser.Physics.ARCADE);
-        var x = game.world.width/2;
-        var y = game.world.height/2;
-        var bounceBall = this.bounceBalls.create(x, y, 'ball');
-        game.physics.enable(bounceBall, Phaser.Physics.ARCADE);
-        bounceBall.scale.set(this.ballScale);
-        bounceBall.anchor.setTo(0.5, 0.5);
-        bounceBall.body.collideWorldBounds = true;
-        bounceBall.body.velocity.setTo(200, 200);
-        bounceBall.body.bounce.setTo(1, 1);
-        bounceBall.inputEnabled = true;
-        bounceBall.input.enableDrag();
 
-        //player.input.start(0, true);
-        bounceBall.events.onDragStart.add(this.grab, this);
-        bounceBall.events.onDragStop.add(this.flick, this);
+        for (var i = 0; i < 2; i++){
+            var x = game.world.width/2;
+            var y = game.world.height/2;
+            var bounceBall = this.bounceBalls.create(x, y, 'ball');
+            game.physics.enable(bounceBall, Phaser.Physics.ARCADE);
+            bounceBall.scale.set(this.ballScale);
+            bounceBall.anchor.setTo(0.5, 0.5);
+            bounceBall.body.collideWorldBounds = true;
+            x = game.rnd.integerInRange(-300, 300);
+            y = game.rnd.integerInRange(-300, 300);
+            bounceBall.body.velocity.setTo(x, y);
+            bounceBall.body.bounce.setTo(1, 1);
+            bounceBall.inputEnabled = true;
+            bounceBall.input.enableDrag();
+            //player.input.start(0, true);
+            bounceBall.events.onDragStart.add(this.grab, this);
+            bounceBall.events.onDragStop.add(this.flick, this);
 
+        }
 
         // create some kick player obstacles
         for (var i = 0; i < 8; i++) {
