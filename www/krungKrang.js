@@ -11,6 +11,9 @@ krungKrang = function(game) {
     this.ballScale = 0.25;
     //this.catchFlag = false;
     this.launchVelocity = 0;
+    this.pitchedSampleLoaded = false;
+    this.numLoaded = 0;
+    this.drumSamplesLoaded = false;
 
     this.lowestOctave = 4;
     this.pitchRange = 2; // number of octaves
@@ -28,8 +31,11 @@ krungKrang = function(game) {
                 "./assets/samples/chh_mixed_1.mp3", "./assets/samples/ohh_mixed_1.mp3"];
 
     this.samplesLoaded = function() {
-        this.loaded++;
-        console.log("Num samples loaded: " + this.loaded);
+        this.numLoaded++;
+        console.log("Num samples loaded: " + this.numLoaded);
+        if (this.numLoaded == 4) {
+            this.drumSamplesLoaded = true;
+        }
     }
 
     this.drumPlayer1 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
@@ -41,7 +47,7 @@ krungKrang = function(game) {
     var drumPlayer4 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
 
     this.pitchPlayer = new Tone.Sampler("./assets/samples/bass.wav", (function(){
-        this.loaded = true;
+        this.pitchedSampleLoaded = true;
         console.log("Bass loaded");
     }).bind(this));
 
@@ -205,22 +211,28 @@ krungKrang.prototype = {
 
     },
 
-
     playKick: function(bounceBall, kickPlayer) {
         //console.log("Kick player collision");
-        this.drumPlayer1.start(0, "@8n");
+        if (this.drumSamplesLoaded == true) {
+            this.drumPlayer1.start(0, "@8n");
+        }
+
     },
 
     snareKick: function(bounceBall, snarePlayer) {
         //console.log("Snare player collision");
-        this.drumPlayer2.start(1, "@8n");
+        if (this.drumSamplesLoaded == true) {
+            this.drumPlayer2.start(1, "@8n");
+        }
     },
 
     playString: function(bounceBall, string) {
         console.log("String overlap");
         var pitchIndex = (Math.floor((game.world.height - bounceBall.y)/game.world.height * this.pitches.length));
         var interval = this.pitches[pitchIndex] - this.sampleBase;
-        this.pitchPlayer.triggerAttackRelease(interval, "4n", "@8n", 0.75);
+        if (this.pitchedSampleLoaded == true) {
+            this.pitchPlayer.triggerAttackRelease(interval, "4n", "@8n", 0.75);
+        }
 
     }
 
