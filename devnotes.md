@@ -212,3 +212,9 @@ And test, test, test on mobile - particularly the new Huawei work dual sim phone
 Game idea - thinking about "Okay!" the bouncing balls to remove obstacle game, where as the ball hits an object, a sound is made. Build something similar, with a ball striking objects in a space, and triggering sounds in time on the Tonejs timeline. Just get something working, rather than thinking about it as a game so much yet. Build something, see what it sounds like.
 
 The new branch for this will be called "krung" and will be set up as a branch on the main repository.
+
+### July 17
+
+Some good work on the balls bouncing thing over the last few days. Need to sort out the distortion thing (probably from too many simultaneous attempts to play a sample?) by trying to add parts for each player. Also increase height of string objects. Perhaps also try some barriers that don't do anything other than contain balls.
+
+Wondering whether to blog about this and discuss various research questions as we go? Certainly worth doing in terms of notes to oneself, even if it doesn't get published. Brings me back to how this project connects to the research too. Wondering whether profile and connections from doing things open source more publicly is actually better than trying to set things up as a separate little business.

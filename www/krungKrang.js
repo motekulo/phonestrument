@@ -8,14 +8,14 @@ krungKrang = function(game) {
     this.kickPlayers; // group of kick drum players
     this.snarePlayers;
     this.stringPlayers;
-    this.ballScale = 0.25;
+    this.ballScale = 0.2;
     //this.catchFlag = false;
     this.launchVelocity = 0;
     this.pitchedSampleLoaded = false;
     this.numLoaded = 0;
     this.drumSamplesLoaded = false;
 
-    this.lowestOctave = 4;
+    this.lowestOctave = 5;
     this.pitchRange = 2; // number of octaves
     this.pitches = []; // main array for pitch data on y axis
 
@@ -129,6 +129,7 @@ krungKrang.prototype = {
             y = game.rnd.integerInRange(-300, 300);
             bounceBall.body.velocity.setTo(x, y);
             bounceBall.body.bounce.setTo(1, 1);
+            bounceBall.body.drag.set(50);
             bounceBall.inputEnabled = true;
             bounceBall.input.enableDrag();
             //player.input.start(0, true);
@@ -138,7 +139,7 @@ krungKrang.prototype = {
         }
 
         // create some kick player obstacles
-        for (var i = 0; i < 8; i++) {
+        for (var i = 0; i < 4; i++) {
             var x = game.rnd.integerInRange(0, game.world.width);
             var y = game.rnd.integerInRange(0, game.world.height);
 
@@ -227,9 +228,10 @@ krungKrang.prototype = {
     },
 
     playString: function(bounceBall, string) {
-        console.log("String overlap");
+
         var pitchIndex = (Math.floor((game.world.height - bounceBall.y)/game.world.height * this.pitches.length));
         var interval = this.pitches[pitchIndex] - this.sampleBase;
+        console.log("String interval is " + interval);
         if (this.pitchedSampleLoaded == true) {
             this.pitchPlayer.triggerAttackRelease(interval, "4n", "@8n", 0.75);
         }
