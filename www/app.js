@@ -48,10 +48,10 @@ function pausePlay() {
 
 nx.onload = function() {
     nx.colorize("#7986cb");
-    toggle1.on('*', function(data) {
-        //console.log("Toggle data " + data.value);
-        pausePlay();
-    });
+    // toggle1.on('*', function(data) {
+    //     //console.log("Toggle data " + data.value);
+    //     pausePlay();
+    // });
     // button1.on('*', function(data) {
     //     if (data.press == 1) {
     //         game.state.start("BassPlayer");

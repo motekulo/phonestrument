@@ -229,9 +229,14 @@ Getting some serious distortion at times, so wondering if a whole bunch of sampl
 
 ### July 18
 
-- Experiment with different bounce values
+To try:
+
 - Transport button to pause everything
-- Add some panning
 - think about a vertical line instrument
 - see if some movement can occur with the pitched instruments
 - experiment with different samples
+- Be able to add and delete different elements (shapes and associated samples and instruments)
+
+Done:
+- Experiment with different bounce values [done]
+- Add some panning [done]

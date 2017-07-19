@@ -2,6 +2,8 @@
 
 var xDown;
 var yDown;
+var pauseButton;
+var isPaused = true;
 
 krungKrang = function(game) {
     this.bounceBalls; // main group of bouncers
@@ -121,6 +123,10 @@ krungKrang.prototype = {
         vertHalfLine = new Phaser.Line(game.world.width/2, 0, game.world.width/2, game.world.height);
         horHalfLine = new Phaser.Line(0, game.world.height/2, game.world.width, game.world.height/2);
 
+        pauseButton = game.add.button(game.width - 128, game.height - 72,
+             'playpausebutton', this.pausePlay, this, 1, 1, 1, 1);
+        pauseButton.scale.setTo(0.75, 0.75);
+
         this.bounceBalls = game.add.group();
         this.kickPlayers = game.add.group();
         this.snarePlayers = game.add.group();
@@ -236,7 +242,7 @@ krungKrang.prototype = {
 
     playKick: function(bounceBall, kickPlayer) {
         //console.log("Kick player collision");
-        if (this.drumSamplesLoaded == true) {
+        if (this.drumSamplesLoaded == true && isPaused == false) {
             this.drumPlayer1.start("@4n");
         }
 
@@ -247,24 +253,24 @@ krungKrang.prototype = {
         // var t = Tone.Time("@8n").toNotation;
         //this.drumPart2.at("@8n", 1);
 
-        if (this.drumSamplesLoaded == true) {
+        if (this.drumSamplesLoaded == true && isPaused == false) {
             this.drumPlayer2.start("@8n");
         }
 
     },
 
     playString: function(bounceBall, string) {
+        if (!isPaused) {
+            var pitchIndex = (Math.floor((game.world.height - bounceBall.y)/game.world.height * this.pitches.length));
+            var interval = this.pitches[pitchIndex] - this.sampleBase;
+            //console.log("String interval is " + interval);
+            if (this.pitchedSampleLoaded == true && interval >=0) {
+                this.pitchPlayer.triggerAttackRelease(interval, "4n", "@16n");
+            }
 
-        var pitchIndex = (Math.floor((game.world.height - bounceBall.y)/game.world.height * this.pitches.length));
-        var interval = this.pitches[pitchIndex] - this.sampleBase;
-        //console.log("String interval is " + interval);
-        if (this.pitchedSampleLoaded == true && interval >=0) {
-            this.pitchPlayer.triggerAttackRelease(interval, "4n", "@16n");
+            var pan = bounceBall.x/game.world.width;
+            this.pitchPanVol.pan.value = pan;
         }
-
-        var pan = bounceBall.x/game.world.width;
-        this.pitchPanVol.pan.value = pan;
-
     },
 
     createStringPlayer: function() {
@@ -276,6 +282,18 @@ krungKrang.prototype = {
         stringPlayer.input.enableDrag();
 //            stringPlayer.scale.set(0.5);
         stringPlayer.scale.setTo(0.4, 0.4);
+    },
+
+    pausePlay: function() {
+        if (isPaused == false) {
+            Tone.Transport.pause();
+            pauseButton.setFrames(1, 1, 1, 1);
+            isPaused = true;
+        } else {
+            Tone.Transport.start();
+            pauseButton.setFrames(0, 0, 0, 0);
+            isPaused = false;
+        }
     }
 
 }
