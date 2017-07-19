@@ -24,7 +24,7 @@ krungKrang = function(game) {
     this.pitches = game.tonalEnv.trimArray(allPitches, lowestPitch, lowestPitch + (this.pitchRange * 12));
 
     this.panVol = new Tone.PanVol(0.5, -12);
-    this.pitchPanVol = new Tone.PanVol(0.5, -12);
+    this.pitchPanVol = new Tone.PanVol(0.5, -24);
 
     var urls = ["./assets/samples/kick_mix_1.mp3",
                 "./assets/samples/snare_mix_1.mp3",
@@ -38,13 +38,26 @@ krungKrang = function(game) {
         }
     }
 
-    this.drumPlayer1 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
+    this.drumPlayer1 = new Tone.Player(urls[0], (this.samplesLoaded).bind(this));
 
-    this.drumPlayer2 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
 
-    var drumPlayer3 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
+    // this.drumPlayer2 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
 
-    var drumPlayer4 = new Tone.MultiPlayer(urls, (this.samplesLoaded).bind(this));
+    this.drumPlayer2 = new Tone.Player(urls[1], (this.samplesLoaded).bind(this));
+
+    // this.drumPart2 = new Tone.Part((function(time, note) {
+    //     if (this.drumSamplesLoaded == true) {
+    //         this.drumPlayer2.start(1, time);
+    //     }
+    //     this.drumPart2.remove(Tone.Time(time).quantize("8n"));
+    // }).bind(this), []);
+    // this.drumPart2.loop = true;
+    // this.drumPart2.loopEnd = "1m";
+    // this.drumPart2.start(0);
+
+    var drumPlayer3 = new Tone.Player(urls[2], (this.samplesLoaded).bind(this));
+
+    var drumPlayer4 = new Tone.Player(urls[3], (this.samplesLoaded).bind(this));
 
     this.pitchPlayer = new Tone.Sampler("./assets/samples/bass.wav", (function(){
         this.pitchedSampleLoaded = true;
@@ -55,7 +68,7 @@ krungKrang = function(game) {
 
     var chordProgPart = new Tone.Part((function(time, value) {
 
-        console.log("chordProg ping at " + Tone.Transport.position);
+        //console.log("chordProg ping at " + Tone.Transport.position);
         var allNotes = game.tonalEnv.getFullChordArray(value.root, value.tochordtone, value.alterations);
         var lowestPitch = allNotes[0] + (this.lowestOctave * 12);
         var prevPitches = this.pitches;
@@ -71,19 +84,19 @@ krungKrang = function(game) {
     var ohhSequence = new Tone.Sequence((function(time, note){
         drumPlayer3.start(3, time);
     }).bind(this), ["G4"], "1n");
-    //ohhSequence.start(0);
+    ohhSequence.start(0);
 
     //var ohhPart = [null, null, null, null, null, null, null, null];
     var chhSequence = new Tone.Sequence((function(time, note){
         drumPlayer4.start(2, time);
     }).bind(this), ["G4", "G4", "G4", "G4"], "4n");
-    //chhSequence.start(0);
+    chhSequence.start(0);
 
     this.drumPlayer1.connect(this.panVol);
     this.drumPlayer2.connect(this.panVol);
     this.pitchPlayer.connect(this.pitchPanVol);
-    //drumPlayer3.connect(this.panVol);
-    //drumPlayer4.connect(this.panVol);
+    drumPlayer3.connect(this.panVol);
+    drumPlayer4.connect(this.panVol);
 
     this.panVol.connect(Tone.Master);
     this.pitchPanVol.connect(Tone.Master);
@@ -129,7 +142,7 @@ krungKrang.prototype = {
             y = game.rnd.integerInRange(-300, 300);
             bounceBall.body.velocity.setTo(x, y);
             bounceBall.body.bounce.setTo(1, 1);
-            bounceBall.body.drag.set(50);
+            //bounceBall.body.drag.set(50);
             bounceBall.inputEnabled = true;
             bounceBall.input.enableDrag();
             //player.input.start(0, true);
@@ -139,34 +152,32 @@ krungKrang.prototype = {
         }
 
         // create some kick player obstacles
-        for (var i = 0; i < 4; i++) {
-            var x = game.rnd.integerInRange(0, game.world.width);
-            var y = game.rnd.integerInRange(0, game.world.height);
+        for (var i = 0; i < 2; i++) {
+            var x = game.rnd.integerInRange(0, game.world.width - 20);
+            var y = game.rnd.integerInRange(0, game.world.height - 20);
 
             var kickPlayer = this.kickPlayers.create(x, y, 'brick');
             game.physics.enable(kickPlayer, Phaser.Physics.ARCADE);
             kickPlayer.body.bounce.setTo(1, 1);
-            kickPlayer.body.immovable = true;
+            kickPlayer.body.collideWorldBounds = true;
+            //kickPlayer.body.immovable = true;
             kickPlayer.inputEnabled = true;
             kickPlayer.input.enableDrag();
 
-            x = game.rnd.integerInRange(0, game.world.width);
-            y = game.rnd.integerInRange(0, game.world.height);
+            x = game.rnd.integerInRange(0, game.world.width - 20);
+            y = game.rnd.integerInRange(0, game.world.height - 20);
             var snarePlayer = this.snarePlayers.create(x, y, 'blue_ball');
             game.physics.enable(snarePlayer, Phaser.Physics.ARCADE);
             snarePlayer.body.bounce.setTo(1, 1);
-            snarePlayer.body.immovable = true;
+            snarePlayer.body.collideWorldBounds = true;
+            //snarePlayer.body.immovable = true;
             snarePlayer.inputEnabled = true;
             snarePlayer.input.enableDrag();
 
-            x = game.rnd.integerInRange(0, game.world.width);
-            y = game.rnd.integerInRange(0, game.world.height);
-            var stringPlayer = this.stringPlayers.create(x, y, 'string');
-            game.physics.enable(stringPlayer, Phaser.Physics.ARCADE);
-            stringPlayer.inputEnabled = true;
-            stringPlayer.input.enableDrag();
-//            stringPlayer.scale.set(0.5);
-            stringPlayer.scale.setTo(0.5, 0.2);
+        }
+
+        for (var i = 0; i < 6; i++) {
+            this.createStringPlayer();
         }
 
     },
@@ -181,6 +192,17 @@ krungKrang.prototype = {
         game.physics.arcade.overlap(this.bounceBalls, this.stringPlayers,
                                     this.playString, null, this);
 
+        game.physics.arcade.collide(this.kickPlayers, this.kickPlayers,
+                                    null, null, this);
+
+        game.physics.arcade.collide(this.snarePlayers, this.snarePlayers,
+                                    null, null, this);
+
+        game.physics.arcade.collide(this.kickPlayers, this.snarePlayers,
+                                    null, null, this);
+
+        game.physics.arcade.collide(this.bounceBalls, this.bounceBalls,
+                                    null, null, this);
     },
 
     // render: function() {
@@ -215,27 +237,45 @@ krungKrang.prototype = {
     playKick: function(bounceBall, kickPlayer) {
         //console.log("Kick player collision");
         if (this.drumSamplesLoaded == true) {
-            this.drumPlayer1.start(0, "@8n");
+            this.drumPlayer1.start("@4n");
         }
 
     },
 
     snareKick: function(bounceBall, snarePlayer) {
         //console.log("Snare player collision");
+        // var t = Tone.Time("@8n").toNotation;
+        //this.drumPart2.at("@8n", 1);
+
         if (this.drumSamplesLoaded == true) {
-            this.drumPlayer2.start(1, "@8n");
+            this.drumPlayer2.start("@8n");
         }
+
     },
 
     playString: function(bounceBall, string) {
 
         var pitchIndex = (Math.floor((game.world.height - bounceBall.y)/game.world.height * this.pitches.length));
         var interval = this.pitches[pitchIndex] - this.sampleBase;
-        console.log("String interval is " + interval);
-        if (this.pitchedSampleLoaded == true) {
-            this.pitchPlayer.triggerAttackRelease(interval, "4n", "@8n", 0.75);
+        //console.log("String interval is " + interval);
+        if (this.pitchedSampleLoaded == true && interval >=0) {
+            this.pitchPlayer.triggerAttackRelease(interval, "4n", "@16n");
         }
 
+        var pan = bounceBall.x/game.world.width;
+        this.pitchPanVol.pan.value = pan;
+
+    },
+
+    createStringPlayer: function() {
+        var x = game.rnd.integerInRange(0, game.world.width - 100);
+        var y = game.rnd.integerInRange(0, game.world.height - 10);
+        var stringPlayer = this.stringPlayers.create(x, y, 'string');
+        game.physics.enable(stringPlayer, Phaser.Physics.ARCADE);
+        stringPlayer.inputEnabled = true;
+        stringPlayer.input.enableDrag();
+//            stringPlayer.scale.set(0.5);
+        stringPlayer.scale.setTo(0.4, 0.4);
     }
 
 }

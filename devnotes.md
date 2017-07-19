@@ -218,3 +218,20 @@ The new branch for this will be called "krung" and will be set up as a branch on
 Some good work on the balls bouncing thing over the last few days. Need to sort out the distortion thing (probably from too many simultaneous attempts to play a sample?) by trying to add parts for each player. Also increase height of string objects. Perhaps also try some barriers that don't do anything other than contain balls.
 
 Wondering whether to blog about this and discuss various research questions as we go? Certainly worth doing in terms of notes to oneself, even if it doesn't get published. Brings me back to how this project connects to the research too. Wondering whether profile and connections from doing things open source more publicly is actually better than trying to set things up as a separate little business.
+
+Getting some serious distortion at times, so wondering if a whole bunch of samples (the same) are being fired simultaneously? First step is to actually understand the problem. See if a whole bunch can, in fact be fired simultaneously and whether that is the root cause of the problem.
+
+#### Things to do
+
+- Try 16th note quantization with the string instrument
+- Try other quantize values (4n for kick, for example)
+- Get other objects moving around as well; so not immovable
+
+### July 18
+
+- Experiment with different bounce values
+- Transport button to pause everything
+- Add some panning
+- think about a vertical line instrument
+- see if some movement can occur with the pitched instruments
+- experiment with different samples
