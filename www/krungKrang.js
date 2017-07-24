@@ -284,6 +284,10 @@ krungKrang.prototype = {
         stringPlayer.scale.setTo(0.4, 0.4);
     },
 
+    createVertStringPlayer: function() {
+        // why not just a string player rotated?
+    }
+
     pausePlay: function() {
         if (isPaused == false) {
             Tone.Transport.pause();

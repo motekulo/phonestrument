@@ -231,12 +231,15 @@ Getting some serious distortion at times, so wondering if a whole bunch of sampl
 
 To try:
 
-- Transport button to pause everything
+
 - think about a vertical line instrument
 - see if some movement can occur with the pitched instruments
 - experiment with different samples
 - Be able to add and delete different elements (shapes and associated samples and instruments)
 
 Done:
-- Experiment with different bounce values [done]
-- Add some panning [done]
+- Experiment with different bounce values
+- Add some panning
+- Transport button to pause everything
+
+Pretty sure I merged into master, rather than babol, before adding the pause button.
