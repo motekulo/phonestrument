@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+    <head>
+
+        <meta http-equiv="Content-Security-Policy" content=
+        "default-src 'self' ws: data: gap: https://ssl.gstatic.com 'unsafe-eval' 'unsafe-inline';
+        child-src 'self' blob: * ;
+        style-src 'self' 'unsafe-inline' http://fonts.googleapis.com/;
+        font-src *;
+        media-src 'self' blob: data: ">
+        <!--Import Google Icon Font-->
+     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+     <!--Import materialize.css-->
+     <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+
+        <!-- <link rel="stylesheet" type="text/css" href="css/index.css"> -->
+        <title>Mapaga</title>
+
+    </head>
+    <body>
+        <div class="row">
+            <!-- <div class="col s1">
+                <div id="nexus_widgets">
+                    <canvas nx="toggle" id="toggle1" label="On"></canvas>
+                    <canvas nx="button" id="button1" label="Bass"></canvas>
+                    <canvas nx="button" id="button2" label="Drums"></canvas>
+                </div>
+            </div> -->
+            <div class="col s12" id="stage"></div>
+            <!-- <div class="col s1">
+                <div id="nexus_block2">
+                    <canvas nx="button" id="button3" label="I"></canvas>
+                    <canvas nx="button" id="button4" label="IV"></canvas>
+                    <canvas nx="button" id="button5" label="V"></canvas>
+                </div>
+            </div> -->
+        </div>
+
+<script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="lib/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script src="lib/nexusUI.js"></script>
+    <script src="lib/phaser.js"></script>
+
+    <script src="lib/Tone.js"></script>
+
+    <script src="tonality.js"></script>
+    <script src="patternplayer.js"></script>
+    <!-- <script src="sequenceplayer.js"></script> -->
+    <script src="bassPlayer.js"></script>
+    <script src="drumPlayer.js"></script>
+    <script src="krungKrang.js"></script>
+    <!-- <script src="appmusic.js"></script> -->
+    <script src="app.js"></script>
+
+    </body>
+</html>

@@ -1,0 +1,91 @@
+<h1 id="performance">Performance</h1>
+<h2 id="on-exp-12-may-17">on exp 12 May 17</h2>
+<p>in browser, up to 180mb memory (using task manager in chrome) and 31k javascript (about 18k live).</p>
+<p>Keep hitting reset button on app and overall memory use increases. Need to dispose of some things!</p>
+<p>3 heap snapshot technique and Tone.Events and Patterns are being leaked. Nothing huge by the looks of it though?</p>
+<div class="figure">
+<img src="images/3_heap_test_2.png" title="2nd heap profile" />
+
+</div>
+<div class="figure">
+<img src="images/3_heap_test_1.png" title="3rd heap profile" />
+
+</div>
+<p>This time without filtering for Tone, and that's a big leak. So that was a three snapshot technique, looking at the events allocated between first two; and can see big leaks. I was pressing the reset button each time. Reset should reset!</p>
+<h2 id="monosynth-testing---browser-vs-mobile-cordova-crosswalk">MonoSynth testing - browser vs mobile (Cordova Crosswalk)</h2>
+<p>I have noticed some big differences in performance with an app using Tone js for music, and Phaser for visuals. Beyond three MonoSynths, sound would become intermittent, and beyond four or five, might stop completely. This was on a Samsung A5 (2017), so a reasonably powered, modern smartphone. The test consists of creating several PatternPlayer objects (my own class) that play quarter note arpeggios simultaneously. Another class, Tonality, provides chord information.</p>
+<p>To explore this further, I stripped out the music code from the Phaser code, to see what was going on. The same performance problems emerged.</p>
+<h3 id="one-monosynth">One MonoSynth</h3>
+<p>In the browser, here's a close up of MonoSynth triggering in the browser:</p>
+<div class="figure">
+<img src="images/browser_one_mono.png" title="One MonoSynth in browser" />
+
+</div>
+<p>And the same code running on mobile:</p>
+<div class="figure">
+<img src="images/mobile_one_mono_fast.png" title="One MonoSynth in mobile - fast" />
+
+</div>
+<p>That was a fast one. Here's a slow one:</p>
+<div class="figure">
+<img src="images/mobile_one_mono_slow.png" title="One MonoSynth in mobile - slow" />
+
+</div>
+<p>So a fair bit of difference between fast and slow on mobile.</p>
+<p>The same pattern is evident with two and three MonoSynths respectively. Three play ok on mobile, but at four, the sound pretty much breaks up, and is inconsistent (that's on mobile). Here's four MonoSynths in the browser:</p>
+<div class="figure">
+<img src="images/browser_4_simul.png" title="Four MonoSynths in browser" />
+
+</div>
+<p>And here's four MonoSynths on the mobile:</p>
+<div class="figure">
+<img src="images/mobile_4_simul.png" title="Four Monsynths in mobile" />
+
+</div>
+<p>But a faster one in this run too:</p>
+<div class="figure">
+<img src="images/mobile_4_simul_fast.png" title="Four MonoSynths in mobile - but faster" />
+
+</div>
+<p>So maybe a cordova thing? Let's try the same code hosted as a website.</p>
+<p>Desktop browser pointed at http://sandpit.motekulo.net</p>
+<div class="figure">
+<img src="images/browser_web_4_mono.png" title="Four MonoSynths desktop browser - web" />
+
+</div>
+<p>Mobile stock browser Samsung A5 2017 (com.sec.android.app.sbrowser)</p>
+<p>Slow:</p>
+<div class="figure">
+<img src="images/mobile_web_4_slow.png" title="Four MonoSynths mobile browser slow" />
+
+</div>
+<p>Fast:</p>
+<div class="figure">
+<img src="images/mobile_web_4_fast.png" title="Four MonoSynths mobile browser fast" />
+
+</div>
+<p>So far then, performance as a Cordova crosswalk app is the worst. That's unfortunate as it's the environment I hope to work in.</p>
+<p>Next step, try speed in chrome browser on android (so not Samsung internet version0).</p>
+<p>Then try more bleeding edge cordova crosswalk (see https://crosswalk-project.org/documentation/cordova.html - the optional Android platform only workflow).</p>
+<p>Then try without crosswalk at all.</p>
+<p>Then try other devices.</p>
+<p>Consider a nexusUI interface with Tone js to add and remove different types of PatternPlayers to see what the performance limits are.</p>
+<p>Test on more mobile devices.</p>
+
+<table>
+<tr>
+    <td>Platform</td><td>Version</td><td>Slow</td><td>Fast</td>
+</tr>
+<tr>
+    <td>Cordova app running in browser</td><td></td><td></td><td></td>
+</tr>
+<tr>
+    <td>Cordova app with Crosswalk- Android mobile</td><td>Crosswalk stable 23+</td><td></td><td></td>
+</tr>
+<tr>
+    <td>Web app from browser</td><td></td><td></td><td></td>
+</tr>
+<tr>
+    <td>Web app from mobile</td><td></td><td></td><td></td>
+</tr>
+</table>
